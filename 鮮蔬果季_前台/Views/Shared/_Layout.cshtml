@@ -22,13 +22,26 @@
         .transition {
             transition: 0.4s;
         }
-        .dropdown-menu.transition {
+        nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition {
+            background-color: #FFF9E9;
+            border: none;
+            border-radius: 0px;
+            padding: 0;
             opacity: 0;
-            display: list-item;
+            max-height: 0px;
+            display: inline-block;
+            overflow: hidden;
         }
-        .dropdown-menu.transition.show {
-            opacity: 1;
-        }
+            nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition.show {
+                background-color: #FFF9E9;
+                border: 1px solid #FF6C02;
+                border-radius: 10px;
+                opacity: 1;
+                max-height: 300px;
+                padding: 30px 0;
+                border: 1px solid #FF6C02;
+                border-radius: 10px;
+            }
     </style>
 </head>
 <body>

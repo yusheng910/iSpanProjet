@@ -54,11 +54,7 @@
     font-size: 18px;
 }
 
-nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
-    background-color: #FFF9E9;
-    border:1px solid #FF6C02;
-    border-radius:10px;
-}
+
 
 .offer-box li i {
     transform: rotate(-10deg);
