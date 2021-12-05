@@ -1,0 +1,66 @@
+﻿nav.navbar.bootsnav ul.nav > li > a {
+    font-size: 26px;
+     color: #8B4513;
+}
+.dropdown.show a .arrowcustomer {
+    transform: rotate(180deg);
+    transition: transform 200ms linear;
+}
+
+.dropdown a i {
+    transition: transform 200ms linear;
+}
+.attr-nav ul li a {
+    font-size: 26px;
+    color: #8B4513;
+    font-weight:bolder;
+}
+
+.attr-nav > ul > li > a span.badge {
+    margin-top: -18px;
+    right: 15px;
+    font-size: 15px;
+    width: 20px;
+    height: 20px;
+    padding-top: 2px;
+}
+
+.footer-widget h4 {
+    font-size: 26px;
+}
+
+.footer-link-contact h4 {
+    font-size: 26px;
+    margin-bottom:22px;
+}
+
+.footer-link-contact ul li p {
+    font-size: 18px;
+    color:#FFF9E9;
+}
+    .footer-link-contact ul li p a {
+        font-size: 18px;
+        color: #FFF9E9;
+    }
+        .footer-link-contact ul li .paddingChange {
+    padding-left: 0px;
+}
+
+.footer-widget p {
+    font-size: 18px;
+    color: #FFF9E9;
+}
+.offer-box li {
+    font-size: 18px;
+}
+
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
+    background-color: #FFF9E9;
+    border:1px solid #FF6C02;
+    border-radius:10px;
+}
+
+.offer-box li i {
+    transform: rotate(-10deg);
+}
+
