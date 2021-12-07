@@ -18,209 +18,252 @@
     @*<link rel="stylesheet" href="~/css/custom.css">*@
     <!--LayOut更動的樣式表 Change2 1:32-->
     <!--LayOut更動的樣式表 Change2 1:42 terry-->
-    <!--LayOut更動的樣式表 Change 1:50 宇盛-->
+    <!--LayOut更動的樣式表 Change10 222222222 LEON-->
     <link rel="stylesheet" href="~/css/_LayoutSetting.css">
     <style>
-        .transition {
-            transition: 0.4s;
-        }
+            .attr-nav ul li a {
+                font-size: 2.7vh;
+                color: #FFF9E9;
+                font-weight: bolder;
+                padding: 0px;
+            }
 
-        .dropdown-menu.transition {
-            opacity: 0;
-            display: list-item;
-        }
+            .attr-nav ul li {
+                font-size: 2.7vh;
+                color: #FFF9E9;
+                font-weight: bolder;
+                padding: 0px 2.5vh;
+            }
 
-            .dropdown-menu.transition.show {
-                opacity: 1;
+            .transition {
+                transition: 0.4s;
+            }
+
+            nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition {
+                background-color: #FFF9E9;
+                border: none;
+                border-radius: 0px;
+                padding: 0;
+                opacity: 0;
+                max-height: 0px;
+                display: inline-block;
+                overflow: hidden;
+            }
+
+                nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition.show {
+                    background-color: #FFF9E9;
+                    border: 1px solid #FF6C02;
+                    border-radius: 10px;
+                    opacity: 1;
+                    max-height: 300px;
+                    padding: 30px 0;
+                    border: 1px solid #8B4513;
+                    border-radius: 10px;
+                }
+
+            .attr-nav > ul > li > a span.badge {
+                /*    margin-top: -18px;
+        right: 2vh;
+        font-size: 15px;
+        width: 20px;
+        height: 20px;
+        padding-top: 2px;*/
             }
     </style>
 </head>
 <body>
     <!-- Start Main Top -->
-    <div class="main-top" style="background-color: #5A8100;">  @*標頭*@
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"> @*col-lg-8 col-md-8調整區塊寬度比例 數字越大就越寬 6為50%*@
-                    @*<div class="right-phone-box">
-                        <p>Call US :- <a href="#"> +11 900 800 100</a></p>
-                    </div>
-                    <div class="our-link">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li>
-                            <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                            <li><a href="#"><i class="fas fa-headset"></i> Contact Us</a></li>
-                        </ul>
-                    </div>*@
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">  @*col-lg-8 col-md-8調整區塊寬度比例 數字越大就越寬 6為50%*@
-                    <div class="text-slid-box">
-                        <div id="offer-box" class="carouselTicker">
-                            <ul class="offer-box">
-                                <li>
-                                    <i class="fas fa-bullhorn"></i>小農友公告1
-                                </li>
-                                <li>
-                                    <i class="fas fa-bullhorn"></i> 小農友公告小農友公告1小農友公告1
-                                </li>
-                                <li>
-                                    <i class="fas fa-bullhorn"></i> 小農友公告1小農友公告2
-                                </li>
-                                <li>
-                                    <i class="fas fa-bullhorn"></i> 小農友公告1小農友公告2
-                                </li>
-                                <li>
-                                    <i class="fas fa-bullhorn"></i> 小農友公告1小農友公告2
-                                </li>
-                            </ul>
+    <div class="main-top" style="background-color: #5A8100;">
+        @*標頭*@
+            <div class="container" style="max-width:90%;">
+                <div class="row">           
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            @*col-lg-8 col-md-8調整區塊寬度比例 數字越大就越寬 6為50%*@
+                            <div class="text-slid-box">
+                                <div id="offer-box" class="carouselTicker">
+                                    <ul class="offer-box">
+                                        <li>
+                                            <i class="fas fa-bullhorn"></i>小農友公告1
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-bullhorn"></i> 小農友公告小農友公告1小農友公告1
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-bullhorn"></i> 小農友公告1小農友公告2
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-bullhorn"></i> 小農友公告1小農友公告2
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-bullhorn"></i> 小農友公告1小農友公告2
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Main Top -->
-    <!-- Start Main Top -->
-    <header class="main-header">
-        <!-- Start Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light navbar-default bootsnav  "      style="background-color:#FFF9E9" >
-            <div class="container"  style="max-width:90%;" >
-                <!-- Start Header Navigation -->
-                <div class="navbar-header" >
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="images/logo4.png" class="logo" alt="首頁" width="350"></a>
-                </div>
-                <!-- End Header Navigation -->
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="navbar-menu" >
-                    <ul class="nav navbar-nav ml-auto transition" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">首頁1</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">首頁2</a></li>
-                        <li class="dropdown transition">
-                            @*Todo 隱藏不會真正隱藏起來需要再設定*@
-                            <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
-                                SHOP <i class="fas fa-chevron-down arrowcustomer"></i>
-                            </a>
-                            <ul class="dropdown-menu transition">
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">連結1</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">連結2</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">連結3</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">連結4</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-                <!-- Start Atribute Navigation -->
-                <div class="attr-nav " id="navbar-menu" >
-                    <ul  class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp"  id="sereachfoucus">
-                        <li class="dropdown search" >
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-search"></i>
-                            </a>
-                            <ul class="dropdown-menu transition" style="margin-left:0;width:250px;">
-                                <li class="container-fluid"  >
-                                    <form class="d-flex" method="post" action="">@*搜尋*@
-                                        <input class="form-control me-2" id="foucus" type="search" placeholder="Search" aria-label="Search" style="margin-right:10px;" >
-                                        <button class="btn btn-outline-success" type="submit" >搜尋</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-user s_color"></i> 會員</a></li>
-                        <li class="side-menu">
-                            <a asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="fa fa-shopping-bag"></i>
-                                <span class="badge">3</span> @*TODO 購物車數字*@
-                                <p>購物車</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- End Atribute Navigation -->
-            </div>
-        </nav>
-        <!-- End Navigation -->
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <!-- Start Footer  -->
-    <footer>
-        <div class="footer-main" style="background-color: #5A8100;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-widget">
-                            <h4>關於鮮蔬果季</h4>
-                            <p>我們是快樂的碼農，整天種田寫下一行一行程式碼。採收以後可以拿來賣錢就可以在台北市買房子結婚生小孩。讚讚讚。</p>
-                            <p>我們是快樂的碼農，整天種田寫下一行一行程式碼。採收以後可以拿來賣錢就可以在台北市買房子結婚生小孩。讚讚讚。 </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link-contact">
-                            <h4>友善連結</h4>
-                            <ul>
-                                <li>
-                                    <p class="paddingChange"><a href="https://www.coa.gov.tw/ws.php?id=2505838" target="_blank">推動友善環境農業 (農委會)</a></p>
-                                </li>
-                                <li>
-                                    <p class="paddingChange"><a href="https://www.newsmarket.com.tw/" target="_blank">上下游 News&Market</a></p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link-contact">
-                            <h4>聯絡我們</h4>
-                            <ul>
-                                <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Address: 台北市大安區<br>信義路三段153號3樓 <br>(農會大樓) </p>
-                                </li>
-                                <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+886 975871316">+886-975-871-316</a></p>
-                                </li>
-                                <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contact@harvestfresh.com">contact@harvestfresh.com</a></p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- End Footer  -->
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>*@
-    <!-- ALL JS FILES -->
-    <script src="~/js/jquery-3.2.1.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-    <script src="~/js/jquery.superslides.min.js"></script>
-    <script src="~/js/bootstrap-select.js"></script>
-    <script src="~/js/inewsticker.js"></script>
-    @*<script src="~/js/bootsnav.js."></script>*@
-    <script src="~/js/images-loded.min.js"></script>
-    <script src="~/js/isotope.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/baguetteBox.min.js"></script>
-    <script src="~/js/form-validator.min.js"></script>
-    <script src="~/js/contact-form-script.js"></script>
-    <script src="~/js/custom.js"></script>
-    <script>
-        $("#sereachfoucus").click(function () {
-            console.log(this);
-            $("#sereachfoucus").find("input").
-            console.log($("#foucus"));
-        });       
-    </script>
-    @await RenderSectionAsync("Scripts", required: false)
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            @*col-lg-8 col-md-8調整區塊寬度比例 數字越大就越寬 6為50%*@
+                            <!-- Start Atribute Navigation -->
+                            <div class="attr-nav " id="navbar-menu">
+                                <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp" id="sereachfoucus">
+                                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-user s_color"></i> 會員</a></li>
+                                    <li class="nav-item">
+                                        <a href="#!" class="nav-link navbar-link-2 waves-effect">
+                                            <i class="fas fa-shopping-cart pl-0"></i>
+                                            <span class="badge badge-pill red">1</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown search">
+                                        @*搜尋*@
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                        <ul class="dropdown-menu transition" style="margin-left:0;width:250px;">
+                                            <li class="container-fluid">
+                                                <form class="d-flex" method="post" action="">
+                                                    <input class="form-control me-2" id="foucus" type="search" placeholder="Search" aria-label="Search" style="margin-right:10px;">
+                                                    <button class="btn btn-outline-success" type="submit">搜尋</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="wrap-icon-header flex-w flex-r-m">
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                                    <i class="zmdi zmdi-search"></i>
+                                </div>
 
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </div>
+
+                                <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                                    <i class="zmdi zmdi-favorite-outline"></i>
+                                </a>
+                            </div>
+                            <!-- End Atribute Navigation -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Main Top -->
+            <!-- Start Main Top -->
+            <header class="main-header">
+                <!-- Start Navigation -->
+                <nav class="navbar navbar-expand-lg navbar-light navbar-default bootsnav  " style="background-color:#FFF9E9">
+                    <div class="container" style="max-width:90%;">
+                        <!-- Start Header Navigation -->
+                        <div class="navbar-header">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="images/logo4.png" class="logo" alt="首頁" width="350"></a>
+                        </div>
+                        <!-- End Header Navigation -->
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="navbar-menu">
+                            <ul class="nav navbar-nav ml-auto transition" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">關於我們</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">合作農友</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">農友活動</a></li>
+                                <li class="dropdown transition">
+                                    @*Todo 隱藏不會真正隱藏起來需要再設定*@
+                                    <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
+                                        購物專區 <i class="fas fa-chevron-down arrowcustomer"></i>
+                                    </a>
+                                    <ul class="dropdown-menu transition">
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">蔬菜</a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">水果</a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">台灣茶</a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">五穀雜糧</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                </div>
+            </nav>
+            <!-- End Navigation -->
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+        <!-- Start Footer  -->
+        <footer>
+            <div class="footer-main" style="background-color: #5A8100;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="footer-widget">
+                                <h4>關於鮮蔬果季</h4>
+                                <p>我們是快樂的碼農，整天種田寫下一行一行程式碼。採收以後可以拿來賣錢就可以在台北市買房子結婚生小孩。讚讚讚。</p>
+                                <p>我們是快樂的碼農，整天種田寫下一行一行程式碼。採收以後可以拿來賣錢就可以在台北市買房子結婚生小孩。讚讚讚。 </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="footer-link-contact">
+                                <h4>友善連結</h4>
+                                <ul>
+                                    <li>
+                                        <p class="paddingChange"><a href="https://www.coa.gov.tw/ws.php?id=2505838" target="_blank">推動友善環境農業 (農委會)</a></p>
+                                    </li>
+                                    <li>
+                                        <p class="paddingChange"><a href="https://www.newsmarket.com.tw/" target="_blank">上下游 News&Market</a></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="footer-link-contact">
+                                <h4>聯絡我們</h4>
+                                <ul>
+                                    <li>
+                                        <p><i class="fas fa-map-marker-alt"></i>Address: 台北市大安區<br>信義路三段153號3樓 <br>(農會大樓) </p>
+                                    </li>
+                                    <li>
+                                        <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+886 975871316">+886-975-871-316</a></p>
+                                    </li>
+                                    <li>
+                                        <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contact@harvestfresh.com">contact@harvestfresh.com</a></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer  -->
+        @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>1212*@
+        <!-- ALL JS FILES -->
+        <script src="~/js/jquery-3.2.1.min.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <!-- ALL PLUGINS -->
+        <script src="~/js/jquery.superslides.min.js"></script>
+        <script src="~/js/bootstrap-select.js"></script>
+        <script src="~/js/inewsticker.js"></script>
+        @*<script src="~/js/bootsnav.js."></script>*@
+        <script src="~/js/images-loded.min.js"></script>
+        <script src="~/js/isotope.min.js"></script>
+        <script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/baguetteBox.min.js"></script>
+        <script src="~/js/form-validator.min.js"></script>
+        <script src="~/js/contact-form-script.js"></script>
+        <script src="~/js/custom.js"></script>
+        <script>
+            $("#sereachfoucus").click(function () {
+                console.log(this);
+                $("#sereachfoucus").find("input").
+                    console.log($("#foucus"));
+            });
+        </script>
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
