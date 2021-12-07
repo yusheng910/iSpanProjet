@@ -1,34 +1,29 @@
 ﻿nav.navbar.bootsnav ul.nav > li > a {
-    font-size: 2.7vh;
+    font-size: 20px;
     color: #8B4513
 }
-.dropdown.show a .arrowcustomer {
+.dropdown.on a .arrowcustomer {
     transform: rotate(180deg);
-    transition: transform 200ms linear;
+    transition: transform 500ms linear;
 }
 
 .dropdown a i {
     transition: transform 200ms linear;
 }
-.attr-nav ul li a {
-    font-size: 2.7vh;
-    color: #FFF9E9;
-    font-weight: bolder;
-}
 
 
 .footer-widget h4 {
-    font-size: 2.7vh;
+    font-size: 22px;
 }
 
 .footer-link-contact h4 {
-    font-size: 2.7vh;
-    margin-bottom: 2.5px;
+    font-size: 22px;
+    margin-bottom: 22px;
 }
 
 .footer-link-contact ul li p {
     font-size: 18px;
-    color:#FFF9E9;
+    color: #FFF9E9;
 }
     .footer-link-contact ul li p a {
         font-size: 18px;
@@ -42,11 +37,6 @@
     font-size: 18px;
     color: #FFF9E9;
 }
-.offer-box li {
-    font-size: 18px;
-}
-
-
 
 .offer-box li i {
     transform: rotate(-10deg);
