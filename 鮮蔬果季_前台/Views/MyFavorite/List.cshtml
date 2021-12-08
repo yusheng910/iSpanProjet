@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+@section Styles{ 
+    <style>
+        #btnaddcart{
+            color:white;
+        }
+        #icons{
+            width:20px;
+            padding-bottom:5px
+        }
+        .all-title-box {
+            background: url("../images/test1.jpg") no-repeat center center;
+        }
+    </style>
+}
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>我的收藏</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">購物專區</a></li>
+                        <li class="breadcrumb-item active">我的收藏</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+    <!-- Start Wishlist  -->
+    <div class="wishlist-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>商品圖</th>
+                                    <th>商品名稱</th>
+                                    <th>售價</th>
+                                    <th>現有庫存</th>
+                                    <th><img id="icons" src="~/images/add.png" />加入</th>
+                                    <th><img id="icons" src="~/images/bin.png" />移除</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+                                            <img class="img-fluid" src="~/images/img-pro-01.jpg" alt="" />
+                                        </a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a href="#">
+                                            紅蘿蔔
+                                        </a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p>$ 50</p>
+                                    </td>
+                                    <td class="quantity-box">211</td>
+                                    <td class="add-pr">
+                                        <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a href="#">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+                                            <img class="img-fluid" src="~/images/西瓜.jpg" alt="" />
+                                        </a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a href="#">
+                                            西瓜
+                                        </a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p>$ 100</p>
+                                    </td>
+                                    <td class="quantity-box">231</td>
+                                    <td class="add-pr">
+                                        <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a href="#">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+                                            <img class="img-fluid" src="~/images/牛番茄.jpg" alt="" />
+                                        </a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a href="#">
+                                            牛番茄
+                                        </a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p>$ 82</p>
+                                    </td>
+                                    <td class="quantity-box">77</td>
+                                    <td class="add-pr">
+                                        <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a href="#">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Wishlist -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
