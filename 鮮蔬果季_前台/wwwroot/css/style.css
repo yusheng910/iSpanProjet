@@ -1095,9 +1095,9 @@ nav.navbar.bootsnav ul.nav > li > a {
 
 
 /*------------------------------------------------------------------ Blog -------------------------------------------------------------------*/
- .latest-blog{
-     padding: 70px 0px;
-     background: #f5f5f5;
+.latest-blog {
+    padding: 70px 0px;
+    background: #FFFFFF;
 }
  .blog-box{
      -webkit-box-shadow: 0px 5px 35px 0px rgba(148, 146, 245, 0.15);
