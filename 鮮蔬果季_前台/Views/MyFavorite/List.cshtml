@@ -8,13 +8,19 @@
         #btnaddcart{
             color:white;
         }
-        #icons{
-            width:20px;
-            padding-bottom:5px
+        th i{
+            padding-right:10px;
         }
         .all-title-box {
             background: url("../images/test1.jpg") no-repeat center center;
+            background-size:cover;
         }
+        a .img-fluid{
+            width:96px;
+            height:96px;
+            object-fit:cover;
+        }
+
     </style>
 }
 
@@ -25,7 +31,7 @@
                 <div class="col-lg-12">
                     <h2>我的收藏</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">購物專區</a></li>
+                        <li class="breadcrumb-item"><a asp-area="" asp-controller="#" asp-action="List">會員中心</a></li>
                         <li class="breadcrumb-item active">我的收藏</li>
                     </ul>
                 </div>
@@ -46,15 +52,15 @@
                                     <th>商品名稱</th>
                                     <th>售價</th>
                                     <th>現有庫存</th>
-                                    <th><img id="icons" src="~/images/add.png" />加入</th>
-                                    <th><img id="icons" src="~/images/bin.png" />移除</th>
+                                    <th><i class="fas fa-plus-circle"></i>加入</th>
+                                    <th><i class="far fa-trash-alt"></i>移除</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
-                                            <img class="img-fluid" src="~/images/img-pro-01.jpg" alt="" />
+                                            <img class="img-fluid" src="~/images/商品照/紅蘿蔔.jpg" alt="" />
                                         </a>
                                     </td>
                                     <td class="name-pr">
@@ -63,7 +69,7 @@
                                         </a>
                                     </td>
                                     <td class="price-pr">
-                                        <p>$ 50</p>
+                                        <p>NT$ 50</p>
                                     </td>
                                     <td class="quantity-box">211</td>
                                     <td class="add-pr">
@@ -78,7 +84,7 @@
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
-                                            <img class="img-fluid" src="~/images/西瓜.jpg" alt="" />
+                                            <img class="img-fluid" src="~/images/商品照/西瓜.jpg" alt="" />
                                         </a>
                                     </td>
                                     <td class="name-pr">
@@ -87,7 +93,7 @@
                                         </a>
                                     </td>
                                     <td class="price-pr">
-                                        <p>$ 100</p>
+                                        <p>NT$ 100</p>
                                     </td>
                                     <td class="quantity-box">231</td>
                                     <td class="add-pr">
@@ -102,7 +108,7 @@
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
-                                            <img class="img-fluid" src="~/images/牛番茄.jpg" alt="" />
+                                            <img class="img-fluid" src="~/images/商品照/牛番茄.jpg" alt="" />
                                         </a>
                                     </td>
                                     <td class="name-pr">
@@ -111,7 +117,7 @@
                                         </a>
                                     </td>
                                     <td class="price-pr">
-                                        <p>$ 82</p>
+                                        <p>NT$ 82</p>
                                     </td>
                                     <td class="quantity-box">77</td>
                                     <td class="add-pr">
