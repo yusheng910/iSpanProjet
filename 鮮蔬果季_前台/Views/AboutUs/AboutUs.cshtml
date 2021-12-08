@@ -1,0 +1,282 @@
+﻿@{
+    ViewData["Title"] = "AboutUs";
+}
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@section Styles{
+    <style>
+
+        .our-team img {
+            object-fit:cover;
+            width :450px;
+            height:450px;    
+        }
+    </style>
+}
+
+
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>關於我們</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">首頁</a>
+                    </li>
+                    <li class="breadcrumb-item active">關於我們</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start About Page  -->
+<div class="about-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="banner-frame">
+                    <img class="img-fluid" src="~/images/about-img.jpg" alt="" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="noo-sh-title-top">
+                    我們是
+                    <span>鮮蔬果季</span>
+                </h2>
+                <p>
+                    鮮蔬果季有別於一般菜商，有著集產地、批發商、菜商的角色，是少數能夠直接供應給各大蔬果行的業者，鮮蔬果季源自台北社子島發跡、產地自產自銷。
+                    當時的時空環境 南北建設與交通運輸並不發達，早先台北農產運銷公司尚未成立，台北社子島可說是當時大台北蔬菜產區，專供北台灣蔬果使用。
+                    隨著時間演變至今，產量減少，改至目前南部產地專人種植、專人採買、產銷一條龍，時至今日也有著 4、50 年累積的經驗。
+                </p>
+
+
+                <p>╱ 「感受產地真食溫度」是我們的初心 ╱</p>
+                <a class="btn hvr-hover" href="https://www.topveg.com.tw/about.html" target="_blank">閱讀更多</a>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-sm-6 col-lg-4">
+                <div class="service-block-inner">
+                    <h3>新鮮</h3>
+
+                    <p>我們採24小時冷藏運輸技術，保持最新鮮的或貨品在你面前。 </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="service-block-inner">
+
+                    <h3>天然</h3>
+                    <p>本採取無農藥不含有基因作物，採用長時間人力培養的方式，每項商品皆是優良。 </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="service-block-inner">
+
+                    <h3>方便</h3>
+                    <p>只需網路下訂單即可送達 ，可去超商領取或是由地址直接送達。</p>
+                </div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-12">
+                <h2 class="noo-sh-title">我們團隊</h2>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="hover-team">
+                    <div class="our-team">
+
+                        <img src="~/images/img-4.jpg" alt="" />
+                        <div class="team-content">
+                            <h3 class="title">王光臨</h3>
+                            <span class="post">農主</span>
+                        </div>
+                        <ul class="social">
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-facebook"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-google-plus"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-youtube"></a>
+                            </li>
+                        </ul>
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="team-description">
+                        <p>我們秉持著物美價廉的價格給每個客戶享有優質的商品。</p>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="hover-team">
+                    <div class="our-team">
+                        <img src="~/images/img-5.jpg" alt="" />
+
+                        <div class="team-content">
+                            <h3 class="title">葉鎮霖</h3>
+                            <span class="post">農主</span>
+                        </div>
+                        <ul class="social">
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-facebook"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-google-plus"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-youtube"></a>
+                            </li>
+                        </ul>
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="team-description">
+                        <p>我們秉持著物美價廉的價格給每個客戶享有優質的商品。 </p>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="hover-team">
+                    <div class="our-team">
+
+                        <img src="~/images/img-6.jpg" alt="" />
+                        <div class="team-content">
+                            <h3 class="title">史帝夫</h3>
+                            <span class="post">農主</span>
+                        </div>
+                        <ul class="social">
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-facebook"></a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-google-plus"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-youtube"></a>
+                            </li>
+                        </ul>
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="team-description">
+                        <p>
+                            我們秉持著物美價廉的價格給每個客戶享有優質的商品。
+                        </p>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="hover-team">
+                    <div class="our-team">
+                        <img src="~/images/img-7.jpg" alt="" />
+                        <div class="team-content">
+                            <h3 class="title">李維太</h3>
+                            <span class="post">農主</span>
+                        </div>
+                        <ul class="social">
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-facebook"></a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-google-plus"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-youtube"></a>
+                            </li>
+                        </ul>
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="team-description">
+                        <p>
+                            我們秉持著物美價廉的價格給每個客戶享有優質的商品。
+                        </p>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="hover-team">
+                    <div class="our-team">
+                        <img src="~/images/img-7.jpg" alt="" />
+                        <div class="team-content">
+                            <h3 class="title">李維太</h3>
+                            <span class="post">農主</span>
+                        </div>
+                        <ul class="social">
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-facebook"></a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-google-plus"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-youtube"></a>
+                            </li>
+                        </ul>
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="team-description">
+                        <p>
+                            我們秉持著物美價廉的價格給每個客戶享有優質的商品。
+                        </p>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="hover-team">
+                    <div class="our-team">
+                        <img src="~/images/img-7.jpg" alt="" />
+                        <div class="team-content">
+                            <h3 class="title">李維太</h3>
+                            <span class="post">農主</span>
+                        </div>
+                        <ul class="social">
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-facebook"></a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-google-plus"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="fab fa-youtube"></a>
+                            </li>
+                        </ul>
+                        <div class="icon">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="team-description">
+                        <p>
+                            我們秉持著物美價廉的價格給每個客戶享有優質的商品。
+                        </p>
+                    </div>
+                    <hr class="my-0">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End About Page -->

@@ -2,65 +2,102 @@
 @{
     ViewData["Title"] = "Register";
 }
-
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>註冊系統</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active"> Contact Us </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
 <!-- Start Contact Us  -->
 <div class="contact-box-main">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-sm-12">
+        <div class="row" style="margin-right:0px;">
+            <div class="col-lg-8 col-sm-7">
                 <div class="contact-form-right">
-                    <h2>GET IN TOUCH</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio justo, ultrices ac nisl sed, lobortis porta elit. Fusce in metus ac ex venenatis ultricies at cursus mauris.</p>
+                    <h2 >會員註冊系統</h2>
+                    <p >請輸入以下資料，以利完成會員註冊。</p>
                     <form id="contactForm">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-7" >
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required data-error="Please enter your name">
+                                    <input type="text" placeholder="您的電子郵件帳號" id="email" class="form-control" name="name" required data-error="請輸入您的電子郵件">
                                     <div class="help-block with-errors"></div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Your Email" id="email" class="form-control" name="name" required data-error="Please enter your email">
+                                    <input type="password" class="form-control" id="password" name="name" placeholder="您的密碼" required data-error="請輸入您的密碼">
                                     <div class="help-block with-errors"></div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="subject" name="name" placeholder="Subject" required data-error="Please enter your Subject">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="您的姓名" required data-error="請輸入您的姓名">
                                     <div class="help-block with-errors"></div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="subject" name="name" placeholder="Subject" required data-error="Please enter your Subject">
+                                <div class="form-group" style="border: solid 1px #D0D0D0; padding: 5px; ">
+                                    &ensp;您的性別 : <input name="gender" type="radio" required data-error="請選擇您的性別" />男
+                                    <input name="gender" type="radio" required data-error="請選擇您的性別" />女
                                     <div class="help-block with-errors"></div>
                                 </div>
-                                <div class="submit-button text-center">
-                                    <button class="btn hvr-hover" id="submit" type="submit">Send Message</button>
+                                <div class="form-group">
+                                    <input type="date" class="form-control" id="Birthdate" name="name" placeholder="您的生日" required data-error="請輸入您的生日">
+                                    <div class="help-block with-errors"></div>
+                                 </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="Address" name="name" placeholder="您的現居地址" required data-error="請輸入您的住址">
+                                    <div class="help-block with-errors"></div>
+                                 </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="Phone" name="name" placeholder="您的連絡電話" required data-error="請輸入您的聯絡電話">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="submit-button text-left">
+                                    <button class="btn hvr-hover" id="submit" type="submit">註冊會員</button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
+                                 </div>
+                                
+                             </div>
+                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-4 col-sm-12 " style="padding-top:130px; margin-left:-200px ">
                 <div class="contact-info-left">
-                    <h2>CONTACT INFO</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                    <h2>會員資料註冊範例</h2>
+                    <p>請依照下列範例輸入資料</p><!--電子郵件,密碼,姓名,性別,生日,地址,電話-->
                     <ul>
                         <li>
-                            <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 9000 <br>Preston Street Wichita,<br> KS 87213 </p>
+                            <p><i class="fas fa-envelope "></i>電子郵件 : abc123@gmail.com<br /> </p>
                         </li>
                         <li>
-                            <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                            <p><i class="fas fa-passport"></i>密碼格式 : abc123 (英數混合且6字以上)<br /></p>
                         </li>
                         <li>
-                            <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                            <p><i class="fas fa-user-tag"></i>姓名 : 王小明 (含姓氏大於2字以上)<br /></p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-genderless"></i>性別 : 男性 or 女性<br /></p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-birthday-cake"></i>生日日期格式 : YYYY/MM/DD<br /></p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-address-book"></i> 地址 : 台北市大安區信義路三段153號<br /></p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-phone-volume"></i>電話 : 0912345678 (共十碼)<br /></p>
                         </li>
                     </ul>
+                </div>
+                <div class="submit-button text-right">
+                    <a asp-area="" asp-controller="Login" asp-action="Login"  class="btn hvr-hover" style="color:white; margin-top:73px; padding:10px;">已經註冊?</a> 
                 </div>
             </div>
         </div>
