@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace 鮮蔬果季_前台.Controllers
 {
-    public class AboutUs : Controller
+    public class AboutUsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult AboutUS()
         {
             return View();
         }
