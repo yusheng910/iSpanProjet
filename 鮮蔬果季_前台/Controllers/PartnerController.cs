@@ -18,5 +18,30 @@ namespace 鮮蔬果季_前台.Controllers
             return View();
         }
 
+        public IActionResult PartnerBlog_2()
+        {
+            return View();
+        }
+
+        public IActionResult PartnerBlog_3()
+        {
+            return View();
+        }
+
+        public IActionResult PartnerBlog_4()
+        {
+            return View();
+        }
+
+        public IActionResult PartnerBlog_5()
+        {
+            return View();
+        }
+
+        public IActionResult PartnerBlog_6()
+        {
+            return View();
+        }
+
     }
 }
