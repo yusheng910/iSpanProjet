@@ -73,10 +73,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="remember-me" class=""style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-outline-dark " value="登入">
-                            </div>
-                            <div id="register-link" class="text-right" style="padding-top: 30px;">
-                                <a href="Register" class="btn hvr-hover" style="color:azure">尚未註冊?</a>
+                                <div class="submit-button">
+                                <button type="submit" name="submit" class="btn hvr-hover " >登入</button>
+                                </div>
+                                </div>
+                            <div id="register-link" class="text-right" style="padding-top: 20px;">
+                                <a  asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="color:white; padding:10px;">尚未註冊?</a>
                             </div>
                         </form>
                     </div>
