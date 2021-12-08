@@ -4,7 +4,7 @@
 # Base - Genral & Typography
 
 ----------------------------------------------------------------------------- */
-html {
+/*html {
   font-size: 14px;
   font-weight: 400;
   line-height: 28px;
@@ -149,13 +149,13 @@ p {
 
 p:last-child {
   margin: 0;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # All Common Styles
 
------------------------------------------------------------------------------ */
+----------------------------------------------------------------------------- *//*
 .loader {
   bottom: 0;
   height: 100%;
@@ -506,25 +506,25 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
   background-color: #07212e;
   z-index: -1;
   opacity: 0.8;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # Header Styles
 
 ----------------------------------------------------------------------------- */
-ul.navbar-nav li.nav-item a.nav-link, ul.navbar-nav li.nav-item.active a.nav-link {
+/*ul.navbar-nav li.nav-item a.nav-link, ul.navbar-nav li.nav-item.active a.nav-link {
   color: #051922;
-}
+}*/
 
-.top-header-area {
+/*.top-header-area {
   position: absolute;
   z-index: 999;
   width: 100%;
   padding: 25px 0;
-}
+}*/
 
-.top-header-area.white ul.navbar-nav li.nav-item a.nav-link, .top-header-area.white ul.navbar-nav li.nav-item.active a.nav-link {
+/*.top-header-area.white ul.navbar-nav li.nav-item a.nav-link, .top-header-area.white ul.navbar-nav li.nav-item.active a.nav-link {
   color: #fff;
 }
 
@@ -575,9 +575,9 @@ nav.main-menu ul ul.sub-menu {
   visibility: hidden;
   -webkit-box-shadow: 0 0 20px #555555;
   box-shadow: 0 0 20px #555555;
-}
+}*/
 
-nav.main-menu ul ul.sub-menu li {
+/*nav.main-menu ul ul.sub-menu li {
   display: block;
   text-align: left;
 }
@@ -600,9 +600,9 @@ nav.main-menu ul li:last-child a {
 
 nav.main-menu > ul li:last-child {
   float: right;
-}
+}*/
 
-.site-logo {
+/*.site-logo {
   float: left;
   max-width: 150px;
 }
@@ -632,9 +632,9 @@ ul.sub-menu li:last-child {
 
 .mean-container a.meanmenu-reveal span {
   background-color: #051922;
-}
+}*/
 
-.mean-container .mean-nav ul li a {
+/*.mean-container .mean-nav ul li a {
   padding: 0.5em 5%;
 }
 
@@ -647,17 +647,17 @@ ul.sub-menu li:last-child {
   height: 10px;
   line-height: 10px;
   width: 15px;
-}
+}*/
 
-.mean-container a.meanmenu-reveal {
+/*.mean-container a.meanmenu-reveal {
   padding: 8px 8px 6px;
-}
+}*/
 
-nav.mean-nav > ul > li:first-child > a {
+/*nav.mean-nav > ul > li:first-child > a {
   border-top: none;
-}
+}*/
 
-.header-icons a {
+/*.header-icons a {
   color: #fff;
   display: inline-block;
   padding: 10px;
@@ -669,9 +669,9 @@ nav.mean-nav > ul > li:first-child > a {
 
 .top-header-area.sepherate-header ul li > a, .top-header-area.sepherate-header .header-icons a {
   color: #051922;
-}
+}*/
 
-nav.main-menu ul ul.sub-menu li {
+/*nav.main-menu ul ul.sub-menu li {
   display: block;
 }
 
@@ -694,9 +694,9 @@ nav.main-menu li a {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-}
+}*/
 
-.top-header-area .header-icons a {
+/*.top-header-area .header-icons a {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -723,13 +723,13 @@ nav.main-menu li a {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-}
+}*/
 
-ul.navbar-nav {
+/*ul.navbar-nav {
   margin: 0 auto;
-}
+}*/
 
-.search-area {
+/*.search-area {
   position: fixed;
   left: 0;
   top: 0;
@@ -836,15 +836,15 @@ a.mobile-show {
   margin-bottom: 30px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 7px;
-}
+  letter-spacing: 7px;*/
+/*}*/
 
 /* -----------------------------------------------------------------------------
 
 # Footer Styles
 
 ----------------------------------------------------------------------------- */
-.single-logo-item img {
+/*.single-logo-item img {
   max-width: 180px;
   margin: 0 auto;
 }
@@ -982,14 +982,14 @@ h2.widget-title:after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #F28123;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # Hover Styles
 
 ----------------------------------------------------------------------------- */
-a.navbar-brand {
+/*a.navbar-brand {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -997,9 +997,9 @@ a.navbar-brand {
 
 a.navbar-brand:hover {
   opacity: 0.7;
-}
+}*/
 
-a.boxed-btn {
+/*a.boxed-btn {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -1177,11 +1177,11 @@ div.owl-controls, .owl-controls div {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
-}
+}*/
 
-div.owl-controls div.owl-nav div:hover {
+/*div.owl-controls div.owl-nav div:hover {
   opacity: 0.7;
-}
+}*//*
 
 .pagination-wrap ul li a {
   -webkit-transition: 0.3s;
@@ -1347,13 +1347,13 @@ a.mobile-show.search-bar-icon {
 a.mobile-show.search-bar-icon:hover {
   color: #F28123;
 }
-
+*/
 /* -----------------------------------------------------------------------------
 
 # Hero Styles
 
 ----------------------------------------------------------------------------- */
-.hero-bg {
+/*.hero-bg {
   background-image: url(../img/hero-bg.jpg);
   background-size: cover;
   background-position: center;
@@ -1536,14 +1536,14 @@ div.owl-controls, .owl-controls div {
   position: absolute;
   right: 60px;
   margin-top: -30px;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # List Styles
 
 ----------------------------------------------------------------------------- */
-.list-section {
+/*.list-section {
   background-color: #f5f5f5;
 }
 
@@ -1575,7 +1575,7 @@ div.owl-controls, .owl-controls div {
   line-height: 60px;
   border: 2px #F28123 dotted;
   border-radius: 999px;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
@@ -1887,7 +1887,7 @@ span.comment-date {
 # Cart Banner Styles
 
 ----------------------------------------------------------------------------- */
-.cart-banner {
+/*.cart-banner {
   background-color: #f5f5f5;
 }
 
@@ -1985,14 +1985,14 @@ span.comment-date {
   color: #F28123;
   font-weight: 700;
   letter-spacing: 1px;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # Testimonial Styles
 
 ----------------------------------------------------------------------------- */
-.client-avater {
+/*.client-avater {
   margin-bottom: 20px;
 }
 
@@ -2030,14 +2030,14 @@ p.testimonial-body {
   max-width: 100px;
   border-radius: 50%;
   margin: 0 auto;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # About Styles
 
 ----------------------------------------------------------------------------- */
-a.video-play-btn {
+/*a.video-play-btn {
   position: absolute;
   background-color: #F28123;
   color: #051922;
@@ -2100,14 +2100,14 @@ a.video-play-btn {
 
 .abt-text p:last-child {
   margin-bottom: 0;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # Shop Banner Styles
 
 ----------------------------------------------------------------------------- */
-.shop-banner {
+/*.shop-banner {
   position: relative;
   background-color: #f5f5f5;
   background-image: url(../img/1.jpg);
@@ -2138,14 +2138,14 @@ a.video-play-btn {
   text-align: center;
   margin-right: 10px;
   display: inline-block;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # About Page Styles
 
 ----------------------------------------------------------------------------- */
-.feature-bg {
+/*.feature-bg {
   position: relative;
   margin: 150px 0;
 }
@@ -2234,14 +2234,14 @@ ul.social-link-team li a {
   border-radius: 50%;
   display: block;
   margin: 5px;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # Contact Page Styles
 
 ----------------------------------------------------------------------------- */
-.form-title {
+/*.form-title {
   margin-bottom: 25px;
 }
 
@@ -2358,14 +2358,14 @@ ul.social-link-team li a {
 #form_status .success h3 {
   color: #fff;
   margin-bottom: 10px;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # Shop Page Styles
 
 ----------------------------------------------------------------------------- */
-.product-filters {
+/*.product-filters {
   margin-bottom: 80px;
 }
 
@@ -2714,14 +2714,14 @@ table.order-details tbody td {
   box-shadow: 0 0 20px #e4e4e4;
   padding-bottom: 50px;
   border-radius: 5px;
-}
+}*/
 
 /* -----------------------------------------------------------------------------
 
 # 404 Page Styles
 
 ----------------------------------------------------------------------------- */
-.error-text i {
+/*.error-text i {
   font-size: 90px;
   margin-bottom: 30px;
 }
@@ -2747,4 +2747,4 @@ table.order-details tbody td {
   display: table-cell;
   vertical-align: middle;
   width: 100%;
-}
+}*/

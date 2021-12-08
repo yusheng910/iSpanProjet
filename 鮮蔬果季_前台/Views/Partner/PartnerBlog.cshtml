@@ -8,21 +8,17 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    @*<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-    <!-- title -->
-    <title>News</title>
-
+    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">*@
     <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    @*<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">*@
     <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">*@
     <!-- fontawesome -->
     <!--<link rel="stylesheet" href="assets/css/all.min.css">-->
     <!-- bootstrap -->
@@ -38,15 +34,70 @@
     <!-- main style -->
     <link rel="stylesheet" href="~/assets/css/main.css">
     <!-- responsive -->
-    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    @*<link rel="stylesheet" href="~/assets/css/responsive.css">*@
     <style>
+        /*===========更改置頂圖片樣式(獨立)=============================*/
+        .all-title-box_Partner {
+            background: url("../images/a.jpg") no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -ms-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            text-align: center;
+/*            background-attachment: fixed;*/
+            padding: 70px 0px;
+            position: relative;
+        }
+
+            .all-title-box_Partner::before {
+                background: rgba(0,0,0,0.4);
+                content: "";
+                position: absolute;
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+            }
+            .all-title-box_Partner h2 {
+                font-size: 28px;
+                font-weight: 700;
+                color: #ffffff;
+                float: left;
+                padding: 10px 0px;
+            }
+
+            .all-title-box_Partner .breadcrumb {
+                background: #b0b435;
+                margin: 0px;
+                display: inline-block;
+                border-radius: 0px;
+                float: right;
+            }
+
+                .all-title-box_Partner .breadcrumb li {
+                    display: inline-block;
+                    color: #000000;
+                    font-size: 16px;
+                }
+
+                    .all-title-box_Partner .breadcrumb li a {
+                        color: #ffffff;
+                        font-size: 16px;
+                    }
+
+            .all-title-box_Partner .breadcrumb-item + .breadcrumb-item::before {
+                color: #000000;
+            }
+
     </style>
 
 
 </head>
 <body>
     <!-- Start All Title Box===================================================== -->
-    <div class="all-title-box">
+    <div class="all-title-box_Partner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -59,6 +110,7 @@
             </div>
         </div>
     </div>
+    <div style="padding-bottom:50px"></div>   @*間格用*@
 
     <!-- latest news -->
     <div class="latest-news mt-150 mb-150">
@@ -159,8 +211,8 @@
                             <div class="pagination-wrap">
                                 <ul>
                                     <li><a href="#">Prev</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a class="active" href="#">2</a></li>
+                                    <li><a class="active" href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">Next</a></li>
                                 </ul>
