@@ -19,7 +19,7 @@
 	let navPosition = $(".main-header").offset().top;
 	$(window).on('scroll', function () {
 		let scrollTop = $(this).scrollTop();
-		if (scrollTop > navPosition) {
+		if (scrollTop >50) {
 			$('.main-header').addClass('fixed-menu');
 		} else {
 			$('.main-header').removeClass('fixed-menu');
