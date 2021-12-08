@@ -1,7 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@section Styles{
+    <style>
+        .slides-pagination a{
+            border-radius: 10px;
+            margin-right:15px;
+        }
+        .slides-navigation a {
+            border-radius: 10px;
+        }
+    </style>
+}
 <!-- Start Slider -->
 <div id="slides-shop" class="cover-slides">
     <ul class="slides-container">
@@ -61,7 +71,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="~/images/categories_img_02.jpg" alt="" />
-                    <a class="btn hvr-hover"asp-area="" asp-controller="Shopping" asp-action="List">鮮甜水果鋪</a>
+                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List">鮮甜水果鋪</a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -107,7 +117,7 @@
                         <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
                         <div class="mask-icon">
                             <ul>
-                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
                                 <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
                             </ul>
                             <a class="cart" asp-area="" asp-controller="Shopping" asp-action="Cart">加到購物車</a>
@@ -129,7 +139,7 @@
                         <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
                         <div class="mask-icon">
                             <ul>
-                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
                                 <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
                             </ul>
                             <a class="cart" asp-area="" asp-controller="Shopping" asp-action="Cart">加到購物車</a>
@@ -151,7 +161,7 @@
                         <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
                         <div class="mask-icon">
                             <ul>
-                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
                                 <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
                             </ul>
                             <a class="cart" asp-area="" asp-controller="Shopping" asp-action="Cart">加到購物車</a>
@@ -173,7 +183,7 @@
                         <img src="images/img-pro-04.jpg" class="img-fluid" alt="Image">
                         <div class="mask-icon">
                             <ul>
-                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
                                 <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
                             </ul>
                             <a class="cart" asp-area="" asp-controller="Shopping" asp-action="Cart">加到購物車</a>
