@@ -160,10 +160,10 @@
                                 購物專區 <i class="fas fa-chevron-down arrowcustomer"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">蔬菜</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">水果</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">台灣茶</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">五穀雜糧</a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">蔬菜</a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">水果</a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">台灣茶</a></li>
+                                <li><a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">五穀雜糧</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -173,7 +173,7 @@
                             <ul class="dropdown-menu">
                                 <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">會員資料</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">訂單管理</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">我的收藏</a></li>
+                                <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" class="transition">我的收藏</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">優惠券</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">登出</a></li>
                             </ul>
@@ -215,7 +215,7 @@
                             <p>1x - <span class="price">NT$ 60.00</span></p>
                         </li>
                         <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">查看購物車</a>
+                            <a asp-area="" asp-controller="Shopping" asp-action="Cart" class="btn btn-default hvr-hover btn-cart">查看購物車</a>
                             <span class="float-right"><strong>總價</strong>: $180.00</span>
                         </li>
                     </ul>
