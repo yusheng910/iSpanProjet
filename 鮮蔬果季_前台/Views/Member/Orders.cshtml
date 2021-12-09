@@ -23,6 +23,9 @@
             height: 96px;
             object-fit: cover;
         }
+        .orderid-p {
+            text-align: left;
+        }
     </style>
 }
 
@@ -46,85 +49,31 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>商品圖</th>
-                                <th>商品名稱</th>
-                                <th>售價</th>
-                                <th>現有庫存</th>
-                                <th><i class="fas fa-plus-circle"></i>加入</th>
-                                <th><i class="far fa-trash-alt"></i>移除</th>
+                                <th></th>
+                                <th>下單日期</th>
+                                <th>總價</th>
+                                <th>訂單編號</th>
+                                <th>訂單細項</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="thumbnail-img">
                                     <a href="#">
-                                        <img class="img-fluid" src="~/images/商品照/紅蘿蔔.jpg" alt="" />
+                                        <img class="img-fluid" src="~/images/order-vegetablebag.jpg" alt="" />
                                     </a>
                                 </td>
-                                <td class="name-pr">
-                                    <a href="#">
-                                        紅蘿蔔
-                                    </a>
+                                <td class="orderdate-p">
+                                    <p>2021/11/30/14:32</p>
                                 </td>
                                 <td class="price-pr">
-                                    <p>NT$ 50</p>
+                                    <p>NT$ 377</p>
                                 </td>
-                                <td class="quantity-box">211</td>
+                                <td class="orderid-p">
+                                    <p># 202-5587086-4005927</p>
+                                </td>
                                 <td class="add-pr">
-                                    <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="#">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="thumbnail-img">
-                                    <a href="#">
-                                        <img class="img-fluid" src="~/images/商品照/西瓜.jpg" alt="" />
-                                    </a>
-                                </td>
-                                <td class="name-pr">
-                                    <a href="#">
-                                        西瓜
-                                    </a>
-                                </td>
-                                <td class="price-pr">
-                                    <p>NT$ 100</p>
-                                </td>
-                                <td class="quantity-box">231</td>
-                                <td class="add-pr">
-                                    <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="#">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="thumbnail-img">
-                                    <a href="#">
-                                        <img class="img-fluid" src="~/images/商品照/牛番茄.jpg" alt="" />
-                                    </a>
-                                </td>
-                                <td class="name-pr">
-                                    <a href="#">
-                                        牛番茄
-                                    </a>
-                                </td>
-                                <td class="price-pr">
-                                    <p>NT$ 82</p>
-                                </td>
-                                <td class="quantity-box">77</td>
-                                <td class="add-pr">
-                                    <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="#">
-                                        <i class="fas fa-times"></i>
-                                    </a>
+                                    <a class="btn hvr-hover" id="btnaddcart" href="#">檢視</a>
                                 </td>
                             </tr>
                         </tbody>
