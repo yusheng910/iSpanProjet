@@ -1656,12 +1656,7 @@ p.excerpt {
 
 .single-latest-news {
   margin-bottom: 30px;
-}
-
-.single-artcile-bg {
-  background-image: url(../img/latest-news/news-bg-3.jpg);
-  height: 450px;
-}
+}.single-artcile-bg { /*部落格子頁大圖*/    background-image: url(../img/farmer1.jpg);    height: 450px;}
 
 .pagination-wrap {
   margin-top: 40px;
@@ -2405,13 +2400,8 @@ ul.social-link-team li a {
   width: 90%;
   border-radius: 5px;
   margin-bottom: 20px;
-}
-
-.single-product-item h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
+  object-fit:cover;
+}.single-product-item h3 {    font-size: 20px;    font-weight: 600;    margin-bottom: 10px;    object-fit: cover;}
 
 p.product-price {
   font-family: 'Poppins', sans-serif;
