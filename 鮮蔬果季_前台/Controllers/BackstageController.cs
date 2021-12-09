@@ -12,5 +12,17 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
+        public IActionResult Member()
+        {
+            return View();
+        }
+        public IActionResult Order()
+        {
+            return View();
+        }
+        public IActionResult Product()
+        {
+            return View();
+        }
     }
 }

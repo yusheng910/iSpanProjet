@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Orders";
+}
+
+@section Styles{
+    <style>
+        #btnaddcart {
+            color: white;
+        }
+
+        th i {
+            padding-right: 10px;
+        }
+
+        .all-title-box {
+            background: url("../images/test1.jpg") no-repeat center center;
+            background-size: cover;
+        }
+
+        a .img-fluid {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+        }
+        .orderid-p {
+            text-align: left;
+        }
+    </style>
+}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>訂單紀錄</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start Wishlist  -->
+<div class="wishlist-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>下單日期</th>
+                                <th>總價</th>
+                                <th>訂單編號</th>
+                                <th>訂單細項</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img class="img-fluid" src="~/images/order-vegetablebag.jpg" alt="" />
+                                    </a>
+                                </td>
+                                <td class="orderdate-p">
+                                    <p>2021/11/30/14:32</p>
+                                </td>
+                                <td class="price-pr">
+                                    <p>NT$ 377</p>
+                                </td>
+                                <td class="orderid-p">
+                                    <p># 202-5587086-4005927</p>
+                                </td>
+                                <td class="add-pr">
+                                    <a class="btn hvr-hover" id="btnaddcart" href="#">檢視</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Wishlist -->
