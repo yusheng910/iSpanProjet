@@ -10,28 +10,28 @@
             <div class="col-md">
                 <ul class="nav nav-pills justify-content-start">
                     <li class="nav-item">
-                        <a class="nav-link active bg-transparent pr-2 pl-0 text-primary" href="#">All <span class="badge badge-pill bg-primary text-white ml-2">164</span></a>
+                        <a class="nav-link active bg-transparent pr-2 pl-0 text-primary" href="#">全部 <span class="badge badge-pill bg-primary text-white ml-2">164</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-muted px-2" href="#">Pending <span class="badge badge-pill bg-white border text-muted ml-2">64</span></a>
+                        <a class="nav-link text-muted px-2" href="#">未出貨 <span class="badge badge-pill bg-white border text-muted ml-2">64</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-muted px-2" href="#">Processing <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
+                        <a class="nav-link text-muted px-2" href="#">已出貨 <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-muted px-2" href="#">Completed <span class="badge badge-pill bg-white border text-muted ml-2">52</span></a>
+                        <a class="nav-link text-muted px-2" href="#">已送達 <span class="badge badge-pill bg-white border text-muted ml-2">52</span></a>
                     </li>
                 </ul>
             </div>
             <div class="col-md-auto ml-auto text-right">
-                <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
+                @*<span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
                     <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
-                    <span class="text-muted">Status : <strong>Pending</strong></span>
+                    <span class="text-muted">狀態 : <strong>Pending</strong></span>
                 </span>
                 <span class="small bg-white border py-1 px-2 rounded mr-2 d-none d-lg-inline">
                     <a href="#" class="text-muted"><i class="fe fe-x mx-1"></i></a>
                     <span class="text-muted">April 14, 2020 - May 13, 2020</span>
-                </span>
+                </span>*@
                 <button type="button" class="btn" data-toggle="modal" data-target=".modal-slide"><span class="fe fe-filter fe-16 text-muted"></span></button>
                 <button type="button" class="btn"><span class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
             </div>
@@ -80,20 +80,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customCheck1-1" checked>
                                     <label class="custom-control-label" for="customCheck1">匯款</label>
                                 </div>
-                            </div> <!-- form-group -->
-                            <div class="form-group my-4">
-                                <p class="mb-2">
-                                    <strong>類型</strong>
-                                </p>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                    <label class="custom-control-label" for="customRadio1">終端使用者</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
-                                    <label class="custom-control-label" for="customRadio2">批發的</label>
-                                </div>
-                            </div> <!-- form-group -->
+                            </div> 
                             <div class="form-group my-4">
                                 <p class="mb-2">
                                     <strong>完成</strong>
@@ -107,7 +94,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn mb-2 btn-primary btn-block">搜尋</button>
-                        <button type="button" class="btn mb-2 btn-secondary btn-block">重來</button>
+                        <button type="button" class="btn mb-2 btn-secondary btn-block">清除</button>
                     </div>
                 </div>
             </div>
@@ -175,7 +162,7 @@
                     <td>0987870061</td>
                     <td>新北市三重區重陽路一段117巷29號</td>
                     <td>NT $65210</td>
-                    <td> Paypal</td>
+                    <td> 匯款</td>
                     <td>
                         <span class="dot dot-lg bg-success mr-2"></span>
                     </td>
@@ -204,7 +191,7 @@
                     <td>0968087144</td>
                     <td>台北市內湖區大湖山莊街170巷29號</td>
                     <td>NT $6521</td>
-                    <td> Paypal</td>
+                    <td> 信用卡</td>
                     <td>
                         <span class="dot dot-lg bg-success mr-2"></span>
                     </td>
