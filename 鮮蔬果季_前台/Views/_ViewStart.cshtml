@@ -1,3 +1,13 @@
 ﻿@{
-    Layout = "_Layout";
+    string ControllerName = ViewContext.RouteData.Values["controller"].ToString();
+    switch (ControllerName)
+    {
+        case "Backstage":
+            Layout = "~/Views/Shared/_BackstageLayout.cshtml";
+            break;
+        default:
+            Layout = "~/Views/Shared/_Layout.cshtml";
+            break;
+    }
+    //Layout = "_Layout";
 }
