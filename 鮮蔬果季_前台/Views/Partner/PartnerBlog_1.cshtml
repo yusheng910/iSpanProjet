@@ -6,29 +6,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <!-- title -->
-    <!-- favicon -->
-    <!--<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">-->
-    <!-- google font -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">-->
-    <!-- fontawesome -->
-    <!--<link rel="stylesheet" href="assets/css/all.min.css">-->
-    <!-- bootstrap -->
-    <!--<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">-->
-    <!-- owl carousel -->
-    <!--<link rel="stylesheet" href="assets/css/owl.carousel.css">-->
-    <!-- magnific popup -->
-    <!--<link rel="stylesheet" href="assets/css/magnific-popup.css">-->
-    <!-- animate css -->
-    <!--<link rel="stylesheet" href="assets/css/animate.css">-->
-    <!-- mean menu css -->
-    <!--<link rel="stylesheet" href="assets/css/meanmenu.min.css">-->
-    <!-- main style -->
     <link rel="stylesheet" href="~/assets/css/main.css">
     <!-- responsive -->
     @*<link rel="stylesheet" href="~/assets/css/responsive.css">*@
+
+    <style>
+        /*===========更改置頂圖片樣式(獨立)=============================*/
+        .all-title-box_Partner {
+            background: url("../images/a.jpg") no-repeat center center;
+            /*          -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -ms-background-size: cover;
+            -o-background-size: cover;*/
+            background-size: cover;
+            text-align: center;
+            /*            background-attachment: fixed;*/
+            padding: 70px 0px;
+            position: relative;
+        }
+
+            .all-title-box_Partner::before {
+                background: rgba(0,0,0,0.4);
+                content: "";
+                position: absolute;
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+            }
+
+            .all-title-box_Partner h2 {
+                font-size: 28px;
+                font-weight: 700;
+                color: #ffffff;
+                float: left;
+                padding: 10px 0px;
+            }
+
+            .all-title-box_Partner .breadcrumb {
+                background: #b0b435;
+                margin: 0px;
+                display: inline-block;
+                border-radius: 0px;
+                float: right;
+            }
+
+                .all-title-box_Partner .breadcrumb li {
+                    display: inline-block;
+                    color: #000000;
+                    font-size: 16px;
+                }
+
+                    .all-title-box_Partner .breadcrumb li a {
+                        color: #ffffff;
+                        font-size: 16px;
+                    }
+
+            .all-title-box_Partner .breadcrumb-item + .breadcrumb-item::before {
+                color: #000000;
+            }
+    </style>
 
 </head>
 <body>
@@ -129,11 +167,15 @@
 
 
     <!-- Start All Title Box===================================================== -->
-    <div class="all-title-box">
+    <div class="all-title-box_Partner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>ABOUT US</h2>
+                    <h2>合作農友</h2>
+                    @*<ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">ABOUT US</li>
+                        </ul>*@
                 </div>
             </div>
         </div>
@@ -164,15 +206,17 @@
                         <div class="single-article-text">
                             <div class="single-artcile-bg"></div>
                             <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
+                                <span class="author"><i class="fas fa-user"></i> 村長</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2021-12-03</span>
                             </p>
-                            <h2>Pomegranate can prevent heart disease</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint soluta, similique quidem fuga vel voluptates amet doloremque corrupti. Perferendis totam voluptates eius error fuga cupiditate dolorum? Adipisci mollitia quod labore aut natus nobis. Rerum perferendis, nobis hic adipisci vel inventore facilis rem illo, tenetur ipsa voluptate dolorem, cupiditate temporibus laudantium quidem recusandae expedita dicta cum eum. Quae laborum repellat a ut, voluptatum ipsa eum. Culpa fugiat minus laborum quia nam!</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, praesentium, dicta. Dolorum inventore molestias velit possimus, dolore labore aliquam aperiam architecto quo reprehenderit excepturi ipsum ipsam accusantium nobis ducimus laudantium.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum est aperiam voluptatum id cupiditate quae corporis ex. Molestias modi mollitia neque magni voluptatum, omnis repudiandae aliquam quae veniam error! Eligendi distinctio, ab eius iure atque ducimus id deleniti, vel alias sint similique perspiciatis saepe necessitatibus non eveniet, quo nisi soluta.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt beatae nemo quaerat, doloribus obcaecati odio!</p>
-                        </div>
+                            <h2>台中大甲檳榔心芋頭</h2>
+                            <div   style="font-size:large">
+                                <p style="font-size:medium">大甲位於台中市西北方，地形主要以大安溪大甲溪兩條河川的扇狀沖積平原所組成，在此平原上規劃方正並設計為灌溉排水分離的溝渠，引兩溪水源作灌溉之用，沖積平原的土壤由砂礫及黏土所組成的沖積土；肥沃的土壤，加上豐沛的水源，形成了大甲優越的農作條件。</p><br />
+                                <p style="font-size:medium">紀大哥從小就跟隨父親務農，主要種植芋頭、大豆、水稻等作物；出社會後傳承家業，全心投入芋頭規模化生產，但當時芋頭市場價格非常不穩，且各田間管理不同影響品質，經常被壓低收購價格，甚至萌生退意轉種其他作物；直到大甲蔬菜產銷班成立，紀大哥才在友人勸說下再次投身芋頭產業，結合栽培管理、採收加工、包裝行銷，提升大甲芋頭產值。</p><br />
+                                <p style="font-size:medium">紀大哥號召產銷班的班員合作，制定管理模式生產芋頭，使用水旱輪作優化環境，絕不施用除草劑，並採用生物防治、物理防治交叉實驗，減少福壽螺的危害；還將土壤、水質、作物、重金屬送驗檢測，均檢測符合國家標準，確保芋頭的食用安全。採收下來的芋頭經過分級，馬上送進加工廠，削皮切塊送進急速冷凍庫，製作成冷凍芋頭角，拆封即可料理，再也不必擔心削芋頭手發癢啦。</p><br />
+                                <p style="font-size:medium">大甲出產的檳榔心芋頭纖維短，口感特別綿密鬆軟，加上產區獨特的溪口氣候，採收時正值東北季風吹拂，特別有利於芋頭生長；這裡的芋頭肉色顯白，澱粉含量高，細膩黏滑軟中帶Q，適合製作燉煮類料理，如芋頭雞湯、芋頭排骨湯等等，都能品嚐到芋頭熬煮透後綿滑的口感，身為芋頭控的各位絕不能錯過！！</p><br />
+                            </div>
+                            </div>
 
                         @*<div class="comments-list-wrap">
                                 <h3 class="comment-count-title">3 Comments</h3>
@@ -210,14 +254,14 @@
 
                         <br />
                         <div class="comment-template">
-                            <h4>Leave a comment</h4>
-                            <p>If you have a comment dont feel hesitate to send us your opinion.</p>
+                            <h4>留言板</h4>                @*留言板*@
+                            <p>歡迎您透過以下留言板，回復訊息給予農友鼓勵!</p>
                             <form action="index.html">
                                 <p style="padding-bottom:10px">
-                                    <input type="text" placeholder="Your Name">
-                                    <input type="email" placeholder="Your Email">
+                                    <input type="text" placeholder="稱呼">
+                                    <input type="email" placeholder="電子信箱">
                                 </p>
-                                <p><textarea name="comment" id="comment" cols="30" rows="10" placeholder="Your Message"></textarea></p>
+                                <p><textarea name="comment" id="comment" cols="30" rows="10" placeholder="留言訊息"></textarea></p>
                                 @*<p><input type="submit" value="Submit"></p>*@
                                 <button type="button" class="btn btn-success btn-lg">送出</button>
                             </form>
@@ -227,17 +271,17 @@
                 <div class="col-lg-4">
                     <div class="sidebar-section">
                         <div class="recent-posts">
-                            <h4>Recent Posts</h4>
+                            <h4>近期文章</h4>
                             <ul>
-                                <li><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></li>
-                                <li><a href="single-news.html">A man's worth has its season, like tomato.</a></li>
-                                <li><a href="single-news.html">Good thoughts bear good fresh juicy fruit.</a></li>
-                                <li><a href="single-news.html">Fall in love with the fresh orange</a></li>
-                                <li><a href="single-news.html">Why the berries always look delecious</a></li>
+                                <li><a href="single-news.html">台中大甲檳榔心芋頭</a></li>
+                                <li><a href="single-news.html">橙界貴族台東肚臍柑</a></li>
+                                <li><a href="single-news.html">宜蘭阿瑞的番茄農場</a></li>
+                                <li><a href="single-news.html">高雄大樹阿瑋芭樂園</a></li>
+                                <li><a href="single-news.html">小熙的無農藥玉米筍</a></li>
                             </ul>
                         </div>
                         <div class="archive-posts">
-                            <h4>Archive Posts</h4>
+                            <h4>月份</h4>
                             <ul>
                                 <li><a href="single-news.html">JAN 2019 (5)</a></li>
                                 <li><a href="single-news.html">FEB 2019 (3)</a></li>
@@ -247,14 +291,12 @@
                             </ul>
                         </div>
                         <div class="tag-section">
-                            <h4>Tags</h4>
+                            <h4>標籤</h4>
                             <ul>
-                                <li><a href="single-news.html">Apple</a></li>
-                                <li><a href="single-news.html">Strawberry</a></li>
-                                <li><a href="single-news.html">BErry</a></li>
-                                <li><a href="single-news.html">Orange</a></li>
-                                <li><a href="single-news.html">Lemon</a></li>
-                                <li><a href="single-news.html">Banana</a></li>
+                                <li><a href="single-news.html">芋頭</a></li>
+                                <li><a href="single-news.html">台灣</a></li>
+                                <li><a href="single-news.html">小農</a></li>
+                                <li><a href="single-news.html">玉米筍</a></li>
                             </ul>
                         </div>
                     </div>
@@ -262,6 +304,7 @@
             </div>
         </div>
     </div>
+    <div style="padding-bottom:50px"></div>   @*間格用*@
     <!-- end single article section -->
     <!-- logo carousel -->
     <!--<div class="logo-carousel-section">
@@ -358,26 +401,5 @@
             </div>
         </div>*@
     <!-- end copyright -->
-    <!-- jquery -->
-    <!--<script src="assets/js/jquery-1.11.3.min.js"></script>-->
-    <!-- bootstrap -->
-    <!--<script src="assets/bootstrap/js/bootstrap.min.js"></script>-->
-    <!-- count down -->
-    <!--<script src="assets/js/jquery.countdown.js"></script>-->
-    <!-- isotope -->
-    <!--<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>-->
-    <!-- waypoints -->
-    <!--<script src="assets/js/waypoints.js"></script>-->
-    <!-- owl carousel -->
-    <!--<script src="assets/js/owl.carousel.min.js"></script>-->
-    <!-- magnific popup -->
-    <!--<script src="assets/js/jquery.magnific-popup.min.js"></script>-->
-    <!-- mean menu -->
-    <!--<script src="assets/js/jquery.meanmenu.min.js"></script>-->
-    <!-- sticker js -->
-    <!--<script src="assets/js/sticker.js"></script>-->
-    <!-- main js -->
-    <!--<script src="assets/js/main.js"></script>-->
-
 </body>
 </html>
