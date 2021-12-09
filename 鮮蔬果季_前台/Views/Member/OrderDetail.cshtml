@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewData["Title"] = "OrderDetail";
+}
+@section Styles{
+    <style>
+        .order-box h3 {
+            font-size: 18px;
+        }
+
+        #units {
+            padding-left: 15px;
+        }
+        #odnum{
+            padding-right:10px;
+        }
+    </style>
+}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>訂單明細</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="#" asp-controller="#" asp-action="List"><span id="odnum">#1</span>訂單編號</a></li>
+                    <li class="breadcrumb-item active">訂單明細</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>商品</th>
+                                <th></th>
+                                <th>價格</th>
+                                <th>數量</th>
+                                <th>小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img class="img-fluid" src="~/images/img-pro-01.jpg" alt="" />
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    <a href="#">
+                                        紅蘿蔔 (全福種苗)
+                                    </a>
+                                </td>
+                                <td class="price-pr">
+                                    <p>NT$ 60</p>
+                                </td>
+                                <td class="quantity-box">
+                                    <p id="units">3</p>
+                                </td>
+                                <td class="total-pr">
+                                    <p>NT$ 180</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img class="img-fluid" src="~/images/img-pro-02.jpg" alt="" />
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    <a href="#">
+                                        牛番茄 (興農種苗)
+                                    </a>
+                                </td>
+                                <td class="price-pr">
+                                    <p>NT$ 82</p>
+                                </td>
+                                <td class="quantity-box">
+                                    <p id="units">7</p>
+                                </td>
+                                <td class="total-pr">
+                                    <p>NT$ 574</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img class="img-fluid" src="~/images/img-pro-03.jpg" alt="" />
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    <a href="#">
+                                        山藥 (泓興育苗)
+                                    </a>
+                                </td>
+                                <td class="price-pr">
+                                    <p>NT$ 200</p>
+                                </td>
+                                <td class="quantity-box">
+                                    <p id="units">1</p>
+                                </td>
+                                <td class="total-pr">
+                                    <p>NT$ 200</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="order-box">
+                        <div class="title-left" style="padding-top:20px">
+                            <h3>您的訂單</h3>
+                        </div>
+                        <div class="d-flex gr-total">
+                            <h5>訂單總金額</h5>
+                            <div class="ml-auto h5"> NT$ 954 </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="#" asp-action="#" class="ml-auto btn hvr-hover">去評論</a> </div>
+        </div>
+    </div>
+</div>
+    <!-- End Cart -->
