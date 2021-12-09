@@ -16,9 +16,6 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
-        public IActionResult MemberCenter()
-        {
-            return View();
-        }
+        
     }
 }
