@@ -7561,7 +7561,7 @@ button:focus {
 .vertical .main-content,
 .vertical.hover .main-content,
 .narrow.open .main-content {
-  margin-left: 16rem;
+/*  margin-left: 1rem;*/
   overflow: hidden;
   padding: 1.2rem;
   min-height: 100vh;
