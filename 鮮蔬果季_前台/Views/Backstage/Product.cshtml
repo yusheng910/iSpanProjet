@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Product";
 }
-<body class="vertical  light  ">
-    <div class="wrapper">
         <!--=====================================================================================-->
         <main role="main" @*class="main-content"*@>
             @*影響List框架*@
@@ -79,9 +77,8 @@
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                            <a class="dropdown-item" href="#">Assign</a>
+                                                            <a class="dropdown-item" href="#">修改</a>
+                                                            <a class="dropdown-item" href="#">移除</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -105,9 +102,8 @@
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                            <a class="dropdown-item" href="#">Assign</a>
+                                                            <a class="dropdown-item" href="#">修改</a>
+                                                            <a class="dropdown-item" href="#">移除</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -131,9 +127,8 @@
                                                             <span class="text-muted sr-only">Action</span>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Remove</a>
-                                                            <a class="dropdown-item" href="#">Assign</a>
+                                                            <a class="dropdown-item" href="#">修改</a>
+                                                            <a class="dropdown-item" href="#">移除</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -270,10 +265,9 @@
                 </div>
             </div>
         </main> <!-- main -->
-    </div> <!-- .wrapper -->
     @section Scripts{
-        <script src='js/jquery.dataTables.min.js'></script>
-        <script src='js/dataTables.bootstrap4.min.js'></script>
+        <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+        <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
         <script>
             $('#dataTable-1').DataTable(
                 {
@@ -285,5 +279,3 @@
                 });
         </script>
     }
-
-</body>
