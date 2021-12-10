@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using 鮮蔬果季_前台.Models;
 
 namespace 鮮蔬果季_前台.Controllers
 {
@@ -23,6 +24,12 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult Product()
         {
             return View();
+        }
+        public IActionResult Customer()
+        {
+            var q = from p in (new 鮮蔬果季Context()).Members
+                    select p;
+            return View(q);
         }
     }
 }
