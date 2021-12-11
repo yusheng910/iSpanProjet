@@ -1,4 +1,4 @@
-﻿@model 鮮蔬果季_前台.Models.Product
+﻿@model 鮮蔬果季_前台.ViewModels.ShoppingListViewModel
 @{
     ViewData["Title"] = "ShopDetail";
 }
@@ -91,12 +91,16 @@
             </div>
             <div class="col-xl-7 col-lg-7 col-md-6">
                 <div class="single-product-details">
-                    <h2>@Model.ProductName (興農種苗)</h2>
-                    <h5> @*<del>NT$ 80</del>*@ NT$ @Model.ProductUnitPrice</h5>
-                    <p class="available-stock"><span>@Model.ProductUnitsInStock 庫存/ <a href="#">8 已售出 </a></span><p>
+                    <h2>@Model.product.ProductName (@Model.supplier.SupplierName)</h2>
+                    <h5> @*<del>NT$ 80</del>*@ NT$ @Model.product.ProductUnitPrice</h5>
+                    <p class="available-stock"><span>@Model.product.ProductUnitsInStock 庫存/ <a href="#">8 已售出 </a></span><p>
                         <h4>商品描述:</h4>
                     <p>
-                        @Model.ProductDescription
+                        @Model.product.ProductDescription
+                    </p>
+                    <h4>商品規格:</h4>
+                    <p>
+                        @Model.product.ProductSize
                     </p>
                     <ul>
                         <li>
