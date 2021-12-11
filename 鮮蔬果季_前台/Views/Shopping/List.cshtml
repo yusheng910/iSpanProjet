@@ -1,24 +1,24 @@
-﻿
+﻿@model IEnumerable<鮮蔬果季_前台.Models.Product>
 @{
     ViewData["Title"] = "List";
 }
 
-@section Styles{ 
-<style>
-    .tab-pane.fade.show.active img {
-        width: 300px;
-        height: 200px;
-        object-fit: cover;
-    }
+@section Styles{
+    <style>
+        .tab-pane.fade.show.active img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+        }
 
-    .why-text.full-width p {
-        padding-top: 5px;
-    }
+        .why-text.full-width p {
+            padding-top: 5px;
+        }
 
-    .bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.text {
-        font-size: 18px;
-    }
-</style>
+        .bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.text {
+            font-size: 18px;
+        }
+    </style>
 }
 
 <!-- Start All Title Box -->
@@ -67,701 +67,39 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                 <div class="row">
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
+                                    @*商品List 開始*@
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <div class="type-lb">
+                                                        <p class="sale">Sale</p>
+                                                    </div>
+                                                    <img src="~/images/商品照/冬瓜.jpg" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
+                                                            <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
+                                                        </ul>
+                                                        <a class="cart" href="#">加入購物車</a>
+                                                    </div>
                                                 </div>
-                                                <img src="~/images/商品照/冬瓜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
+                                                <div class="why-text">
+                                                    <h4>@item.ProductName</h4>
+                                                    @{ 
+                                                        string 規格 = @item.ProductSize;
+                                                        string[] 公克= 規格.Split("/");
+                                                    }
+                                                <h5> @公克[0]/NT$@item.ProductUnitPrice</h5>
                                                 </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>冬瓜 (台和園藝)</h4>
-                                                <h5> 600g/NT$70</h5>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/南瓜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>南瓜 (台和園藝)</h4>
-                                                <h5> 600g/NT$61</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/大白菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>大白菜 (農農育苗)</h4>
-                                                <h5> 600g/NT$80</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/小白菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>小白菜 (農農育苗)</h4>
-                                                <h5> 600g/NT$100</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/大蒜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>大蒜 (興農種苗)</h4>
-                                                <h5> 100g/NT$61</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/山藥.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>山藥 (泓興育苗)</h4>
-                                                <h5> 600g/NT$200</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/柳丁.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>老欉柳丁 (員林農場)</h4>
-                                                <h5> 200g/NT$100</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/柿子.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>高山甜柿 (穗耕種苗)</h4>
-                                                <h5> 500g/NT$50</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/橘子.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>橘子 (煌智育苗)</h4>
-                                                <h5> 500g/NT$80</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/洋蔥.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>洋蔥 (穗耕種苗)</h4>
-                                                <h5> 600g/NT$102</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/洋蔥2.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>洋蔥 (農農育苗)</h4>
-                                                <h5> 600g/NT$105</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/牛番茄.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>牛番茄 (興農種苗)</h4>
-                                                <h5> 300g/NT$82</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/牛蒡.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>牛蒡 (台北資策會)</h4>
-                                                <h5> 300g/NT$100</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/牛蒡2.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>牛蒡 (員林農場)</h4>
-                                                <h5> 300g/NT$105</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/空心菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>空心菜 (興農種苗)</h4>
-                                                <h5> 250g/NT$40</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/紅蘿蔔.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>紅蘿蔔 (全福種苗)</h4>
-                                                <h5> 600g/NT$60</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/紅蘿蔔2.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>紅蘿蔔 (興農種苗)</h4>
-                                                <h5> 600g/NT$68</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/紅蘿蔔3.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>紅蘿蔔 (員林農場)</h4>
-                                                <h5> 600g/NT$65</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/美生菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>美生菜 (糧德農業)</h4>
-                                                <h5> 600g/NT$80</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/芹菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>芹菜 (台北資策會)</h4>
-                                                <h5> 250g/NT$100</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/茄子.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>茄子 (泓興育苗)</h4>
-                                                <h5> 300g/NT$80</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/草莓.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>草莓</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/葡萄.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>葡萄</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/薑.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>薑</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/蘿蔔.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>白玉蘿蔔</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/蘿蔔2.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>蘿蔔</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/西瓜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>西瓜</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/辣椒.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>辣椒</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/青椒.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>青椒</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/香菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>香菜</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/香蕉.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>香蕉</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/高麗菜.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>高麗菜</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="products-single fix">
-                                            <div class="box-img-hover">
-                                                <div class="type-lb">
-                                                    <p class="sale">Sale</p>
-                                                </div>
-                                                <img src="~/images/商品照/鳳梨.jpg" class="img-fluid" alt="Image">
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                    </ul>
-                                                    <a class="cart" href="#">加入購物車</a>
-                                                </div>
-                                            </div>
-                                            <div class="why-text">
-                                                <h4>鳳梨</h4>
-                                                <h5> 尚未上架</h5>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
+                                    @*商品List 結束*@
                                 </div>
                             </div>
+
                             <div role="tabpanel" class="tab-pane fade" id="list-view">
                                 <div class="list-view-box">
                                     <div class="row">
@@ -892,20 +230,20 @@
                             <a href="#" class="list-group-item list-group-item-action"> 五穀雜糧 <small class="text-muted">(22)</small></a>
                         </div>
                     </div>
-                    
+
                     @*todo 價格區間拉bar無法套用*@
                     @*<div class="filter-price-left">
-                        <div class="title-left">
-                            <h3>Price</h3>
-                        </div>
-                        <div class="price-box-slider">
-                            <div id="slider-range"></div>
-                            <p>
-                                <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                <button class="btn hvr-hover" type="submit">Filter</button>
-                            </p>
-                        </div>
-                    </div>*@
+                            <div class="title-left">
+                                <h3>Price</h3>
+                            </div>
+                            <div class="price-box-slider">
+                                <div id="slider-range"></div>
+                                <p>
+                                    <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
+                                    <button class="btn hvr-hover" type="submit">Filter</button>
+                                </p>
+                            </div>
+                        </div>*@
                 </div>
             </div>
         </div>

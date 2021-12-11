@@ -1,4 +1,4 @@
-﻿
+﻿@model 鮮蔬果季_前台.Models.Product
 @{
     ViewData["Title"] = "ShopDetail";
 }
@@ -9,6 +9,7 @@
             width: 400px;
             height: 450px;
         }
+
         .carousel-indicators img {
             object-fit: cover;
             width: 80px;
@@ -16,24 +17,29 @@
         }
 
         .all-title-box {
-           /* background: url("../images/test1.jpg") no-repeat center center;*/
+            /* background: url("../images/test1.jpg") no-repeat center center;*/
             background-size: cover;
         }
+
         .mr-2 img {
             object-fit: cover;
             width: 80px;
             height: 80px;
         }
-        .card{
-                width:100%;
+
+        .card {
+            width: 100%;
         }
-        .carousel-indicators{
-            background:none;
+
+        .carousel-indicators {
+            background: none;
         }
-        .price-box-bar a{
-            color:#ffffff;
-            margin-right:5px;
+
+        .price-box-bar a {
+            color: #ffffff;
+            margin-right: 5px;
         }
+
         .btn:hover {
             /*color: #ffffff;*/
         }
@@ -85,12 +91,12 @@
             </div>
             <div class="col-xl-7 col-lg-7 col-md-6">
                 <div class="single-product-details">
-                    <h2>紅蘿蔔 (興農種苗)</h2>
-                    <h5> <del>NT$ 80</del> NT$ 65</h5>
-                    <p class="available-stock"><span>超過20的庫存/ <a href="#">8 已售出 </a></span><p>
+                    <h2>@Model.ProductName (興農種苗)</h2>
+                    <h5> @*<del>NT$ 80</del>*@ NT$ @Model.ProductUnitPrice</h5>
+                    <p class="available-stock"><span>@Model.ProductUnitsInStock 庫存/ <a href="#">8 已售出 </a></span><p>
                         <h4>商品描述:</h4>
                     <p>
-                        產地鮮採直送到府，濃郁的紅蘿蔔香氣，營養驚人的紅蘿蔔
+                        @Model.ProductDescription
                     </p>
                     <ul>
                         <li>
@@ -110,7 +116,7 @@
 
                     <div class="add-to-btn">
                         <div class="add-comp">
-                            <a class="btn hvr-hover"asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart"></i> 加入我的最愛</a>
+                            <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart"></i> 加入我的最愛</a>
                         </div>
                         <div class="share-bar">
                             <a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -130,12 +136,12 @@
                 <div class="card-body">
                     <div class="media mb-3">
                         <div class="mr-2">
-                            <img class="rounded-circle border p-1" src="~/images/img-1.jpg"  alt="Generic placeholder image">
+                            <img class="rounded-circle border p-1" src="~/images/img-1.jpg" alt="Generic placeholder image">
                         </div>
                         <div class="media-body">
                             <p>江凱詳</p>
                             <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
-                            
+
                             <p>商品品質優良，下次有需要會再跟你買！送貨速度良好，服務態度良好。</p>
                             <small class="text-muted">2021-09-04 23:20</small>
                         </div>
