@@ -31,6 +31,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual DbSet<MyFavorite> MyFavorites { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<PayMethod> PayMethods { get; set; }
         public virtual DbSet<PhotoBank> PhotoBanks { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductOnSale> ProductOnSales { get; set; }
@@ -123,7 +124,7 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.CouponName)
                     .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(30)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             });
 
@@ -346,7 +347,13 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
+                entity.Property(e => e.PayMethodId).HasColumnName("PayMethodID");
+
                 entity.Property(e => e.ShippedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ShippedTo)
+                    .IsRequired()
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
@@ -387,6 +394,18 @@ namespace 鮮蔬果季_前台.Models
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderDetails_Products");
+            });
+
+            modelBuilder.Entity<PayMethod>(entity =>
+            {
+                entity.ToTable("PayMethod");
+
+                entity.Property(e => e.PayMethodId).HasColumnName("PayMethodID");
+
+                entity.Property(e => e.Method)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             });
 
             modelBuilder.Entity<PhotoBank>(entity =>

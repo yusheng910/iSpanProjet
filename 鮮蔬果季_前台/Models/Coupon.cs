@@ -15,8 +15,8 @@ namespace 鮮蔬果季_前台.Models
 
         public int CouponId { get; set; }
         public string CouponName { get; set; }
-        public double CouponDiscount { get; set; }
-        public int DiscountCondition { get; set; }
+        public int CouponDiscount { get; set; }
+        public int? DiscountCondition { get; set; }
         public string CouponDescription { get; set; }
 
         public virtual ICollection<CouponDetail> CouponDetails { get; set; }
