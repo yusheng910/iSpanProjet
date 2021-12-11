@@ -17,19 +17,24 @@ namespace 鮮蔬果季_前台.Models
         {
         }
 
+        public virtual DbSet<Announce> Announces { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryDetail> CategoryDetails { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<CouponDetail> CouponDetails { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<EventPhotoBank> EventPhotoBanks { get; set; }
         public virtual DbSet<EventRegistration> EventRegistrations { get; set; }
+        public virtual DbSet<HomePageCover> HomePageCovers { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MyFavorite> MyFavorites { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<PhotoBank> PhotoBanks { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductOnSale> ProductOnSales { get; set; }
+        public virtual DbSet<ProductPhotoBank> ProductPhotoBanks { get; set; }
         public virtual DbSet<ProductPriceChange> ProductPriceChanges { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
@@ -41,12 +46,24 @@ namespace 鮮蔬果季_前台.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=114.34.127.248,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
+                optionsBuilder.UseSqlServer("Data Source=114.34.127.248\\DESKTOP-FBDIF9U,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Announce>(entity =>
+            {
+                entity.ToTable("Announce");
+
+                entity.Property(e => e.AnnounceId).HasColumnName("AnnounceID");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
@@ -170,6 +187,27 @@ namespace 鮮蔬果季_前台.Models
                     .HasConstraintName("FK_Events_Suppliers");
             });
 
+            modelBuilder.Entity<EventPhotoBank>(entity =>
+            {
+                entity.HasKey(e => e.EventPhotoId);
+
+                entity.ToTable("EventPhotoBank");
+
+                entity.Property(e => e.EventPhotoId).HasColumnName("EventPhotoID");
+
+                entity.Property(e => e.EventId).HasColumnName("EventID");
+
+                entity.Property(e => e.PhotoPath)
+                    .IsRequired()
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.EventPhotoBanks)
+                    .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EventPhotoBank_Events");
+            });
+
             modelBuilder.Entity<EventRegistration>(entity =>
             {
                 entity.ToTable("EventRegistration");
@@ -191,6 +229,33 @@ namespace 鮮蔬果季_前台.Models
                     .WithMany(p => p.EventRegistrations)
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_EventRegistration_Members");
+            });
+
+            modelBuilder.Entity<HomePageCover>(entity =>
+            {
+                entity.HasKey(e => e.CoverId);
+
+                entity.ToTable("HomePageCover");
+
+                entity.Property(e => e.CoverId).HasColumnName("CoverID");
+
+                entity.Property(e => e.CoverDescription)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.CoverPhotoPath)
+                    .IsRequired()
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.CoverTitle1)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("(N'歡迎來到鮮蔬果季')")
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.CoverTitle2)
+                    .HasMaxLength(20)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             });
 
             modelBuilder.Entity<Member>(entity =>
@@ -215,6 +280,8 @@ namespace 鮮蔬果季_前台.Models
                     .IsRequired()
                     .HasMaxLength(10)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.MemberPhotoPass).UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.Mobile)
                     .IsRequired()
@@ -370,6 +437,57 @@ namespace 鮮蔬果季_前台.Models
                     .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Products_Suppliers");
+            });
+
+            modelBuilder.Entity<ProductOnSale>(entity =>
+            {
+                entity.HasKey(e => e.SaleId);
+
+                entity.ToTable("ProductOnSale");
+
+                entity.Property(e => e.SaleId).HasColumnName("SaleID");
+
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.SaleDescription)
+                    .HasMaxLength(200)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.SaleTitle)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductOnSales)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductOnSale_Products");
+            });
+
+            modelBuilder.Entity<ProductPhotoBank>(entity =>
+            {
+                entity.HasKey(e => e.ProductPhotoId);
+
+                entity.ToTable("ProductPhotoBank");
+
+                entity.Property(e => e.ProductPhotoId).HasColumnName("ProductPhotoID");
+
+                entity.Property(e => e.PhotoPath)
+                    .IsRequired()
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductPhotoBanks)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductPhotoBank_Products");
             });
 
             modelBuilder.Entity<ProductPriceChange>(entity =>

@@ -13,6 +13,8 @@ namespace 鮮蔬果季_前台.Models
             MyFavorites = new HashSet<MyFavorite>();
             OrderDetails = new HashSet<OrderDetail>();
             PhotoBanks = new HashSet<PhotoBank>();
+            ProductOnSales = new HashSet<ProductOnSale>();
+            ProductPhotoBanks = new HashSet<ProductPhotoBank>();
             ProductPriceChanges = new HashSet<ProductPriceChange>();
             ShoppingCarts = new HashSet<ShoppingCart>();
         }
@@ -29,12 +31,15 @@ namespace 鮮蔬果季_前台.Models
         public bool DefectiveGood { get; set; }
         public bool InShop { get; set; }
         public byte[] ProductQrcode { get; set; }
+        public bool HotProduct { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<CategoryDetail> CategoryDetails { get; set; }
         public virtual ICollection<MyFavorite> MyFavorites { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<PhotoBank> PhotoBanks { get; set; }
+        public virtual ICollection<ProductOnSale> ProductOnSales { get; set; }
+        public virtual ICollection<ProductPhotoBank> ProductPhotoBanks { get; set; }
         public virtual ICollection<ProductPriceChange> ProductPriceChanges { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
