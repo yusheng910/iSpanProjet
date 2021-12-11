@@ -21,10 +21,15 @@ namespace 鮮蔬果季_前台.Controllers
                        select new { prod,supp};
             foreach (var item in 所有產品)
             {
+                db = new 鮮蔬果季Context();
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+               var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
+                相片List.Add(封面相片);
                 所有商品列表.Add(new ShoppingListViewModel()
                 {
                     product=item.prod,
-                    supplier = item.supp
+                    supplier = item.supp,
+                    photoBank= 相片List
                 }) ; 
             }
             return View(所有商品列表);
