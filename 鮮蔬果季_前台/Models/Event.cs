@@ -9,6 +9,7 @@ namespace 鮮蔬果季_前台.Models
     {
         public Event()
         {
+            EventPhotoBanks = new HashSet<EventPhotoBank>();
             EventRegistrations = new HashSet<EventRegistration>();
         }
 
@@ -25,6 +26,7 @@ namespace 鮮蔬果季_前台.Models
 
         public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }
+        public virtual ICollection<EventPhotoBank> EventPhotoBanks { get; set; }
         public virtual ICollection<EventRegistration> EventRegistrations { get; set; }
     }
 }

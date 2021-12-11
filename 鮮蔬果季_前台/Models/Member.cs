@@ -26,7 +26,7 @@ namespace 鮮蔬果季_前台.Models
         public string Mobile { get; set; }
         public int CityId { get; set; }
         public DateTime RegisteredDate { get; set; }
-        public byte[] MemberPhoto { get; set; }
+        public string MemberPhotoPass { get; set; }
 
         public virtual City City { get; set; }
         public virtual ICollection<CouponDetail> CouponDetails { get; set; }
