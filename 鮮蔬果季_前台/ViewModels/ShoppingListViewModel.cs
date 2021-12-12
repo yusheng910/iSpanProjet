@@ -49,6 +49,7 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphoto = value;
             }
         }
+        public int 出售量 { get; set; }
         //public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         //public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
         //public int SupplierId { get { return this.product.SupplierId; } set { this.product.SupplierId = value; } }

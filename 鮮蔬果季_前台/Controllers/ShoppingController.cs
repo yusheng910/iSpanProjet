@@ -55,13 +55,17 @@ namespace 鮮蔬果季_前台.Controllers
                        select new { p, s }).FirstOrDefault();
             if (商品明細 == null)
                 return RedirectToAction("List");
-            db = new 鮮蔬果季Context();
+            //db = new 鮮蔬果季Context();
             var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId ==id);
+            var 商品出售數量 = (from p in db.OrderDetails
+                         where p.ProductId == id
+                         group p by p.ProductId into g
+                         select  g.Sum(p => p.UnitsPurchased)).FirstOrDefault();
             單筆商品.product = 商品明細.p;
             單筆商品.supplier = 商品明細.s;
             foreach (var 照片 in 封面相片)
                 單筆商品.photoBank.Add(照片);
-
+            單筆商品.出售量 = 商品出售數量;
             return View(單筆商品);
         }
 

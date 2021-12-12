@@ -128,7 +128,7 @@
                 <div class="single-product-details">
                     <h2>@Model.product.ProductName (@Model.supplier.SupplierName)</h2>
                     <h5> @*<del>NT$ 80</del>*@ NT$ @Model.product.ProductUnitPrice</h5>
-                    <p class="available-stock"><span>@Model.product.ProductUnitsInStock 庫存/ <a href="#">8 已售出 </a></span><p>
+                    <p class="available-stock"><span> 尚餘 @Model.product.ProductUnitsInStock 件  /  <a href="#">@Model.出售量 已售出 </a></span><p>
                         <h4>商品描述:</h4>
                     <p>
                         @Model.product.ProductDescription
