@@ -155,7 +155,17 @@
 
                     <div class="add-to-btn">
                         <div class="add-comp">
-                            <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart"></i> 加入我的最愛</a>
+                            @{
+                                if (Model.myFavorite.MyFavoriteId != 0)
+                                {
+                                    <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart"  style="color: #FF2D2D"></i> 移除我的最愛</a>
+                                }
+                                else
+                                {
+                                    <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart"></i> 加入我的最愛</a>
+                                }
+                            }
+
                         </div>
                         <div class="share-bar">
                             <a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>

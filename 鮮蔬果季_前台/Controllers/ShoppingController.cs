@@ -25,11 +25,13 @@ namespace 鮮蔬果季_前台.Controllers
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
                 相片List.Add(封面相片);
+                var 最愛商品= db.MyFavorites.FirstOrDefault(f => f.MemberId == 2 &&f.ProductId==item.prod.ProductId); /*TODO 目前會員ID寫死的*/
                 所有商品列表.Add(new ShoppingListViewModel()
                 {
                     product=item.prod,
                     supplier = item.supp,
-                    photoBank= 相片List
+                    photoBank= 相片List,
+                    myFavorite= 最愛商品
                 }) ; 
             }
             return View(所有商品列表);
@@ -57,6 +59,7 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("List");
             //db = new 鮮蔬果季Context();
             var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId ==id);
+            var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == 2 && f.ProductId == id); /*TODO 目前會員ID寫死的*/
             var 商品出售數量 = (from p in db.OrderDetails
                          where p.ProductId == id
                          group p by p.ProductId into g
@@ -66,6 +69,7 @@ namespace 鮮蔬果季_前台.Controllers
             foreach (var 照片 in 封面相片)
                 單筆商品.photoBank.Add(照片);
             單筆商品.出售量 = 商品出售數量;
+            單筆商品.myFavorite = 最愛商品;
             return View(單筆商品);
         }
 
