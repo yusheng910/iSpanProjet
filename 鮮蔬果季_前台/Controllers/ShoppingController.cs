@@ -19,9 +19,9 @@ namespace 鮮蔬果季_前台.Controllers
                        join supp in db.Suppliers 
                        on prod.SupplierId equals supp.SupplierId 
                        select new { prod,supp};
+            db = new 鮮蔬果季Context();
             foreach (var item in 所有產品)
-            {
-                db = new 鮮蔬果季Context();
+            {            
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
                 相片List.Add(封面相片);
@@ -55,8 +55,12 @@ namespace 鮮蔬果季_前台.Controllers
                        select new { p, s }).FirstOrDefault();
             if (商品明細 == null)
                 return RedirectToAction("List");
+            db = new 鮮蔬果季Context();
+            var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId ==id);
             單筆商品.product = 商品明細.p;
             單筆商品.supplier = 商品明細.s;
+            foreach (var 照片 in 封面相片)
+                單筆商品.photoBank.Add(照片);
 
             return View(單筆商品);
         }
