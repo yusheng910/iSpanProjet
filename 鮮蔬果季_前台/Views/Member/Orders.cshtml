@@ -1,4 +1,4 @@
-﻿
+﻿@model List<鮮蔬果季_前台.ViewModels.OrderListViewModel>
 @{
     ViewData["Title"] = "Orders";
 }
@@ -23,6 +23,7 @@
             height: 96px;
             object-fit: cover;
         }
+
         .orderid-p {
             text-align: left;
         }
@@ -50,6 +51,7 @@
                         <thead>
                             <tr>
                                 <th></th>
+                                <th></th>
                                 <th>下單日期</th>
                                 <th>總價</th>
                                 <th>訂單編號</th>
@@ -57,25 +59,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="thumbnail-img">
-                                    <a href="#">
-                                        <img class="img-fluid" src="~/images/order-vegetablebag.jpg" alt="" />
-                                    </a>
-                                </td>
-                                <td class="orderdate-p">
-                                    <p>2021/11/30/14:32</p>
-                                </td>
-                                <td class="price-pr">
-                                    <p>NT$ 377</p>
-                                </td>
-                                <td class="orderid-p">
-                                    <p># 202-5587086-4005927</p>
-                                </td>
-                                <td class="add-pr">
-                                    <a asp-area="" asp-controller="Member" asp-action="OrderDetail" class="btn hvr-hover" id="btnaddcart">檢視</a>
-                                </td>
-                            </tr>
+                            @{
+                                    int count = 0;
+                                    foreach (var order in Model)
+                                    {
+                                        count++;
+                                    <tr>
+                                        <td>
+                                            @count
+                                        </td>
+                                        <td class="thumbnail-img">
+                                            <a href="#">
+                                                <img class="img-fluid" src="~/images/order-vegetablebag.jpg" alt="" />
+                                            </a>
+                                        </td>
+                                        <td class="orderdate-p">
+                                            <p>@Html.DisplayFor(modelItem => order.OrderDate)</p>
+                                        </td>
+                                        <td class="price-pr">
+                                            <p>NT$ XXX(價錢從哪抓?)</p>
+                                        </td>
+                                        <td class="orderid-p">
+                                            <p>@Html.DisplayFor(modelItem => order.OrderId)</p>
+                                        </td>
+                                        <td class="add-pr">
+                                            <a asp-area="" asp-controller="Member" asp-action="OrderDetail" class="btn hvr-hover" id="btnaddcart">檢視</a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            }
                         </tbody>
                     </table>
                 </div>

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using 鮮蔬果季_前台.Models;
+using 鮮蔬果季_前台.ViewModels;
 
 namespace 鮮蔬果季_前台.Controllers
 {
@@ -10,7 +12,15 @@ namespace 鮮蔬果季_前台.Controllers
     {
         public IActionResult Orders()
         {
-            return View();
+            IEnumerable<Order> orders = null;
+            orders = from p in (new 鮮蔬果季Context()).Orders
+                     where p.MemberId == 2
+                     select p;
+            List<OrderListViewModel> list = new List<OrderListViewModel>();
+
+            foreach (Order o in orders)
+                list.Add(new OrderListViewModel() { order = o });
+            return View(list);
         }
         public IActionResult OrderDetail()
         {

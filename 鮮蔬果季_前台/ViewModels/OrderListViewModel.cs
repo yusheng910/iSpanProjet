@@ -8,33 +8,44 @@ namespace 鮮蔬果季_前台.ViewModels
 {
     public class OrderListViewModel
     {
-        public Order _order = null;
-        public Order order
-        {
-            get
-            {
-                if (_order == null)
-                    _order = new Order();
-                return _order;
-            }
-            set
-            {
-                _order = value;
-            }
+        public Order order { get; set; }
+        public int OrderId {
+            get { return this.order.OrderId; }
+            set { this.order.OrderId = value; } 
         }
-        public Status _stat = null;
-        public Status stat
-        {
-            get
-            {
-                if (_stat == null)
-                    _stat = new Status();
-                return _stat;
-            }
-            set
-            {
-                _stat = value;
-            }
+
+        public DateTime OrderDate {
+            get { return this.order.OrderDate; }
+            set { this.order.OrderDate = value; }
         }
+        public string ShippedTo {
+            get { return this.order.ShippedTo; }
+            set { this.order.ShippedTo = value; }
+        }
+        public DateTime? ShippedDate {
+            get { return this.order.ShippedDate; }
+            set { this.order.ShippedDate = value; }
+        }
+
+        public int StatusId {//todo 測試導覽屬性
+            get { return this.order.StatusId; }
+            set { this.order.StatusId = value; }
+        }
+
+        public int MemberId {
+            get { return this.order.MemberId; }
+            set { this.order.MemberId = value; }
+        }
+        public int? CouponId
+        {
+            get { return this.order.CouponId; }
+            set { this.order.CouponId = value; }
+        }
+        public int PayMethodId { get; set; }
+
+        public virtual Coupon coupon { get; set; }
+        public virtual Member member { get; set; }
+        public virtual Status status { get; set; }
+        public virtual ICollection<OrderDetail> orderDetails { get; set; }
     }
 }
