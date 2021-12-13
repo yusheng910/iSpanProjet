@@ -11,14 +11,38 @@ namespace 鮮蔬果季_前台.Controllers
     public class ShoppingController : Controller
     {
 
-        public IActionResult List()
+        public IActionResult List(CSelectViewModel select)
         {
             鮮蔬果季Context db = new 鮮蔬果季Context();
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有產品 = from prod in db.Products
-                       join supp in db.Suppliers 
-                       on prod.SupplierId equals supp.SupplierId 
-                       select new { prod,supp};
+                       join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                       select new { prod, supp };
+            if (select.SelectOrderBy == 0)
+            {
+                所有產品 = from prod in db.Products
+                       join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                       select new { prod, supp };
+            }
+            else if (select.SelectOrderBy == 2)
+            {
+                所有產品 = from prod in db.Products
+                       join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                       orderby prod.ProductUnitPrice descending
+                       select new { prod, supp };
+            }
+            else if (select.SelectOrderBy == 3)
+            {
+                所有產品 = from prod in db.Products
+                       join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                       orderby prod.ProductUnitPrice
+                       select new { prod, supp };
+            }
+
             db = new 鮮蔬果季Context();
             foreach (var item in 所有產品)
             {            
