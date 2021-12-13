@@ -43,12 +43,17 @@
                         <div class="col-12 col-sm-8 text-center text-sm-left">
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
-                                <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                                    <option data-display="Select">鮮蔬果季隨機推薦</option>
-                                    <option value="1">本月熱銷商品</option>
-                                    <option value="2">價格 (由高至低)</option>
-                                    <option value="3">價格 (由低至高)</option>
-                                </select>
+                                @using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
+                                {
+                                    <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                        <option value="0">鮮蔬果季隨機推薦</option>
+                                        <option value="1" data-display="Select" >本月熱銷商品</option>
+                                        <option value="2" >價格 (由高至低)</option>
+                                        <option value="3">價格 (由低至高)</option>
+                                    </select>
+                                    <input type="submit" value="查詢">
+                                }
+
                             </div>
                             @*<p>Showing all 4 results</p>*@
                         </div>
@@ -89,11 +94,11 @@
                                                             @{
                                                                 if (item.myFavorite.MyFavoriteId != 0)
                                                                 {
-                                                                    <li ><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>
+                                                                    <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛" ><i class="far fa-heart"></i></a></li>
+                                                                    <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
                                                                 }
                                                             }
                                                         </ul>
@@ -268,3 +273,14 @@
     </div>
 </div>
 <!-- End Shop Page -->
+@section Scripts{
+    <script>
+        $("#basic").change(function () {
+            $("#slectForm").submit();
+            var opt = $("#basic").val;
+            console.log(opt);
+        });
+        @*TODO 下拉式選單選時要跳到那個選項*@
+        $("#basic").find("option").val;
+    </script>
+}
