@@ -77,11 +77,25 @@
                                                     <div class="type-lb">
                                                         <p class="sale">Sale</p>
                                                     </div>
-                                                    <img src="~/images/商品照/冬瓜.jpg" class="img-fluid" alt="Image">
+                                                    @{if (@item.photoBank[0] != null)
+                                                        {
+                                                            <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-fluid" alt="Image">
+                                                        }
+                                                    }
+
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
+                                                            @{
+                                                                if (item.myFavorite.MyFavoriteId != 0)
+                                                                {
+                                                                    <li ><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="加入我的最愛" ><i class="far fa-heart"></i></a></li>
+                                                                }
+                                                            }
                                                         </ul>
                                                         <a class="cart" href="#">加入購物車</a>
                                                     </div>

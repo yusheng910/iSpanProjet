@@ -3,49 +3,16 @@
     ViewData["Title"] = "PartnerBlog";
 }
 
-@{
-    ViewData["Title"] = "Home Page";
-}
+<link rel="stylesheet" href="~/assets/css/main.css">
 
-<!DOCTYPE html>
-<html>
-<head>
-    @*<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">*@
-    <!-- favicon -->
-    @*<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">*@
-    <!-- google font -->
-    @*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">*@
-    <!-- fontawesome -->
-    <!--<link rel="stylesheet" href="assets/css/all.min.css">-->
-    <!-- bootstrap -->
-    <!--<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">-->
-    <!-- owl carousel -->
-    <!--<link rel="stylesheet" href="assets/css/owl.carousel.css">-->
-    <!-- magnific popup -->
-    <!--<link rel="stylesheet" href="assets/css/magnific-popup.css">-->
-    <!-- animate css -->
-    <!--<link rel="stylesheet" href="assets/css/animate.css">-->
-    <!-- mean menu css -->
-    <!--<link rel="stylesheet" href="assets/css/meanmenu.min.css">-->
-    <!-- main style -->
-    <link rel="stylesheet" href="~/assets/css/main.css">
-    <!-- responsive -->
-    @*<link rel="stylesheet" href="~/assets/css/responsive.css">*@
+@section Styles{
     <style>
         /*===========更改置頂圖片樣式(獨立)=============================*/
         .all-title-box_Partner {
             background: url("../images/a.jpg") no-repeat center center;
-/*          -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -ms-background-size: cover;
-            -o-background-size: cover;*/
             background-size: cover;
             text-align: center;
-/*            background-attachment: fixed;*/
+            /*            background-attachment: fixed;*/
             padding: 70px 0px;
             position: relative;
         }
@@ -60,6 +27,7 @@
                 left: 0px;
                 top: 0px;
             }
+
             .all-title-box_Partner h2 {
                 font-size: 28px;
                 font-weight: 700;
@@ -67,35 +35,9 @@
                 float: left;
                 padding: 10px 0px;
             }
-
-            .all-title-box_Partner .breadcrumb {
-                background: #b0b435;
-                margin: 0px;
-                display: inline-block;
-                border-radius: 0px;
-                float: right;
-            }
-
-                .all-title-box_Partner .breadcrumb li {
-                    display: inline-block;
-                    color: #000000;
-                    font-size: 16px;
-                }
-
-                    .all-title-box_Partner .breadcrumb li a {
-                        color: #ffffff;
-                        font-size: 16px;
-                    }
-
-            .all-title-box_Partner .breadcrumb-item + .breadcrumb-item::before {
-                color: #000000;
-            }
-
     </style>
+    }
 
-
-</head>
-<body>
     <!-- Start All Title Box===================================================== -->
     <div class="all-title-box_Partner">
         <div class="container">
@@ -225,35 +167,4 @@
     </div>
 
     <div style="padding-bottom:50px"></div>   @*間格用*@
-    <!-- end latest news -->
-    <!-- logo carousel -->
-    <!--<div class="logo-carousel-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo-carousel-inner">
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/1.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/2.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/3.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/4.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="assets/img/company-logos/5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-    <!-- end logo carousel -->
-
-</body>
-</html>
 

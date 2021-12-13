@@ -35,6 +35,36 @@ namespace 鮮蔬果季_前台.ViewModels
                 _supp = value;
             }
         }
+        public List<ProductPhotoBank> _prodphoto = null;
+        public List<ProductPhotoBank> photoBank
+        {
+            get
+            {
+                if (_prodphoto == null)
+                    _prodphoto = new List<ProductPhotoBank>();
+                return _prodphoto;
+            }
+            set
+            {
+                _prodphoto = value;
+            }
+        }
+        public int 出售量 { get; set; }
+
+        public MyFavorite _favorite = null;
+        public MyFavorite myFavorite
+        {
+            get
+            {
+                if (_favorite == null)
+                    _favorite = new MyFavorite();
+                return _favorite;
+            }
+            set
+            {
+                _favorite = value;
+            }
+        }
         //public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         //public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
         //public int SupplierId { get { return this.product.SupplierId; } set { this.product.SupplierId = value; } }
