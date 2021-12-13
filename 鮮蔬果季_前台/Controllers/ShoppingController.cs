@@ -19,13 +19,14 @@ namespace 鮮蔬果季_前台.Controllers
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        select new { prod, supp };
-            if (select.SelectOrderBy == 0)
+            if (select.SelectOrderBy == 1)
             {
                 所有產品 = from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
+                       orderby prod.ProduceDate descending
                        select new { prod, supp };
-                ViewBag.Select = 0;
+                ViewBag.Select = 1;
             }
             else if (select.SelectOrderBy == 2)
             {

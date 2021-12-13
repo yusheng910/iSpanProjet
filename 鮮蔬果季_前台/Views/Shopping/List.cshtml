@@ -47,7 +47,7 @@
                                 {
                                     <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
                                         <option value="0">鮮蔬果季隨機推薦</option>
-                                        <option value="1" data-display="Select" >本月熱銷商品</option>
+                                        <option value="1" data-display="Select" >最新商品</option>
                                         <option value="2" >價格 (由高至低)</option>
                                         <option value="3">價格 (由低至高)</option>
                                     </select>
@@ -108,7 +108,7 @@
                                                     @{
 
                                                     }
-                                                    <h4>@item.product.ProductName (@item.supplier.SupplierName)</h4>
+                                                    <h4>【@item.supplier.SupplierName】@item.product.ProductName</h4>
                                                     @{
                                                         string 規格 = @item.product.ProductSize;
                                                         string[] 公克 = 規格.Split("/");
