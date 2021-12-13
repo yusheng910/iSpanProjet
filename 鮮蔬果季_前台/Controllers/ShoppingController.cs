@@ -25,6 +25,7 @@ namespace 鮮蔬果季_前台.Controllers
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        select new { prod, supp };
+                ViewBag.Select = 0;
             }
             else if (select.SelectOrderBy == 2)
             {
@@ -33,6 +34,7 @@ namespace 鮮蔬果季_前台.Controllers
                        on prod.SupplierId equals supp.SupplierId
                        orderby prod.ProductUnitPrice descending
                        select new { prod, supp };
+                ViewBag.Select = 2;
             }
             else if (select.SelectOrderBy == 3)
             {
@@ -41,6 +43,7 @@ namespace 鮮蔬果季_前台.Controllers
                        on prod.SupplierId equals supp.SupplierId
                        orderby prod.ProductUnitPrice
                        select new { prod, supp };
+                ViewBag.Select = 3;
             }
 
             db = new 鮮蔬果季Context();

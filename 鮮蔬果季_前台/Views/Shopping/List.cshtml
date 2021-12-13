@@ -51,7 +51,6 @@
                                         <option value="2" >價格 (由高至低)</option>
                                         <option value="3">價格 (由低至高)</option>
                                     </select>
-                                    <input type="submit" value="查詢">
                                 }
 
                             </div>
@@ -280,7 +279,7 @@
             var opt = $("#basic").val;
             console.log(opt);
         });
-        @*TODO 下拉式選單選時要跳到那個選項*@
-        $("#basic").find("option").val;
+        @*下拉式選單選時要跳到那個選項*@
+        $("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);
     </script>
 }
