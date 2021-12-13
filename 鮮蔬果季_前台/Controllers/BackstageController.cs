@@ -31,5 +31,11 @@ namespace 鮮蔬果季_前台.Controllers
                     select p;
             return View(q);
         }
+
+        public IActionResult Event()
+        {
+            return View();
+        }
+
     }
 }
