@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewData["Title"] = "Event";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+}
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h2 class="mb-2 page-title">活動管理</h2>
+        <p class="card-text"></p>
+        <div class="row my-4">
+            <!-- Small table -->
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <!-- table -->
+                        <table class="table datatables" id="dataTable-1">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>產品ID</th>
+                                    <th>產品名稱</th>
+                                    <th>供應商ID</th>
+                                    <th>供應商名稱</th>
+                                    <th>售價</th>
+                                    <th>進價</th>
+                                    <th>生效日</th>
+                                    <th>分類名稱</th>
+                                    <th>編輯</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <label class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                    <td>2</td>
+                                    <td>紅蘿蔔</td>
+                                    <td>13</td>
+                                    <td>大自然農場</td>
+                                    <td>35</td>
+                                    <td>20</td>
+                                    <td>2021/10/5</td>
+                                    <td>根莖類</td>
+                                    <td>
+                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">修改</a>
+                                            <a class="dropdown-item" href="#">移除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <label class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                    <td>4</td>
+                                    <td>小白菜</td>
+                                    <td>10</td>
+                                    <td>大台北農場</td>
+                                    <td>55</td>
+                                    <td>35</td>
+                                    <td>2021/11/5</td>
+                                    <td>葉菜類</td>
+                                    <td>
+                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">修改</a>
+                                            <a class="dropdown-item" href="#">移除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <label class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                    <td>1</td>
+                                    <td>山藥</td>
+                                    <td>23</td>
+                                    <td>長青農場</td>
+                                    <td>120</td>
+                                    <td>100</td>
+                                    <td>2021/09/5</td>
+                                    <td>根莖類</td>
+                                    <td>
+                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">修改</a>
+                                            <a class="dropdown-item" href="#">移除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <label class="custom-control-label"></label>
+                                        </div>
+                                    </td>
+                                    <td>3</td>
+                                    <td>香蕉</td>
+                                    <td>50</td>
+                                    <td>輕鬆農場</td>
+                                    <td>50</td>
+                                    <td>45</td>
+                                    <td>2021/08/5</td>
+                                    <td>水果類</td>
+                                    <td>
+                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">修改</a>
+                                            <a class="dropdown-item" href="#">移除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- simple table -->
+        </div> <!-- end section -->
+    </div> <!-- .col-12 -->
+</div> <!-- .row -->
+@section Scripts{
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
+        $('#dataTable-1').DataTable(
+            {
+                autoWidth: true,
+                "lengthMenu": [
+                    [16, 32, 64, -1],
+                    [16, 32, 64, "All"]
+                ]
+            });
+    </script>
+}

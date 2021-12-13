@@ -2,49 +2,21 @@
 @{
     ViewData["Title"] = "EventSignUp_1";
 }
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-    <!-- title -->
-    <title>Single News</title>
-
-    <!-- favicon -->
-    <!--<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">-->
-    <!-- google font -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">-->
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+   @*該頁使用獨立的css樣式*@
     <link rel="stylesheet" href="~/assets/css/main.css">
-    <!-- responsive -->
-    <link rel="stylesheet" href="~/assets/css/responsive.css">
 
-    <style>
+    @section Styles{
+
+        <style>
         /*===========更改置頂圖片樣式(獨立)=============================*/
         .all-title-box_Partner {
             background: url("../images/a.jpg") no-repeat center center;
-            /*          -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -ms-background-size: cover;
-            -o-background-size: cover;*/
             background-size: cover;
             text-align: center;
             /*            background-attachment: fixed;*/
             padding: 70px 0px;
             position: relative;
         }
-
             .all-title-box_Partner::before {
                 background: rgba(0,0,0,0.4);
                 content: "";
@@ -55,7 +27,6 @@
                 left: 0px;
                 top: 0px;
             }
-
             .all-title-box_Partner h2 {
                 font-size: 28px;
                 font-weight: 700;
@@ -63,43 +34,13 @@
                 float: left;
                 padding: 10px 0px;
             }
-
-            .all-title-box_Partner .breadcrumb {
-                background: #b0b435;
-                margin: 0px;
-                display: inline-block;
-                border-radius: 0px;
-                float: right;
-            }
-
-                .all-title-box_Partner .breadcrumb li {
-                    display: inline-block;
-                    color: #000000;
-                    font-size: 16px;
-                }
-
-                    .all-title-box_Partner .breadcrumb li a {
-                        color: #ffffff;
-                        font-size: 16px;
-                    }
-
-            .all-title-box_Partner .breadcrumb-item + .breadcrumb-item::before {
-                color: #000000;
-            }
-
         .carousel-inner img {        @*控制大圖尺寸*@
             object-fit: cover;
             width: 400px;
             height: 500px;
         }
-
-    </style>
-
-
-
-
-</head>
-<body>
+        </style>
+        }
 
     <!-- Start All Title Box===================================================== -->
     <div class="all-title-box_Partner">
@@ -212,93 +153,10 @@
                                     </div>
                                 </div>
                             </div>
-                            @*<div class="card single-accordion">
-                                    <div class="card-header" id="headingTwo">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Shipping Address
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shipping-address-form">
-                                                <p>Your shipping address form is here.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*@
-                            @*<div class="card single-accordion">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Card Details
-                                        </button>
-                                    </h5>
-                                </div>*@
-                            @*<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <div class="card-details">
-                                        <p>Your card details goes here.</p>
-                                    </div>
-                                </div>*@
-                            @*</div>
-                                </div>*@
                         </div>
-
                     </div>
                 </div>
-
-                @*<div class="col-lg-4">
-                        <div class="order-details-wrap">
-                            <table class="order-details">
-                                <thead>
-                                    <tr>
-                                        <th>Your order Details</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="order-details-body">
-                                    <tr>
-                                        <td>Product</td>
-                                        <td>Total</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Strawberry</td>
-                                        <td>$85.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Berry</td>
-                                        <td>$70.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lemon</td>
-                                        <td>$35.00</td>
-                                    </tr>
-                                </tbody>
-                                <tbody class="checkout-details">
-                                    <tr>
-                                        <td>Subtotal</td>
-                                        <td>$190</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping</td>
-                                        <td>$50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td>$240</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="boxed-btn">Place Order</a>
-                        </div>
-                    </div>*@
             </div>
         </div>
     </div>
     <div style="padding-bottom:50px"></div>   @*間格用*@
-
-
-</body>
-</html>
