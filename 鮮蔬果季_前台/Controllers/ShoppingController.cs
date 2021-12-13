@@ -19,34 +19,60 @@ namespace 鮮蔬果季_前台.Controllers
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        select new { prod, supp };
-            if (select.SelectOrderBy == 1)
+            if (select.SelectOrderBy == 1)/*最新商品*/
             {
                 所有產品 = from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        orderby prod.ProduceDate descending
                        select new { prod, supp };
+                if (!string.IsNullOrEmpty(select.txtKeyword))
+                    所有產品 = from prod in db.Products
+                           join supp in db.Suppliers
+                           on prod.SupplierId equals supp.SupplierId
+                           where prod.ProductName.Contains(@select.txtKeyword)
+                           orderby prod.ProduceDate descending
+                           select new { prod, supp };
                 ViewBag.Select = 1;
             }
-            else if (select.SelectOrderBy == 2)
+            else if (select.SelectOrderBy == 2) /*價格高到低*/
             {
                 所有產品 = from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        orderby prod.ProductUnitPrice descending
                        select new { prod, supp };
+                if (!string.IsNullOrEmpty(select.txtKeyword))
+                    所有產品 = from prod in db.Products
+                           join supp in db.Suppliers
+                           on prod.SupplierId equals supp.SupplierId
+                           where prod.ProductName.Contains(@select.txtKeyword)
+                           orderby prod.ProductUnitPrice descending
+                           select new { prod, supp };
                 ViewBag.Select = 2;
             }
-            else if (select.SelectOrderBy == 3)
+            else if (select.SelectOrderBy == 3)/*價格低到高*/
             {
                 所有產品 = from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        orderby prod.ProductUnitPrice
                        select new { prod, supp };
+                if (!string.IsNullOrEmpty(select.txtKeyword))
+                    所有產品 = from prod in db.Products
+                           join supp in db.Suppliers
+                           on prod.SupplierId equals supp.SupplierId
+                           where prod.ProductName.Contains(@select.txtKeyword)
+                           orderby prod.ProductUnitPrice
+                           select new { prod, supp };
                 ViewBag.Select = 3;
             }
-
+            else if(!string.IsNullOrEmpty(select.txtKeyword)) /*沒選排序直接搜尋*/
+                所有產品 = from prod in db.Products
+                       join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                       where prod.ProductName.Contains(@select.txtKeyword)
+                       select new { prod, supp };
             db = new 鮮蔬果季Context();
             foreach (var item in 所有產品)
             {            
