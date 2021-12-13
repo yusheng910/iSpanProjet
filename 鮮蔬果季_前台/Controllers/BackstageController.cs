@@ -19,7 +19,9 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Order()
         {
-            return View();
+            var q = from p in (new 鮮蔬果季Context()).Orders
+                    select p;
+            return View(q);
         }
         public IActionResult Product()
         {
