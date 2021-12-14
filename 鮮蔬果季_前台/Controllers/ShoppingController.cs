@@ -67,12 +67,14 @@ namespace 鮮蔬果季_前台.Controllers
                            select new { prod, supp };
                 ViewBag.Select = 3;
             }
-            else if(!string.IsNullOrEmpty(select.txtKeyword)) /*沒選排序直接搜尋*/
+            else if (!string.IsNullOrEmpty(select.txtKeyword)) /*沒選排序直接搜尋*/
+            {
                 所有產品 = from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        where prod.ProductName.Contains(@select.txtKeyword)
                        select new { prod, supp };
+            }
             db = new 鮮蔬果季Context();
             foreach (var item in 所有產品)
             {            
