@@ -122,10 +122,14 @@ namespace 鮮蔬果季_前台.Models
                     .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
+                entity.Property(e => e.CouponEndDate).HasColumnType("datetime");
+
                 entity.Property(e => e.CouponName)
                     .IsRequired()
                     .HasMaxLength(30)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.CouponStartDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<CouponDetail>(entity =>
@@ -134,11 +138,7 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.CouponDatilId).HasColumnName("CouponDatilID");
 
-                entity.Property(e => e.CouponEndDate).HasColumnType("datetime");
-
                 entity.Property(e => e.CouponId).HasColumnName("CouponID");
-
-                entity.Property(e => e.CouponStartDate).HasColumnType("datetime");
 
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
 

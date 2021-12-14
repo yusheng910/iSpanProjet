@@ -110,21 +110,34 @@
                                                     <div class="block">
                                                         <p>
                                                             @{
-                                                                string strdate = (item.couponDetail.CouponStartDate).ToString();
-                                                                string enddate = (item.couponDetail.CouponEndDate).ToString();
+                                                                string strdate = (item.coupon.CouponStartDate).ToString();
+                                                                string enddate = (item.coupon.CouponEndDate).ToString();
                                                                 string[] chgstrdate = strdate.Split(" ");
                                                                 string[] chgenddate = enddate.Split(" ");
                                                             }
-                                                            <span class="date">@Html.DisplayFor(modelItem => item.couponDetail.CouponStartDate) </span>
+                                                            <span class="date">@chgstrdate[0] </span>
                                                         </p>
                                                         <span class="date">至</span>
                                                         <p>
-                                                            <span class="date">@Html.DisplayFor(modelItem => item.couponDetail.CouponEndDate)</span>
+                                                            <span class="date">@chgenddate[0]</span>
                                                         </p>
                                                     </div>
-                                                    <a href="#" class="btn btn-sm btn-outline-danger btn-block">
+                                                    @{
+                                                        if (item.couponDetail.CouponId == item.coupon.CouponId)
+                                                        {
+                                                            <a href="#" class="btn btn-sm btn-outline-danger btn-block">
+                                                                領取
+                                                            </a> }
+                                                        else
+                                                        {
+                                                            <a href="#" class="btn btn-sm btn-outline-danger btn-block">
+                                                                未領取
+                                                            </a> 
+                                                            }
+                                                    }
+                                                    @*<a href="#" class="btn btn-sm btn-outline-danger btn-block">
                                                         領取
-                                                    </a>
+                                                    </a>*@
                                                 </div>
                                             </div>
                                         </div>

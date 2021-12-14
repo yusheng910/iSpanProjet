@@ -18,6 +18,8 @@ namespace 鮮蔬果季_前台.Models
         public int CouponDiscount { get; set; }
         public int? DiscountCondition { get; set; }
         public string CouponDescription { get; set; }
+        public DateTime CouponStartDate { get; set; }
+        public DateTime CouponEndDate { get; set; }
 
         public virtual ICollection<CouponDetail> CouponDetails { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
