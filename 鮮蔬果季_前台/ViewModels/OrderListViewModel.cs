@@ -41,6 +41,16 @@ namespace 鮮蔬果季_前台.ViewModels
             get { return this.order.CouponId; }
             set { this.order.CouponId = value; }
         }
+
+        //public int OrderDetailId {
+        //    get { return this.order.CouponId; }
+        //    set { this.order.CouponId = value; }
+        //}
+        //public int OrderId { get; set; } //todo OrderDetail
+        public int ProductId { get; set; }
+        public int UnitsPurchased { get; set; }
+        public bool HaveReviews { get; set; }
+
         public int PayMethodId { get; set; }
 
         public virtual Coupon coupon { get; set; }

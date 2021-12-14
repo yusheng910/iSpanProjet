@@ -32,7 +32,26 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult CouponsList()
         {
-            return View();
+            鮮蔬果季Context db = new 鮮蔬果季Context();
+            var q = from p in db.Coupons
+                    join x in db.CouponDetails
+                    on p.CouponId equals x.CouponId
+                    where x.MemberId == 2
+                    select new { x, p };
+            List<CouponsListViewModel> list = new List<CouponsListViewModel>(); 
+            foreach(var item in q)
+            {
+                list.Add(new CouponsListViewModel()
+                {
+                    coupon = item.p,
+                    couponDetail = item.x
+                });
+            }
+            return View(list);
+            //var q = from p in new 鮮蔬果季Context().Coupons
+            //        select p;
+            //return View(q);
+
         }
         public IActionResult MemberCenter()
         {
