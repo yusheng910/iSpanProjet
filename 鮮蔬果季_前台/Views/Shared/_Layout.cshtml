@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -124,7 +125,18 @@
                     <!-- Start Atribute Navigation -->
                     <div class="attr-nav " id="navbar-menu">
                         <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp" id="sereachfoucus">
-                            <li id="member"><a asp-area="" asp-controller="Login" asp-action="Login"><i class="fa fa-user s_color"></i> 會員註冊/登入</a></li>
+                            @{
+                                if (ViewBag.USER != null)
+                                {
+                                    <li id="member"><a asp-area="" asp-controller="Login" asp-action="Login"><i class="fa fa-user s_color"></i> @ViewBag.USER</a></li>
+                                 }
+                             
+                                else
+                                {
+                                    <li id="member"><a asp-area="" asp-controller="Login" asp-action="Login"><i class="fa fa-user s_color"></i> 會員註冊/登入</a></li>
+                                }
+                            }
+
                             <li id="member"><a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a></li>
                         </ul>
                     </div>

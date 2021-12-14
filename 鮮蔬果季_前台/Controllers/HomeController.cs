@@ -20,6 +20,7 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.USER = UserLogin.member.MemberName;
             return View();
         }
 
