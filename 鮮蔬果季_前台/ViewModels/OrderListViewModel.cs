@@ -41,6 +41,22 @@ namespace 鮮蔬果季_前台.ViewModels
             get { return this.order.CouponId; }
             set { this.order.CouponId = value; }
         }
+        public Status _stat = null;
+        public Status status
+        {
+            get
+            {
+                if (_stat == null)
+                    _stat = new Status();
+                return _stat;
+            }
+            set
+            {
+                _stat = value;
+            }
+        }
+
+        public int 總價 { get; set; } 
 
         //public int OrderDetailId {
         //    get { return this.order.CouponId; }
@@ -55,7 +71,6 @@ namespace 鮮蔬果季_前台.ViewModels
 
         public virtual Coupon coupon { get; set; }
         public virtual Member member { get; set; }
-        public virtual Status status { get; set; }
         public virtual ICollection<OrderDetail> orderDetails { get; set; }
     }
 }
