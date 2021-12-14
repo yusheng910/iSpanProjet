@@ -20,7 +20,10 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.USER = UserLogin.member.MemberName;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                ViewBag.USER = UserLogin.member.MemberName;
+            else
+                ViewBag.USER = null;
             return View();
         }
 
