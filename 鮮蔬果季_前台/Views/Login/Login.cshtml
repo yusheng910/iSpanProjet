@@ -35,7 +35,7 @@
             }
 
                 #login .container #login-row #login-column #login-box #login-form #register-link {
-                    margin-top: -85px;
+                    margin-top: -93px;
                 }
     </style>
 }
@@ -72,11 +72,11 @@
                                 <div class="submit-button">
                                 <button type="submit" name="submit" class="btn hvr-hover " >登入</button>
                                 </div>
-                                </div>
-                            <div id="register-link" class="text-right" style="padding-top: 22px; padding-bottom:200px">
-                                <a  asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="color:white; padding:10px;">尚未註冊?</a>
+                             </div>
+                            <div id="register-link" class="text-right" style="">
+                                <a asp-area=""asp-controller="Login" asp-action="forPassword"  for="forgetPassword" name="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a><br />
+                                <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="color:white; padding:10px;">尚未註冊?</a>
                             </div>
-                            <p><br/></p>
                         </form>
                     </div>
                 </div>
