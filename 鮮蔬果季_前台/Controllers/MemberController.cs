@@ -32,13 +32,24 @@ namespace 鮮蔬果季_前台.Controllers
                           select g.Sum(p => p.od.UnitsPurchased*p.pro.ProductUnitPrice)).FirstOrDefault();
                 list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價});               
             }
-            return View(list);
-            //var 訂單編號 = db.Orders.FirstOrDefault(p => p.MemberId == 2);
-            //var 訂單狀態 = 
+            return View(list); 
 
         }
-        public IActionResult OrderDetail()
+        public IActionResult OrderDetail(int id)
         {
+            鮮蔬果季Context db = new 鮮蔬果季Context();
+            List<OrderListViewModel> list = new List<OrderListViewModel>();
+            var 訂單細項 = (from od in db.OrderDetails
+                       join p in db.Products
+                       on od.ProductId equals p.ProductId
+                       where od.OrderId == id
+                       select new {od, p });
+            //todo
+            //foreach (var o in 訂單細項)
+            //{
+            //    list.Add(new OrderListViewModel() {訂單細項商品單價 = 訂單細項.od});
+            //}
+
             return View();
         }
         public IActionResult MyFavoriteList()

@@ -56,8 +56,9 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public int 總價 { get; set; } 
+        public int 總價 { get; set; }
 
+        public int 訂單細項商品單價 { get; set; }
         //public int OrderDetailId {
         //    get { return this.order.CouponId; }
         //    set { this.order.CouponId = value; }
