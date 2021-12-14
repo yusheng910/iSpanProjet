@@ -101,7 +101,17 @@
                                             <div>
                                                 <span class="badge badge-success">Valid</span>
                                                 <h3 class="lead">@Html.DisplayFor(modelItem => item.coupon.CouponName)</h3>
-                                                <p class="text-muted mb-0">@Html.DisplayFor(modelItem => item.coupon.CouponDescription)</p>
+                                                @{
+                                                    if (item.coupon.DiscountCondition == 9999999)
+                                                    {
+                                                        <p class="text-muted mb-0">全館消費不限金額 現折NT $@item.coupon.CouponDiscount</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="text-muted mb-0">消費滿NT $@item.coupon.DiscountCondition 現折NT $@item.coupon.CouponDiscount</p>
+
+                                                    }
+                                                }
                                             </div>
                                         </div>
                                         <div class="kanan">
@@ -123,21 +133,28 @@
                                                         </p>
                                                     </div>
                                                     @{
-                                                        if (item.couponDetail.CouponId == item.coupon.CouponId)
+                                                        if (item.coupon.CouponEndDate < DateTime.Now)
                                                         {
-                                                            <a href="#" class="btn btn-sm btn-outline-danger btn-block">
-                                                                領取
-                                                            </a> }
+                                                            <a class="btn btn-sm btn-outline-dark btn-block disabled">
+                                                                已過期
+                                                            </a>
+                                                        }
+                                                        else if (item.couponDetail.CouponId == item.coupon.CouponId)
+                                                        {
+                                                            <a class="btn btn-sm btn-outline-dark btn-block disabled" >
+                                                                已領取
+                                                            </a>
+                                                        }
                                                         else
                                                         {
                                                             <a href="#" class="btn btn-sm btn-outline-danger btn-block">
-                                                                未領取
-                                                            </a> 
-                                                            }
+                                                                領取
+                                                            </a>
+                                                        }
                                                     }
                                                     @*<a href="#" class="btn btn-sm btn-outline-danger btn-block">
-                                                        領取
-                                                    </a>*@
+            領取
+        </a>*@
                                                 </div>
                                             </div>
                                         </div>

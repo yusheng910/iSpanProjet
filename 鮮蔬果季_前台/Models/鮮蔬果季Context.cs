@@ -130,6 +130,8 @@ namespace 鮮蔬果季_前台.Models
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.CouponStartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.DiscountCondition).HasDefaultValueSql("((9999999))");
             });
 
             modelBuilder.Entity<CouponDetail>(entity =>
