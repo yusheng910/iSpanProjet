@@ -128,7 +128,7 @@
                             @{
                                 if (ViewBag.USER != null)
                                 {
-                                    <li id="member"><a asp-area="" asp-controller="Login" asp-action="Login"><i class="fa fa-user s_color"></i> @ViewBag.USER</a></li>
+                                    <li id="member"><i class="fa fa-user s_color"></i> @ViewBag.USER</li>
                                  }
                              
                                 else
@@ -188,7 +188,7 @@
                                 <li><a asp-area="" asp-controller="Member" asp-action="Orders" class="transition">訂單紀錄</a></li>
                                 <li><a asp-area="" asp-controller="Member" asp-action="MyFavoriteList" class="transition">我的收藏</a></li>
                                 <li><a asp-area="" asp-controller="Member" asp-action="CouponsList" class="transition">優惠券</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index" class="transition">登出</a></li>
+                                <li><a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a></li>
                             </ul>
                         </li>
                     </ul>
