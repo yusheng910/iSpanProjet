@@ -49,6 +49,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphoto = value;
             }
         }
+        public Status _stat = null;
+        public Status status
+        {
+            get
+            {
+                if (_stat == null)
+                    _stat = new Status();
+                return _stat;
+            }
+            set
+            {
+                _stat = value;
+            }
+        }
         public int 出售量 { get; set; }
 
         public MyFavorite _favorite = null;

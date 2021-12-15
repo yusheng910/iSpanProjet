@@ -38,7 +38,6 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult OrderDetail(int id)
         {
             鮮蔬果季Context db = new 鮮蔬果季Context();
-            OrderListViewModel 單筆訂單細項 = new OrderListViewModel();
             List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
             var 所有訂單細項 = (from od in db.OrderDetails
                           join p in db.Products
