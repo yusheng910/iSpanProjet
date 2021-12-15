@@ -1,11 +1,25 @@
 ﻿@{
     ViewData["Title"] = "ContactUs";
 }
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>聯絡我們</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
 <!-- Contact Start -->
 <div class="container-xxl py-5">
     <div class="container py-5 px-lg-5">
         <div class="wow fadeInUp" data-wow-delay="0.1s">
-            <p class="section-title text-secondary justify-content-center"><span></span><span></span></p>
+            <p class="section-title text-secondary justify-content-center">
+                <span></span>
+                <span></span>
+            </p>
             <h2 class="text-center mb-5">鮮蔬果季</h2>
         </div>
         <div class="row justify-content-center">
@@ -13,19 +27,24 @@
                 <div class="wow fadeInUp" data-wow-delay="0.3s">
                     <p class="text-center mb-4"> </p>
                     <form>
+                        <select name="catordog">
+                            <optgroup label="運送問題">
+                                <option>地點錯誤</option>
+                                <option>時間未到</option>
+                                <option>準時送達</option>
+                            </optgroup>
+                            <optgroup label="產品問題">
+                                <option>外表出現瑕疵</option>
+                                <option>食用後異常</option>
+                                <option>產品評價</option>
+                            </optgroup>
+                            <optgroup label="其他">
+                                <option>品質服務</option>
+                                <option></option>
+                                <option>Fennec</option>
+                            </optgroup>
+                        </select>
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="請輸入姓名">
-                                    <label for="name">姓名</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="請輸入信箱">
-                                    <label for="email">信箱</label>
-                                </div>
-                            </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="" id="message" style="height: 150px"></textarea>
