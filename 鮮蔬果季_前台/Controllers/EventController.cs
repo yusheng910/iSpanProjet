@@ -30,9 +30,6 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
             return View(list);
-
-
-
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             //var datas = from E in db.Events
             //            select E;
@@ -41,18 +38,15 @@ namespace 鮮蔬果季_前台.Controllers
 
 
 
-
-
-
-
-
-
-
-
         public IActionResult EventSignUp_1()
         {
             return View();
         }
+
+
+
+
+
 
         public IActionResult EventSignUp_2()
         {
