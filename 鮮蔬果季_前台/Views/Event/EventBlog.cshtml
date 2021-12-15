@@ -1,4 +1,5 @@
-﻿
+﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
+
 @{
     ViewData["Title"] = "EventBlog";
 }
@@ -14,10 +15,6 @@
             /*===========更改置頂圖片樣式(獨立)=============================*/
             .all-title-box_Partner {
                 background: url("../images/a.jpg") no-repeat center center;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -ms-background-size: cover;
-                -o-background-size: cover;
                 background-size: cover;
                 text-align: center;
                 /*            background-attachment: fixed;*/
@@ -43,7 +40,6 @@
                     float: left;
                     padding: 10px 0px;
                 }
-
 
             .carousel-inner img {
                 @*控制大圖尺寸*@ object-fit: cover;
@@ -82,132 +78,49 @@
     </div>
 </div>
 
-@*================================================活動1========================================*@
+@*================================================活動========================================*@
 <div id="eventbox">
     <div class="container">
-        <div class="row art">
-            <div class="col-xl-5 col-lg-5 col-md-6">
-                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"> <img class="d-block w-100" src="~/images/EventImg/活動1-1.jpg" alt="First slide"> </div>
+        @{
+            foreach (var item in Model)
+            {
+                <div class="row art">
+                    <div class="col-xl-5 col-lg-5 col-md-6">
+                        <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="~/images/EventImg/活動1-1.jpg" alt="First slide">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-6">
-                <div class="single-product-details">
-                    <h2>台灣金山｜汪汪地瓜園控窯體驗</h2>          @*活動項目標題*@
-                    <h5> <del>$ 250 </del> $ 150 / 人</h5>
-                    <p class="available-stock"><span> 新北市 , 金山縣 , 現場收費 <a href="#"></a></span><p>
-                        <h4>適合攜家帶眷同樂樂 </h4>
-                    <p>
-                        地瓜跟台灣有著特殊的情感連絡，在窮困的年代裡養活了許多台灣人，地瓜在台灣是一個不可或缺的農作物，尤其是烤地瓜更是每一個台灣人成長的記憶，
-                        汪汪地瓜園是一個位於地瓜知名產區新北市金山區。
-                    </p>
-                    <div class="price-box-bar">
-                        <div class="cart-and-bay-btn">
-                            <a class="btn hvr-hover" asp-area="" asp-controller="Event" asp-action="EventSignUp_1">  <i class="fas fa-angle-right"></i>我要報名</a>
+                    <div class="col-xl-7 col-lg-7 col-md-6">
+                        <div class="single-product-details">
+                            <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2>  @*活動項目標題*@
+                            <h5>
+                                <del> @Html.DisplayFor(modelitem => item.Event.EventPrice)   </del>  @*預計乘上固定倍數,當作原價*@
+                                @Html.DisplayFor(modelitem =>item.Event.EventPrice)  / 人
+                            </h5>
+                            <p class="available-stock">
+                                <span> 新北市 , 金山縣 , 現場收費 <a href="#"></a></span>
+                            <p>
+                                <h4>適合攜家帶眷同樂樂 </h4>
+                            <p>
+                                地瓜跟台灣有著特殊的情感連絡，在窮困的年代裡養活了許多台灣人，地瓜在台灣是一個不可或缺的農作物，尤其是烤地瓜更是每一個台灣人成長的記憶，
+                                汪汪地瓜園是一個位於地瓜知名產區新北市金山區。
+                            </p>
+                            <div class="price-box-bar">
+                                <div class="cart-and-bay-btn">
+                                    <a class="btn hvr-hover" asp-area="" asp-controller="Event" asp-action="EventSignUp_1">  <i class="fas fa-angle-right"></i>我要報名</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div style="padding-bottom:20px"></div> @*間格用*@
+            }
+        }
     </div>
 </div>
 
-@*================================================活動2========================================*@
-<div id="eventbox">
-    <div class="container">
-        <div class="row art">
-            <div class="col-xl-5 col-lg-5 col-md-6">
-                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"> <img class="d-block w-100" src="~/images/EventImg/活動2-1.jpg" alt="First slide"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-6">
-                <div class="single-product-details">
-                    <h2>台灣宜蘭｜蔥寶寶體驗農場</h2>          @*活動項目標題*@
-                    <h5> <del>$ 350 </del> $ 200 / 人</h5>
-                    <p class="available-stock"><span> 宜蘭縣 , 七星鄉 / <a href="#"></a></span><p>
-                        <h4>好玩有趣的採蔥體驗 </h4>
-                    <p>
-                        蔥寶寶體驗農場的蔥多餅 DIY 體驗，適合全家大小及親子互動的宜蘭親子活動景點，由專業老師帶你認識三星蔥的特色文化，
-                        並帶您體驗拔蔥、洗蔥、製作五彩繽紛又天然的馬卡龍蔥多餅，品嚐現做現煎的三星蔥多餅！
-                    </p>
-                    <div class="price-box-bar">
-                        <div class="cart-and-bay-btn">
-                            <a class="btn hvr-hover" asp-area="" asp-controller="Event" asp-action="EventSignUp_2">  <i class="fas fa-angle-right"></i>我要報名</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*================================================活動3========================================*@
 
-<div id="eventbox">
-    <div class="container">
-        <div class="row art">
-            <div class="col-xl-5 col-lg-5 col-md-6">
-                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"> <img class="d-block w-100" src="~/images/EventImg/活動2-2.jpg" alt="First slide"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-6">
-                <div class="single-product-details">
-                    <h2>台灣金山｜汪汪地瓜園控窯體驗</h2>          @*活動項目標題*@
-                    <h5> <del>$ 60.00</del> $40.79</h5>
-                    <p class="available-stock"><span> 新北市 , 金山縣 / <a href="#"></a></span><p>
-                        <h4>適合攜家帶眷同樂樂 :</h4>
-                    <p>
-                        地瓜跟台灣有著特殊的情感連絡，在窮困的年代裡養活了許多台灣人，地瓜在台灣是一個不可或缺的農作物，尤其是烤地瓜更是每一個台灣人成長的記憶，
-                        汪汪地瓜園是一個位於地瓜知名產區新北市金山區，同時也是一個以地瓜為主題的地瓜農園，在這裡提供了控磚窯、控土窯、挖地瓜體驗、種地瓜，快帶著孩子來體驗農家樂趣！
-                    </p>
-                    <div class="price-box-bar">
-                        <div class="cart-and-bay-btn">
-                            <a class="btn hvr-hover" asp-area="" asp-controller="Event" asp-action="EventSignUp_3">  <i class="fas fa-angle-right"></i>我要報名</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*================================================活動4========================================*@
-
-<div @*class="shop-detail-box-main"*@ id="eventbox">
-    <div class="container">
-        <div class="row art">
-            <div class="col-xl-5 col-lg-5 col-md-6">
-                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"> <img class="d-block w-100" src="~/images/EventImg/活動1-3.jpg" alt="First slide"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-6">
-                <div class="single-product-details">
-                    <h2>台灣金山｜汪汪地瓜園控窯體驗</h2>          @*活動項目標題*@
-                    <h5> <del>$ 60.00</del> $40.79</h5>
-                    <p class="available-stock"><span> 新北市 , 金山縣 / <a href="#"></a></span><p>
-                        <h4>適合攜家帶眷同樂樂 :</h4>
-                    <p>
-                        地瓜跟台灣有著特殊的情感連絡，在窮困的年代裡養活了許多台灣人，地瓜在台灣是一個不可或缺的農作物，尤其是烤地瓜更是每一個台灣人成長的記憶，
-                        汪汪地瓜園是一個位於地瓜知名產區新北市金山區，同時也是一個以地瓜為主題的地瓜農園，在這裡提供了控磚窯、控土窯、挖地瓜體驗、種地瓜，快帶著孩子來體驗農家樂趣！
-                    </p>
-                    <div class="price-box-bar">
-                        <div class="cart-and-bay-btn">
-                            <a class="btn hvr-hover " asp-area="" asp-controller="Event" asp-action="EventSignUp_4">  <i class="fas fa-angle-right"></i>我要報名</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div style="padding-bottom:20px"></div>   @*間格用*@
