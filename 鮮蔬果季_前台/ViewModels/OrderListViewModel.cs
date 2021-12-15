@@ -13,7 +13,6 @@ namespace 鮮蔬果季_前台.ViewModels
             get { return this.order.OrderId; }
             set { this.order.OrderId = value; } 
         }
-
         public DateTime OrderDate {
             get { return this.order.OrderDate; }
             set { this.order.OrderDate = value; }
@@ -55,8 +54,39 @@ namespace 鮮蔬果季_前台.ViewModels
                 _stat = value;
             }
         }
+        public Product _prod = null;
+        public Product product
+        {
+            get
+            {
+                if (_prod == null)
+                    _prod = new Product();
+                return _prod;
+            }
+            set
+            {
+                _prod = value;
+            }
+        }
+        public OrderDetail _odetail = null;
+        public OrderDetail odetail
+        {
+            get
+            {
+                if (_odetail == null)
+                    _odetail = new OrderDetail();
+                return _odetail;
+            }
+            set
+            {
+                _odetail = value;
+            }
+        }
+
 
         public int 總價 { get; set; }
+
+        public int 單筆訂單細項總價 { get; set; }
 
         public int 訂單細項商品單價 { get; set; }
         //public int OrderDetailId {
