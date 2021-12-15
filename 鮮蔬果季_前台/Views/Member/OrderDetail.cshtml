@@ -59,18 +59,19 @@
                             @{
                                 int count = 0;
                                 int 商品價乘數量 = 0;
+                                int 總價= 0;
                                 foreach (var item in Model)
                                 {
                                     count++;
                                     商品價乘數量 = item.product.ProductUnitPrice * item.odetail.UnitsPurchased;
-
+                                    總價 += 商品價乘數量;
                                     <tr>
                                         <td>
                                             @count
                                         </td>
                                         <td class="thumbnail-img">
                                             <a href="#">
-                                                <img class="img-fluid" src="~/images/img-pro-01.jpg" alt="" />
+                                                <img class="img-fluid" src="~/images/商品照/@item.photoBank.PhotoPath" alt="" />
                                             </a>
                                         </td>
                                         <td class="name-pr">
@@ -107,7 +108,7 @@
                         </div>
                         <div class="d-flex gr-total">
                             <h5>訂單總金額</h5>
-                            <div class="ml-auto h5"> NT$ XX</div>
+                            <div class="ml-auto h5"> NT$ @總價</div>
                         </div>
                         <hr>
                     </div>

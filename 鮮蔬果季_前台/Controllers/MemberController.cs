@@ -55,17 +55,13 @@ namespace 鮮蔬果季_前台.Controllers
             db = new 鮮蔬果季Context();
             foreach (var o in 所有訂單細項)
             {
-                var 訂單細項總價 = (from odt in db.OrderDetails
-                            join pro in db.Products
-                            on odt.ProductId equals pro.ProductId
-                            where odt.ProductId == o.p.ProductId
-                            group new { odt, pro } by pro.ProductId into g
-                            select g.Sum(p => p.odt.UnitsPurchased)).FirstOrDefault();
+                var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
                 訂單細項列表.Add(new OrderListViewModel()
                 {
                     odetail = o.od,
                     product = o.p,
-                    單筆訂單細項總價 = 訂單細項總價
+                    photoBank= 封面相片
+                    //單筆訂單細項總價 = 訂單細項總價
                 });
             }
 

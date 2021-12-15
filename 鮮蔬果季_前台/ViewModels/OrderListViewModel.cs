@@ -82,6 +82,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _odetail = value;
             }
         }
+        public ProductPhotoBank _prodphoto = null;
+        public ProductPhotoBank photoBank
+        {
+            get
+            {
+                if (_prodphoto == null)
+                    _prodphoto = new ProductPhotoBank();
+                return _prodphoto;
+            }
+            set
+            {
+                _prodphoto = value;
+            }
+        }
 
 
         public int 總價 { get; set; }
