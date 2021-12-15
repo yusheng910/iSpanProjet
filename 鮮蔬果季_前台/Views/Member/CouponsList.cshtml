@@ -121,14 +121,15 @@
                                                     else
                                                     {
                                                         <span class="badge badge-warning">活動中</span>
-                                                        if (item.couponDetail.CouponQuantity == 0)
+                                                        if (item.couponDetail.CouponId == item.coupon.CouponId)
                                                         {
-                                                            <span class="badge badge-info">尚未領取</span>
+                                                            <span class="badge badge-info">剩餘<span id="numcount">@item.couponDetail.CouponQuantity</span>張</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span class="badge badge-info">剩餘<span id="numcount">@num</span>張</span>
+                                                            <span class="badge badge-info">尚未領取</span>
+                                                            
                                                         }
                                                     }
                                                 }
@@ -172,7 +173,7 @@
                                                                 已過期
                                                             </a>
                                                         }
-                                                        else if (item.couponDetail.CouponQuantity !=0)
+                                                        else if (item.couponDetail.CouponQuantity>=0&&item.couponDetail.CouponId!=0)
                                                         {
                                                             <a class="btn btn-sm btn-outline-dark btn-block disabled">
                                                                 已領取
