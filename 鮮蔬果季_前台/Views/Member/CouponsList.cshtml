@@ -65,12 +65,6 @@
 }
 @section Scripts{ 
 <script>
-
-    function chgnum() {
-        text = $("#numcount").text();
-        num = parseInt(text);
-        $("#numcount").html(num -1);
-    }
 </script>
 }
 
@@ -127,13 +121,20 @@
                                                     else
                                                     {
                                                         <span class="badge badge-warning">活動中</span>
-                                                        <span class="badge badge-info">剩餘<span id="numcount">@num</span>張</span>
+                                                        if (item.couponDetail.CouponQuantity == 0)
+                                                        {
+                                                            <span class="badge badge-info">尚未領取</span>
 
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-info">剩餘<span id="numcount">@num</span>張</span>
+                                                        }
                                                     }
                                                 }
                                                 <h3 class="lead">@Html.DisplayFor(modelItem => item.coupon.CouponName)</h3>
                                                 @{
-                                                    if (item.coupon.DiscountCondition == 9999999)
+                                                    if (item.coupon.DiscountCondition == 0)
                                                     {
                                                         <p class="text-muted mb-0">全館消費不限金額 現折NT $@item.coupon.CouponDiscount</p>
                                                     }
@@ -171,7 +172,7 @@
                                                                 已過期
                                                             </a>
                                                         }
-                                                        else if (item.couponDetail.CouponId == item.coupon.CouponId)
+                                                        else if (item.couponDetail.CouponQuantity !=0)
                                                         {
                                                             <a class="btn btn-sm btn-outline-dark btn-block disabled">
                                                                 已領取
@@ -179,8 +180,7 @@
                                                         }
                                                         else
                                                         {
-                                                            //ccc++;
-                                                            <a href="#" @*id="@ccc"*@ onclick="chgnum()" class="btn btn-sm btn-outline-danger btn-block">
+                                                            <a href="#" class="btn btn-sm btn-outline-danger btn-block">
                                                                 領取
                                                             </a>
                                                         }

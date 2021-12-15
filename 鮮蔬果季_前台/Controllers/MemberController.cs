@@ -77,6 +77,13 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult CouponsList()
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
             鮮蔬果季Context db = new 鮮蔬果季Context();
             var qall = from p in db.Coupons
                        select p;
@@ -90,7 +97,8 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 db = new 鮮蔬果季Context();
                 var q = (from cd in db.CouponDetails
-                         where cd.CouponId == item.CouponId
+                         where cd.CouponId == item.CouponId &&
+                         cd.MemberId == UserLogin.member.MemberId
                          select cd).FirstOrDefault();
                 list.Add(new CouponsListViewModel()
                 {
