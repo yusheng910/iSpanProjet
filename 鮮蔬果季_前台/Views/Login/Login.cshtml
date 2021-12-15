@@ -70,19 +70,18 @@
                             <label for="password" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">密碼:</label><br>
                             <input type="password" name="password" id="password" class="form-control">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" >
                             <label for="remember-me" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                             <div class="submit-button">
                                 <button type="submit" name="submit" class="btn hvr-hover ">登入</button>
+                                <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo">Demo</a>
                             </div>
                         </div>
                         <div id="register-link" class="text-right" style="">
                             <a asp-area="" asp-controller="Login" asp-action="forPassword" for="forgetPassword" name="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a><br />
-                            <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="color:white; padding:10px;">尚未註冊?</a>
+                            <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="margin-top:4.5px ;color:white; padding:10px;">尚未註冊?</a>
                         </div>
-                        <div class="text-right" style="padding-top:50px;">
-                            <a style="color:white" class="btn hvr-hover" id="Demo">Demo</a>
-                        </div>
+                        
                     </form>
                 </div>
             </div>
