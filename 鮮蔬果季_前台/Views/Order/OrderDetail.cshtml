@@ -16,14 +16,6 @@
             padding-left: 10px;
         }
 
-        #price-pr {
-            padding-left: 10px;
-        }
-
-        #total-pr {
-            padding-left: 10px;
-        }
-
         #odnum {
             padding-left: 10px;
         }
@@ -34,6 +26,15 @@
         .add-rv {
             text-align: right;
             padding-right: 20px;
+        }
+        .last-th {
+            text-align: right;
+        }
+        .table td{
+            padding-right:5px
+        }
+        .table th {
+            padding-right: 35px;
         }
     </style>
 }
@@ -64,7 +65,7 @@
                                 <th>價格</th>
                                 <th>數量</th>
                                 <th>小計</th>
-                                <th></th>
+                                <th class="last-th">評價</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +95,7 @@
                                             </a>
                                         </td>
                                         <td class="price-pr">
-                                            <p id="price-pr">@item.product.ProductUnitPrice</p>
+                                            <p id="price-pr">NT$ @item.product.ProductUnitPrice</p>
                                         </td>
                                         <td class="quantity-box">
                                             <p id="units">
@@ -102,7 +103,7 @@
                                             </p>
                                         </td>
                                         <td class="total-pr">
-                                            <p id="total-pr">@商品價乘數量</p>
+                                            <p id="total-pr">NT$ @商品價乘數量</p>
                                             @*<p>@item.單筆訂單細項總價</p>*@
                                         </td>
                                         <td class="add-rv">
