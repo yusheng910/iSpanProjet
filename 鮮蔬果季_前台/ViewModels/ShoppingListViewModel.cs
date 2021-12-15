@@ -49,6 +49,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphoto = value;
             }
         }
+        public Status _stat = null;
+        public Status status
+        {
+            get
+            {
+                if (_stat == null)
+                    _stat = new Status();
+                return _stat;
+            }
+            set
+            {
+                _stat = value;
+            }
+        }
         public int 出售量 { get; set; }
 
         public MyFavorite _favorite = null;
@@ -65,6 +79,22 @@ namespace 鮮蔬果季_前台.ViewModels
                 _favorite = value;
             }
         }
+
+        public Review _review = null;
+        public Review review
+        {
+            get
+            {
+                if (_review == null)
+                    _review = new Review();
+                return _review;
+            }
+            set
+            {
+                _review = value;
+            }
+        }
+
         //public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         //public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
         //public int SupplierId { get { return this.product.SupplierId; } set { this.product.SupplierId = value; } }

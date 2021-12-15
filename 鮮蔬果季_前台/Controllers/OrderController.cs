@@ -12,13 +12,21 @@ namespace 鮮蔬果季_前台.Controllers
     {
         public IActionResult Orders()
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
             //IEnumerable<Order> orders = null;
             鮮蔬果季Context db = new 鮮蔬果季Context();
             List<OrderListViewModel> list = new List<OrderListViewModel>();
             var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
-                          where ord.MemberId == 2
+                          where ord.MemberId == UserLogin.member.MemberId
                           select new { ord, stat });
 
             db = new 鮮蔬果季Context();
@@ -38,7 +46,6 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult OrderDetail(int id)
         {
             鮮蔬果季Context db = new 鮮蔬果季Context();
-            OrderListViewModel 單筆訂單細項 = new OrderListViewModel();
             List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
             var 所有訂單細項 = (from od in db.OrderDetails
                           join p in db.Products
