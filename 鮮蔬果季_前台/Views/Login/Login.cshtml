@@ -1,11 +1,13 @@
 ﻿
 @{
     ViewData["Title"] = "Login";
+
 }
 @section Styles{
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+
     <style>
 
         /*#標題text {
@@ -27,7 +29,7 @@
             height: 350px;
             border: 1px solid #9C9C9C;
             background-color: #EAEAEA;
-            border-radius:10px;
+            border-radius: 10px;
         }
 
             #login .container #login-row #login-column #login-box #login-form {
@@ -38,51 +40,65 @@
                     margin-top: -93px;
                 }
     </style>
+
 }
 
 
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>登入頁面</h2>
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>登入頁面</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
+                    <form id="login-form" class="form" action="" method="post">
+                        <h3 class="text-center" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">會員登入</h3>
+                        <div class="form-group">
+                            <label for="username" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">電子郵件帳號:</label><br>
+                            <input type="text" name="username" id="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">密碼:</label><br>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                        <div class="form-group" >
+                            <label for="remember-me" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                            <div class="submit-button">
+                                <button type="submit" name="submit" class="btn hvr-hover ">登入</button>
+                                <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo">Demo</a>
+                            </div>
+                        </div>
+                        <div id="register-link" class="text-right" style="">
+                            <a asp-area="" asp-controller="Login" asp-action="forPassword" for="forgetPassword" name="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a><br />
+                            <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="margin-top:4.5px ;color:white; padding:10px;">尚未註冊?</a>
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End All Title Box -->
-    <div id="login" >
-        <div class="container" >
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12"style="background-color: #FFF9E9;  padding-bottom:150px;">
-                        <form id="login-form" class="form" action="" method="post" >
-                            <h3 class="text-center" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">會員登入</h3>
-                            <div class="form-group">
-                                <label for="username" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">電子郵件帳號:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class=""style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">密碼:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="remember-me" class=""style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <div class="submit-button">
-                                <button type="submit" name="submit" class="btn hvr-hover " >登入</button>
-                                </div>
-                             </div>
-                            <div id="register-link" class="text-right" style="">
-                                <a asp-area=""asp-controller="Login" asp-action="forPassword"  for="forgetPassword" name="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a><br />
-                                <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="color:white; padding:10px;">尚未註冊?</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script>
+    $("#Demo").click(function () {
+        console.log("ok")
+        $("#username").val("a001@gmail.com");
+        $("#password").val("a12345");
+    });
+</script>
+
 
 
 
