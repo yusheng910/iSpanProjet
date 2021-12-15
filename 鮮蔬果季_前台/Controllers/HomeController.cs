@@ -20,7 +20,7 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //如果Seesion有找到
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
                 ViewBag.USER = UserLogin.member.MemberName;
             else //Seesion沒找到
             {
