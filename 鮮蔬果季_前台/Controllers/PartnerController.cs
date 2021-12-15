@@ -22,9 +22,15 @@ namespace 鮮蔬果季_前台.Controllers
             return View(datas);
         }
 
-        public IActionResult PartnerBlog_1()
+
+
+        public IActionResult PartnerBlog_1(int id)     //此處的id為前台回傳的該農友ID
         {
-            return View();
+            鮮蔬果季Context db = new 鮮蔬果季Context();
+            var datas = from P in db.Suppliers
+                        where id==P.SupplierId
+                        select P;
+            return View(datas);
         }
 
     }
