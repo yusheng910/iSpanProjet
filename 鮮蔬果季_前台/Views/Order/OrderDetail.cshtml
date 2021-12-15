@@ -19,10 +19,10 @@
         #total-pr {
             padding-left: 10px;
         }
-        #odnum{
-            padding-left:10px;
-        }
 
+        #odnum {
+            padding-left: 10px;
+        }
     </style>
 }
 
@@ -59,7 +59,7 @@
                             @{
                                 int count = 0;
                                 int 商品價乘數量 = 0;
-                                int 總價= 0;
+                                int 總價 = 0;
                                 foreach (var item in Model)
                                 {
                                     count++;
@@ -101,20 +101,20 @@
                     </table>
                 </div>
             </div>
-                <div class="col-lg-6 col-sm-6">
-                    <div class="order-box">
-                        <div class="title-left" style="padding-top:20px">
-                            <h3>您的訂單<span id="odnum">#1</span></h3>
-                        </div>
-                        <div class="d-flex gr-total">
-                            <h5>訂單總金額</h5>
-                            <div class="ml-auto h5"> NT$ @總價</div>
-                        </div>
-                        <hr>
+            <div class="col-lg-6 col-sm-6">
+                <div class="order-box">
+                    <div class="title-left" style="padding-top:20px">
+                        <h3>您的訂單<span id="odnum">#1</span></h3>
                     </div>
+                    <div class="d-flex gr-total">
+                        <h5>訂單總金額</h5>
+                        <div class="ml-auto h5"> NT$ @總價</div>
+                    </div>
+                    <hr>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="#" asp-action="#" class="ml-auto btn hvr-hover">去評論</a> </div>
+            </div>
+            <div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="#" asp-action="#" class="ml-auto btn hvr-hover">去評論</a> </div>
         </div>
     </div>
 </div>
-    <!-- End Cart -->
+<!-- End Cart -->

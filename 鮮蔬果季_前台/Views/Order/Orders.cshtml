@@ -61,10 +61,10 @@
                         </thead>
                         <tbody>
                             @{
-                                    int count = 0;
-                                    foreach (var item in Model)
-                                    {
-                                        count++;
+                                int count = 0;
+                                foreach (var item in Model)
+                                {
+                                    count++;
                                     <tr>
                                         <td>
                                             @count
@@ -87,12 +87,10 @@
                                             <p>@Html.DisplayFor(modelItem => item.status.StatusName)</p>
                                         </td>
                                         <td class="add-pr">
-                                            <a asp-area="" asp-controller="Member" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
+                                            <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
                                         </td>
                                     </tr>
                                 }
-
-
                             }
                         </tbody>
                     </table>
