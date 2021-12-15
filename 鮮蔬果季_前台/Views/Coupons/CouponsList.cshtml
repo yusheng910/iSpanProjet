@@ -113,22 +113,24 @@
                                         <div class="tengah py-3 d-flex w-100 justify-content-start">
                                             <div>
                                                 @{
-                                                    int num = item.coupon.CouponQuantityIssued;
                                                     if (item.coupon.CouponEndDate < DateTime.Now)
                                                     {
-                                                        <span class="badge badge-success">已過期</span>
+                                                        <span class="badge badge-success">已結束</span>
                                                     }
                                                     else
                                                     {
                                                         <span class="badge badge-warning">活動中</span>
                                                         if (item.couponDetail.CouponId == item.coupon.CouponId)
                                                         {
+                                                            <span class="badge badge-primary">共<span id="numcount">@item.coupon.CouponQuantityIssued</span>張</span>
                                                             <span class="badge badge-info">剩餘<span id="numcount">@item.couponDetail.CouponQuantity</span>張</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span class="badge badge-info">尚未領取</span>
+                                                            <span class="badge badge-primary">共<span id="numcount">@item.coupon.CouponQuantityIssued</span>張</span>
+
+                                                            <span style="background-color:indianred" class="badge badge-info">尚未領取</span>
 
                                                         }
                                                     }
@@ -146,7 +148,6 @@
                                                     }
                                                 }
                                             </div>
-                                            @*<p id="QuantityIssued" class="badge badge-info">限量100張</p>*@
                                         </div>
                                         <div class="kanan">
                                             <div class="info m-3 d-flex align-items-center">
@@ -169,26 +170,23 @@
                                                     @{
                                                         if (item.coupon.CouponEndDate < DateTime.Now)
                                                         {
-                                                            <a class="btn btn-sm btn-outline-dark btn-block disabled">
-                                                                已過期
+                                                            <a class="btn btn-sm btn-outline-info btn-block disabled">
+                                                                已結束
                                                             </a>
                                                         }
                                                         else if (item.couponDetail.CouponQuantity >= 0 && item.couponDetail.CouponId != 0)
                                                         {
-                                                            <a class="btn btn-sm btn-outline-dark btn-block disabled">
+                                                            <a style="background-color:#b0b435;color:white;" class="btn btn-sm btn-outline-light btn-block disabled">
                                                                 已領取
                                                             </a>
                                                         }
                                                         else
                                                         {
-                                                            <a href="#" class="btn btn-sm btn-outline-danger btn-block">
+                                                            <a asp-area="" asp-controller="Coupons" asp-action="AddCoupons" asp-route-id="@item.coupon.CouponId" class="btn btn-sm btn-outline-danger btn-block">
                                                                 領取
                                                             </a>
                                                         }
                                                     }
-                                                    @*<a href="#" class="btn btn-sm btn-outline-danger btn-block">
-                                                            領取
-                                                        </a>*@
                                                 </div>
                                             </div>
                                         </div>
