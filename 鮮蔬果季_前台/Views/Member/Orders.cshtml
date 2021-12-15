@@ -87,7 +87,7 @@
                                             <p>@Html.DisplayFor(modelItem => item.status.StatusName)</p>
                                         </td>
                                         <td class="add-pr">
-                                            <a asp-area="" asp-controller="Member" asp-action="OrderDetail" class="btn hvr-hover" id="btnaddcart">檢視</a>
+                                            <a asp-area="" asp-controller="Member" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
                                         </td>
                                     </tr>
                                 }

@@ -44,19 +44,32 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult OrderDetail(int id)
         {
             鮮蔬果季Context db = new 鮮蔬果季Context();
-            List<OrderListViewModel> list = new List<OrderListViewModel>();
-            var 訂單細項 = (from od in db.OrderDetails
-                       join p in db.Products
-                       on od.ProductId equals p.ProductId
-                       where od.OrderId == id
-                       select new {od, p });
+            OrderListViewModel 單筆訂單細項 = new OrderListViewModel();
+            List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
+            var 所有訂單細項 = (from od in db.OrderDetails
+                        join p in db.Products
+                        on od.ProductId equals p.ProductId
+                        where od.OrderId == id
+                        select new { od, p });
             //todo
-            //foreach (var o in 訂單細項)
-            //{
-            //    list.Add(new OrderListViewModel() {訂單細項商品單價 = 訂單細項.od});
-            //}
+            db = new 鮮蔬果季Context();
+            foreach (var o in 所有訂單細項)
+            {
+                var 訂單細項總價 = (from odt in db.OrderDetails
+                            join pro in db.Products
+                            on odt.ProductId equals pro.ProductId
+                            where odt.ProductId == o.p.ProductId
+                            group new { odt, pro } by pro.ProductId into g
+                            select g.Sum(p => p.odt.UnitsPurchased)).FirstOrDefault();
+                訂單細項列表.Add(new OrderListViewModel()
+                {
+                    odetail = o.od,
+                    product = o.p,
+                    單筆訂單細項總價 = 訂單細項總價
+                });
+            }
 
-            return View();
+            return View(訂單細項列表);
         }
         public IActionResult MyFavoriteList()
         {
