@@ -26,6 +26,19 @@
 
         .orderid-p {
             text-align: left;
+            padding-left:15px;
+        }
+
+        .last-th{
+            text-align:right;
+        }
+        .table td, .table th {
+            padding-right: 20px;
+        }
+
+        .add-pr {
+            text-align: right;
+            padding-right: 20px;
         }
     </style>
 }
@@ -50,46 +63,34 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th></th>
+                                <th>訂單號</th>
                                 <th>下單日期</th>
                                 <th>總價</th>
-                                <th>訂單編號</th>
                                 <th>出貨狀態</th>
-                                <th>訂單細項</th>
+                                <th class="last-th">訂單細項</th>
                             </tr>
                         </thead>
                         <tbody>
                             @{
-                                int count = 0;
                                 foreach (var item in Model)
                                 {
-                                    count++;
-                                    <tr>
-                                        <td>
-                                            @count
-                                        </td>
-                                        <td class="thumbnail-img">
-                                            <a href="#">
-                                                <img class="img-fluid" src="~/images/order-vegetablebag.jpg" alt="" />
-                                            </a>
-                                        </td>
-                                        <td class="orderdate-p">
-                                            <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
-                                        </td>
-                                        <td class="price-pr">
-                                            <p>NT$ @item.總價</p>
-                                        </td>
-                                        <td class="orderid-p">
-                                            <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
-                                        </td>
-                                        <td>
-                                            <p>@Html.DisplayFor(modelItem => item.status.StatusName)</p>
-                                        </td>
-                                        <td class="add-pr">
-                                            <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
-                                        </td>
-                                    </tr>
+                                                        <tr>
+                                                            <td class="orderid-p">
+                                                                <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
+                                                            </td>
+                                                            <td class="orderdate-p">
+                                                                <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
+                                                            </td>
+                                                            <td class="price-pr">
+                                                                <p>NT$ @item.總價</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>@Html.DisplayFor(modelItem => item.status.StatusName)</p>
+                                                            </td>
+                                                            <td class="add-pr">
+                                                                <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
+                                                            </td>
+                                                        </tr>                                                 
                                 }
                             }
                         </tbody>
