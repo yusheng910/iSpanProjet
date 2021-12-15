@@ -62,3 +62,41 @@
     </div>
 </div>
 <!-- Contact End -->
+@*string Account = "testing@gmail.com";
+string Password = "test123";
+
+SmtpClient client = new SmtpClient();
+client.Host = "smtp.gmail.com";
+client.Port = 587;
+client.Credentials = new NetworkCredential(Account, Password);
+client.EnableSsl = true;
+
+MailMessage mail = new MailMessage();
+mail.From = new MailAddress(Account);
+mail.To.Add("test1@test.com");
+mail.Subject = "測試信";
+mail.SubjectEncoding = Encoding.UTF8;
+mail.IsBodyHtml = true;
+mail.Body = "第一行
+<br> 第二行
+<br>第三行
+<br>";
+mail.BodyEncoding = Encoding.UTF8;
+
+Attachment attachment = new Attachment(@"C:\fakepath\test.txt");
+mail.Attachments.Add(attachment);
+
+try
+{
+    client.Send(mail);
+}
+catch (Exception ex)
+{
+    throw ex;
+}
+finally
+{
+    attachment.Dispose();
+    mail.Dispose();
+    client.Dispose();
+}*@
