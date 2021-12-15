@@ -8,6 +8,10 @@
             font-size: 18px;
         }
 
+        .order-box {
+            padding-top: 20px;
+        }
+
         #units {
             padding-left: 10px;
         }
@@ -22,6 +26,14 @@
 
         #odnum {
             padding-left: 10px;
+        }
+
+        #btn-review {
+            color: white;
+        }
+        .add-rv {
+            text-align: right;
+            padding-right: 20px;
         }
     </style>
 }
@@ -52,7 +64,7 @@
                                 <th>價格</th>
                                 <th>數量</th>
                                 <th>小計</th>
-                                <th>評價</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,11 +72,13 @@
                                 int count = 0;
                                 int 商品價乘數量 = 0;
                                 int 總價 = 0;
+                                int 訂單ID = 0;
                                 foreach (var item in Model)
                                 {
                                     count++;
                                     商品價乘數量 = item.product.ProductUnitPrice * item.odetail.UnitsPurchased;
                                     總價 += 商品價乘數量;
+                                    訂單ID = item.odetail.OrderId;
                                     <tr>
                                         <td>
                                             @count
@@ -91,8 +105,8 @@
                                             <p id="total-pr">@商品價乘數量</p>
                                             @*<p>@item.單筆訂單細項總價</p>*@
                                         </td>
-                                        <td>
-                                            <p>五顆星評價</p>
+                                        <td class="add-rv">
+                                            <a class="btn hvr-hover" id="btn-review" href="#">新增評價</a>
                                         </td>
                                     </tr>
                                 }
@@ -104,7 +118,7 @@
             <div class="col-lg-6 col-sm-6">
                 <div class="order-box">
                     <div class="title-left" style="padding-top:20px">
-                        <h3>您的訂單<span id="odnum">#1</span></h3>
+                        <h3>您的訂單<span id="odnum">#@訂單ID</span></h3>
                     </div>
                     <div class="d-flex gr-total">
                         <h5>訂單總金額</h5>
@@ -113,7 +127,6 @@
                     <hr>
                 </div>
             </div>
-            <div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="#" asp-action="#" class="ml-auto btn hvr-hover">去評論</a> </div>
         </div>
     </div>
 </div>
