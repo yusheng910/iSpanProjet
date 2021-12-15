@@ -54,7 +54,7 @@
         .p-3 {
             padding: 1.5rem !important;
         }
-/*        #QuantityIssued {
+        /*        #QuantityIssued {
             float: right;
             position: absolute;
             bottom:23px;
@@ -63,9 +63,9 @@
         }*/
     </style>
 }
-@section Scripts{ 
-<script>
-</script>
+@section Scripts{
+    <script>
+    </script>
 }
 
 <!-- Start All Title Box -->
@@ -129,7 +129,7 @@
                                                         else
                                                         {
                                                             <span class="badge badge-info">尚未領取</span>
-                                                            
+
                                                         }
                                                     }
                                                 }
@@ -173,7 +173,7 @@
                                                                 已過期
                                                             </a>
                                                         }
-                                                        else if (item.couponDetail.CouponQuantity>=0&&item.couponDetail.CouponId!=0)
+                                                        else if (item.couponDetail.CouponQuantity >= 0 && item.couponDetail.CouponId != 0)
                                                         {
                                                             <a class="btn btn-sm btn-outline-dark btn-block disabled">
                                                                 已領取
@@ -187,8 +187,8 @@
                                                         }
                                                     }
                                                     @*<a href="#" class="btn btn-sm btn-outline-danger btn-block">
-                                    領取
-                                </a>*@
+                                                            領取
+                                                        </a>*@
                                                 </div>
                                             </div>
                                         </div>
