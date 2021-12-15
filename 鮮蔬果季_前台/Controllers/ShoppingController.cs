@@ -187,5 +187,12 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
+        public IActionResult ShowReviews(int id)
+        {
+            鮮蔬果季Context db = new 鮮蔬果季Context();
+            ShoppingListViewModel 商品評論 = new ShoppingListViewModel();
+            return View();
+        }
+
     }
 }
