@@ -13,6 +13,13 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult List(CSelectViewModel select)
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
             鮮蔬果季Context db = new 鮮蔬果季Context();
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有產品 = from prod in db.Products
@@ -81,7 +88,7 @@ namespace 鮮蔬果季_前台.Controllers
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
                 相片List.Add(封面相片);
-                var 最愛商品= db.MyFavorites.FirstOrDefault(f => f.MemberId == 2 &&f.ProductId==item.prod.ProductId); /*TODO 目前會員ID寫死的*/
+                var 最愛商品= db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId &&f.ProductId==item.prod.ProductId); /*TODO 目前會員ID寫死的*/
                 所有商品列表.Add(new ShoppingListViewModel()
                 {
                     product=item.prod,
@@ -93,17 +100,15 @@ namespace 鮮蔬果季_前台.Controllers
             return View(所有商品列表);
         }
 
-        public IActionResult Cart()
-        {
-            return View();
-        }
-
-        public IActionResult Checkout()
-        {
-            return View();
-        }
         public IActionResult ShopDetail(int id)
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
             鮮蔬果季Context db = new 鮮蔬果季Context();
             ShoppingListViewModel 單筆商品 = new ShoppingListViewModel();
             var 商品明細 = (from p in db.Products
@@ -115,7 +120,7 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("List");
             //db = new 鮮蔬果季Context();
             var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId ==id);
-            var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == 2 && f.ProductId == id); /*TODO 目前會員ID寫死的*/
+            var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == id); /*TODO 目前會員ID寫死的*/
             var 商品出售數量 = (from p in db.OrderDetails
                          where p.ProductId == id
                          group p by p.ProductId into g
@@ -128,6 +133,59 @@ namespace 鮮蔬果季_前台.Controllers
             單筆商品.myFavorite = 最愛商品;
             return View(單筆商品);
         }
+        public IActionResult ListAddMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                MyFavorite myFavorite = new MyFavorite()
+                {
+                    MemberId=UserLogin.member.MemberId,
+                    ProductId=id
+                };
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                db.Add(myFavorite);
+                db.SaveChanges();
+            }               
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login","Login");
+            }
+            return RedirectToAction("List");
+        }
+        public IActionResult DetailAddMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
 
+                MyFavorite myFavorite = new MyFavorite()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    ProductId = id
+                };
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                db.Add(myFavorite);
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
+            return RedirectToAction("ShopDetail", new { id });
+        }
+        public IActionResult Cart()
+        {
+            return View();
+        }
+
+        public IActionResult Checkout()
+        {
+            return View();
+        }
     }
 }
