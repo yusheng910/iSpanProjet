@@ -125,13 +125,31 @@ namespace 鮮蔬果季_前台.Controllers
                          where p.ProductId == id
                          group p by p.ProductId into g
                          select  g.Sum(p => p.UnitsPurchased)).FirstOrDefault();
+            var 列出評論 = from p in db.Reviews
+                       join a in db.OrderDetails
+                       on p.OrderDetailId equals a.OrderDetailId
+                       join b in db.Orders
+                       on a.OrderId equals b.OrderId
+                       where a.ProductId == id
+                       select new { p, b.MemberId };
             單筆商品.product = 商品明細.p;
             單筆商品.supplier = 商品明細.s;
             foreach (var 照片 in 封面相片)
                 單筆商品.photoBank.Add(照片);
             單筆商品.出售量 = 商品出售數量;
             單筆商品.myFavorite = 最愛商品;
+
+            db = new 鮮蔬果季Context();
+            foreach (var item in 列出評論)
+            {
+                var 會員資訊 = (from x in db.Members
+                            where x.MemberId == item.MemberId
+                            select x).FirstOrDefault();
+                單筆商品.review.Add(item.p);
+                單筆商品.Member.Add(會員資訊);
+            }
             return View(單筆商品);
+
         }
         public IActionResult ListAddMyFavorite(int id)
         {
@@ -187,12 +205,5 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
-        public IActionResult ShowReviews(int id)
-        {
-            鮮蔬果季Context db = new 鮮蔬果季Context();
-            ShoppingListViewModel 商品評論 = new ShoppingListViewModel();
-            return View();
-        }
-
     }
 }

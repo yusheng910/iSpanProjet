@@ -44,6 +44,9 @@
             /*color: #ffffff;*/
         }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap" rel="stylesheet">
 }
 
 <!-- Start All Title Box -->
@@ -80,7 +83,7 @@
 
                             }
                             @*string url = Context.Request.Query["Name"];
-                            <img class="carousel-item" src="http://chart.apis.google.com/chart?cht=qr&chl=@url&chs=150x150" alt="" />*@
+                                <img class="carousel-item" src="http://chart.apis.google.com/chart?cht=qr&chl=@url&chs=150x150" alt="" />*@
                         }
                     </div>
                     <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
@@ -115,14 +118,14 @@
                             }
                         }
                         @*<li data-target="#carousel-example-1" data-slide-to="0" class="active">
-                            <img class="d-block w-100 img-fluid" src="~/images/商品照/紅蘿蔔.jpg" alt="" />
-                        </li>
-                        <li data-target="#carousel-example-1" data-slide-to="1">
-                            <img class="d-block w-100 img-fluid" src="~/images/商品照/紅蘿蔔2.jpg" alt="" />
-                        </li>
-                        <li data-target="#carousel-example-1" data-slide-to="2">
-                            <img class="d-block w-100 img-fluid" src="~/images/商品照/紅蘿蔔3.jpg" alt="" />
-                        </li>*@
+                                <img class="d-block w-100 img-fluid" src="~/images/商品照/紅蘿蔔.jpg" alt="" />
+                            </li>
+                            <li data-target="#carousel-example-1" data-slide-to="1">
+                                <img class="d-block w-100 img-fluid" src="~/images/商品照/紅蘿蔔2.jpg" alt="" />
+                            </li>
+                            <li data-target="#carousel-example-1" data-slide-to="2">
+                                <img class="d-block w-100 img-fluid" src="~/images/商品照/紅蘿蔔3.jpg" alt="" />
+                            </li>*@
                     </ol>
                 </div>
             </div>
@@ -160,7 +163,7 @@
                             @{
                                 if (Model.myFavorite.MyFavoriteId != 0)
                                 {
-                                    <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart"  style="color: #FF2D2D"></i> 移除我的最愛</a>
+                                    <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart" style="color: #FF2D2D"></i> 移除我的最愛</a>
                                 }
                                 else
                                 {
@@ -186,50 +189,37 @@
                 </div>
                 <div class="card-body">
                     @*從這邊開始foreach*@
-                    <input type="hidden" />
-                    <div class="media mb-3">
-                        <div class="mr-2">
-                            <img class="rounded-circle border p-1" src="~/images/img-1.jpg" alt="Generic placeholder image">
-                        </div>
-                        <div class="media-body">
-                            <p>江凱詳</p>
-                            <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
+                    @{
+                        int count2 = 0;
+                        foreach (var item in Model.review)
+                        {
+                            <input type="hidden" />
+                            <div class="media mb-3">
+                                <div class="mr-2">
+                                    <img class="rounded-circle border p-1" src="~/images/MemberPhoto/@Model.Member[count2].MemberPhotoPass" alt="Generic placeholder image">
+                                </div>
+                                <div class="media-body">
+                                    <p>@Model.Member[count2].MemberName</p>
+                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
 
-                            <p>商品品質優良，下次有需要會再跟你買！送貨速度良好，服務態度良好。</p>
-                            <small class="text-muted">2021-09-04 23:20</small>
-                        </div>
-                    </div>
-                    <hr>
+                                    <p>@item.Comments</p>
+                                    @{
+                                        string ReviewDate = (item.ReviewDate).ToString("yyyy-MM-dd hh:mm tt");
+                                    }
+                                    <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted">@ReviewDate</small>
+                                </div>
+                            </div>
+                            <hr>
+                            count2++;
+                        }
+                    }
                     @*從這邊結束foreach*@
-                    <div class="media mb-3">
-                        <div class="mr-2">
-                            <img class="rounded-circle border p-1" src="~/images/img-2.jpg" alt="Generic placeholder image">
-                        </div>
-                        <div class="media-body">
-                            <p>江凱詳</p>
-                            <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
-
-                            <p>商品品質優良，下次有需要會再跟你買！送貨速度良好，服務態度良好。</p>
-                            <small class="text-muted">2021-09-04 23:20</small>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="media mb-3">
-                        <div class="mr-2">
-                            <img class="rounded-circle border p-1" src="~/images/img-3.jpg" alt="Generic placeholder image">
-                        </div>
-                        <div class="media-body">
-                            <p>江凱詳</p>
-                            <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
-
-                            <p>商品品質優良，下次有需要會再跟你買！送貨速度良好，服務態度良好。</p>
-                            <small class="text-muted">2021-09-04 23:20</small>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
             </div>
+            <hr>
         </div>
+    </div>
+</div>
     </div>
 </div>
 

@@ -80,13 +80,13 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public Review _review = null;
-        public Review review
+        public List<Review> _review = null;
+        public List<Review> review
         {
             get
             {
                 if (_review == null)
-                    _review = new Review();
+                    _review = new List<Review>();
                 return _review;
             }
             set
@@ -94,6 +94,21 @@ namespace 鮮蔬果季_前台.ViewModels
                 _review = value;
             }
         }
+        public List<Member> _Member = null;
+        public List<Member> Member
+        {
+            get
+            {
+                if (_Member == null)
+                    _Member = new List<Member>();
+                return _Member;
+            }
+            set
+            {
+                _Member = value;
+            }
+        }
+
 
         //public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         //public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
