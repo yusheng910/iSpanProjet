@@ -38,9 +38,27 @@ namespace 鮮蔬果季_前台.Controllers
 
 
 
-        public IActionResult EventSignUp_1()
+        public IActionResult EventSignUp_1(int id)
         {
-            return View();
+            鮮蔬果季Context db = new 鮮蔬果季Context();
+            var datas = from E in db.Events
+                        where id ==E.EventId
+                        select E;
+
+            List<EventListViewModel> list = new List<EventListViewModel>();
+            foreach (var item in datas)
+            {
+                db = new 鮮蔬果季Context();
+                var EventPhotos = (from EI in db.EventPhotoBanks
+                                   where EI.EventId == item.EventId
+                                   select EI).FirstOrDefault();
+                list.Add(new EventListViewModel()
+                {
+                    Event = item,
+                    EventPhotoBank = EventPhotos
+                });
+            }
+            return View(list);
         }
 
 
