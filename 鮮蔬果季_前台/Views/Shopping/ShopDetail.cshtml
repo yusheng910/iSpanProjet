@@ -191,26 +191,66 @@
                     @*從這邊開始foreach*@
                     @{
                         int count2 = 0;
-                        foreach (var item in Model.review)
+                        if (Model.review.Count == 0)
                         {
                             <input type="hidden" />
-                            <div class="media mb-3">
+                            <div class="media mb-3"> @*這邊加入文字*@
                                 <div class="mr-2">
-                                    <img class="rounded-circle border p-1" src="~/images/MemberPhoto/@Model.Member[count2].MemberPhotoPass" alt="Generic placeholder image">
                                 </div>
                                 <div class="media-body">
-                                    <p>@Model.Member[count2].MemberName</p>
-                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
-
-                                    <p>@item.Comments</p>
-                                    @{
-                                        string ReviewDate = (item.ReviewDate).ToString("yyyy-MM-dd hh:mm tt");
-                                    }
-                                    <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted">@ReviewDate</small>
+                                    <p style="text-align:center;font-size:20px;"><i class="fas fa-info-circle"></i>此商品尚未有任何評價</p>
+                                    <p></p>
+                                    <p></p>
+                                    <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted"></small>
                                 </div>
                             </div>
                             <hr>
-                            count2++;
+                        }
+                        else
+                        {
+                            foreach (var item in Model.review)
+                            {
+                                <input type="hidden" />
+                                <div class="media mb-3">
+                                    <div class="mr-2">
+                                        <img class="rounded-circle border p-1" src="~/images/MemberPhoto/@Model.Member[count2].MemberPhotoPass" alt="Generic placeholder image">
+                                    </div>
+                                    <div class="media-body">
+                                        <p>@Model.Member[count2].MemberName</p>
+                                        @{
+                                            int rankstar = item.StarRanking;
+                                            if (rankstar == 1)
+                                            {
+                                                <p><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
+                                            }
+                                            else if (rankstar == 2)
+                                            {
+                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
+                                            }
+                                            else if (rankstar == 3)
+                                            {
+                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
+                                            }
+                                            else if (rankstar == 4)
+                                            {
+                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
+                                            }
+                                            else if (rankstar == 5)
+                                            {
+                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+                                            }
+                                        }
+                                        <p>@item.Comments</p>
+                                        @{
+                                            string ReviewDate = (item.ReviewDate).ToString("yyyy-MM-dd HH:mm");
+                                        }
+                                        <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted">@ReviewDate</small>
+                                    </div>
+                                </div>
+                                <hr>
+                                count2++;
+                            }
+
                         }
                     }
                     @*從這邊結束foreach*@
