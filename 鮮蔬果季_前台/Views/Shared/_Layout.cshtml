@@ -87,6 +87,85 @@
         .side {
             /*            background-color: #5A8100;*/
         }
+        .contact-bot.action {
+            background-color: #b0b435;
+            color: white;
+            position: fixed;
+            display: inline;
+            max-width: 200px;
+            max-height: 40px;
+            bottom: 0px;
+            right: 50px;
+            font-size: 20px;
+            letter-spacing: 3px;
+            text-align: center;
+            padding: 5px 10px 5px 10px;
+            z-index: 999;
+            transition: 1.5s all;
+        }
+            .contact-bot.action:hover {
+                color: white;
+            }
+        .contact-bot {
+            background-color: white;
+            color: white;
+            position: fixed;
+            display: inline;
+            max-width: 0px;
+            max-height: 0px;
+            bottom: 0px;
+            right: 50px;
+            font-size: 20px;
+            letter-spacing: 3px;
+            text-align: center;
+            padding: 5px 10px 5px 10px;
+            z-index: 999;
+            transition: 1s all;
+        }
+        .div-bot {
+            background-color: white;
+            color: black;
+            position: fixed;
+            display: inline;
+            max-width: 0px;
+            max-height: 0px;
+            bottom: 0px;
+            right: 50px;
+            font-size: 20px;
+            text-align: right;
+            transition: 1s all;
+        }
+            .div-bot.action {
+                max-width: 1000px;
+                max-height: 1000px;
+                bottom: 0px;
+                right: 50px;
+                font-size: 20px;
+                letter-spacing: 3px;
+                text-align: right;
+                padding: 5px 10px 5px 10px;
+                z-index: 999;
+                transition: 1s all;
+                box-shadow: 5px 3px 12px #ADADAD;
+            }
+            .div-bot.action span {
+                cursor: pointer;
+            }
+            .div-bot.action span:hover {
+               color:crimson;
+            }
+            .div-bot iframe {
+                min-width: 0px;
+                width: 100%;
+                min-height: 0px;
+                transition: 1s all;
+            }
+            .div-bot.action iframe {
+                min-width: 400px;
+                width: 100%;
+                min-height: 500px;
+                transition: 1s all;
+            }
     </style>
     @await RenderSectionAsync("Styles", required: false)
 </head>
@@ -125,7 +204,7 @@
                     <!-- Start Atribute Navigation -->
                     <div class="attr-nav " id="navbar-menu">
                         <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp" id="sereachfoucus">
-                            <li id="member"><a class="nav-link" href="#" onclick="window.open('WebBot.html','網站客服','width=450,height=525')">線上客服(暫時)</a></li>
+                            @*<li id="member"><a class="nav-link" href="#" onclick="window.open('WebBot.html','網站客服','width=450,height=525')">線上客服(暫時)</a></li>*@
                             @{
                                 if (ViewBag.USER != null)
                                 {
@@ -301,7 +380,10 @@
             </div>
         </div>
     </footer>
-    <a href="#" id="back-to-top" title="Back to top" style="display: none;width:40px;height:40px;bottom:100px;right:50px;"><i class="fas fa-caret-up" style="font-size: 40px; letter-spacing: 0px "></i></a>
+    @*<a href="#" id="back-to-top" title="Back to top" style="display: none;width:40px;height:40px;bottom:100px;right:50px;"><i class="fas fa-caret-up" style="font-size: 40px; letter-spacing: 0px "></i></a>*@
+    <span id="bot-close" class="contact-bot action" style="cursor:pointer;"><i class="fas fa-comments"></i> 線上客服</span>
+    <div id="bot-open" class="div-bot "><span style=""><i class="far fa-times-circle"></i></span><iframe src='https://webchat.botframework.com/embed/msit132siangqna-bot?s=o-jd3mt_SHY.Cr7wCanCvakK4Oq4AGZkXbZhUvENa72PZYJ8jhX6PNM' style=''></iframe></div>
+
     <!-- End Footer  -->
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -322,6 +404,16 @@
     <script src="~/js/form-validator.min.js"></script>
     <script type="text/javascript" src="~/js/contact-form-script.js" charset="big5"></script>
     <script src="~/js/custom.js"></script>
+    <script>
+        $("#bot-close").click(function () {
+            $("#bot-close").removeClass("action");
+            $("#bot-open").addClass("action");
+        })
+        $("#bot-open").click(function () {
+            $("#bot-open").removeClass("action");
+            $("#bot-close").addClass("action");
+        })
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
