@@ -270,7 +270,12 @@
                                 <li><a asp-area="" asp-controller="Order" asp-action="Orders" class="transition">訂單紀錄</a></li>
                                 <li><a asp-area="" asp-controller="Member" asp-action="MyFavoriteList" class="transition">我的收藏</a></li>
                                 <li><a asp-area="" asp-controller="Coupons" asp-action="CouponsList" class="transition">優惠券</a></li>
-                                <li><a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a></li>
+                                @{
+                                    if (ViewBag.USER != null)
+                                    {
+                                        <li><a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a></li>
+                                    }
+                                }
                             </ul>
                         </li>
                     </ul>
