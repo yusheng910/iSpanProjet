@@ -46,27 +46,37 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult OrderDetail(int id)
         {
-            鮮蔬果季Context db = new 鮮蔬果季Context();
-            List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
-            var 所有訂單細項 = (from od in db.OrderDetails
-                          join p in db.Products
-                          on od.ProductId equals p.ProductId
-                          where od.OrderId == id
-                          select new { od, p });
-            //todo
-            db = new 鮮蔬果季Context();
-            foreach (var o in 所有訂單細項)
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
-                var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
-                訂單細項列表.Add(new OrderListViewModel()
+                ViewBag.USER = UserLogin.member.MemberName;
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
+                var 所有訂單細項 = (from od in db.OrderDetails
+                              join p in db.Products
+                              on od.ProductId equals p.ProductId
+                              where od.OrderId == id
+                              select new { od, p });
+                //todo
+                db = new 鮮蔬果季Context();
+                foreach (var o in 所有訂單細項)
                 {
-                    odetail = o.od,
-                    product = o.p,
-                    photoBank = 封面相片
-                    //單筆訂單細項總價 = 訂單細項總價
-                });
+                    var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
+                    訂單細項列表.Add(new OrderListViewModel()
+                    {
+                        odetail = o.od,
+                        product = o.p,
+                        photoBank = 封面相片
+                        //單筆訂單細項總價 = 訂單細項總價
+                    });
+                }
+                return View(訂單細項列表);
+            }                         
+            else //Seesion會員沒登入
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
             }
-            return View(訂單細項列表);
         }
     }
 }
