@@ -48,7 +48,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap" rel="stylesheet">
 }
-
+@section Scripts{ 
+<script>
+    num = parseFloat(@Review.Avgstr);
+    $("#addavg").html(num + '/5');
+</script>
+}
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -61,6 +66,7 @@
 </div>
 <!-- End All Title Box -->
 <!-- Start Shop Detail  -->
+@{
 <div class="shop-detail-box-main">
     <div class="container">
         <div class="row">
@@ -181,90 +187,93 @@
                 </div>
             </div>
         </div>
-
-        <div class="row my-5">
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    <h2>商品評價</h2>
-                    <span></span> <span style="color:gray;font-style:italic">(@Model.review.Count 則評論)</span>
-                </div>
-                <div class="card-body">
-                    @*從這邊開始foreach*@
-                    @{
-                        int count2 = 0;
-                        if (Model.review.Count == 0)
-                        {
-                            <input type="hidden" />
-                            <div class="media mb-3"> @*這邊加入文字*@
-                                <div class="mr-2">
-                                </div>
-                                <div class="media-body">
-                                    <p style="text-align:center;font-size:20px;"><i class="fas fa-info-circle"></i>此商品尚未有任何評價</p>
-                                    <p></p>
-                                    <p></p>
-                                    <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted"></small>
-                                </div>
-                            </div>
-                            <hr>
-                        }
-                        else
-                        {
-                            int avgstr = 0;
-                            foreach (var item in Model.review)
+        @{
+            <div class="row my-5">
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        <h2>商品評價</h2>
+                        <span id="addavg"></span> <span style="color:gray;font-style:italic">(@Model.review.Count 則評論)</span>
+                    </div>
+                    <div class="card-body">
+                        @*從這邊開始foreach*@
+                        @{
+                            int count2 = 0;
+                            if (Model.review.Count == 0)
                             {
-                                avgstr += item.StarRanking;
                                 <input type="hidden" />
                                 <div class="media mb-3">
+                                    @*這邊加入文字*@
                                     <div class="mr-2">
-                                        <img class="rounded-circle border p-1" src="~/images/MemberPhoto/@Model.Member[count2].MemberPhotoPass" alt="Generic placeholder image">
                                     </div>
                                     <div class="media-body">
-                                        <p>@Model.Member[count2].MemberName</p>
-                                        @{
-                                            int rankstar = item.StarRanking;
-                                            if (rankstar == 1)
-                                            {
-                                                <p><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
-                                            }
-                                            else if (rankstar == 2)
-                                            {
-                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
-                                            }
-                                            else if (rankstar == 3)
-                                            {
-                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
-                                            }
-                                            else if (rankstar == 4)
-                                            {
-                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
-                                            }
-                                            else if (rankstar == 5)
-                                            {
-                                                <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
-                                            }
-                                        }
-                                        <p>@item.Comments</p>
-                                        @{
-                                            string ReviewDate = (item.ReviewDate).ToString("yyyy-MM-dd HH:mm");
-                                        }
-                                        <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted">@ReviewDate</small>
+                                        <p style="text-align:center;font-size:20px;"><i class="fas fa-info-circle"></i>此商品尚未有任何評價</p>
+                                        <p></p>
+                                        <p></p>
+                                        <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted"></small>
                                     </div>
                                 </div>
                                 <hr>
-                                count2++;
                             }
-                            avgstr = avgstr / count2;
-
+                            else
+                            {
+                                double avgstr = 0;
+                                foreach (var item in Model.review)
+                                {
+                                    avgstr += item.StarRanking;
+                                    <input type="hidden" />
+                                    <div class="media mb-3">
+                                        <div class="mr-2">
+                                            <img class="rounded-circle border p-1" src="~/images/MemberPhoto/@Model.Member[count2].MemberPhotoPass" alt="Generic placeholder image">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>@Model.Member[count2].MemberName</p>
+                                            @{
+                                                int rankstar = item.StarRanking;
+                                                if (rankstar == 1)
+                                                {
+                                                    <p><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
+                                                }
+                                                else if (rankstar == 2)
+                                                {
+                                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
+                                                }
+                                                else if (rankstar == 3)
+                                                {
+                                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></p>
+                                                }
+                                                else if (rankstar == 4)
+                                                {
+                                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></p>
+                                                }
+                                                else if (rankstar == 5)
+                                                {
+                                                    <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
+                                                }
+                                            }
+                                            <p>@item.Comments</p>
+                                            @{
+                                                string ReviewDate = (item.ReviewDate).ToString("yyyy-MM-dd HH:mm");
+                                            }
+                                            <small style="font-family:'Baloo Bhaijaan 2', cursive;" class="text-muted">@ReviewDate</small>
+                                        </div>
+                                    </div>
+                                <hr>
+                                count2++;
+                                }
+                                avgstr = avgstr / count2;
+                                Review.Avgstr = Math.Round(avgstr,1,MidpointRounding.AwayFromZero);
+                            }
                         }
+                        @*從這邊結束foreach*@
+                    </div>
                     }
-                    @*從這邊結束foreach*@
                 </div>
+                <hr>
             </div>
-            <hr>
-        </div>
+        }
     </div>
 </div>
-
+}
 
 <!--<div class="row my-5">
             <div class="col-lg-12">
