@@ -13,35 +13,36 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult Orders()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                //=============================
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                List<OrderListViewModel> list = new List<OrderListViewModel>();
+                var orders = (from ord in db.Orders
+                              join stat in db.Statuses
+                              on ord.StatusId equals stat.StatusId
+                              where ord.MemberId == UserLogin.member.MemberId
+                              select new { ord, stat });
+
+                db = new 鮮蔬果季Context();
+                foreach (var o in orders)
+                {
+                    var 訂單總價 = (from od in db.OrderDetails
+                                join pro in db.Products
+                                on od.ProductId equals pro.ProductId
+                                where od.OrderId == o.ord.OrderId
+                                group new { od, pro } by od.OrderId into g
+                                select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
+                    list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
+                }
+                return View(list);
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
                 return RedirectToAction("Login", "Login");
             }
-            //IEnumerable<Order> orders = null;
-            鮮蔬果季Context db = new 鮮蔬果季Context();
-            List<OrderListViewModel> list = new List<OrderListViewModel>();
-            var orders = (from ord in db.Orders
-                          join stat in db.Statuses
-                          on ord.StatusId equals stat.StatusId
-                          where ord.MemberId == UserLogin.member.MemberId
-                          select new { ord, stat });
-
-            db = new 鮮蔬果季Context();
-            foreach (var o in orders)
-            {
-                var 訂單總價 = (from od in db.OrderDetails
-                            join pro in db.Products
-                            on od.ProductId equals pro.ProductId
-                            where od.OrderId == o.ord.OrderId
-                            group new { od, pro } by od.OrderId into g
-                            select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
-            }
-            return View(list);
-
         }
         public IActionResult OrderDetail(int id)
         {
@@ -65,7 +66,6 @@ namespace 鮮蔬果季_前台.Controllers
                     //單筆訂單細項總價 = 訂單細項總價
                 });
             }
-
             return View(訂單細項列表);
         }
     }

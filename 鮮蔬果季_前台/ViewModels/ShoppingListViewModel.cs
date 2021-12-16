@@ -35,6 +35,22 @@ namespace 鮮蔬果季_前台.ViewModels
                 _supp = value;
             }
         }
+
+        public ProductPhotoBank _prodphotoforCart = null;
+        public ProductPhotoBank photoforCart
+        {
+            get
+            {
+                if (_prodphotoforCart == null)
+                    _prodphotoforCart = new ProductPhotoBank();
+                return _prodphotoforCart;
+            }
+            set
+            {
+                _prodphotoforCart = value;
+            }
+        }
+
         public List<ProductPhotoBank> _prodphoto = null;
         public List<ProductPhotoBank> photoBank
         {
@@ -108,7 +124,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _Member = value;
             }
         }
-
+        public ShoppingCart _cart = null;
+        public ShoppingCart shopCart
+        {
+            get
+            {
+                if (_cart == null)
+                    _cart = new ShoppingCart();
+                return _cart;
+            }
+            set
+            {
+                _cart = value;
+            }
+        }
 
         //public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         //public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
