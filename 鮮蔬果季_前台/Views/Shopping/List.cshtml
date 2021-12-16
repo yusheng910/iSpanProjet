@@ -87,22 +87,29 @@
                                                         }
                                                     }
 
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                            @{
-                                                                if (item.myFavorite.MyFavoriteId != 0)
-                                                                {
-                                                                    <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <li><a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                                }
+                                                <div class="mask-icon">
+                                                    <ul>
+                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
+                                                        @{
+                                                            if (item.myFavorite.MyFavoriteId != 0)
+                                                            {
+                                                                <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>
                                                             }
-                                                        </ul>
-                                                        <a class="cart" href="#">加入購物車</a>
-                                                    </div>
+                                                            else
+                                                            {
+                                                                <li><a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                    @{
+                                                        if (item.shopCart.StatusId != 1)
+                                                        {
+                                                            <a class="cart" asp-area="" asp-controller="Shopping" asp-action="Cart">加入購物車</a>
+                                                        }
+                                                    }
+
+                                                    <a class="cart" href="#">加入購物車</a>
+                                                </div>
                                                 </div>
                                                 <div class="why-text">
                                                     @{

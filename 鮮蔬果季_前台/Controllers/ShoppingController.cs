@@ -88,13 +88,15 @@ namespace 鮮蔬果季_前台.Controllers
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
                 相片List.Add(封面相片);
-                var 最愛商品= db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId &&f.ProductId==item.prod.ProductId); /*TODO 目前會員ID寫死的*/
+                var 欲加購物車商品 = db.ShoppingCarts.FirstOrDefault(c => c.MemberId == UserLogin.member.MemberId && c.ProductId == item.prod.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.prod.ProductId); /*TODO 目前會員ID寫死的*/
                 所有商品列表.Add(new ShoppingListViewModel()
                 {
                     product=item.prod,
                     supplier = item.supp,
                     photoBank= 相片List,
-                    myFavorite= 最愛商品
+                    myFavorite= 最愛商品,
+                    shopCart = 欲加購物車商品
                 }) ; 
             }
             return View(所有商品列表);
@@ -236,6 +238,51 @@ namespace 鮮蔬果季_前台.Controllers
             }
         }
 
+        public IActionResult ListAddToCart(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ShoppingCart myCartitem = new ShoppingCart()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    ProductId = id
+                };
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                db.Add(myCartitem);
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
+            return RedirectToAction("List");
+        }
+        public IActionResult DetailAddToCart(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+
+                ShoppingCart myCartitem = new ShoppingCart()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    ProductId = id
+                };
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                db.Add(myCartitem);
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
+            return RedirectToAction("ShopDetail", new { id });
+        }
         public IActionResult Checkout()
         {
             return View();
