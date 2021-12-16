@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Supplier\" />
     <Folder Include="wwwroot\assets\img\合作農友\" />
   </ItemGroup>
 
