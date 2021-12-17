@@ -8,6 +8,11 @@
         .order-box h3 {
             font-size: 18px;
         }
+        .img-fluid {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
     </style>
 }
 
@@ -49,7 +54,7 @@
                                 int 應付金額 = 0;
                                 foreach (var item in Model)
                                 {
-                                    if (item.shopCart.StatusId != 1)
+                                    if (item.shopCart.StatusId == 1)
                                     {
                                         商品價乘數量 = item.product.ProductUnitPrice * item.shopCart.UnitsInCart;
                                         總價 += 商品價乘數量;

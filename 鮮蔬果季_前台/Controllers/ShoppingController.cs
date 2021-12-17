@@ -212,7 +212,7 @@ namespace 鮮蔬果季_前台.Controllers
                               on pro.ProductId equals item.ProductId
                               join stat in db.Statuses
                               on item.StatusId equals stat.StatusId
-                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 2
+                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
                               select new { item, pro, stat });
 
                 db = new 鮮蔬果季Context();
