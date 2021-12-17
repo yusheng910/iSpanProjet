@@ -243,14 +243,36 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                ShoppingCart myCartitem = new ShoppingCart()
-                {
-                    MemberId = UserLogin.member.MemberId,
-                    ProductId = id
-                };
                 鮮蔬果季Context db = new 鮮蔬果季Context();
-                db.Add(myCartitem);
-                db.SaveChanges();
+                var 購物車內商品 = (from p in db.Products
+                            join c in db.ShoppingCarts
+                            on p.ProductId equals c.ProductId
+                            where p.ProductId == id
+                            select new { p, c }).FirstOrDefault();
+
+                if(購物車內商品 == null)
+                {
+                    ShoppingCart myCartitem = new ShoppingCart()
+                    {
+                        MemberId = UserLogin.member.MemberId,
+                        ProductId = id,
+                        UnitsInCart = 1,
+                        StatusId = 1
+                    };
+                    db = new 鮮蔬果季Context();
+                    db.Add(myCartitem);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);                    
+                    myCartitem.MemberId = UserLogin.member.MemberId;
+                    myCartitem.ProductId = id;
+                    myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + 1;
+                    myCartitem.StatusId = 1;
+                    db.SaveChanges();
+                }
+
             }
             else //Seesion沒找到
             {
@@ -265,15 +287,36 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-
-                ShoppingCart myCartitem = new ShoppingCart()
-                {
-                    MemberId = UserLogin.member.MemberId,
-                    ProductId = id
-                };
                 鮮蔬果季Context db = new 鮮蔬果季Context();
-                db.Add(myCartitem);
-                db.SaveChanges();
+                var 購物車內商品 = (from p in db.Products
+                              join c in db.ShoppingCarts
+                              on p.ProductId equals c.ProductId
+                              where p.ProductId == id
+                              select new { p, c }).FirstOrDefault();
+
+                if (購物車內商品 == null)
+                {
+                    ShoppingCart myCartitem = new ShoppingCart()
+                    {
+                        MemberId = UserLogin.member.MemberId,
+                        ProductId = id,
+                        UnitsInCart = 1,
+                        StatusId = 1
+                    };
+                    db = new 鮮蔬果季Context();
+                    db.Add(myCartitem);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);
+                    myCartitem.MemberId = UserLogin.member.MemberId;
+                    myCartitem.ProductId = id;
+                    myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + 1;
+                    myCartitem.StatusId = 1;
+                    db.SaveChanges();
+                }
+
             }
             else //Seesion沒找到
             {
@@ -285,7 +328,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Checkout()
         {
-            return View();
+            return View();           
         }
     }
 }
