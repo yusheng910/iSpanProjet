@@ -104,7 +104,7 @@
                                                     @{
                                                         if (item.shopCart.StatusId != 1)
                                                         {
-                                                            <a class="cart" asp-area="" asp-controller="Shopping" asp-action="Cart">加入購物車</a>
+                                                            <a class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>
                                                         }
                                                     }
 
