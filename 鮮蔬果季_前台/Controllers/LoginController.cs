@@ -58,7 +58,8 @@ namespace 鮮蔬果季_前台.Controllers
                 MemberAddress=p.MemberAddress,
                 BirthDate=p.BirthDate,
                 Mobile=p.Mobile,
-                RegisteredDate=rt
+                RegisteredDate=rt,
+                MemberPhotoPass= "inihead.png"
             };
             
             db.Add(newMember);

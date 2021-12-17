@@ -21,7 +21,7 @@
                 <div class="contact-form-right">
                     <h2 >會員註冊系統</h2>
                     <p >請輸入以下資料，以利完成會員註冊。</p>
-                    <form id="contactForm" method="post" enctype="application/x-www-form-urlencoded" action="~/Login/Register">
+                    <form id="contactForm"  method="post" enctype="application/x-www-form-urlencoded" >
                         <div class="row">
                             <div class="col-md-7" >
                                 <div class="form-group">
@@ -39,8 +39,8 @@
                                 <div class="form-group">
                                     <select asp-for="Gender" class="form-control" id="gender" name="Gender" placeholder="您的生理性別" required data-error="請選擇您的生理性別">
                                         <option></option>
-                                        <option>男性</option>
-                                        <option>女性</option>
+                                        <option>男</option>
+                                        <option>女</option>
                                     </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -64,7 +64,7 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="submit-button text-left">
-                                    <input class="btn hvr-hover" id="submit" type="submit" value="註冊會員">
+                                    <button class="btn hvr-hover" id="submit" type="submit" >註冊會員</button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     <div class="clearfix"></div>
                                  </div>
