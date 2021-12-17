@@ -158,7 +158,7 @@
                         <li>
                             <div class="form-group quantity-box">
                                 <label class="control-label">數量</label>
-                                <input class="form-control" value="0" min="0" max="20" type="number">
+                                <input class="form-control" value="1" min="1" max="20" type="number">
                             </div>
                         </li>
                     </ul>
@@ -166,7 +166,7 @@
                     <div class="price-box-bar">
                         <div class="cart-and-bay-btn">
                             <a class="btn hvr-hover" data-fancybox-close="" asp-area="" asp-controller="Shopping" asp-action="Cart">馬上購買</a>
-                            <a class="btn hvr-hover" data-fancybox-close="" asp-area="" asp-controller="" asp-action="">加入購物車</a>
+                            <a class="btn hvr-hover" data-fancybox-close="" asp-area="" asp-controller="Shopping" asp-action="DetailAddToCart"asp-route-id="@Model.product.ProductId">加入購物車</a>
                         </div>
                     </div>
 

@@ -8,6 +8,11 @@
         .order-box h3 {
             font-size: 18px;
         }
+        .img-fluid {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
     </style>
 }
 
@@ -47,9 +52,9 @@
                                 int 商品折扣 = 0;
                                 int 酷碰折扣 = 0;
                                 int 應付金額 = 0;
-                                foreach (var item in Model)
+                                if (Model.Count != 0)
                                 {
-                                    if (item.shopCart.StatusId != 1)
+                                    foreach (var item in Model)
                                     {
                                         商品價乘數量 = item.product.ProductUnitPrice * item.shopCart.UnitsInCart;
                                         總價 += 商品價乘數量;
@@ -79,36 +84,30 @@
                                         </tr>
                                         應付金額 = 總價 + 運費 - 商品折扣 - 酷碰折扣;
                                     }
-                                    else
-                                    {
-                                        <tr>
-                                            <td>
-                                                <p>購物車內無商品</p>
-                                            </td>
-                                            <td class="name-pr">
-
-                                            </td>
-                                            <td class="price-pr">
-
-                                            </td>
-                                            <td class="quantity-box">
-                                            
-                                            </td>
-                                            <td class="total-pr">
-                                            
-                                            </td>
-                                            <td class="remove-pr">
-
-                                            </td>
-                                        </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>
+                                            <h2>購物車內無商品</h2>
+                                        </td>
+                                        <td class="name-pr">
+                                        </td>
+                                        <td class="price-pr">
+                                        </td>
+                                        <td class="quantity-box">
+                                        </td>
+                                        <td class="total-pr">
+                                        </td>
+                                        <td class="remove-pr">
+                                        </td>
+                                    </tr>
                                         運費 = 0;
                                         商品折扣 = 0;
                                         酷碰折扣 = 0;
                                     }
-
                                 }
 
-                            }
                         </tbody>
                     </table>
                 </div>
