@@ -3,11 +3,11 @@ $("#contactForm").validator().on("submit", function (event) {
         // handle the invalid form...
         formError();
         submitMSG(false, "尚未填寫完資料，請確認。");
-    } else {
-        // everything looks good!
-        event.preventDefault();
-        submitForm();
-    }
+    }// else {
+    //    // everything looks good!
+    //    event.preventDefault();
+    //    submitForm();
+    /*}*/
 });
 
 
