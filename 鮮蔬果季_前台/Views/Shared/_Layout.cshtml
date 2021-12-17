@@ -100,7 +100,7 @@
             letter-spacing: 3px;
             text-align: center;
             padding: 5px 10px 5px 10px;
-            z-index: 998;
+            z-index: 997;
             transition: 1.5s all;
         }
             .contact-bot.action:hover {
@@ -119,7 +119,7 @@
             letter-spacing: 3px;
             text-align: center;
             padding: 5px 10px 5px 10px;
-            z-index: 998;
+            z-index: 997;
             transition: 1s all;
         }
         .div-bot {
@@ -133,7 +133,7 @@
             right: 50px;
             font-size: 20px;
             text-align: right;
-            z-index: 999;
+            z-index: 998;
             transition: 0.5s all;
         }
             .div-bot.action {
@@ -145,7 +145,7 @@
                 letter-spacing: 3px;
                 text-align: right;
                 padding: 5px 10px 5px 10px;
-                z-index: 999;
+                z-index: 998;
                 transition: 0.5s all;
                 box-shadow: 5px 3px 12px #ADADAD;
             }
@@ -230,7 +230,7 @@
     </div>
     <!-- End Main Top -->
     <!-- Start Main Top -->
-    <header class="main-header">
+    <header class="main-header"  style="z-index:999">
         <!-- Start Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light navbar-default bootsnav  " style="background-color:#FFF9E9">
             <div class="container" style="max-width:70%;">
@@ -415,7 +415,7 @@
             $("#bot-close").removeClass("action");
             $("#bot-open").addClass("action");
         })
-        $("#bot-open").click(function () {
+        $("#bot-open span").click(function () {
             $("#bot-open").removeClass("action");
             $("#bot-close").addClass("action");
         })
