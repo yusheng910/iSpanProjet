@@ -49,10 +49,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap" rel="stylesheet">
 }
 @section Scripts{ 
-<script>
+    <script>
     num = parseFloat(@Review.Avgstr);
-    $("#addavg").html(num + '/5');
-</script>
+        if (num > 4 && num < 5)
+        {
+            $("#addavg").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>  </span>${num}/5`);
+        }
+        else if (num > 3 && num < 4) {
+            $("#addavg").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star-half-alt"></i><i class="far fa-star"></i>  </span>${num}/5`);
+        }
+    </script>
 }
 <!-- Start All Title Box -->
 <div class="all-title-box">
@@ -192,7 +198,7 @@
                 <div class="card card-outline-secondary my-4">
                     <div class="card-header">
                         <h2>商品評價</h2>
-                        <span id="addavg"></span> <span style="color:gray;font-style:italic">(@Model.review.Count 則評論)</span>
+                        <span id="addstr"><i></i></span><span id="addavg"></span> <span style="color:gray;font-style:italic">(@Model.review.Count 則評論)</span>
                     </div>
                     <div class="card-body">
                         @*從這邊開始foreach*@
@@ -266,7 +272,6 @@
                         }
                         @*從這邊結束foreach*@
                     </div>
-                    }
                 </div>
                 <hr>
             </div>
