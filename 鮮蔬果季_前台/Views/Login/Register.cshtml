@@ -1,4 +1,4 @@
-﻿
+﻿@model 鮮蔬果季_前台.ViewModels.MemberViewModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -21,51 +21,53 @@
                 <div class="contact-form-right">
                     <h2 >會員註冊系統</h2>
                     <p >請輸入以下資料，以利完成會員註冊。</p>
-                    <form id="contactForm">
+                    <form id="contactForm" method="post" enctype="application/x-www-form-urlencoded" action="~/Login/Register">
                         <div class="row">
                             <div class="col-md-7" >
                                 <div class="form-group">
-                                    <input type="text" placeholder="您的電子郵件帳號" id="email" class="form-control" name="name" required data-error="請輸入您的電子郵件">
+                                    <input asp-for="UserId" type="text"  placeholder="您的電子郵件帳號" id="email" class="form-control" name="UserId" required data-error="請輸入您的電子郵件">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="password" name="name" placeholder="您的密碼" required data-error="請輸入您的密碼">
+                                    <input asp-for="Password" type="password" class="form-control" id="password" name="Password" placeholder="您的密碼" required data-error="請輸入您的密碼">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="您的姓名" required data-error="請輸入您的姓名">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="form-group" style="border: solid 1px #D0D0D0; padding: 5px; ">
-                                    &ensp;您的性別 : <input name="gender" type="radio" required data-error="請選擇您的性別" />男
-                                    <input name="gender" type="radio" required data-error="請選擇您的性別" />女
+                                    <input asp-for="MemberName" type="text" class="form-control" id="name" name="MemberName" placeholder="您的姓名" required data-error="請輸入您的姓名">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="date" class="form-control" id="Birthdate" name="name" placeholder="您的生日" required data-error="請輸入您的生日">
+                                    <select asp-for="Gender" class="form-control" id="gender" name="Gender" placeholder="您的生理性別" required data-error="請選擇您的生理性別">
+                                        <option></option>
+                                        <option>男性</option>
+                                        <option>女性</option>
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="BirthDate" type="date" class="form-control" id="Birthdate" name="BirthDate" placeholder="您的生日" required data-error="請輸入您的生日">
                                     <div class="help-block with-errors"></div>
                                  </div>
                                 <div class="form-group">
-                                    <select  class="form-control" id="state" name="name" placeholder="您的現居縣市" required data-error="請輸入您的縣市" >
+                                    <select asp-for="city" class="form-control" id="state" name="city" placeholder="您的現居縣市" required data-error="請輸入您的縣市" >
                                         <option></option>
                                         <option>台北市</option>
                                     </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="Address" name="name" placeholder="您的現居地址" required data-error="請輸入您的住址">
+                                    <input asp-for="MemberAddress" type="text" class="form-control" id="Address" name="MemberAddress" placeholder="您的現居地址" required data-error="請輸入您的住址">
                                     <div class="help-block with-errors"></div>
                                  </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="Phone" name="name" placeholder="您的連絡電話" required data-error="請輸入您的聯絡電話">
+                                    <input asp-for="Mobile" type="text" class="form-control" id="Phone" name="Mobile" placeholder="您的連絡電話" required data-error="請輸入您的聯絡電話">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="submit-button text-left">
-                                    <button class="btn hvr-hover" id="submit" type="submit">註冊會員</button>
+                                    <input class="btn hvr-hover" id="submit" type="submit" value="註冊會員">
                                     <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     <div class="clearfix"></div>
                                  </div>
-                                
                              </div>
                          </div>
                     </form>

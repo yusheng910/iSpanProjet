@@ -40,6 +40,31 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Register(MemberViewModel p)
+        {
+            鮮蔬果季Context db = new 鮮蔬果季Context();
+            DateTime rt = new DateTime(2019, 01, 01);  //註冊日期固定
+            var CityID =(from a in db.Cities
+                         where p.city.Equals(a.CityName)
+                         select a.CityId).FirstOrDefault();
+            var newMember = new Member
+            {
+                UserId = p.UserId,
+                Password = p.Password,
+                MemberName = p.MemberName,
+                Gender = p.Gender,
+                CityId = CityID,
+                MemberAddress=p.MemberAddress,
+                BirthDate=p.BirthDate,
+                Mobile=p.Mobile,
+                RegisteredDate=rt
+            };
+            
+            db.Add(newMember);
+            db.SaveChanges();
+            return RedirectToAction("Login");
+        }
         
     }
 }
