@@ -18,6 +18,7 @@ namespace 鮮蔬果季_前台.Models
         }
 
         public virtual DbSet<Announce> Announces { get; set; }
+        public virtual DbSet<BlogDetail> BlogDetails { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryDetail> CategoryDetails { get; set; }
         public virtual DbSet<City> Cities { get; set; }
@@ -63,6 +64,43 @@ namespace 鮮蔬果季_前台.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+            });
+
+            modelBuilder.Entity<BlogDetail>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.BlogDetailId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("BlogDetailID");
+
+                entity.Property(e => e.Label)
+                    .HasMaxLength(10)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.Maintext)
+                    .HasMaxLength(500)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.PhotoPath).UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.PublishedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Subtitle)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany()
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BlogDetails_Suppliers");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -131,7 +169,7 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.CouponStartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.DiscountCondition).HasDefaultValueSql("((9999999))");
+                entity.Property(e => e.DiscountCondition).HasDefaultValueSql("((0))");
             });
 
             modelBuilder.Entity<CouponDetail>(entity =>
@@ -284,7 +322,9 @@ namespace 鮮蔬果季_前台.Models
                     .HasMaxLength(10)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
-                entity.Property(e => e.MemberPhotoPass).UseCollation("SQL_Latin1_General_CP1_CI_AS");
+                entity.Property(e => e.MemberPhotoPass)
+                    .HasDefaultValueSql("('inihead.png')")
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.Mobile)
                     .IsRequired()

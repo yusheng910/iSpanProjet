@@ -1,5 +1,5 @@
-﻿@model IEnumerable<鮮蔬果季_前台.Models.Supplier>
-
+﻿@*@model IEnumerable<鮮蔬果季_前台.Models.Supplier>*@
+@model List<鮮蔬果季_前台.ViewModels.BlogDetailListViewModel>
 @{
     ViewData["Title"] = "PartnerBlog_1";
 }
@@ -37,140 +37,138 @@
                 float: left;
                 padding: 10px 0px;
             }
-
-
     </style>
-    }
+}
 
 
-    <!-- Start All Title Box===================================================== -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>合作農友</h2>
-                    @*<ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">ABOUT US</li>
-                        </ul>*@
-                </div>
+<!-- Start All Title Box===================================================== -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>合作農友</h2>
+                @*<ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">ABOUT US</li>
+                    </ul>*@
             </div>
         </div>
     </div>
-    <div style="padding-bottom:50px"></div>   @*間格用*@
-    <!-- single article section -->
-    <div class="mt-150 mb-150">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="single-article-section">
+</div>
+<div style="padding-bottom:50px"></div>   @*間格用*@
+<!-- single article section -->
+<div class="mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="single-article-section">
 
-                        <div class="single-article-text">
-                            <div class="single-artcile-bg"></div>   @*圖片,寫在CSS內*@
-                            @{foreach (var item in Model)
-                                {
-                                    <p class="blog-meta">
-                                        <span class="author"><i class="fas fa-user"></i> 村長</span>
-                                        <span class="date"><i class="fas fa-calendar"></i> 2021-12-03</span>
-                                    </p>
-                                    <h2> @Html.DisplayFor(modelitem => item.SupplierName)</h2>
-                                    <div>
-                                        <p style="font-size:medium"> @Html.DisplayFor(modelitem => item.SupplierProfile)</p>
-                                    </div>
+                    <div class="single-article-text">
+                        <div class="single-artcile-bg"></div>   @*圖片,寫在CSS內*@
+                        @{foreach (var item in Model)
+                            {
+                                <p class="blog-meta">
+                                    <span class="author"><i class="fas fa-user"></i> 村長</span>
+                                    <span class="date"><i class="fas fa-calendar"></i> 2021-12-03</span>
+                                </p>
+                                <h2> @Html.DisplayFor(modelitem => item._BlogDetail.Title)</h2>
+                                <div>
+                                    <p style="font-size:medium"> @Html.DisplayFor(modelitem => item._BlogDetail.Maintext)</p>
+                                </div>
 
-                                    <div style="padding-bottom:60px"></div> @*間格用*@
+                                <div style="padding-bottom:60px"></div> @*間格用*@
 
-                                    var 地址 = @Html.DisplayFor(modelitem => item.SupplierAddress);
-                                    <iframe frameborder="0" width="730" height="450" src="https://www.google.com/maps?q=@地址&amp;hl=zh-TW&amp;z=16&amp;m=h&amp;output=embed"></iframe>
-                                    @*googelmpa參數可詳 https://jax-work-archive.blogspot.com/2011/07/google-maps.html  *@
-                                }
+                                var 地址 = @Html.DisplayFor(modelitem => item._Supplier.SupplierAddress);
+                                <iframe frameborder="0" width="730" height="450" src="https://www.google.com/maps?q=@地址&amp;hl=zh-TW&amp;z=16&amp;m=h&amp;output=embed"></iframe>
+                                @*googelmpa參數可詳 https://jax-work-archive.blogspot.com/2011/07/google-maps.html  *@
                             }
-                        </div>
-
-
-
-
-                        <br />
-                        <div class="comment-template">
-                            <h4>留言板</h4>                @*留言板*@
-                            <p>歡迎您透過以下留言板，回復訊息給予農友鼓勵!</p>
-                            <form action="index.html">
-                                <p style="padding-bottom:10px">
-                                    <input type="text" placeholder="稱呼">
-                                    <input type="email" placeholder="電子信箱">
-                                </p>
-                                <p>
-<textarea name="comment" id="comment" cols="30" rows="10" placeholder="留言訊息"></textarea>
-                                </p>
-                                @*<p><input type="submit" value="Submit"></p>*@
-                                <button type="button" class="btn btn-success btn-lg">送出</button>
-                            </form>
-                        </div>
-
+                        }
                     </div>
+
+
+
+
+                    <br />
+                    <div class="comment-template">
+                        <h4>留言板</h4>                @*留言板*@
+                        <p>歡迎您透過以下留言板，回復訊息給予農友鼓勵!</p>
+                        <form action="index.html">
+                            <p style="padding-bottom:10px">
+                                <input type="text" placeholder="稱呼">
+                                <input type="email" placeholder="電子信箱">
+                            </p>
+                            <p>
+                                  <textarea name="comment" id="comment" cols="30" rows="10" placeholder="留言訊息"></textarea>
+                            </p>
+                            @*<p><input type="submit" value="Submit"></p>*@
+                            <button type="button" class="btn btn-success btn-lg">送出</button>
+                        </form>
+                    </div>
+
                 </div>
-                <div class="col-lg-4">
-                    <div class="sidebar-section">
-                        <div class="recent-posts">
-                            <h4>近期文章</h4>
-                            <ul>
-                                <li>
-                                    <a href="single-news.html">台中大甲檳榔心芋頭</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">橙界貴族台東肚臍柑</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">宜蘭阿瑞的番茄農場</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">高雄大樹阿瑋芭樂園</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">小熙的無農藥玉米筍</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="archive-posts">
-                            <h4>月份</h4>
-                            <ul>
-                                <li>
-                                    <a href="single-news.html">JAN 2019 (5)</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">FEB 2019 (3)</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">MAY 2019 (4)</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">SEP 2019 (4)</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">DEC 2019 (3)</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tag-section">
-                            <h4>標籤</h4>
-                            <ul>
-                                <li>
-                                    <a href="single-news.html">芋頭</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">台灣</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">小農</a>
-                                </li>
-                                <li>
-                                    <a href="single-news.html">玉米筍</a>
-                                </li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar-section">
+                    <div class="recent-posts">
+                        <h4>近期文章</h4>
+                        <ul>
+                            <li>
+                                <a href="single-news.html">台中大甲檳榔心芋頭</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">橙界貴族台東肚臍柑</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">宜蘭阿瑞的番茄農場</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">高雄大樹阿瑋芭樂園</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">小熙的無農藥玉米筍</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="archive-posts">
+                        <h4>月份</h4>
+                        <ul>
+                            <li>
+                                <a href="single-news.html">JAN 2019 (5)</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">FEB 2019 (3)</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">MAY 2019 (4)</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">SEP 2019 (4)</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">DEC 2019 (3)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tag-section">
+                        <h4>標籤</h4>
+                        <ul>
+                            <li>
+                                <a href="single-news.html">芋頭</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">台灣</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">小農</a>
+                            </li>
+                            <li>
+                                <a href="single-news.html">玉米筍</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div style="padding-bottom:50px"></div>   @*間格用*@
+</div>
+<div style="padding-bottom:50px"></div>   @*間格用*@
