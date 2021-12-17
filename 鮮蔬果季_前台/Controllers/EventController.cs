@@ -42,7 +42,7 @@ namespace 鮮蔬果季_前台.Controllers
         {
             鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = from E in db.Events
-                        where id ==E.EventId
+                        where id ==E.EventId           //回傳的id與活動id相等
                         select E;
 
             List<EventListViewModel> list = new List<EventListViewModel>();
@@ -59,25 +59,6 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
             return View(list);
-        }
-
-
-
-
-
-
-        public IActionResult EventSignUp_2()
-        {
-            return View();
-        }
-        public IActionResult EventSignUp_3()
-        {
-            return View();
-        }
-
-        public IActionResult EventSignUp_4()
-        {
-            return View();
         }
 
     }
