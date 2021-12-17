@@ -43,15 +43,15 @@
                         <div class="col-12 col-sm-8 text-center text-sm-left">
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
-                                @using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
-                                {
+                                @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
+                                {*@
                                     <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
                                         <option value="0">鮮蔬果季隨機推薦</option>
                                         <option value="1" data-display="Select" >最新商品</option>
                                         <option value="2" >價格 (由高至低)</option>
                                         <option value="3">價格 (由低至高)</option>
                                     </select>
-                                }
+                                @*}*@
 
                             </div>
                             @*<p>Showing all 4 results</p>*@
@@ -242,11 +242,24 @@
                                 </a>
                                 <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
                                     <div class="list-group">
-                                        <a href="#" class="list-group-item list-group-item-action active">根莖類 <small class="text-muted">(50)</small></a>
+                                        @*第二層start(href,aria-controls,data-parent,id)名稱要不同*@
+                                        <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men2">
+                                            蔬菜類 <small class="text-muted">(100)</small>
+                                        </a>
+                                        <div class="collapse show" id="sub-men2" data-parent="#list-group-men2">
+                                            <div class="list-group">
+                                                <a href="#" class="list-group-item list-group-item-action active">根莖類 <small class="text-muted">(50)</small></a>
+                                                <a href="#" class="list-group-item list-group-item-action">瓜果類 <small class="text-muted">(10)</small></a>
+                                                <a href="#" class="list-group-item list-group-item-action">葉菜類 <small class="text-muted">(10)</small></a>
+                                                <a href="#" class="list-group-item list-group-item-action">結球菜類 <small class="text-muted">(10)</small></a>
+                                            </div>
+                                        </div>
+                                        @*第二層end*@
                                         <a href="#" class="list-group-item list-group-item-action">瓜果類 <small class="text-muted">(10)</small></a>
                                         <a href="#" class="list-group-item list-group-item-action">葉菜類 <small class="text-muted">(10)</small></a>
                                         <a href="#" class="list-group-item list-group-item-action">結球菜類 <small class="text-muted">(10)</small></a>
                                     </div>
+
                                 </div>
                             </div>
                             <a href="#" class="list-group-item list-group-item-action"> 水果類 <small class="text-muted">(150) </small></a>
@@ -276,12 +289,12 @@
 <!-- End Shop Page -->
 @section Scripts{
     <script>
-        $("#basic").change(function () {
-            $("#slectForm").submit();
-            var opt = $("#basic").val;
-            console.log(opt);
-        });
+        //$("#basic").change(function () {
+        //    $("#slectForm").submit();
+        //    var opt = $("#basic").val;
+        //    console.log(opt);
+        //});
         @*下拉式選單選時要跳到那個選項*@
-        $("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);
+        @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
     </script>
 }
