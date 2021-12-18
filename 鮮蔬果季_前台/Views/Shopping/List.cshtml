@@ -239,7 +239,7 @@
                             <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
                                 <div class="list-group-collapse sub-men">
                                     @*第一層Start*@
-                                    @foreach (var 分類 in ViewBag.分類)
+                                    @foreach (var 分類 in ViewBag.主類別)
                                     {
                                     int count1 = 0;
                                     string id = "sub-men" + count1;
@@ -248,7 +248,7 @@
                                             <a class="list-group-item list-group-item-action" href="#@id" data-toggle="collapse" aria-expanded="true" aria-controls="@id">
                                                 @分類.CategoryName <small class="text-muted">(100)</small>
                                             </a> 
-                                            //foreach (var 次分類 in ViewBag.分類)
+                                            //foreach (var 次分類 in ViewBag.次分類)
                                             //{
                                             //    if (次分類.FatherCategoryId == 分類.CategoryId)
                                             //    {
