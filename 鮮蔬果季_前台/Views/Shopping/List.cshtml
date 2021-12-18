@@ -44,13 +44,13 @@
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
                                 @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
-                                {*@
-                                    <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                                        <option value="0">鮮蔬果季隨機推薦</option>
-                                        <option value="1" data-display="Select" >最新商品</option>
-                                        <option value="2" >價格 (由高至低)</option>
-                                        <option value="3">價格 (由低至高)</option>
-                                    </select>
+                                    {*@
+                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                    <option value="0">鮮蔬果季隨機推薦</option>
+                                    <option value="1" data-display="Select">最新商品</option>
+                                    <option value="2">價格 (由高至低)</option>
+                                    <option value="3">價格 (由低至高)</option>
+                                </select>
                                 @*}*@
 
                             </div>
@@ -58,6 +58,9 @@
                         </div>
                         <div class="col-12 col-sm-4 text-center text-sm-right">
                             <ul class="nav nav-tabs ml-auto">
+                                <li>
+                                    <a class="nav-link " href="" data-toggle="tab"><i class="fas fa-filter"></i> </a>
+                                </li>
                                 <li>
                                     <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
                                 </li>
@@ -72,6 +75,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                 <div class="row">
+                                    <div></div>
                                     @*商品List 開始*@
                                     @foreach (var item in Model)
                                     {
@@ -87,23 +91,29 @@
                                                         }
                                                     }
 
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>
-                                                        @{
-                                                            if (item.myFavorite.MyFavoriteId != 0)
-                                                            {
-                                                                <li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li>
+                                                                <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
+                                                            </li>
+                                                            @{
+                                                                if (item.myFavorite.MyFavoriteId != 0)
+                                                                {
+                                                                    <li>
+                                                                        <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li>
+                                                                        <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                                    </li>
+                                                                }
                                                             }
-                                                            else
-                                                            {
-                                                                <li><a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
-                                                            }
-                                                        }
-                                                    </ul>                                                          
-                                                            <a class="cart">加入購物車</a>                                                     
-                                                     <a class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>
-                                                </div>
+                                                        </ul>
+                                                        <a class="cart">加入購物車</a>
+                                                        <a class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>
+                                                    </div>
                                                 </div>
                                                 <div class="why-text">
                                                     @{
@@ -119,7 +129,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                                        }
+                                    }
                                     @*商品List 結束*@
                                 </div>
                             </div>
@@ -136,8 +146,12 @@
                                                     <img src="~/images/商品照/美生菜.jpg" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
+                                                            <li>
+                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                            </li>
                                                         </ul>
 
                                                     </div>
@@ -147,7 +161,10 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                                 <h4>有機美生菜特價中</h4>
-                                                <h5> 600g<del>NT$ 92</del> NT$80</h5>
+                                                <h5>
+                                                    600g
+                                                    <del>NT$ 92</del> NT$80
+                                                </h5>
                                                 <p>
                                                     營養豐富高纖蔬菜，冬陽下的沙拉或冬夜裡的火鍋都少不了這一味。
                                                 </p>
@@ -167,8 +184,12 @@
                                                     <img src="~/images/商品照/柿子.jpg" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
+                                                            <li>
+                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                            </li>
                                                         </ul>
 
                                                     </div>
@@ -178,7 +199,10 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                                 <h4>高山甜柿特價中，趕緊手刀搶購!</h4>
-                                                <h5> 500g<del>NT$ 80.00</del> NT$50</h5>
+                                                <h5>
+                                                    500g
+                                                    <del>NT$ 80.00</del> NT$50
+                                                </h5>
                                                 <p>
                                                     一年一度甜柿季節搭配折扣讓您吃到滿意，錯過再等一年!
                                                 </p>
@@ -198,8 +222,12 @@
                                                     <img src="~/images/商品照/牛番茄.jpg" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a></li>
+                                                            <li>
+                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                            </li>
                                                         </ul>
 
                                                     </div>
@@ -209,7 +237,10 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                                 <h4>牛番茄熱銷回饋</h4>
-                                                <h5> 600g <del>NT$ 90.00</del> NT$82</h5>
+                                                <h5>
+                                                    600g
+                                                    <del>NT$ 90.00</del> NT$82
+                                                </h5>
                                                 <p>
                                                     當季鮮美牛番茄，入菜鮮吃都讓您獲得滿分營養!
                                                 </p>
@@ -239,30 +270,44 @@
                             <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
                                 <div class="list-group-collapse sub-men">
                                     @*第一層Start*@
+                                    @{int count1 = 0; int count2 = 100;}
                                     @foreach (var 分類 in ViewBag.主類別)
                                     {
-                                    int count1 = 0;
-                                    string id = "sub-men" + count1;
+
+                                        count1++;
+                                        string men = "sub-men" + count1;
+                                        string groupmen = "list-group-men" + count1;
                                         if (分類.FatherCategoryId == null)
-                                        {                                         
-                                            <a class="list-group-item list-group-item-action" href="#@id" data-toggle="collapse" aria-expanded="true" aria-controls="@id">
+                                        {
+                                            <a class="list-group-item list-group-item-action" href="#@men" data-toggle="collapse" aria-expanded="true" aria-controls="@men" style="position:relative">
                                                 @分類.CategoryName <small class="text-muted">(100)</small>
-                                            </a> 
-                                            //foreach (var 次分類 in ViewBag.次分類)
-                                            //{
-                                            //    if (次分類.FatherCategoryId == 分類.CategoryId)
-                                            //    {
-
-
-                                            //    }
-                                            //}
-
+                                            </a>
+                                            <div class="collapse" id="@men" data-parent="#@groupmen">
+                                                <div class="list-group">
+                                                    @foreach (var 次分類 in ViewBag.次類別)
+                                                    {
+                                                        count2++;
+                                                        string men2 = "sub-men" + count2;
+                                                        string groupmen2 = "list-group-men" + count2;
+                                                        if (次分類.FatherCategoryId == 分類.CategoryId)
+                                                        {
+                                                            <a class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2">
+                                                                @次分類.CategoryName <small class="text-muted">(100)</small>
+                                                            </a>
+                                                            <div class="collapse" id="@men" data-parent="#@groupmen">
+                                                                <div class="list-group">
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
                                         }
                                     }
                                     @*第一層end*@
                                 </div>
                             </div>
-                            }
+                        }
                         <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
                             <div class="list-group-collapse sub-men">
                                 @*第一層*@
@@ -270,7 +315,7 @@
                                     蔬菜類 <small class="text-muted">(100)</small>
                                 </a>
                                 @*第二層start(href,aria-controls,data-parent,id)名稱要不同*@
-                                <div class="collapse show" id="sub-men1" data-parent="#list-group-men1">
+                                <div class="collapse" id="sub-men1" data-parent="#list-group-men1">
                                     <div class="list-group">
 
                                         <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men2">
@@ -295,8 +340,8 @@
                                 @*第二層end*@
                             </div>
                             @*<a href="#" class="list-group-item list-group-item-action"> 水果類 <small class="text-muted">(150) </small></a>
-            <a href="#" class="list-group-item list-group-item-action"> 台灣茶 <small class="text-muted">(11)</small></a>
-            <a href="#" class="list-group-item list-group-item-action"> 五穀雜糧 <small class="text-muted">(22)</small></a>*@
+                                <a href="#" class="list-group-item list-group-item-action"> 台灣茶 <small class="text-muted">(11)</small></a>
+                                <a href="#" class="list-group-item list-group-item-action"> 五穀雜糧 <small class="text-muted">(22)</small></a>*@
                         </div>
                     </div>
 
