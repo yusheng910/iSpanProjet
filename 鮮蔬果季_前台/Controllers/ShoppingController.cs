@@ -104,12 +104,11 @@ namespace 鮮蔬果季_前台.Controllers
                        where !c.CategoryName.Contains("活動類") && c.FatherCategoryId==null 
                        orderby c.CategoryId descending
                        select c;
-            var 商品次類別 = from c in (new 鮮蔬果季Context()).Categories
-                        where c.FatherCategoryId != 8 
-                        select c;
+            var 商品次類別 = (new 鮮蔬果季Context()).Categories.Where(c => c.FatherCategoryId != 8);
+            var 商品次類別2 = (new 鮮蔬果季Context()).Categories.Where(c => c.FatherCategoryId != 8);
             ViewBag.主類別 = 商品主類別;
             ViewBag.次類別 = 商品次類別;
-
+            ViewBag.次類別2 = 商品次類別2;
             return View(所有商品列表);
         }
 
