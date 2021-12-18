@@ -43,6 +43,13 @@
         .btn:hover {
             /*color: #ffffff;*/
         }
+        .addavg{
+            font-size:15px;
+            padding-left:5px;
+        }
+        .rankbody i{
+            color:yellowgreen;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,13 +57,46 @@
 }
 @section Scripts{ 
     <script>
-    num = parseFloat(@Review.Avgstr);
-        if (num > 4 && num < 5)
-        {
-            $("#addavg").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>  </span>${num}/5`);
+        if (@Review.Avgstr > 4 && @Review.Avgstr < 5) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
         }
-        else if (num > 3 && num < 4) {
-            $("#addavg").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star-half-alt"></i><i class="far fa-star"></i>  </span>${num}/5`);
+        else if (@Review.Avgstr > 3 && @Review.Avgstr < 4) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr > 2 && @Review.Avgstr < 3) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt""></i><i class="far fa-star"></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr > 1 && @Review.Avgstr < 2) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star""></i><i class="far fa-star></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr == 5) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr == 4) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr == 3) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr == 2) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        else if (@Review.Avgstr == 1) {
+            $(".addstr").html(`<span><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>  </span>`);
+            $(".addavg").html(`${@Review.Avgstr}/5`);
+        }
+        if (@Model.review.Count== 0) {
+            $(".addstr").remove();
+            $(".addavg").remove();
+            $("#sepline").remove();
         }
     </script>
 }
@@ -145,7 +185,7 @@
                 <div class="single-product-details">
                     <h2>【@Model.supplier.SupplierName】@Model.product.ProductName </h2>
                     <h5> @*<del>NT$ 80</del>*@ NT$ @Model.product.ProductUnitPrice</h5>
-                    <p class="available-stock"><span> 尚餘 @Model.product.ProductUnitsInStock 件  /  <a href="#">@Model.出售量 已售出 @*@avgstar*@ </a></span><p>
+                    <p class="available-stock"><span> 尚餘 @Model.product.ProductUnitsInStock 件  /  <a href="#">@Model.出售量 已售出 <span id="sepline" style="color:darkcyan">｜</span> <span class="addstr" style="color:yellowgreen"></span> <span class="addavg" style="color:darkred"></span> </a></span><p>
                         <h4>商品描述:</h4>
                     <p>
                         @Model.product.ProductDescription
@@ -198,7 +238,7 @@
                 <div class="card card-outline-secondary my-4">
                     <div class="card-header">
                         <h2>商品評價</h2>
-                        <span id="addstr"><i></i></span><span id="addavg"></span> <span style="color:gray;font-style:italic">(@Model.review.Count 則評論)</span>
+                        <span class="addstr" style="color:yellowgreen"></span> <span class="addavg" style="color:darkred"></span> <span style="color:gray;font-style:italic">(@Model.review.Count 則評論)</span>
                     </div>
                     <div class="card-body">
                         @*從這邊開始foreach*@
@@ -231,7 +271,7 @@
                                         <div class="mr-2">
                                             <img class="rounded-circle border p-1" src="~/images/MemberPhoto/@Model.Member[count2].MemberPhotoPass" alt="Generic placeholder image">
                                         </div>
-                                        <div class="media-body">
+                                        <div class="media-body rankbody">
                                             <p>@Model.Member[count2].MemberName</p>
                                             @{
                                                 int rankstar = item.StarRanking;
