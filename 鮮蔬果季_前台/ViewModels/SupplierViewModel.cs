@@ -37,9 +37,6 @@ namespace 鮮蔬果季_前台.ViewModels
         [DisplayName("供應商履歷")]
         public string SupplierProfile { get { return this._supplier.SupplierProfile; } set {this._supplier.SupplierName=value; } }
 
-        public virtual City City { get { return this._supplier.City; } set { this._supplier.SupplierProfile = value;} }
-        public virtual ICollection<Event> Events { get { return this._supplier.Events; } set { this._supplier.Events = value; } }
-        public virtual ICollection<MyFavorite> MyFavorites { get { return this._supplier.MyFavorites; } set { this._supplier.MyFavorites = value; } }
-        public virtual ICollection<Product> Products { get {return this._supplier.Products; } set { this._supplier.Products=value; } }
+
     }
 }

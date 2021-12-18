@@ -39,19 +39,19 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public City _City = null;
-        public City City
-        {
-            get
-            {
-                if (_City == null)
-                    _City = new City();
-                return _City;
-            }
-            set
-            {
-                _City = value;
-            }
-        }
+        //public City _City = null;
+        //public City City
+        //{
+        //    get
+        //    {
+        //        if (_City == null)
+        //            _City = new City();
+        //        return _City;
+        //    }
+        //    set
+        //    {
+        //        _City = value;
+        //    }
+        //}
     }
 }

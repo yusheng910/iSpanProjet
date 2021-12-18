@@ -37,6 +37,14 @@
                 float: left;
                 padding: 10px 0px;
             }
+
+            .ImgSize{
+                width:730px;
+                height:450px;
+                object-fit:cover;
+                border-radius:5px
+            }
+
     </style>
 }
 
@@ -64,19 +72,23 @@
                 <div class="single-article-section">
 
                     <div class="single-article-text">
-                        <div class="single-artcile-bg"></div>   @*圖片,寫在CSS內*@
+                        <div></div>   @*圖片,寫在CSS內*@
                         @{foreach (var item in Model)
                             {
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> 村長</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 2021-12-03</span>
+                                <img class="ImgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">
+
+                                <p class="blog-meta" style="padding: 5px  0px; font-size: larger ">
+                                    <span class="author"><i class="fas fa-user"></i>  @item._Supplier.SupplierName</span>
+                                    <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
                                 </p>
                                 <h2> @Html.DisplayFor(modelitem => item._BlogDetail.Title)</h2>
                                 <div>
                                     <p style="font-size:medium"> @Html.DisplayFor(modelitem => item._BlogDetail.Maintext)</p>
                                 </div>
 
-                                <div style="padding-bottom:60px"></div> @*間格用*@
+                                <div style="padding-top:30px">
+                                    <h2>農場位置</h2>
+                                </div> 
 
                                 var 地址 = @Html.DisplayFor(modelitem => item._Supplier.SupplierAddress);
                                 <iframe frameborder="0" width="730" height="450" src="https://www.google.com/maps?q=@地址&amp;hl=zh-TW&amp;z=16&amp;m=h&amp;output=embed"></iframe>
