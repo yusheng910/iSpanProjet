@@ -13,6 +13,7 @@ namespace 鮮蔬果季_前台.Models
         public string Subtitle { get; set; }
         public string Maintext { get; set; }
         public DateTime? PublishedDate { get; set; }
+        public int? LabelId { get; set; }
         public string Label { get; set; }
         public string PhotoPath { get; set; }
 
