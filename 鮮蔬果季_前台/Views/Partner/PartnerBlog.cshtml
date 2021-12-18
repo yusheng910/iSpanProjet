@@ -50,6 +50,7 @@
             object-fit: cover;
             width: 350px;
             height: 200px
+
         }
         @*限制行數,並隱藏*@
         p {
@@ -63,15 +64,30 @@
         .imgSize{
             width:350px;
             height:200px;
-            object-fit:cover
+            object-fit:cover;
+             border-radius:5px
         }
+
+        .SelectBackGround {
+            background-image: linear-gradient(80deg, #FFF9E9 0%, #DED369 60%);
+            width: 1110PX;
+            height: 50PX;
+            margin: 0px auto;
+            border-radius:8px
+        }
+
+        .SelectTag {
+            float: left;
+            margin: 12px 10px;
+            padding-left:10px;
+            font-weight: bold;
+            color:#013328
+            }
 
     </style>
 }
 
 <style>
-
-
 </style>
 
 <!-- Start All Title Box===================================================== -->
@@ -88,37 +104,55 @@
         </div>
     </div>
 </div>
-<div style="padding-bottom:50px"></div>   @*間格用*@
+<div style="padding-bottom:40px"></div>   @*間格用*@
 
+
+<div class="SelectBackGround ">
+    <h2 class="SelectTag ">全部文章</h2>
+    <h2 class="SelectTag "> 青農返鄉 </h2>
+    <h2 class="SelectTag ">有機天地</h2>
+    <h2 class="SelectTag ">履歷無毒
+        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlogSelectTag1" asp-route-id="1"></a>
+    </h2>                                  @*目前卡關,想透過前端回傳的id值,來判斷使用哪種LINQ篩選*@
+
+</div>
+
+
+<div style="padding-bottom:20px"></div> @*間格用*@
 <!-- latest news -->
 <div>
     <div class="latest-news mt-150 mb-150">
         <div class="container">
             <div class="row">
                 @{foreach (var item in Model)
-                    {   <div class="col-lg-4 col-md-6 blogSize">
-                        <div class="single-latest-news">
-                            <img class="imgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">
-                            <div class="news-text-box blogNewsSize">
-                                <h3>
-                                    @Html.DisplayFor(modelitem => item.BlogDetail.Title)
-                                    <a href="single-news.html"></a>
-                                </h3>
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> 村長 </span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 2021-12-03 </span>
-                                </p>
-                                <p class="excerpt">@Html.DisplayFor(modelitem => item.BlogDetail.Maintext)</p>
-                                @*<a class="read-more-btn" asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1">read more <i class="fas fa-angle-right"></i></a>*@
+                    {
+                        <div class="col-lg-4 col-md-6 blogSize">
+                            <div class="single-latest-news">
+                                <div>                 
+                                    <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.SupplierId">
+                                        <img class="imgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">  @*圖片超連結*@
+                                    </a>
+                                </div>
+                                <div class="news-text-box blogNewsSize" style="padding: 5px">
+                                    <h2 style="padding:5px ">
+                                        @Html.DisplayFor(modelitem => item.BlogDetail.Title)
+                                        <a href="single-news.html"></a>
+                                    </h2>
+                                    <p class="blog-meta" style="padding: 1px  0px;  font-size: large">
+                                        <span class="author"><i class="fas fa-user"></i> @item._Supplier.SupplierName</span>
+                                        <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
+                                    </p>
+                                    <p class="excerpt">@Html.DisplayFor(modelitem => item.BlogDetail.Maintext)</p>
+                                    @*<a class="read-more-btn" asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1">read more <i class="fas fa-angle-right"></i></a>*@
 
-                                <h5 class="read-more-btn">
-                                    @Html.ActionLink("閱讀更多>", "PartnerBlog_1", new { id = item.BlogDetail.SupplierId })         @*回傳SupplierId 成為controller中的接收*@
-                                </h5>
+                                    <h4 class="read-more-btn" style="padding: 8px 0px 6px 0px; font-weight: bold; ">
+                                        @Html.ActionLink("閱讀更多>", "PartnerBlog_1", new { id = item.BlogDetail.SupplierId })         @*回傳SupplierId 成為controller中的接收*@
+                                    </h4>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
                 }
             </div>
         </div>

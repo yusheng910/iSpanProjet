@@ -78,6 +78,8 @@ namespace 鮮蔬果季_前台.Models
                     .HasMaxLength(10)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
+                entity.Property(e => e.LabelId).HasColumnName("LabelID");
+
                 entity.Property(e => e.Maintext)
                     .HasMaxLength(500)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
