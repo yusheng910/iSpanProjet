@@ -99,6 +99,12 @@ namespace 鮮蔬果季_前台.Controllers
                     shopCart = 欲加購物車商品
                 }) ; 
             }
+
+            var 商品類別 = from c in (new 鮮蔬果季Context()).Categories
+                       where !c.CategoryName.Contains("活動類") && c.FatherCategoryId!=8 
+                       select c;
+            ViewBag.分類 = 商品類別;
+
             return View(所有商品列表);
         }
 

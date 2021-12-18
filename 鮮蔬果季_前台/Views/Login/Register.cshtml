@@ -2,6 +2,32 @@
 @{
     ViewData["Title"] = "Register";
 }
+@section Scripts{
+    <script>
+        $("#email").blur(function () {
+            console.log(this)
+            var Useremail = $("#email").val();
+            console.log(Useremail)
+            const xhr = new XMLHttpRequest()
+            xhr.open("get", "@Url.Action("AccountVerification", "Login")?email=" + Useremail)
+            xhr.send()
+            xhr.addEventListener("load", () => {
+                //存放並顯示回傳的文字
+                const data = xhr.responseText
+                console.log(data)
+                $("#emailerr").html(data)
+            })
+        })
+        $("#contactForm").submit(function () {
+            //我們的規則驗證錯誤時要加上這條class，submit時才會送不出去
+            if ($("#emailerr").html() == "帳號已被註冊") {
+                var msgClasses = "h3 text-center text-danger";
+                $("#msgSubmit").addClass(msgClasses).text("尚未填寫完資料，請確認。");
+                return false;
+            }
+        })
+    </script>
+}
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -19,14 +45,17 @@
         <div class="row" style="margin-right:0px;">
             <div class="col-lg-8 col-sm-7">
                 <div class="contact-form-right">
-                    <h2 >會員註冊系統</h2>
-                    <p >請輸入以下資料，以利完成會員註冊。</p>
-                    <form id="contactForm"  method="post" enctype="application/x-www-form-urlencoded" >
+                    <h2>會員註冊系統</h2>
+                    <p>請輸入以下資料，以利完成會員註冊。</p>
+                    <form id="contactForm" method="post" enctype="application/x-www-form-urlencoded">
                         <div class="row">
-                            <div class="col-md-7" >
+                            <div class="col-md-7">
                                 <div class="form-group">
-                                    <input asp-for="UserId" type="text"  placeholder="您的電子郵件帳號" id="email" class="form-control" name="UserId" required data-error="請輸入您的電子郵件">
-                                    <div class="help-block with-errors"></div>
+                                    <input asp-for="UserId" type="text" placeholder="您的電子郵件帳號" id="email" class="form-control" name="UserId" required data-error="請輸入您的電子郵件">
+                                    <div class="help-block with-errors">
+                                        @*錯誤訊息的ul要先自己建出來 並且li需要給個id(emailerr)*@
+                                        <ul class="list-unstyled"><li id="emailerr"></li></ul>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input asp-for="Password" type="password" class="form-control" id="password" name="Password" placeholder="您的密碼" required data-error="請輸入您的密碼">
@@ -47,9 +76,9 @@
                                 <div class="form-group">
                                     <input asp-for="BirthDate" type="date" class="form-control" id="Birthdate" name="BirthDate" placeholder="您的生日" required data-error="請輸入您的生日">
                                     <div class="help-block with-errors"></div>
-                                 </div>
+                                </div>
                                 <div class="form-group">
-                                    <select asp-for="city" class="form-control" id="state" name="city" placeholder="您的現居縣市" required data-error="請輸入您的縣市" >
+                                    <select asp-for="city" class="form-control" id="state" name="city" placeholder="您的現居縣市" required data-error="請輸入您的縣市">
                                         <option></option>
                                         <option>台北市</option>
                                     </select>
@@ -58,18 +87,18 @@
                                 <div class="form-group">
                                     <input asp-for="MemberAddress" type="text" class="form-control" id="Address" name="MemberAddress" placeholder="您的現居地址" required data-error="請輸入您的住址">
                                     <div class="help-block with-errors"></div>
-                                 </div>
+                                </div>
                                 <div class="form-group">
                                     <input asp-for="Mobile" type="text" class="form-control" id="Phone" name="Mobile" placeholder="您的連絡電話" required data-error="請輸入您的聯絡電話">
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="submit-button text-left">
-                                    <button class="btn hvr-hover" id="submit" type="submit" >註冊會員</button>
+                                    <button class="btn hvr-hover" id="submit" type="submit">註冊會員</button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     <div class="clearfix"></div>
-                                 </div>
-                             </div>
-                         </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -102,7 +131,7 @@
                     </ul>
                 </div>
                 <div class="submit-button text-right">
-                    <a asp-area="" asp-controller="Login" asp-action="Login"  class="btn hvr-hover" style="color:white; margin-top:73px; padding:10px;">已經註冊?</a> 
+                    <a asp-area="" asp-controller="Login" asp-action="Login" class="btn hvr-hover" style="color:white; margin-top:73px; padding:10px;">已經註冊?</a>
                 </div>
             </div>
         </div>

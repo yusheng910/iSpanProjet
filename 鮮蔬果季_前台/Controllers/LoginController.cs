@@ -66,6 +66,15 @@ namespace 鮮蔬果季_前台.Controllers
             db.SaveChanges();
             return RedirectToAction("Login");
         }
-        
+        public IActionResult AccountVerification(string email)
+        {
+            Member user = (new 鮮蔬果季Context()).Members.FirstOrDefault(t => t.UserId.Equals(email));
+            if (user != null)
+            {
+                return Content("帳號已被註冊");
+            }
+            return Content("");
+        }
+
     }
 }

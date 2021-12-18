@@ -119,7 +119,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    }
+                                                        }
                                     @*商品List 結束*@
                                 </div>
                             </div>
@@ -235,17 +235,48 @@
                         <div class="title-left">
                             <h3>商品分類</h3>
                         </div>
+                        @{
+                            <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                                <div class="list-group-collapse sub-men">
+                                    @*第一層Start*@
+                                    @foreach (var 分類 in ViewBag.分類)
+                                    {
+                                    int count1 = 0;
+                                    string id = "sub-men" + count1;
+                                        if (分類.FatherCategoryId == null)
+                                        {                                         
+                                            <a class="list-group-item list-group-item-action" href="#@id" data-toggle="collapse" aria-expanded="true" aria-controls="@id">
+                                                @分類.CategoryName <small class="text-muted">(100)</small>
+                                            </a> 
+                                            //foreach (var 次分類 in ViewBag.分類)
+                                            //{
+                                            //    if (次分類.FatherCategoryId == 分類.CategoryId)
+                                            //    {
+
+
+                                            //    }
+                                            //}
+
+                                        }
+                                    }
+                                    @*第一層end*@
+                                </div>
+                            </div>
+                            }
                         <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
                             <div class="list-group-collapse sub-men">
+                                @*第一層*@
                                 <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">
                                     蔬菜類 <small class="text-muted">(100)</small>
                                 </a>
-                                <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                @*第二層start(href,aria-controls,data-parent,id)名稱要不同*@
+                                <div class="collapse show" id="sub-men1" data-parent="#list-group-men1">
                                     <div class="list-group">
-                                        @*第二層start(href,aria-controls,data-parent,id)名稱要不同*@
+
                                         <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men2">
                                             蔬菜類 <small class="text-muted">(100)</small>
                                         </a>
+                                        @*第三層*@
                                         <div class="collapse show" id="sub-men2" data-parent="#list-group-men2">
                                             <div class="list-group">
                                                 <a href="#" class="list-group-item list-group-item-action active">根莖類 <small class="text-muted">(50)</small></a>
@@ -254,17 +285,18 @@
                                                 <a href="#" class="list-group-item list-group-item-action">結球菜類 <small class="text-muted">(10)</small></a>
                                             </div>
                                         </div>
-                                        @*第二層end*@
+                                        @*第三層End*@
                                         <a href="#" class="list-group-item list-group-item-action">瓜果類 <small class="text-muted">(10)</small></a>
                                         <a href="#" class="list-group-item list-group-item-action">葉菜類 <small class="text-muted">(10)</small></a>
                                         <a href="#" class="list-group-item list-group-item-action">結球菜類 <small class="text-muted">(10)</small></a>
                                     </div>
 
                                 </div>
+                                @*第二層end*@
                             </div>
-                            <a href="#" class="list-group-item list-group-item-action"> 水果類 <small class="text-muted">(150) </small></a>
-                            <a href="#" class="list-group-item list-group-item-action"> 台灣茶 <small class="text-muted">(11)</small></a>
-                            <a href="#" class="list-group-item list-group-item-action"> 五穀雜糧 <small class="text-muted">(22)</small></a>
+                            @*<a href="#" class="list-group-item list-group-item-action"> 水果類 <small class="text-muted">(150) </small></a>
+            <a href="#" class="list-group-item list-group-item-action"> 台灣茶 <small class="text-muted">(11)</small></a>
+            <a href="#" class="list-group-item list-group-item-action"> 五穀雜糧 <small class="text-muted">(22)</small></a>*@
                         </div>
                     </div>
 
