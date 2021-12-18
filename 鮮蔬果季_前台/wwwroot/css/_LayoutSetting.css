@@ -42,3 +42,157 @@
     transform: rotate(-10deg);
 }
 
+.attr-nav ul li a {
+    font-size: 20px;
+    color: #FFF9E9;
+    font-weight: bolder;
+    padding: 0px;
+}
+
+.attr-nav ul li a {
+    font-size: 20px;
+    color: #8B4513;
+    font-weight: bolder;
+}
+
+.attr-nav ul li {
+    font-size: 20px;
+    color: #FFF9E9;
+    font-weight: bolder;
+    padding: 0px 15px;
+}
+
+.offer-box li {
+    font-size: 18px;
+}
+
+#member a {
+    font-size: 20px;
+    color: #FFF9E9;
+}
+
+.transition {
+    transition: 0.4s;
+}
+
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition {
+    background-color: #FFF9E9;
+    border: none;
+    border-radius: 0px;
+    padding: 0;
+    opacity: 0;
+    max-height: 0px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition.show {
+        background-color: #FFF9E9;
+        border: 1px solid #FF6C02;
+        border-radius: 10px;
+        opacity: 1;
+        max-height: 300px;
+        padding: 30px 0;
+        border: 1px solid #8B4513;
+        border-radius: 10px;
+    }
+
+
+.attr-nav > ul > li > a span.badge {
+    margin-top: -20px;
+    right: -12px;
+    font-size: 13px;
+}
+
+.side {
+    /*            background-color: #5A8100;*/
+}
+
+.contact-bot.action {
+    background-color: #b0b435;
+    color: white;
+    position: fixed;
+    display: inline;
+    max-width: 200px;
+    max-height: 40px;
+    bottom: 0px;
+    right: 50px;
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    z-index: 997;
+    transition: 1.5s all;
+}
+
+    .contact-bot.action:hover {
+        color: white;
+    }
+
+.contact-bot {
+    background-color: white;
+    color: white;
+    position: fixed;
+    display: inline;
+    max-width: 0px;
+    max-height: 0px;
+    bottom: 0px;
+    right: 50px;
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    z-index: 997;
+    transition: 1s all;
+}
+
+.div-bot {
+    background-color: white;
+    color: black;
+    position: fixed;
+    display: inline;
+    max-width: 0px;
+    max-height: 0px;
+    bottom: 0px;
+    right: 50px;
+    font-size: 20px;
+    text-align: right;
+    z-index: 998;
+    transition: 0.5s all;
+}
+
+    .div-bot.action {
+        max-width: 1000px;
+        max-height: 1000px;
+        bottom: 0px;
+        right: 50px;
+        font-size: 20px;
+        letter-spacing: 3px;
+        text-align: right;
+        padding: 5px 10px 5px 10px;
+        z-index: 998;
+        transition: 0.5s all;
+        box-shadow: 5px 3px 12px #ADADAD;
+    }
+
+        .div-bot.action span {
+            cursor: pointer;
+        }
+
+            .div-bot.action span:hover {
+                color: crimson;
+            }
+
+    .div-bot iframe {
+        min-width: 0px;
+        width: 100%;
+        min-height: 0px;
+        transition: 0.5s all;
+    }
+
+    .div-bot.action iframe {
+        min-width: 400px;
+        width: 100%;
+        min-height: 500px;
+        transition: 0.5s all;
+    }

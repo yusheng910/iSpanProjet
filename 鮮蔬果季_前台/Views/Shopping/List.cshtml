@@ -5,6 +5,7 @@
 }
 
 @section Styles{
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
     <style>
         .tab-pane.fade.show.active img {
             width: 300px;
@@ -45,7 +46,7 @@
                                 <span>排序依 </span>
                                 @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
                                     {*@
-                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" >
                                     <option value="0">鮮蔬果季隨機推薦</option>
                                     <option value="1" data-display="Select">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
@@ -321,56 +322,22 @@
                             </div>
 
                         }
-                        <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
-                            <div class="list-group-collapse sub-men">
-                                @*第一層*@
-                                <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">
-                                    蔬菜類 <small class="text-muted">(100)</small>
-                                </a>
-                                @*第二層start(href,aria-controls,data-parent,id)名稱要不同*@
-                                <div class="collapse" id="sub-men1" data-parent="#list-group-men1">
-                                    <div class="list-group">
-
-                                        <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men2">
-                                            蔬菜類 <small class="text-muted">(100)</small>
-                                        </a>
-                                        @*第三層*@
-                                        <div class="collapse show" id="sub-men2" data-parent="#list-group-men2">
-                                            <div class="list-group">
-                                                <a href="#" class="list-group-item list-group-item-action active">根莖類 <small class="text-muted">(50)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">瓜果類 <small class="text-muted">(10)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">葉菜類 <small class="text-muted">(10)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">結球菜類 <small class="text-muted">(10)</small></a>
-                                            </div>
-                                        </div>
-                                        @*第三層End*@
-                                        <a href="#" class="list-group-item list-group-item-action">瓜果類 <small class="text-muted">(10)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">葉菜類 <small class="text-muted">(10)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">結球菜類 <small class="text-muted">(10)</small></a>
-                                    </div>
-
-                                </div>
-                                @*第二層end*@
-                            </div>
-                            @*<a href="#" class="list-group-item list-group-item-action"> 水果類 <small class="text-muted">(150) </small></a>
-                                <a href="#" class="list-group-item list-group-item-action"> 台灣茶 <small class="text-muted">(11)</small></a>
-                                <a href="#" class="list-group-item list-group-item-action"> 五穀雜糧 <small class="text-muted">(22)</small></a>*@
-                        </div>
                     </div>
 
                     @*todo 價格區間拉bar無法套用*@
-                    @*<div class="filter-price-left">
-                            <div class="title-left">
-                                <h3>Price</h3>
+                    <div class="filter-price-left">
+                        <div class="title-left">
+                            <h3>價格</h3>
+                        </div>
+                        <div class="price-box-slider">
+                            <div id="slider-range" >
                             </div>
-                            <div class="price-box-slider">
-                                <div id="slider-range"></div>
-                                <p>
-                                    <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                    <button class="btn hvr-hover" type="submit">Filter</button>
-                                </p>
-                            </div>
-                        </div>*@
+                            <p>
+                                <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
+                                <button class="btn hvr-hover" type="submit">查尋</button>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -386,5 +353,7 @@
         //});
         @*下拉式選單選時要跳到那個選項*@
         @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
+
     </script>
+    <script src="~/js/jquery-ui.js"></script>
 }
