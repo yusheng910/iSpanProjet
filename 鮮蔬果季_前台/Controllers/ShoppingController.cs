@@ -100,15 +100,26 @@ namespace 鮮蔬果季_前台.Controllers
                 }) ; 
             }
 
-            var 商品主類別 = from c in (new 鮮蔬果季Context()).Categories
-                       where !c.CategoryName.Contains("活動類") && c.FatherCategoryId==null 
-                       orderby c.CategoryId descending
-                       select c;
+            var 商品主類別 = (new 鮮蔬果季Context()).Categories.Where(c => !c.CategoryName.Contains("活動類") && c.FatherCategoryId == null).OrderByDescending(c => c.CategoryId);
             var 商品次類別 = (new 鮮蔬果季Context()).Categories.Where(c => c.FatherCategoryId != 8);
             var 商品次類別2 = (new 鮮蔬果季Context()).Categories.Where(c => c.FatherCategoryId != 8);
+            var 商品分類明細 = (from p in (new 鮮蔬果季Context()).CategoryDetails
+                          group p by p.CategoryId into g
+                          select new { CategoryId=g.Key, Total = g.Count(p => p.CategoryId == g.Key) });
+            List<C商品各類別總數> 分類list = new List<C商品各類別總數>();
+            foreach (var 分類 in 商品分類明細) {
+                分類list.Add(new C商品各類別總數() { 
+                      分類ID=分類.CategoryId,
+                      總數=分類.Total
+                });
+            }
+
             ViewBag.主類別 = 商品主類別;
             ViewBag.次類別 = 商品次類別;
             ViewBag.次類別2 = 商品次類別2;
+            ViewBag.分類明細 = 分類list;
+
+
             return View(所有商品列表);
         }
 
