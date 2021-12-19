@@ -46,7 +46,7 @@
                                 <span>排序依 </span>
                                 @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
                                     {*@
-                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" >
+                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control">
                                     <option value="0">鮮蔬果季隨機推薦</option>
                                     <option value="1" data-display="Select">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
@@ -282,7 +282,7 @@
                                     {
                                         <div class="list-group-collapse sub-men">
                                             <a class="list-group-item list-group-item-action" href="#@men" data-toggle="collapse" aria-expanded="false" aria-controls="@men" style="position:relative">
-                                                @分類.CategoryName <small class="text-muted">(100)</small>
+                                                @分類.CategoryName
                                             </a>
                                             <div class="collapse" id="@men" data-parent="#@groupmen">
                                                 <div class="list-group">
@@ -293,9 +293,17 @@
                                                         string groupmen2 = "list-group-men2";
                                                         if (次分類.FatherCategoryId == 分類.CategoryId)
                                                         {
-                                                            <a class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2">
-                                                                @次分類.CategoryName <small class="text-muted">(100)</small>
-                                                            </a>
+                                                            var list = ViewBag.分類明細;
+                                                            @foreach (var detail in list)
+                                                            {
+                                                                if (detail.分類ID == 次分類.CategoryId)
+                                                                {
+                                                                    <a class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2">
+                                                                        @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
+                                                                    </a>
+                                                                }
+                                                            }
+
                                                             <div class="collapse" id="@men2" data-parent="#@groupmen2">
                                                                 <div class="list-group">
                                                                     @foreach (var 次分類2 in ViewBag.次類別2)
@@ -304,9 +312,16 @@
                                                                         string men3 = "sub-men" + count3;
                                                                         if (次分類2.FatherCategoryId == 次分類.CategoryId)
                                                                         {
-                                                                            <a class="list-group-item list-group-item-action" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3">
-                                                                                @次分類2.CategoryName <small class="text-muted">(100)</small>
-                                                                            </a>
+                                                                            var list2 = ViewBag.分類明細;
+                                                                            @foreach (var detail in list2)
+                                                                            {
+                                                                                if (detail.分類ID == 次分類2.CategoryId)
+                                                                                {
+                                                                                    <a class="list-group-item list-group-item-action" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3">
+                                                                                        @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
+                                                                                    </a>
+                                                                                }
+                                                                            }
                                                                         }
                                                                     }
                                                                 </div>
@@ -330,7 +345,7 @@
                             <h3>價格</h3>
                         </div>
                         <div class="price-box-slider">
-                            <div id="slider-range" >
+                            <div id="slider-range">
                             </div>
                             <p>
                                 <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
