@@ -15,7 +15,7 @@
             background: url("../images/a.jpg") no-repeat center center;
             background-size: cover;
             text-align: center;
-            /*            background-attachment: fixed;*/
+            /*background-attachment: fixed;*/
             padding: 70px 0px;
             position: relative;
         }
@@ -50,10 +50,10 @@
             object-fit: cover;
             width: 350px;
             height: 200px
-
         }
+
         @*限制行數,並隱藏*@
-        p {
+        .pp {
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -112,7 +112,7 @@
     <h2 class="SelectTag "> 青農返鄉 </h2>
     <h2 class="SelectTag ">有機天地</h2>
     <h2 class="SelectTag ">履歷無毒
-        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlogSelectTag1" asp-route-id="1"></a>
+        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="1">1111</a>
     </h2>                                  @*目前卡關,想透過前端回傳的id值,來判斷使用哪種LINQ篩選*@
 
 </div>
@@ -139,11 +139,12 @@
                                         @*@Html.DisplayFor(modelitem => item._City.CityName)*@
                                         <a href="single-news.html"></a>
                                     </h2>
-                                    <p class="blog-meta" style="padding: 1px  0px;  font-size: large">
+                                    <p class="blog-meta pp" style="padding: 1px  0px;  font-size: large">
+                                        <span class="author"><i class="fas fa-user"></i> @item.City.CityName</span>
                                         <span class="author"><i class="fas fa-user"></i> @item._Supplier.SupplierName</span>
                                         <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
                                     </p>
-                                    <p class="excerpt">@Html.DisplayFor(modelitem => item.BlogDetail.Maintext)</p>
+                                    <p class="excerpt pp">@Html.DisplayFor(modelitem => item.BlogDetail.Maintext)</p>
                                     @*<a class="read-more-btn" asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1">read more <i class="fas fa-angle-right"></i></a>*@
 
                                     <h4 class="read-more-btn" style="padding: 8px 0px 6px 0px; font-weight: bold; ">

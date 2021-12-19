@@ -60,7 +60,8 @@
             padding-top:20px
             }
 
-        @*限制行數,並隱藏*@ p {
+        @*限制行數,並隱藏*@ 
+        .pp {
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -113,7 +114,7 @@
                                 <del>   @Html.DisplayFor(modelitem => item.Event.EventPrice.Value) </del>  @*原價*1.2  目前寫不出來*@
                                 @Html.DisplayFor(modelitem =>item.Event.EventPrice)  / 人
                             </h5>
-                            <p class="available-stock">
+                            <p class="available-stock pp">
                                 <span> 新北市 , 金山縣 , 現場收費 <a href="#"></a></span>
                             <p>
                                 <h4>適合攜家帶眷同樂樂 </h4>  @*放主標題,待資料庫新增欄位*@

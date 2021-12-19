@@ -8,6 +8,8 @@ using 鮮蔬果季_前台.ViewModels;
 
 namespace 鮮蔬果季_前台.Controllers
 {
+    // 備註: 如要顯示多張照片,需要使用陣列,可參考shoppinglist
+
     public class EventController : Controller
     {
         public IActionResult EventBlog()

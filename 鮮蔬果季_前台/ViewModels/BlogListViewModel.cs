@@ -39,7 +39,8 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public City _City
+        public City _City = null;
+        public City City
         {
             get
             {

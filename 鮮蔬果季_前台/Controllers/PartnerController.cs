@@ -16,26 +16,27 @@ namespace 鮮蔬果季_前台.Controllers
             var datas = from E in db.BlogDetails orderby E.PublishedDate descending
                         select E;
 
-            //if (Id==1)       目前卡關,想透過前端回傳的id值,來判斷使用哪種LINQ篩選
-            //{ 
-            // var datas = from E in db.BlogDetails
-            //            where E.LabelId == 1
-            //            select E;
-            //}
-
+            if (Id == 1) //目前卡關,想透過前端回傳的id值,來判斷使用哪種LINQ篩選
+            {    //不另外宣告,用原本的datas覆蓋原本查詢 (以下也是foreach也是datas,故無法用新的)
+                 datas = from E in db.BlogDetails       
+                            where E.LabelId == 1
+                         orderby E.PublishedDate descending       //須留意使用orderby會變更資料型態,故這邊也要orderby
+                         select E;
+            }
 
             List<BlogDetailListViewModel> list = new List<BlogDetailListViewModel>();
             foreach (var item in datas)
             {
                 db = new 鮮蔬果季Context();
-                var 供應商 = (from Sl in db.Suppliers
+                var 供應商與城市 = (from Sl in db.Suppliers
                            join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表,不確定是否是這樣
-                           where Sl.SupplierId == item.SupplierId
-                           select Sl).FirstOrDefault();
-                list.Add(new BlogDetailListViewModel()
+                           where Sl.SupplierId == item.SupplierId  
+                           select new { Sl, C } ).FirstOrDefault();     //抓取兩個資料表
+                list.Add(new BlogDetailListViewModel()          
                 {
                     BlogDetail = item,
-                    Supplier = 供應商,
+                    Supplier = 供應商與城市.Sl, 
+                    City = 供應商與城市.C
                 });
             }
             return View(list);
