@@ -29,12 +29,13 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 db = new 鮮蔬果季Context();
                 var 供應商 = (from Sl in db.Suppliers
+                           join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表,不確定是否是這樣
                            where Sl.SupplierId == item.SupplierId
                            select Sl).FirstOrDefault();
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
-                    Supplier = 供應商
+                    Supplier = 供應商,
                 });
             }
             return View(list);
