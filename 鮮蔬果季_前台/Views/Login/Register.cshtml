@@ -18,9 +18,50 @@
                 $("#emailerr").html(data)
             })
         })
+        $("#Password").blur(function () {
+            var UserPassword = $("#Password").val();
+            const xhr = new XMLHttpRequest()
+            xhr.open("get", "@Url.Action("PasswordRegex","Login")?Password=" + UserPassword)
+            xhr.send()
+            xhr.addEventListener("load", () => {
+                const data = xhr.responseText
+                $("#Passworderr").html(data)
+            })
+        })
+        $("#MemberName").blur(function () {
+            var UserName = $("#MemberName").val();
+            const xhr = new XMLHttpRequest()
+            xhr.open("get", "@Url.Action("MemberNameRegex","Login")?MemberName=" + UserName)
+            xhr.send()
+            xhr.addEventListener("load", () => {
+                const data = xhr.responseText
+                $("#MemberNameerr").html(data)
+            })
+        })
+        $("#Mobile").blur(function () {
+            var UserMobile = $("#Mobile").val();
+            const xhr = new XMLHttpRequest()
+            xhr.open("get", "@Url.Action("MobileRegex","Login")?Mobile=" + UserMobile)
+            xhr.send()
+            xhr.addEventListener("load", () => {
+                const data = xhr.responseText
+                $("#Mobileerr").html(data)
+            })
+        })
+        $("#birthdate").blur(function () {
+            var UserBD = $("#birthdate").val();
+            const xhr = new XMLHttpRequest();
+            xhr.open("get", "@Url.Action("BirthDateRegex","Login")?birthdate=" + UserBD)
+            xhr.send();
+            xhr.addEventListener("load", () => {
+                const data = xhr.responseText
+                $("#BirthDateerr").html(data)
+            })
+        })
         $("#contactForm").submit(function () {
             //我們的規則驗證錯誤時要加上這條class，submit時才會送不出去
-            if ($("#emailerr").html() == "帳號已被註冊") {
+            if ($("#emailerr").html() == "帳號已被註冊" || $("#emailerr").html() == "帳號格式不正確" || $("#Passworderr").html() == "密碼格式不正確" || $("#MemberNameerr").html() == "字數不能小於兩字" || $("#Mobileerr").html() == "號碼長度不能小於10碼" || $("#Mobileerr").html() == "請輸入數字" || $("#BirthDateerr").html()=="出生日期大於今日")
+            {
                 var msgClasses = "h3 text-center text-danger";
                 $("#msgSubmit").addClass(msgClasses).text("尚未填寫完資料，請確認。");
                 return false;
@@ -58,15 +99,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input asp-for="Password" type="password" class="form-control" id="password" name="Password" placeholder="您的密碼" required data-error="請輸入您的密碼">
-                                    <div class="help-block with-errors"></div>
+                                    <input asp-for="Password" type="password" class="form-control" id="Password" name="Password" placeholder="您的密碼" required data-error="請輸入您的密碼">
+                                    <div class="help-block with-errors">
+                                        <ul class="list-unstyled"><li id="Passworderr"></li></ul>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input asp-for="MemberName" type="text" class="form-control" id="name" name="MemberName" placeholder="您的姓名" required data-error="請輸入您的姓名">
-                                    <div class="help-block with-errors"></div>
+                                    <input asp-for="MemberName" type="text" class="form-control" id="MemberName" name="MemberName" placeholder="您的姓名" required data-error="請輸入您的姓名">
+                                    <div class="help-block with-errors">
+                                        <ul class="list-unstyled"><li id="MemberNameerr"></li></ul>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <select asp-for="Gender" class="form-control" id="gender" name="Gender" placeholder="您的生理性別" required data-error="請選擇您的生理性別">
+                                    <select asp-for="Gender" class="form-control" id="gender" name="gender" placeholder="您的生理性別" required data-error="請選擇您的生理性別">
                                         <option></option>
                                         <option>男</option>
                                         <option>女</option>
@@ -74,11 +119,13 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input asp-for="BirthDate" type="date" class="form-control" id="Birthdate" name="BirthDate" placeholder="您的生日" required data-error="請輸入您的生日">
-                                    <div class="help-block with-errors"></div>
+                                    <input asp-for="BirthDate" type="date" class="form-control" id="birthdate" name="BirthDate" placeholder="您的生日" required data-error="請輸入您的生日">
+                                    <div class="help-block with-errors">
+                                        <ul class="list-unstyled"><li id="BirthDateerr"></li></ul>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <select asp-for="city" class="form-control" id="state" name="city" placeholder="您的現居縣市" required data-error="請輸入您的縣市">
+                                    <select asp-for="city" class="form-control" id="state" name="city" placeholder="您的現居縣市" required data-error="請選擇您的縣市">
                                         <option></option>
                                         <option>台北市</option>
                                     </select>
@@ -86,11 +133,15 @@
                                 </div>
                                 <div class="form-group">
                                     <input asp-for="MemberAddress" type="text" class="form-control" id="Address" name="MemberAddress" placeholder="您的現居地址" required data-error="請輸入您的住址">
-                                    <div class="help-block with-errors"></div>
+                                    <div class="help-block with-errors">
+                                        <ul class="list-unstyled"><li id="MemberAddresserr"></li></ul>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input asp-for="Mobile" type="text" class="form-control" id="Phone" name="Mobile" placeholder="您的連絡電話" required data-error="請輸入您的聯絡電話">
-                                    <div class="help-block with-errors"></div>
+                                    <input asp-for="Mobile" type="text" class="form-control" id="Mobile" name="Mobile" placeholder="您的連絡電話" required data-error="請輸入您的聯絡電話">
+                                    <div class="help-block with-errors">
+                                        <ul class="list-unstyled"><li id="Mobileerr"></li></ul>
+                                    </div>
                                 </div>
                                 <div class="submit-button text-left">
                                     <button class="btn hvr-hover" id="submit" type="submit">註冊會員</button>
