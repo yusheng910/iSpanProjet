@@ -88,7 +88,7 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (Password != null)
             {
-                if (Password.Length < 6)
+                if (Password.Length > 6)
                 {
                     if ((new Regex(@"^[a-zA-Z]\w{5,17}$")).IsMatch(Password))
                     {
