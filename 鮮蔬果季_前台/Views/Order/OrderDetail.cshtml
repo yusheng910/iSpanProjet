@@ -59,6 +59,16 @@
             letter-spacing: 10px;
             clear: both;
         }
+        .stargroup{
+            padding-top:10px;
+
+        }
+
+        .stargroup i {
+            font-size: 20px;
+        }
+
+
     </style>
 }
 @section Scripts{
@@ -77,6 +87,7 @@
             var openReviewBtn = $('.open-review-box');
             var closeReviewBtn = $('.close-review-box');
             var ratingsField = $('#ratings-hidden');
+            let starnum = 0;
 
             openReviewBtn.click(function (e) {
                 reviewBox.slideDown(400, function () {
@@ -87,6 +98,51 @@
                 $(this).fadeOut(100);
                 closeReviewBtn.show();
                 $(".showid").val($(this).val())
+                console.log($(".showid").val())
+
+                //星星
+                $(function () {
+                    $(".stargroup > i").mouseenter(function () {
+                        starnum = $(".stargroup i").index(this) + 1;
+                        //console.log(starnum);
+                        $(this).removeClass('far fa-star').addClass('fas fa-star')
+                        $(this).prevAll().removeClass('far fa-star').addClass('fas fa-star');
+                        $(this).nextAll().removeClass('fas fa-star').addClass('far fa-star');
+                        $(".result").text("評分中... 分數為" + starnum + "分嗎?");
+                    })
+
+                    $(".stargroup").mouseleave(function () {
+                        $(".result").text("評分中...");
+                        $(this).children().removeClass('fas fa-star').addClass('far fa-star');
+
+                    }).mousedown(function () {
+                        $(this).off("mouseenter mouseleave");
+                        $(".stargroup > i").nextAll().off("mouseenter");
+                        $(".stargroup > i").prevAll().off("mouseenter");
+                        $(".result").text("分數為" + starnum + "分！");
+                        $(".showRanking").val(starnum);
+                        console.log($(".showRanking").val())
+                    }).dblclick(function () {
+                        $(".result").text("評分中...");
+                        $(this).children().removeClass('fas fa-star').addClass('far fa-star');
+                        $(".stargroup > i").mouseenter(function () {
+                            starnum = $(".stargroup i").index(this) + 1;
+                            //console.log(starnum);
+                            $(this).removeClass('far fa-star').addClass('fas fa-star')
+                            $(this).prevAll().removeClass('far fa-star').addClass('fas fa-star');
+                            $(this).nextAll().removeClass('fas fa-star').addClass('far fa-star');
+                            $(".result").text("評分中... 分數為" + starnum + "分嗎?");
+                        })
+                        $(".stargroup").mouseleave(function () {
+                            $(".result").text("評分中...");
+                            $(this).children().removeClass('fas fa-star').addClass('far fa-star');
+                        })
+                    });
+                })
+
+
+
+
 
             });
 
@@ -177,7 +233,7 @@
                                         <td class="add-rv" style="width:248.29px">
                                             <div class="aboveadd">
                                                 <div class="text-right">
-                                                    <button class="btn hvr-hover open-review-box" name="" value="@item.odetail.OrderDetailId">新增評價</button>
+                                                    <button class="btn hvr-hover open-review-box" value="@item.odetail.OrderDetailId">新增評價</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -205,27 +261,29 @@
             </div>
             <div class="row post-review-box" style="display:none;">
                 <div class="col-md-12" id="postrv">
-                    <form accept-charset="UTF-8" asp-action="AddReview">
+                    <form accept-charset="UTF-8" name="Review" asp-action="AddReview">
                         <input id="ratings-hidden" name="rating" type="hidden">
                         <div>
                         </div>
                         <div>
                         </div>
-                        <textarea class="form-control animated new-review" cols="50" name="Comments" placeholder="在這裡寫下您的評論..." rows="5"></textarea>
-                        <div class="starbox">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
+                        <textarea class="form-control animated new-review" cols="50" name="AddComments" placeholder="在這裡寫下您的評論..." rows="5"></textarea>
+                        <div class="sysrank">
+                            <div class="stargroup">
+                                <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <div>
+                                <span class="result">評分中...</span>
+                            </div>
                         </div>
                         <div class="text-right">
                             <div class="stars starrr" data-rating="0"></div>
                             <a class="btn btn-danger btn-sm close-review-box" href="#" style="display:none; margin-right: 10px;">
-                                <input type="hidden" class="showid" name="id" />
+                                <input type="hidden" class="showid" name="AddId" />
+                                <input type="hidden" class="showRanking" name="AddStarRanking" />
                                 <span class="glyphicon glyphicon-remove">取消</span>
                             </a>
-                            <button class="btn btn-success btn-lg" type="submit">儲存評價</button>
+                            <input type="submit" class="btn btn-success btn-lg" value="儲存評價">
                         </div>
                     </form>
                 </div>

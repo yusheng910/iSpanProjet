@@ -117,5 +117,6 @@ namespace 鮮蔬果季_前台.ViewModels
         public virtual Coupon coupon { get; set; }
         public virtual Member member { get; set; }
         public virtual ICollection<OrderDetail> orderDetails { get; set; }
+
     }
 }
