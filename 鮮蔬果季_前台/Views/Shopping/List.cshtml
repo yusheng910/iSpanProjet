@@ -20,13 +20,28 @@
         .bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.text {
             font-size: 18px;
         }
-        .list-group-item[data-toggle="collapse"]::after {
-         content:normal;
-        }
 
+        .list-group-item[data-toggle="collapse"]::after {
+            content: normal;
+        }
     </style>
 }
-
+@section Scripts{
+    <script>
+        //$("#basic").change(function () {
+        //    $("#slectForm").submit();
+        //    var opt = $("#basic").val;
+        //    console.log(opt);
+        //});
+        @*下拉式選單選時要跳到那個選項*@
+        @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
+        var selcted = document.querySelector("#basic");
+        selcted.addEventListener('change',()=> {
+            console.log(selcted.options[selcted.selectedIndex].value)
+        })
+    </script>
+    <script src="~/js/jquery-ui.js"></script>
+}
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -48,11 +63,14 @@
                         <div class="col-12 col-sm-8 text-center text-sm-left">
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
+
+
+
                                 @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
                                     {*@
-                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control">
-                                    <option value="0">鮮蔬果季隨機推薦</option>
-                                    <option value="1" data-display="Select">最新商品</option>
+                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                    <option value="0" data-display="Select">鮮蔬果季隨機推薦</option>
+                                    <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
                                 </select>
@@ -363,16 +381,3 @@
     </div>
 </div>
 <!-- End Shop Page -->
-@section Scripts{
-    <script>
-        //$("#basic").change(function () {
-        //    $("#slectForm").submit();
-        //    var opt = $("#basic").val;
-        //    console.log(opt);
-        //});
-        @*下拉式選單選時要跳到那個選項*@
-        @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
-
-    </script>
-    <script src="~/js/jquery-ui.js"></script>
-}
