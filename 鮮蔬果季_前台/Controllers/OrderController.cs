@@ -78,5 +78,36 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
+       
+        public IActionResult AddReview(ReviewViewModel r)
+        {
+
+
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                鮮蔬果季Context db = new 鮮蔬果季Context();
+                Review review = new Review()
+                {
+                    OrderDetailId = r.AddId,
+                    Comments = r.AddComments,
+                    ReviewDate = DateTime.Now,
+                    StarRanking = r.AddStarRanking,
+
+                };
+                db.Add(review);
+                db.SaveChanges();
+            }
+            else //Seesion會員沒登入
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
+
+
+
+            return RedirectToAction("OrderDetail", "Order");
+        }
     }
 }
