@@ -35,10 +35,12 @@
         //});
         @*下拉式選單選時要跳到那個選項*@
         @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
-        var selcted = document.querySelector("#basic");
+        var selcted = document.querySelector("#basic"); 
         selcted.addEventListener('change',()=> {
             console.log(selcted.options[selcted.selectedIndex].value)
         })
+        var categoryselect =$("#categoryselect");
+        console.log(categoryselect)
     </script>
     <script src="~/js/jquery-ui.js"></script>
 }
@@ -320,9 +322,9 @@
                                                             {
                                                                 if (detail.分類ID == 次分類.CategoryId)
                                                                 {
-                                                                    <a class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2">
+                                                                    <button class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryName" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                    </a>
+                                                                    </button>
                                                                 }
                                                             }
 
@@ -339,9 +341,9 @@
                                                                             {
                                                                                 if (detail.分類ID == 次分類2.CategoryId)
                                                                                 {
-                                                                                    <a class="list-group-item list-group-item-action" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3">
+                                                                                    <button class="list-group-item list-group-item-action" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryName" style="cursor: pointer;" id="categoryselect">
                                                                                         @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                                    </a>
+                                                                                    </button>
                                                                                 }
                                                                             }
                                                                         }
