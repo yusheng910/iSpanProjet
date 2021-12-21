@@ -65,10 +65,11 @@ namespace 鮮蔬果季_前台.Controllers
                     {
                         odetail = o.od,
                         product = o.p,
-                        photoBank = 封面相片
+                        photoBank = 封面相片,
                         //單筆訂單細項總價 = 訂單細項總價
                     });
                 }
+
                 return View(訂單細項列表);
             }                         
             else //Seesion會員沒登入
@@ -81,7 +82,7 @@ namespace 鮮蔬果季_前台.Controllers
        
         public IActionResult AddReview(ReviewViewModel r)
         {
-
+             
 
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
@@ -97,6 +98,16 @@ namespace 鮮蔬果季_前台.Controllers
                 };
                 db.Add(review);
                 db.SaveChanges();
+
+                var 供應商 = (from rr in db.Reviews
+                           join od in db.OrderDetails
+                           on rr.OrderDetailId equals od.OrderDetailId
+                           join p in db.Products
+                           on od.ProductId equals p.ProductId
+                           join s in db.Suppliers
+                           on p.SupplierId equals s.SupplierId
+                           where rr.OrderDetailId == r.AddId
+                           select s.SupplierName).FirstOrDefault();
             }
             else //Seesion會員沒登入
             {
@@ -104,7 +115,6 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
                 return RedirectToAction("Login", "Login");
             }
-
 
 
             return RedirectToAction("OrderDetail", "Order");

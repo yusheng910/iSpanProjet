@@ -96,8 +96,6 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphoto = value;
             }
         }
-
-
         public int 總價 { get; set; }
 
         public int 單筆訂單細項總價 { get; set; }

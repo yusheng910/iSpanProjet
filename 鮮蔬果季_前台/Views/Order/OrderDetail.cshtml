@@ -262,10 +262,8 @@
             <div class="row post-review-box" style="display:none;">
                 <div class="col-md-12" id="postrv">
                     <form accept-charset="UTF-8" name="Review" asp-action="AddReview">
-                        <input id="ratings-hidden" name="rating" type="hidden">
                         <div>
-                        </div>
-                        <div>
+                            <span>@ViewBag.A</span>
                         </div>
                         <textarea class="form-control animated new-review" cols="50" name="AddComments" placeholder="在這裡寫下您的評論..." rows="5"></textarea>
                         <div class="sysrank">
