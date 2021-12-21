@@ -134,6 +134,14 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return Content("");
         }
-       
+        public IActionResult LoadCities()
+        {
+            鮮蔬果季Context DB = new 鮮蔬果季Context();
+            var cities = DB.Cities.Select(a => new
+            {
+                a.CityName
+            }).Distinct().OrderBy(a => a.CityName);
+            return Json(cities);
+        }
     }
 }
