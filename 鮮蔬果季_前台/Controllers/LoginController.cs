@@ -88,15 +88,16 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (Password != null)
             {
-                if (Password.Length > 6)
+                if (Password.Length >= 6)
                 {
                     if ((new Regex(@"^[a-zA-Z]\w{5,17}$")).IsMatch(Password))
                     {
                         return Content("");
                     }
                 }
+                return Content("密碼格式不正確");
             }
-            return Content("密碼格式不正確");
+            return Content("");
         }
         public IActionResult MemberNameRegex(string MemberName)
         {
@@ -134,6 +135,14 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return Content("");
         }
-       
+        public IActionResult LoadCities()
+        {
+            鮮蔬果季Context DB = new 鮮蔬果季Context();
+            var cities = DB.Cities.Select(a => new
+            {
+                a.CityName
+            }).Distinct().OrderBy(a => a.CityName);
+            return Json(cities);
+        }
     }
 }

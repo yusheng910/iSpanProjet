@@ -48,7 +48,7 @@
                 $("#Mobileerr").html(data)
             })
         })
-        $("#birthdate").blur(function () {
+        $("#birthdate").change(function () {
             var UserBD = $("#birthdate").val();
             const xhr = new XMLHttpRequest();
             xhr.open("get", "@Url.Action("BirthDateRegex","Login")?birthdate=" + UserBD)
@@ -66,6 +66,18 @@
                 $("#msgSubmit").addClass(msgClasses).text("尚未填寫完資料，請確認。");
                 return false;
             }
+        })
+        var xhr = new XMLHttpRequest();
+        var selCity = document.querySelector("#state");
+        xhr.open("get", "/Login/LoadCities");
+        xhr.send();
+        xhr.addEventListener('load', () => {
+            var data = xhr.responseText
+            data = JSON.parse(data)
+            data.forEach((item) => {
+                const opt = new Option(item.cityName, item.cityName);
+                selCity.options.add(opt);
+            })
         })
     </script>
 }
@@ -127,7 +139,6 @@
                                 <div class="form-group">
                                     <select asp-for="city" class="form-control" id="state" name="city" placeholder="您的現居縣市" required data-error="請選擇您的縣市">
                                         <option></option>
-                                        <option>台北市</option>
                                     </select>
                                     <div class="help-block with-errors"></div>
                                 </div>
