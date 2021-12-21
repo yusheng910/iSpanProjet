@@ -48,7 +48,7 @@
                 $("#Mobileerr").html(data)
             })
         })
-        $("#birthdate").blur(function () {
+        $("#birthdate").change(function () {
             var UserBD = $("#birthdate").val();
             const xhr = new XMLHttpRequest();
             xhr.open("get", "@Url.Action("BirthDateRegex","Login")?birthdate=" + UserBD)
