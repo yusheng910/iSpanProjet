@@ -139,20 +139,20 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        //public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
-        //public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
-        //public int SupplierId { get { return this.product.SupplierId; } set { this.product.SupplierId = value; } }
-        //public int ProductUnitPrice { get { return this.product.ProductUnitPrice; } set { this.product.ProductUnitPrice = value; } }
-        //public int ProductCostPrice { get { return this.product.ProductCostPrice; } set { this.product.ProductCostPrice = value; } }
-        //public int ProductUnitsInStock { get { return this.product.ProductUnitsInStock; } set { this.product.ProductUnitsInStock = value; } }
-        //public DateTime? ProduceDate { get { return this.product.ProduceDate; } set { this.product.ProduceDate = value; } }
-        //public string ProductDescription { get { return this.product.ProductDescription; } set { this.product.ProductDescription = value; } }
-        //public string ProductSize { get { return this.product.ProductSize; } set { this.product.ProductSize = value; } }
-        //public bool DefectiveGood { get { return this.product.DefectiveGood; } set { this.product.DefectiveGood = value; } }
-        //public bool InShop { get { return this.product.InShop; } set { this.product.InShop = value; } }
-        //public byte[] ProductQrcode { get { return this.product.ProductQrcode; } set { this.product.ProductQrcode = value; } }
-        //public bool HotProduct { get { return this.product.HotProduct; } set { this.product.HotProduct = value; } }
-
+        public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
+        public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
+        public int SupplierId { get { return this.product.SupplierId; } set { this.product.SupplierId = value; } }
+        public int ProductUnitPrice { get { return this.product.ProductUnitPrice; } set { this.product.ProductUnitPrice = value; } }
+        public int ProductCostPrice { get { return this.product.ProductCostPrice; } set { this.product.ProductCostPrice = value; } }
+        public int ProductUnitsInStock { get { return this.product.ProductUnitsInStock; } set { this.product.ProductUnitsInStock = value; } }
+        public DateTime? ProduceDate { get { return this.product.ProduceDate; } set { this.product.ProduceDate = value; } }
+        public string ProductDescription { get { return this.product.ProductDescription; } set { this.product.ProductDescription = value; } }
+        public string ProductSize { get { return this.product.ProductSize; } set { this.product.ProductSize = value; } }
+        public bool DefectiveGood { get { return this.product.DefectiveGood; } set { this.product.DefectiveGood = value; } }
+        public bool InShop { get { return this.product.InShop; } set { this.product.InShop = value; } }
+        public byte[] ProductQrcode { get { return this.product.ProductQrcode; } set { this.product.ProductQrcode = value; } }
+        public bool HotProduct { get { return this.product.HotProduct; } set { this.product.HotProduct = value; } }
+        public string SupplierName { get {return this.supplier.SupplierName; } set {this.supplier.SupplierName=value; } }
         //public int ProductId { get; set; }
         //public string ProductName { get; set; }
         //public int SupplierId { get; set; }
@@ -166,6 +166,6 @@ namespace 鮮蔬果季_前台.ViewModels
         //public bool InShop { get; set; }
         //public byte[] ProductQrcode { get; set; }
         //public bool HotProduct { get; set; }
-        //public string SupplierName { get; set; }
+
     }
 }

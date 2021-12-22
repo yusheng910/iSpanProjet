@@ -35,27 +35,35 @@
         //});
         @*下拉式選單選時要跳到那個選項*@
         @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
-        var selcted = document.querySelector("#basic"); 
+        var selcted = document.querySelector("#basic");
         selcted.addEventListener('change',()=> {
             console.log(selcted.options[selcted.selectedIndex].value)
         })
         var categoryselect = $(".categoryselect");
-        categoryselect.click(function () {
-           
+        categoryselect.click( function () {
+
             if ($(this).val() == 1 || $(this).val() == 6) { }
             else {
-                console.log($(this).val())
+                //console.log($(this).val())
                 let value = $(this).val()
                 async function categorySel() {
                     let response = await fetch('@Url.Action("CategorySelect","Shopping")/' + value)
-                    let data = await response.text();
+                    let data = await response.json();
                     console.log(data)
+                    $('#grid-view').find('.row').html("")
+                    $.each(data, function (index, value) {
+                        console.log(value.productName)
+                        let photo = value.photoBank[0].photoPath
+                        console.log(photo)
+                        //$('#grid-view').find('.row').append('<div class= "col-sm-6 col-md-6 col-lg-4 col-xl-4" ><div class="products-single fix"><div class="box-img-hover"><div class="type-lb"><p class="sale">Sale</p></div><img src="~/images/商品照/item.photoBank[0].PhotoPath" class="img-fluid" alt="Image"> <div class="mask-icon"><ul><li><a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a></li>if (item.myFavorite.MyFavoriteId != 0){<li><a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a></li>} else{<li> <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a> </li>}</ul><a class="cart">加入購物車</a><a class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="item.product.ProductId">加入購物車</a></div> </div><div class="why-text"> <h4>【item.supplier.SupplierName】</h4> <h4>item.product.ProductName</h4><h5> 公克[0]/NT$item.product.ProductUnitPrice</h5> </div></div> </div>')
+                    })
+
                 }
                 categorySel()
             }
-                
+
         })
-        
+
     </script>
     <script src="~/js/jquery-ui.js"></script>
 }
@@ -114,8 +122,7 @@
                     <div class="product-categorie-box">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                <div class="row">
-                                    <div></div>
+                                <div class="row">                                  
                                     @*商品List 開始*@
                                     @foreach (var item in Model)
                                     {
