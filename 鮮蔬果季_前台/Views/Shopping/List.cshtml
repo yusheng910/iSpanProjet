@@ -39,8 +39,23 @@
         selcted.addEventListener('change',()=> {
             console.log(selcted.options[selcted.selectedIndex].value)
         })
-        var categoryselect =$("#categoryselect");
-        console.log(categoryselect)
+        var categoryselect = $(".categoryselect");
+        categoryselect.click(function () {
+           
+            if ($(this).val() == 1 || $(this).val() == 6) { }
+            else {
+                console.log($(this).val())
+                let value = $(this).val()
+                async function categorySel() {
+                    let response = await fetch('@Url.Action("CategorySelect","Shopping")/' + value)
+                    let data = await response.text();
+                    console.log(data)
+                }
+                categorySel()
+            }
+                
+        })
+        
     </script>
     <script src="~/js/jquery-ui.js"></script>
 }
@@ -322,7 +337,7 @@
                                                             {
                                                                 if (detail.分類ID == 次分類.CategoryId)
                                                                 {
-                                                                    <button class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryName" style="cursor: pointer;" id="categoryselect">
+                                                                    <button class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
                                                                     </button>
                                                                 }
@@ -341,7 +356,7 @@
                                                                             {
                                                                                 if (detail.分類ID == 次分類2.CategoryId)
                                                                                 {
-                                                                                    <button class="list-group-item list-group-item-action" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryName" style="cursor: pointer;" id="categoryselect">
+                                                                                    <button class="list-group-item list-group-item-action categoryselect" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                                         @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
                                                                                     </button>
                                                                                 }

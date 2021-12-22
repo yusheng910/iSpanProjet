@@ -123,6 +123,10 @@ namespace 鮮蔬果季_前台.Controllers
             return View(所有商品列表);
         }
 
+
+        public IActionResult CategorySelect(int id) {
+            return Content(id.ToString());
+        }
         public IActionResult ShopDetail(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
