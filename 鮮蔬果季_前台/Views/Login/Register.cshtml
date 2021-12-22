@@ -58,6 +58,7 @@
                 $("#BirthDateerr").html(data)
             })
         })
+
         $("#contactForm").submit(function () {
             //我們的規則驗證錯誤時要加上這條class，submit時才會送不出去
             if ($("#emailerr").html() == "帳號已被註冊" || $("#emailerr").html() == "帳號格式不正確" || $("#Passworderr").html() == "密碼格式不正確" || $("#MemberNameerr").html() == "字數不能小於兩字" || $("#Mobileerr").html() == "號碼長度不能小於10碼" || $("#Mobileerr").html() == "請輸入數字" || $("#BirthDateerr").html()=="出生日期大於今日")
@@ -69,16 +70,29 @@
         })
         var xhr = new XMLHttpRequest();
         var selCity = document.querySelector("#state");
-        xhr.open("get", "/Login/LoadCities");
-        xhr.send();
-        xhr.addEventListener('load', () => {
-            var data = xhr.responseText
-            data = JSON.parse(data)
-            data.forEach((item) => {
-                const opt = new Option(item.cityName, item.cityName);
-                selCity.options.add(opt);
+        //xhr.open("get", "/Login/LoadCities");
+        //xhr.send();
+        //xhr.addEventListener('load', () => {
+        //    var data = xhr.responseText
+        //    data = JSON.parse(data)
+        //    data.forEach((item) => {
+        //        const opt = new Option(item.cityName, item.cityName);
+        //        selCity.options.add(opt);
+        //    })
+        //})
+        async function Loadcity() {
+            /*const response = await fetch("/Login/LoadCities")*/
+            const response = await fetch("@Url.Action("LoadCities","Login")")
+            RenderCity(await response.json())
+        }
+        Loadcity()
+        function RenderCity(datas) {
+            datas.forEach((item) => {
+                console.log(item.cityName)
+                const opt = new Option(item.cityName, item.cityName)
+                selCity.options.add(opt)
             })
-        })
+        }
     </script>
 }
 <!-- Start All Title Box -->
