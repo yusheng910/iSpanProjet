@@ -26,12 +26,13 @@
 
         .orderid-p {
             text-align: left;
-            padding-left:15px;
+            padding-left: 15px;
         }
 
-        .last-th{
-            text-align:right;
+        .last-th {
+            text-align: right;
         }
+
         .table td, .table th {
             padding-right: 20px;
         }
@@ -40,6 +41,63 @@
             text-align: right;
             padding-right: 20px;
         }
+
+        /*====== tabs ======*/
+        
+        nav > .nav.nav-tabs {
+            border: none;
+            color: #fff;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+        nav > div a.nav-item.nav-link,
+        nav > div a.nav-item.nav-link.active {
+            border: none;
+            padding: 18px 25px;
+            color: #fff;
+            background: #b0b435;
+            border-radius: 0;
+        }
+
+            nav > div a.nav-item.nav-link.active:after {
+                content: "";
+                position: relative;
+                bottom: -60px;
+                left: -10%;
+                border: 15px solid transparent;
+                border-top-color: #e74c3c;
+            }
+
+        .tab-content {
+            background: #fdfdfd;
+            line-height: 25px;
+            border: 1px solid #ddd;
+            border-top: 5px solid #e74c3c;
+            border-bottom: 5px solid #e74c3c;
+            padding: 30px 25px;
+        }
+
+        nav > div a.nav-item.nav-link:hover,
+        nav > div a.nav-item.nav-link:focus {
+            border: none;
+            background: #e74c3c;
+            color: #fff;
+            border-radius: 0;
+            transition: background 0.20s linear;
+        }
+
+        a {
+            margin: 0;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+            background-color: #fff;
+        }
+            
     </style>
 }
 
@@ -54,9 +112,28 @@
     </div>
 </div>
 <!-- End All Title Box -->
-<!-- Start Wishlist  -->
+
+
+
+<!-- Start List  -->
 <div class="wishlist-box-main">
     <div class="container">
+        <!-- Start Navbar  -->
+        <div style="padding-bottom:20px" class="container">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="delivered-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">訂單紀錄</a>
+                            <a class="nav-item nav-link" id="shipped-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">已出貨</a>
+                            <a class="nav-item nav-link" id="notYetShipped-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">未出貨</a>
+                            <a class="nav-item nav-link" id="deliveredNoRecipient-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">送達未取</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar  -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="table-main table-responsive">
@@ -66,7 +143,6 @@
                                 <th>訂單號</th>
                                 <th>下單日期</th>
                                 <th>總價</th>
-                                <th>出貨狀態</th>
                                 <th class="last-th">訂單細項</th>
                             </tr>
                         </thead>
@@ -74,23 +150,20 @@
                             @{
                                 foreach (var item in Model)
                                 {
-                                                        <tr>
-                                                            <td class="orderid-p">
-                                                                <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
-                                                            </td>
-                                                            <td class="orderdate-p">
-                                                                <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
-                                                            </td>
-                                                            <td class="price-pr">
-                                                                <p>NT$ @item.總價</p>
-                                                            </td>
-                                                            <td>
-                                                                <p>@Html.DisplayFor(modelItem => item.status.StatusName)</p>
-                                                            </td>
-                                                            <td class="add-pr">
-                                                                <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
-                                                            </td>
-                                                        </tr>                                                 
+                                    <tr>
+                                        <td class="orderid-p">
+                                            <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
+                                        </td>
+                                        <td class="orderdate-p">
+                                            <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
+                                        </td>
+                                        <td class="price-pr">
+                                            <p>NT$ @item.總價</p>
+                                        </td>
+                                        <td class="add-pr">
+                                            <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
+                                        </td>
+                                    </tr>
                                 }
                             }
                         </tbody>
@@ -100,4 +173,7 @@
         </div>
     </div>
 </div>
-<!-- End Wishlist -->
+<!-- End List -->
+@section Scripts{
+
+}
