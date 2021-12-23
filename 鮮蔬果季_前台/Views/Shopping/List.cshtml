@@ -75,40 +75,21 @@
         })
         //查詢
         async function selProductName() {
-            let response=await fetch("@Url.Content("~/Shopping/ProductName")")
+            let response = await fetch("@Url.Content("~/Shopping/ProductName")")
+            let data = await response.json()
+
+            $("#tags").autocomplete({
+                source: data,
+                autoFocus: true,
+                classes: {
+                    "ui-autocomplete": "highlight", //下拉式選單樣式
+                    "ui-autocomplete-input": "focus"
+                }
+            });
         }
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-        $("#tags").autocomplete({
-            source: availableTags,
-            autoFocus: true,
-            classes: {
-                "ui-autocomplete": "highlight", //下拉式選單樣式
-                "ui-autocomplete-input": "focus"
-            }
-        });
+        selProductName()
+       
+       
 
         //console.log(selectProduct);
     </script>

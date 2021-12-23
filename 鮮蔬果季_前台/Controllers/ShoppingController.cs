@@ -239,6 +239,11 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return PartialView(所有商品列表);
         }
+
+        public IActionResult ProductName() {
+            var 所有商品 = (from p in db.Products orderby p.ProductName select p.ProductName).Distinct().ToList();
+            return Json(所有商品);
+        }
         public IActionResult ShopDetail(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
