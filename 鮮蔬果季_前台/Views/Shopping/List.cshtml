@@ -53,8 +53,13 @@
         //價錢查詢
         var priceSelect = $("#PriceSelect");
         priceSelect.click(function () {
-            let value = ($("#slider-range").find("span")[0].style.left).split("%")
-            console.log(value)
+            let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10
+            let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10
+            let categetoryId = $(".categoriesId").val();
+            console.log(min)
+            console.log(max)
+            console.log(categetoryId)
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
         })
     </script>
     <script src="~/js/jquery-ui.js"></script>

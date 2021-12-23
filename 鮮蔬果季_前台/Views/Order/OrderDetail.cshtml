@@ -22,6 +22,7 @@
         .add-rv {
             text-align: right;
             padding-right: 20px;
+            width: 248.29px;
         }
 
         .last-th {
@@ -68,6 +69,20 @@
             font-size: 20px;
             color:yellowgreen;
         }
+        #divtotal{
+            height:220px;
+        }
+        #rvfocus {
+            padding-bottom:10px
+        }
+        #sprname {
+            color:darkslategrey;
+            font-weight:bold;
+        }
+        #pdname {
+            color: cornflowerblue;
+            font-weight: bold;
+        }
 
 
     </style>
@@ -98,8 +113,6 @@
                 openReviewBtn.fadeIn(200);
                 $(this).fadeOut(100);
                 closeReviewBtn.show();
-                $(".showid").val($(this).val())
-                console.log($(".showid").val())
 
                 //星星
                 $(function () {
@@ -161,6 +174,29 @@
                 ratingsField.val(value);
             });
         });
+    </script>
+    <script>
+    const showsprname = document.querySelector('#sprname');
+    const showpdname = document.querySelector('#pdname');
+    var openReviewBtn = $('.open-review-box');
+
+        openReviewBtn.click(function (e) {
+            $(".showid").val($(this).val())
+            let value = $(".showid").val();
+            //console.log(value)
+        async function rvwho() {
+            //console.log(value)
+            const responsesprname = await fetch('@Url.Action("ShowSuplierName", "Order")/' + value)
+            let data = await responsesprname.text()
+            showsprname.innerHTML = data;
+            console.log(data)
+            const responsshowpdname = await fetch('@Url.Action("ShowProdName", "Order")/' + value)
+            let data2 = await responsshowpdname.text()
+            showpdname.innerHTML = data2;
+        }
+        rvwho()
+    });
+
     </script>
 }
 
@@ -231,9 +267,10 @@
                                             <p id="total-pr">NT$ @商品價乘數量</p>
                                             @*<p>@item.單筆訂單細項總價</p>*@
                                         </td>
-                                        <td class="add-rv" style="width:248.29px">
+                                        <td class="add-rv">
                                             <div class="aboveadd">
                                                 <div class="text-right">
+                                                    <input class="haverv" type="hidden" value="@item.odetail.HaveReviews" />
                                                     <button class="btn hvr-hover open-review-box" value="@item.odetail.OrderDetailId">新增評價</button>
                                                 </div>
                                             </div>
@@ -245,7 +282,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-6">
+            <div id="divtotal" class="col-lg-6 col-sm-6">
                 <div class="order-box">
                     <div class="title-left" style="padding-top:20px">
                         <h3>
@@ -263,8 +300,8 @@
             <div class="row post-review-box" style="display:none;">
                 <div class="col-md-12" id="postrv">
                     <form accept-charset="UTF-8" name="Review" asp-action="AddReview">
-                        <div>
-                            <span></span>
+                        <div id="rvfocus">
+                            <p>您對<span id="sprname"></span>的<span id="pdname"></span>看法如何?：</p>
                         </div>
                         <textarea class="form-control animated new-review" cols="50" name="AddComments" placeholder="在這裡寫下您的評論..." rows="5"></textarea>
                         <div class="sysrank">
