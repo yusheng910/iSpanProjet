@@ -3,7 +3,46 @@
 @{
     ViewData["Title"] = "ContactUs";
 }
-<
+@section Styles{
+    <style>
+
+                /*  #標題text {
+                    margin-top: 2vh;
+                    font-family: 'Noto Sans TC', sans-serif;
+                }
+        */
+                body {
+                    margin: 0;
+                    padding: 0;
+                    background-color: #ffffff;
+                    height: 100vh;
+                }
+
+                #contact .container #contact-row #contact-column #contact-box {
+                    margin-top: 6vh;
+                    margin-bottom: 6vh;
+                    max-width: 600px;
+                    height: 800px;
+                    border: 1px solid #9C9C9C;
+                    background-color: #EAEAEA;
+                    border-radius: 10px;
+                }
+
+                    #contact .container #contact-row #contact-column #contact-box #contact-form {
+                        padding: 20px;
+                    }
+
+                #contact .container #contact-row #lcontact-column #contact-box #contact-form #register-link {
+                    margin-top: -93px;
+                }
+      
+
+
+        
+    </style>
+
+}
+
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -15,44 +54,6 @@
     </div>
 </div>
 <!-- End All Title Box -->
-@section Styles{
-    <style>
-
-        #標題text {
-            margin-top: 2vh;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            height: 100vh;
-            background-image:url("images/tree.jpg");
-        }
-
-        #contact .container #contact-row #contact-column #contact-box {
-            margin-top: 6vh;
-            margin-bottom: 6vh;
-            max-width: 600px;
-            height: 650px;
-            border: 1px solid #9C9C9C;
-            background-color: #EAEAEA;
-            border-radius: 10px;
-        }
-
-        #contact .container #contact-row #contact-column #contact-box #contact-form {
-            padding: 20px;
-        }
-
-        #contact .container #contact-row #lcontact-column #contact-box #contact-form #register-link {
-            margin-top: -93px;
-        }
-    </style>
-
-}
-
-
 <!-- Contact Start -->
 <div id="contact">
     <div class="container">
@@ -60,7 +61,8 @@
             <div id="contact-column" class="col-md-6">
                 <div id="contact-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
                     <form id="contact-form" class="form" action="" method="post">
-                        <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡我們</h3>
+                        <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡鮮蔬果季</h3>
+                        <h3 class="text-center">請提供簡述您所面臨到的問題，鮮蔬果季很樂意為您服務</h3>
 
                         <div class="form-group">
 
@@ -99,14 +101,14 @@
                                         <option>Fennec</option>
                                     </optgroup>
                                 </select>
-
+                                
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="請輸入內容" id="message" style="height: 450px"></textarea>
-                               
+                                <textarea name="textarea" class="form-control" placeholder="請輸入內容" id="message" style="height: 450px"></textarea>
+
                             </div>
                         </div>
                         <div class="form-group">

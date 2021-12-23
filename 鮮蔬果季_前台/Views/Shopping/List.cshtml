@@ -24,10 +24,21 @@
         .list-group-item[data-toggle="collapse"]::after {
             content: normal;
         }
+        .highlight {
+            background: lightgreen;
+            color: cornflowerblue;
+        }
+
+        .focus {
+            background: yellow;
+        }
     </style>
 }
 @section Scripts{
+   
+    <script src="~/js/jquery-ui.js"></script>
     <script>
+        
         //$("#basic").change(function () {
         //    $("#slectForm").submit();
         //    var opt = $("#basic").val;
@@ -61,8 +72,42 @@
             console.log(categetoryId)
             $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
         })
+        //查詢
+        //var availableTags = [
+        //    "ActionScript",
+        //    "AppleScript",
+        //    "Asp",
+        //    "BASIC",
+        //    "C",
+        //    "C++",
+        //    "Clojure",
+        //    "COBOL",
+        //    "ColdFusion",
+        //    "Erlang",
+        //    "Fortran",
+        //    "Groovy",
+        //    "Haskell",
+        //    "Java",
+        //    "JavaScript",
+        //    "Lisp",
+        //    "Perl",
+        //    "PHP",
+        //    "Python",
+        //    "Ruby",
+        //    "Scala",
+        //    "Scheme"
+        //];
+        //$("#tags").autocomplete({
+        //    source: availableTags,
+        //    // autoFocus: true,
+        //    classes: {
+        //        "ui-autocomplete": "highlight"
+        //    }
+        //});
+
+        console.log(selectProduct);
     </script>
-    <script src="~/js/jquery-ui.js"></script>
+    
 }
 <!-- Start All Title Box -->
 <div class="all-title-box">
@@ -302,7 +347,7 @@
                 <div class="product-categori">
                     <div class="search-product">
                         <form action="#">
-                            <input name="txtKeyword" class="form-control" placeholder="搜尋商品..." type="text">
+                            <input id="tags" name="txtKeyword" class="form-control" placeholder="搜尋商品..." type="text">
                             <button type="submit"> <i class="fa fa-search"></i> </button>
                         </form>
                     </div>
