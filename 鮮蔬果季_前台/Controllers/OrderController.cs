@@ -10,21 +10,26 @@ namespace 鮮蔬果季_前台.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly 鮮蔬果季Context db;
+        public OrderController(鮮蔬果季Context dbContext)
+        {
+            db = dbContext;
+        }
         public IActionResult Orders()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 //=============================
-                鮮蔬果季Context db = new 鮮蔬果季Context();
+                //鮮蔬果季Context db = new 鮮蔬果季Context();
                 List<OrderListViewModel> list = new List<OrderListViewModel>();
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
                               where ord.MemberId == UserLogin.member.MemberId
-                              select new { ord, stat });
+                              select new { ord, stat }).ToList();
 
-                db = new 鮮蔬果季Context();
+                //db = new 鮮蔬果季Context();
                 foreach (var o in orders)
                 {
                     var 訂單總價 = (from od in db.OrderDetails
@@ -49,15 +54,15 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                鮮蔬果季Context db = new 鮮蔬果季Context();
+                //鮮蔬果季Context db = new 鮮蔬果季Context();
                 List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
                 var 所有訂單細項 = (from od in db.OrderDetails
                               join p in db.Products
                               on od.ProductId equals p.ProductId
                               where od.OrderId == id
-                              select new { od, p });
-                //todo
-                db = new 鮮蔬果季Context();
+                              select new { od, p }).ToList();
+                
+                //db = new 鮮蔬果季Context();
                 foreach (var o in 所有訂單細項)
                 {
                     var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
@@ -87,7 +92,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                鮮蔬果季Context db = new 鮮蔬果季Context();
+                //鮮蔬果季Context db = new 鮮蔬果季Context();
                 Review review = new Review()
                 {
                     OrderDetailId = r.AddId,
