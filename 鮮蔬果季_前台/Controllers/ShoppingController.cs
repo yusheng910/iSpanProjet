@@ -11,7 +11,6 @@ namespace 鮮蔬果季_前台.Controllers
     public class ShoppingController : Controller
     {
         private readonly 鮮蔬果季Context db;
-
         public ShoppingController(鮮蔬果季Context dbContext)
         {
             db = dbContext;
@@ -169,7 +168,6 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.USER = null;
                 UserLogin.member = null;
             }
-            鮮蔬果季Context db = new 鮮蔬果季Context();
             ShoppingListViewModel 單筆商品 = new ShoppingListViewModel();
             var 商品明細 = (from p in db.Products
                        join s in db.Suppliers
@@ -179,19 +177,19 @@ namespace 鮮蔬果季_前台.Controllers
             if (商品明細 == null)
                 return RedirectToAction("List");
             //db = new 鮮蔬果季Context();
-            var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId ==id);
+            var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId ==id).ToList();
             var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == id); /*TODO 目前會員ID寫死的*/
             var 商品出售數量 = (from p in db.OrderDetails
                          where p.ProductId == id
                          group p by p.ProductId into g
                          select  g.Sum(p => p.UnitsPurchased)).FirstOrDefault();
-            var 列出評論 = from p in db.Reviews
+            var 列出評論 = (from p in db.Reviews
                        join a in db.OrderDetails
                        on p.OrderDetailId equals a.OrderDetailId
                        join b in db.Orders
                        on a.OrderId equals b.OrderId
                        where a.ProductId == id
-                       select new { p, b.MemberId };
+                       select new { p, b.MemberId }).ToList();
             單筆商品.product = 商品明細.p;
             單筆商品.supplier = 商品明細.s;
             foreach (var 照片 in 封面相片)
@@ -199,7 +197,6 @@ namespace 鮮蔬果季_前台.Controllers
             單筆商品.出售量 = 商品出售數量;
             單筆商品.myFavorite = 最愛商品;
 
-            db = new 鮮蔬果季Context();
             foreach (var item in 列出評論)
             {
                 var 會員資訊 = (from x in db.Members
@@ -221,7 +218,6 @@ namespace 鮮蔬果季_前台.Controllers
                     MemberId=UserLogin.member.MemberId,
                     ProductId=id
                 };
-                鮮蔬果季Context db = new 鮮蔬果季Context();
                 db.Add(myFavorite);
                 db.SaveChanges();
             }               
@@ -244,7 +240,6 @@ namespace 鮮蔬果季_前台.Controllers
                     MemberId = UserLogin.member.MemberId,
                     ProductId = id
                 };
-                鮮蔬果季Context db = new 鮮蔬果季Context();
                 db.Add(myFavorite);
                 db.SaveChanges();
             }
@@ -262,7 +257,6 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 //=============================
-                鮮蔬果季Context db = new 鮮蔬果季Context();
                 List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
                 
                 var 購物車商品 = (from pro in db.Products
@@ -273,7 +267,6 @@ namespace 鮮蔬果季_前台.Controllers
                               where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
                               select new { item, pro, stat });
 
-                db = new 鮮蔬果季Context();
                 foreach (var c in 購物車商品)
                 {
                     var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == c.pro.ProductId).FirstOrDefault();
@@ -301,7 +294,6 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                鮮蔬果季Context db = new 鮮蔬果季Context();
                 var 購物車內商品 = (from p in db.Products
                             join c in db.ShoppingCarts
                             on p.ProductId equals c.ProductId
@@ -317,7 +309,6 @@ namespace 鮮蔬果季_前台.Controllers
                         UnitsInCart = 1,
                         StatusId = 1
                     };
-                    db = new 鮮蔬果季Context();
                     db.Add(myCartitem);
                     db.SaveChanges();
                 }
@@ -345,7 +336,6 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                鮮蔬果季Context db = new 鮮蔬果季Context();
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId
@@ -361,7 +351,6 @@ namespace 鮮蔬果季_前台.Controllers
                         UnitsInCart = 1,
                         StatusId = 1
                     };
-                    db = new 鮮蔬果季Context();
                     db.Add(myCartitem);
                     db.SaveChanges();
                 }
