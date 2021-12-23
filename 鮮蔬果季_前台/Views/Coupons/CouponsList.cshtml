@@ -61,6 +61,70 @@
             right:140px;
             height:17px;
         }*/
+
+        /*navbar的CSS*/
+        
+        nav > .nav.nav-tabs {
+            border: none;
+            color: #fff;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+        nav > div a.nav-item.nav-link,
+        nav > div a.nav-item.nav-link.active {
+            border: none;
+            padding: 18px 25px;
+            color: #fff;
+            background: #5e5e3d;
+            border-radius: 0;
+        }
+
+            nav > div a.nav-item.nav-link.active:after {
+                content: "";
+                position: relative;
+                bottom: -60px;
+                left: -10%;
+                border: 15px solid transparent;
+                border-top-color: #e74c3c;
+            }
+
+        .tab-content {
+            background: #fdfdfd;
+            line-height: 25px;
+            border: 1px solid #ddd;
+            border-top: 5px solid #e74c3c;
+            border-bottom: 5px solid #e74c3c;
+            padding: 30px 25px;
+        }
+
+        nav > div a.nav-item.nav-link:hover,
+        nav > div a.nav-item.nav-link:focus {
+            border: none;
+            background: #e74c3c;
+            color: #fff;
+            border-radius: 0;
+            transition: background 0.20s linear;
+        }
+
+        #nav-tab div a {
+            margin: 0;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+            background-color: #fff;
+        }
+        .col-xs-12{
+            padding-top:40px;
+        }
+        .wishlist-box-main {
+            padding-top:0px;
+        }
+
+
     </style>
 }
 @section Scripts{
@@ -83,6 +147,22 @@
     </div>
 </div>
 <!-- End All Title Box -->
+<!-- Start Navbar  -->
+<div style="padding-bottom:20px" class="container">
+    <div class="row">
+        <div class="col-xs-12" style="width:60%">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" style="width:25%" id="delivered-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">訂單紀錄</a>
+                    <a class="nav-item nav-link" style="width:25%" id="shipped-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">已出貨</a>
+                    <a class="nav-item nav-link" style="width:25%" id="notYetShipped-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">未出貨</a>
+                    <a class="nav-item nav-link" style="width:25%" id="deliveredNoRecipient-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">送達未取</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- End Navbar  -->
 <!-- Start All Coupons List -->
 <div class="wishlist-box-main">
     <div class="container">
