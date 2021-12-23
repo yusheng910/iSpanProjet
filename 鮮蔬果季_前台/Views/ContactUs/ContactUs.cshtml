@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "ContactUs";
 }
+<
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -14,49 +15,107 @@
     </div>
 </div>
 <!-- End All Title Box -->
+@section Styles{
+    <style>
+
+        #標題text {
+            margin-top: 2vh;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            height: 100vh;
+            background-image:url("images/tree.jpg");
+        }
+
+        #contact .container #contact-row #contact-column #contact-box {
+            margin-top: 6vh;
+            margin-bottom: 6vh;
+            max-width: 600px;
+            height: 650px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+            border-radius: 10px;
+        }
+
+        #contact .container #contact-row #contact-column #contact-box #contact-form {
+            padding: 20px;
+        }
+
+        #contact .container #contact-row #lcontact-column #contact-box #contact-form #register-link {
+            margin-top: -93px;
+        }
+    </style>
+
+}
+
+
 <!-- Contact Start -->
-<div class="container-xxl py-5">
-    <div class="container py-5 px-lg-5">
-        <div class="wow fadeInUp" data-wow-delay="0.1s">
-            <p class="section-title text-secondary justify-content-center">
-                <span></span>
-                <span></span>
-            </p>
-            <h2 class="text-center mb-5">鮮蔬果季</h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="wow fadeInUp" data-wow-delay="0.3s">
-                    <p class="text-center mb-4"> </p>
-                    <form>
-                        <select name="catordog">
-                            <optgroup label="運送問題">
-                                <option>地點錯誤</option>
-                                <option>時間未到</option>
-                                <option>準時送達</option>
-                            </optgroup>
-                            <optgroup label="產品問題">
-                                <option>外表出現瑕疵</option>
-                                <option>食用後異常</option>
-                                <option>產品評價</option>
-                            </optgroup>
-                            <optgroup label="其他">
-                                <option>品質服務</option>
-                                <option></option>
-                                <option>Fennec</option>
-                            </optgroup>
-                        </select>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="" id="message" style="height: 150px"></textarea>
-                                    <label class="single-product-details" for="message">留言</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn hvr-hover" type="submit">傳送</button>
+<div id="contact">
+    <div class="container">
+        <div id="contact-row" class="row justify-content-center align-items-center">
+            <div id="contact-column" class="col-md-6">
+                <div id="contact-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
+                    <form id="contact-form" class="form" action="" method="post">
+                        <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡我們</h3>
+
+                        <div class="form-group">
+
+                            <div class="form-floating">
+                                <select name="catordog">
+                                    <optgroup label="運送問題">
+                                        <option>地點錯誤</option>
+                                        <option>時間未到</option>
+                                        <option>準時送達</option>
+                                    </optgroup>
+                                    <optgroup label="產品問題">
+                                        <option>外表出現瑕疵</option>
+                                        <option>食用後異常</option>
+                                        <option>產品評價</option>
+                                    </optgroup>
+                                    <optgroup label="其他">
+                                        <option>品質服務</option>
+                                        <option></option>
+                                        <option>Fennec</option>
+                                    </optgroup>
+                                </select>
+                                <select name="catordog">
+                                    <optgroup label="運送問題">
+                                        <option>地點錯誤</option>
+                                        <option>時間未到</option>
+                                        <option>準時送達</option>
+                                    </optgroup>
+                                    <optgroup label="產品問題">
+                                        <option>外表出現瑕疵</option>
+                                        <option>食用後異常</option>
+                                        <option>產品評價</option>
+                                    </optgroup>
+                                    <optgroup label="其他">
+                                        <option>品質服務</option>
+                                        <option></option>
+                                        <option>Fennec</option>
+                                    </optgroup>
+                                </select>
+
                             </div>
                         </div>
+                        <div class="form-group">
+
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="請輸入內容" id="message" style="height: 450px"></textarea>
+                               
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                                <a class="btn hvr-hover">傳送</a>
+                            </div>
+                        </div>
+
+
                     </form>
                 </div>
             </div>
@@ -64,41 +123,43 @@
     </div>
 </div>
 <!-- Contact End -->
+<!---->>
+
 @*string Account = "testing@gmail.com";
-string Password = "test123";
+    string Password = "test123";
 
-SmtpClient client = new SmtpClient();
-client.Host = "smtp.gmail.com";
-client.Port = 587;
-client.Credentials = new NetworkCredential(Account, Password);
-client.EnableSsl = true;
+    SmtpClient client = new SmtpClient();
+    client.Host = "smtp.gmail.com";
+    client.Port = 587;
+    client.Credentials = new NetworkCredential(Account, Password);
+    client.EnableSsl = true;
 
-MailMessage mail = new MailMessage();
-mail.From = new MailAddress(Account);
-mail.To.Add("test1@test.com");
-mail.Subject = "測試信";
-mail.SubjectEncoding = Encoding.UTF8;
-mail.IsBodyHtml = true;
-mail.Body = "第一行
-<br> 第二行
-<br>第三行
-<br>";
-mail.BodyEncoding = Encoding.UTF8;
+    MailMessage mail = new MailMessage();
+    mail.From = new MailAddress(Account);
+    mail.To.Add("test1@test.com");
+    mail.Subject = "測試信";
+    mail.SubjectEncoding = Encoding.UTF8;
+    mail.IsBodyHtml = true;
+    mail.Body = "第一行
+    <br> 第二行
+    <br>第三行
+    <br>";
+    mail.BodyEncoding = Encoding.UTF8;
 
-Attachment attachment = new Attachment(@"C:\fakepath\test.txt");
-mail.Attachments.Add(attachment);
+    Attachment attachment = new Attachment(@"C:\fakepath\test.txt");
+    mail.Attachments.Add(attachment);
 
-try
-{
-    client.Send(mail);
-}
-catch (Exception ex)
-{
-    throw ex;
-}
-finally
-{
-    attachment.Dispose();
-    mail.Dispose();
-    client.Dispose();
-}*@
+    try
+    {
+        client.Send(mail);
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    finally
+    {
+        attachment.Dispose();
+        mail.Dispose();
+        client.Dispose();
+    }*@
