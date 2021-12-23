@@ -176,5 +176,14 @@
         $('#delivered-tab').click(function () {
             $('#tbody').load('@Url.Content("~/order/OrdersDelivered")')
         })
+        $('#shipped-tab').click(function () {
+            $('#tbody').load('@Url.Content("~/order/OrdersShipped")')
+        })
+        $('#notYetShipped-tab').click(function () {
+            $('#tbody').load('@Url.Content("~/order/OrdersNotShipped")')
+        })
+        $('#deliveredNoRecipient-tab').click(function () {
+            $('#tbody').load('@Url.Content("~/order/OrdersDeliveredNoRecipient")')
+        })
     </script>
 }
