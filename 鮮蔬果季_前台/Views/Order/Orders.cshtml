@@ -43,7 +43,7 @@
         }
 
         /*====== tabs ======*/
-        
+
         nav > .nav.nav-tabs {
             border: none;
             color: #fff;
@@ -56,7 +56,7 @@
             border: none;
             padding: 18px 25px;
             color: #fff;
-            background: #b0b435;
+            background: #5e5e3d;
             border-radius: 0;
         }
 
@@ -97,7 +97,6 @@
             text-align: left;
             background-color: #fff;
         }
-            
     </style>
 }
 
@@ -112,22 +111,19 @@
     </div>
 </div>
 <!-- End All Title Box -->
-
-
-
 <!-- Start List  -->
 <div class="wishlist-box-main">
     <div class="container">
         <!-- Start Navbar  -->
         <div style="padding-bottom:20px" class="container">
             <div class="row">
-                <div class="col-xs-12 ">
+                <div class="col-xs-12" style="width:60%">
                     <nav>
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="delivered-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">訂單紀錄</a>
-                            <a class="nav-item nav-link" id="shipped-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">已出貨</a>
-                            <a class="nav-item nav-link" id="notYetShipped-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">未出貨</a>
-                            <a class="nav-item nav-link" id="deliveredNoRecipient-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">送達未取</a>
+                            <a class="nav-item nav-link active" style="width:25%" id="delivered-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">訂單紀錄</a>
+                            <a class="nav-item nav-link" style="width:25%" id="shipped-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">已出貨</a>
+                            <a class="nav-item nav-link" style="width:25%" id="notYetShipped-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">未出貨</a>
+                            <a class="nav-item nav-link" style="width:25%" id="deliveredNoRecipient-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">送達未取</a>
                         </div>
                     </nav>
                 </div>
@@ -146,7 +142,7 @@
                                 <th class="last-th">訂單細項</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
                             @{
                                 foreach (var item in Model)
                                 {
@@ -175,5 +171,9 @@
 </div>
 <!-- End List -->
 @section Scripts{
-
+    <script>
+        $('#delivered-tab').click(function () {
+            $('#tbody').load('@Url.Content("~/order/OrdersDelivered")')
+        })
+    </script>
 }
