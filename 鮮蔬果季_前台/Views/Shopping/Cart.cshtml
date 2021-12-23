@@ -8,6 +8,7 @@
         .order-box h3 {
             font-size: 18px;
         }
+
         .img-fluid {
             width: 100px;
             height: 80px;
@@ -57,7 +58,7 @@
                                     foreach (var item in Model)
                                     {
                                         商品價乘數量 = item.product.ProductUnitPrice * item.shopCart.UnitsInCart;
-                                        總價 += 商品價乘數量;
+
                                         <tr>
                                             <td class="thumbnail-img">
                                                 <a href="#">
@@ -72,7 +73,9 @@
                                             <td class="price-pr">
                                                 <p>NT$ @item.product.ProductUnitPrice</p>
                                             </td>
-                                            <td class="quantity-box"><input type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" step="1" class="c-input-text qty text"></td>
+                                            <td class="quantity-box">
+                                                <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="15" class="c-input-text qty text">
+                                            </td>
                                             <td class="total-pr">
                                                 <p>NT$ @商品價乘數量</p>
                                             </td>
@@ -82,6 +85,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        總價 += 商品價乘數量;
                                         應付金額 = 總價 + 運費 - 商品折扣 - 酷碰折扣;
                                     }
                                 }
@@ -102,11 +106,11 @@
                                         <td class="remove-pr">
                                         </td>
                                     </tr>
-                                        運費 = 0;
-                                        商品折扣 = 0;
-                                        酷碰折扣 = 0;
-                                    }
+                                    運費 = 0;
+                                    商品折扣 = 0;
+                                    酷碰折扣 = 0;
                                 }
+                            }
 
                         </tbody>
                     </table>
@@ -156,7 +160,9 @@
                     <hr>
                 </div>
             </div>
-            <div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a> </div>
+            <div class="col-12 d-flex shopping-box">
+                <a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a>
+            </div>
         </div>
 
         <div class="row my-5">
@@ -202,3 +208,9 @@
     </div>
 </div>
 <!-- End Cart -->
+@section Scripts{
+    <script>
+        document.getElementById('qtyChange').value
+
+    </script>
+}
