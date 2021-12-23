@@ -26,13 +26,19 @@
         }
 
         .highlight {
-            background: lightgreen;
-            color: cornflowerblue;
+            background: #FFF9E9;
+            color: #8B4513;
+            border-radius: 0px 0px 10px 10px;
+            letter-spacing:1px;
+            font-weight:bolder;
+            padding:5px
+        }
+        .ui-menu-item .ui-state-active {
+            background: #b0b435;
+            border-radius: 10px;
+            border: 1px solid #b0b435;          
         }
 
-        .focus {
-            background: yellow;
-        }
     </style>
 }
 @section Scripts{
@@ -73,17 +79,16 @@
             console.log(categetoryId)
             $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
         })
-        //查詢
+        //搜尋商品
         async function selProductName() {
             let response = await fetch("@Url.Content("~/Shopping/ProductName")")
             let data = await response.json()
 
             $("#tags").autocomplete({
                 source: data,
-                autoFocus: true,
+                autoFocus: false,
                 classes: {
-                    "ui-autocomplete": "highlight", //下拉式選單樣式
-                    "ui-autocomplete-input": "focus"
+                    "ui-autocomplete": "highlight"//下拉式選單樣式
                 }
             });
         }
