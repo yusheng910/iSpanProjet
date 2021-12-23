@@ -138,7 +138,21 @@ namespace 鮮蔬果季_前台.ViewModels
                 _cart = value;
             }
         }
-
+        public CategoryDetail _categoryDetail = null;
+        public CategoryDetail categoryDetail
+        {
+            get
+            {
+                if (_categoryDetail == null)
+                    _categoryDetail = new CategoryDetail();
+                return _categoryDetail;
+            }
+            set
+            {
+                _categoryDetail = value;
+            }
+        }
+        public int CategoryId { get { return this.categoryDetail.CategoryId; } set { this.categoryDetail.CategoryId = value; } }
         public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
         public int SupplierId { get { return this.product.SupplierId; } set { this.product.SupplierId = value; } }
