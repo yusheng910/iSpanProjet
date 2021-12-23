@@ -10,7 +10,12 @@ namespace 鮮蔬果季_前台.Controllers
 {
     public class ShoppingController : Controller
     {
+        private readonly 鮮蔬果季Context db;
 
+        public ShoppingController(鮮蔬果季Context dbContext)
+        {
+            db = dbContext;
+        }
         public IActionResult List(CSelectViewModel select)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -20,69 +25,69 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.USER = null;
                 UserLogin.member = null;
             }
-            鮮蔬果季Context db = new 鮮蔬果季Context();
+            //鮮蔬果季Context db = new 鮮蔬果季Context();
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
-            var 所有產品 = from prod in db.Products
+            var 所有產品 = (from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
-                       select new { prod, supp };
-            if (select.SelectOrderBy == 1)/*最新商品*/
-            {
-                所有產品 = from prod in db.Products
-                       join supp in db.Suppliers
-                       on prod.SupplierId equals supp.SupplierId
-                       orderby prod.ProduceDate descending
-                       select new { prod, supp };
-                if (!string.IsNullOrEmpty(select.txtKeyword))
-                    所有產品 = from prod in db.Products
-                           join supp in db.Suppliers
-                           on prod.SupplierId equals supp.SupplierId
-                           where prod.ProductName.Contains(@select.txtKeyword)
-                           orderby prod.ProduceDate descending
-                           select new { prod, supp };
-                ViewBag.Select = 1;
-            }
-            else if (select.SelectOrderBy == 2) /*價格高到低*/
-            {
-                所有產品 = from prod in db.Products
-                       join supp in db.Suppliers
-                       on prod.SupplierId equals supp.SupplierId
-                       orderby prod.ProductUnitPrice descending
-                       select new { prod, supp };
-                if (!string.IsNullOrEmpty(select.txtKeyword))
-                    所有產品 = from prod in db.Products
-                           join supp in db.Suppliers
-                           on prod.SupplierId equals supp.SupplierId
-                           where prod.ProductName.Contains(@select.txtKeyword)
-                           orderby prod.ProductUnitPrice descending
-                           select new { prod, supp };
-                ViewBag.Select = 2;
-            }
-            else if (select.SelectOrderBy == 3)/*價格低到高*/
-            {
-                所有產品 = from prod in db.Products
-                       join supp in db.Suppliers
-                       on prod.SupplierId equals supp.SupplierId
-                       orderby prod.ProductUnitPrice
-                       select new { prod, supp };
-                if (!string.IsNullOrEmpty(select.txtKeyword))
-                    所有產品 = from prod in db.Products
-                           join supp in db.Suppliers
-                           on prod.SupplierId equals supp.SupplierId
-                           where prod.ProductName.Contains(@select.txtKeyword)
-                           orderby prod.ProductUnitPrice
-                           select new { prod, supp };
-                ViewBag.Select = 3;
-            }
-            else if (!string.IsNullOrEmpty(select.txtKeyword)) /*沒選排序直接搜尋*/
-            {
-                所有產品 = from prod in db.Products
-                       join supp in db.Suppliers
-                       on prod.SupplierId equals supp.SupplierId
-                       where prod.ProductName.Contains(@select.txtKeyword)
-                       select new { prod, supp };
-            }
-            db = new 鮮蔬果季Context();
+                       select new { prod, supp }).ToList();
+            //if (select.SelectOrderBy == 1)/*最新商品*/
+            //{
+            //    所有產品 = from prod in db.Products
+            //           join supp in db.Suppliers
+            //           on prod.SupplierId equals supp.SupplierId
+            //           orderby prod.ProduceDate descending
+            //           select new { prod, supp };
+            //    if (!string.IsNullOrEmpty(select.txtKeyword))
+            //        所有產品 = from prod in db.Products
+            //               join supp in db.Suppliers
+            //               on prod.SupplierId equals supp.SupplierId
+            //               where prod.ProductName.Contains(@select.txtKeyword)
+            //               orderby prod.ProduceDate descending
+            //               select new { prod, supp };
+            //    ViewBag.Select = 1;
+            //}
+            //else if (select.SelectOrderBy == 2) /*價格高到低*/
+            //{
+            //    所有產品 = from prod in db.Products
+            //           join supp in db.Suppliers
+            //           on prod.SupplierId equals supp.SupplierId
+            //           orderby prod.ProductUnitPrice descending
+            //           select new { prod, supp };
+            //    if (!string.IsNullOrEmpty(select.txtKeyword))
+            //        所有產品 = from prod in db.Products
+            //               join supp in db.Suppliers
+            //               on prod.SupplierId equals supp.SupplierId
+            //               where prod.ProductName.Contains(@select.txtKeyword)
+            //               orderby prod.ProductUnitPrice descending
+            //               select new { prod, supp };
+            //    ViewBag.Select = 2;
+            //}
+            //else if (select.SelectOrderBy == 3)/*價格低到高*/
+            //{
+            //    所有產品 = from prod in db.Products
+            //           join supp in db.Suppliers
+            //           on prod.SupplierId equals supp.SupplierId
+            //           orderby prod.ProductUnitPrice
+            //           select new { prod, supp };
+            //    if (!string.IsNullOrEmpty(select.txtKeyword))
+            //        所有產品 = from prod in db.Products
+            //               join supp in db.Suppliers
+            //               on prod.SupplierId equals supp.SupplierId
+            //               where prod.ProductName.Contains(@select.txtKeyword)
+            //               orderby prod.ProductUnitPrice
+            //               select new { prod, supp };
+            //    ViewBag.Select = 3;
+            //}
+            //else if (!string.IsNullOrEmpty(select.txtKeyword)) /*沒選排序直接搜尋*/
+            //{
+            //    所有產品 = from prod in db.Products
+            //           join supp in db.Suppliers
+            //           on prod.SupplierId equals supp.SupplierId
+            //           where prod.ProductName.Contains(@select.txtKeyword)
+            //           select new { prod, supp };
+            //}
+            //db = new 鮮蔬果季Context();
             foreach (var item in 所有產品)
             {            
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
@@ -100,12 +105,12 @@ namespace 鮮蔬果季_前台.Controllers
                 }) ; 
             }
 
-            var 商品主類別 = (new 鮮蔬果季Context()).Categories.Where(c => !c.CategoryName.Contains("活動類") && c.FatherCategoryId == null).OrderByDescending(c => c.CategoryId);
-            var 商品次類別 = (new 鮮蔬果季Context()).Categories.Where(c => c.FatherCategoryId != 8);
-            var 商品次類別2 = (new 鮮蔬果季Context()).Categories.Where(c => c.FatherCategoryId != 8);
-            var 商品分類明細 = (from p in (new 鮮蔬果季Context()).CategoryDetails
+            var 商品主類別 = db.Categories.Where(c => !c.CategoryName.Contains("活動類") && c.FatherCategoryId == null).OrderByDescending(c => c.CategoryId).ToList();
+            var 商品次類別 = db.Categories.Where(c => c.FatherCategoryId != 8).ToList();
+            var 商品次類別2 = db.Categories.Where(c => c.FatherCategoryId != 8).ToList();
+            var 商品分類明細 = (from p in db.CategoryDetails
                           group p by p.CategoryId into g
-                          select new { CategoryId=g.Key, Total = g.Count(p => p.CategoryId == g.Key) });
+                          select new { CategoryId=g.Key, Total = g.Count(p => p.CategoryId == g.Key) }).ToList();
             List<C商品各類別總數> 分類list = new List<C商品各類別總數>();
             foreach (var 分類 in 商品分類明細) {
                 分類list.Add(new C商品各類別總數() { 
@@ -125,7 +130,6 @@ namespace 鮮蔬果季_前台.Controllers
 
 
         public IActionResult CategorySelect(int id) {
-            鮮蔬果季Context db = new 鮮蔬果季Context();
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers
