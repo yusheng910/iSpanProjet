@@ -332,9 +332,9 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Cart()
         {
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            {
-                ViewBag.USER = UserLogin.member.MemberName;
+            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            //{
+            //    ViewBag.USER = UserLogin.member.MemberName;
                 //=============================
                 List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
                 
@@ -343,7 +343,8 @@ namespace 鮮蔬果季_前台.Controllers
                               on pro.ProductId equals item.ProductId
                               join stat in db.Statuses
                               on item.StatusId equals stat.StatusId
-                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             //where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             where item.MemberId == 19
                               select new { item, pro, stat }).ToList();
 
                 foreach (var c in 購物車商品)
@@ -359,13 +360,13 @@ namespace 鮮蔬果季_前台.Controllers
                     });
                 }
                 return View(購物車商品列表);
-            }
-            else //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return RedirectToAction("Login", "Login");
-            }
+            //}
+            //else //Seesion沒找到
+            //{
+            //    ViewBag.USER = null;
+            //    UserLogin.member = null;
+            //    return RedirectToAction("Login", "Login");
+            //}
         }
 
         public IActionResult ListAddToCart(int id)
