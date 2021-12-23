@@ -39,6 +39,7 @@
         selcted.addEventListener('change',()=> {
             console.log(selcted.options[selcted.selectedIndex].value)
         })
+        //分類查詢
         var categoryselect = $(".categoryselect");
         categoryselect.click( function () {
 
@@ -48,9 +49,13 @@
                 let value = $(this).val()
                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + value)
             }
-
         })
-
+        //價錢查詢
+        var priceSelect = $("#PriceSelect");
+        priceSelect.click(function () {
+            let value = ($("#slider-range").find("span")[0].style.left).split("%")
+            console.log(value)
+        })
     </script>
     <script src="~/js/jquery-ui.js"></script>
 }
@@ -382,7 +387,7 @@
                             </div>
                             <p>
                                 <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                <button class="btn hvr-hover" type="submit">查尋</button>
+                                <button class="btn hvr-hover" type="button" id="PriceSelect">查尋</button>
                             </p>
                         </div>
                     </div>
