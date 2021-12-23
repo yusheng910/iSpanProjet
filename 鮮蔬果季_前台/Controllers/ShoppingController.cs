@@ -250,7 +250,6 @@ namespace 鮮蔬果季_前台.Controllers
                 單筆商品.Member.Add(會員資訊);
             }
             return View(單筆商品);
-
         }
         public IActionResult ListAddMyFavorite(int id)
         {

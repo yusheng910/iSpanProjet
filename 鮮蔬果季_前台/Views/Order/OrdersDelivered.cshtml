@@ -1,103 +1,20 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.OrderListViewModel>
 @{
-    ViewData["Title"] = "Orders";
+    foreach (var item in Model)
+    {
+        <tr>
+            <td class="orderid-p">
+                <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
+            </td>
+            <td class="orderdate-p">
+                <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
+            </td>
+            <td class="price-pr">
+                <p>NT$ @item.總價</p>
+            </td>
+            <td class="add-pr">
+                <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
+            </td>
+        </tr>
+    }
 }
-
-@section Styles{
-    <style>
-        #btnaddcart {
-            color: white;
-        }
-
-        th i {
-            padding-right: 10px;
-        }
-
-        .all-title-box {
-            background: url("../images/test1.jpg") no-repeat center center;
-            background-size: cover;
-        }
-
-        a .img-fluid {
-            width: 96px;
-            height: 96px;
-            object-fit: cover;
-        }
-
-        .orderid-p {
-            text-align: left;
-            padding-left:15px;
-        }
-
-        .last-th{
-            text-align:right;
-        }
-        .table td, .table th {
-            padding-right: 20px;
-        }
-
-        .add-pr {
-            text-align: right;
-            padding-right: 20px;
-        }
-    </style>
-}
-
-<!-- Start All Title Box -->
-<div class="all-title-box">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2>訂單紀錄</h2>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End All Title Box -->
-<!-- Start Wishlist  -->
-<div class="wishlist-box-main">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-main table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>訂單號</th>
-                                <th>下單日期</th>
-                                <th>總價</th>
-                                <th>出貨狀態</th>
-                                <th class="last-th">訂單細項</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{
-                                foreach (var item in Model)
-                                {
-                                                        <tr>
-                                                            <td class="orderid-p">
-                                                                <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
-                                                            </td>
-                                                            <td class="orderdate-p">
-                                                                <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
-                                                            </td>
-                                                            <td class="price-pr">
-                                                                <p>NT$ @item.總價</p>
-                                                            </td>
-                                                            <td>
-                                                                <p>@Html.DisplayFor(modelItem => item.status.StatusName)</p>
-                                                            </td>
-                                                            <td class="add-pr">
-                                                                <a asp-area="" asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.order.OrderId" class="btn hvr-hover">檢視</a>
-                                                            </td>
-                                                        </tr>                                                 
-                                }
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Wishlist -->
