@@ -173,7 +173,7 @@ namespace 鮮蔬果季_前台.Controllers
                        on prod.SupplierId equals supp.SupplierId
                         join c in db.CategoryDetails
                         on prod.ProductId equals c.ProductId
-                        where c.CategoryId == categetoryId && prod.ProductUnitPrice>min && prod.ProductUnitPrice < max
+                        where c.CategoryId == categetoryId && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
                         select new
                         {
                             c.CategoryId,
@@ -183,6 +183,25 @@ namespace 鮮蔬果季_前台.Controllers
                             prod.ProductSize,
                             supp.SupplierName
                         }).ToList();
+            if (categetoryId == 0)
+            {
+                所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                        join c in db.CategoryDetails
+                        on prod.ProductId equals c.ProductId
+                        where  prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                        select new
+                        {
+                            c.CategoryId,
+                            prod.ProductId,
+                            prod.ProductName,
+                            prod.ProductUnitPrice,
+                            prod.ProductSize,
+                            supp.SupplierName
+                        }).ToList();
+            }
+
             foreach (var item in 所有商品)
             {
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
