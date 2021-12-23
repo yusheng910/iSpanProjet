@@ -20,9 +20,50 @@
         .bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.text {
             font-size: 18px;
         }
+
+        .list-group-item[data-toggle="collapse"]::after {
+            content: normal;
+        }
     </style>
 }
+@section Scripts{
+    <script>
+        //$("#basic").change(function () {
+        //    $("#slectForm").submit();
+        //    var opt = $("#basic").val;
+        //    console.log(opt);
+        //});
+        @*下拉式選單選時要跳到那個選項*@
+        @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
+        var selcted = document.querySelector("#basic");
+        selcted.addEventListener('change',()=> {
+            console.log(selcted.options[selcted.selectedIndex].value)
+        })
+        //分類查詢
+        var categoryselect = $(".categoryselect");
+        categoryselect.click( function () {
 
+            if ($(this).val() == 1 || $(this).val() == 6) { }
+            else {
+                //console.log($(this).val())
+                let value = $(this).val()
+                $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + value)
+            }
+        })
+        //價錢查詢
+        var priceSelect = $("#PriceSelect");
+        priceSelect.click(function () {
+            let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10/2
+            let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10/2
+            let categetoryId = $(".categoriesId").val();
+            console.log(min)
+            console.log(max)
+            console.log(categetoryId)
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
+        })
+    </script>
+    <script src="~/js/jquery-ui.js"></script>
+}
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -44,11 +85,14 @@
                         <div class="col-12 col-sm-8 text-center text-sm-left">
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
+
+
+
                                 @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
                                     {*@
-                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control">
-                                    <option value="0">鮮蔬果季隨機推薦</option>
-                                    <option value="1" data-display="Select">最新商品</option>
+                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                    <option value="0" data-display="Select">鮮蔬果季隨機推薦</option>
+                                    <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
                                 </select>
@@ -75,8 +119,7 @@
                     <div class="product-categorie-box">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                <div class="row">
-                                    <div></div>
+                                <div class="row">                                  
                                     @*商品List 開始*@
                                     @foreach (var item in Model)
                                     {
@@ -298,9 +341,9 @@
                                                             {
                                                                 if (detail.分類ID == 次分類.CategoryId)
                                                                 {
-                                                                    <a class="list-group-item list-group-item-action" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2">
+                                                                    <button class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                    </a>
+                                                                    </button>
                                                                 }
                                                             }
 
@@ -317,9 +360,9 @@
                                                                             {
                                                                                 if (detail.分類ID == 次分類2.CategoryId)
                                                                                 {
-                                                                                    <a class="list-group-item list-group-item-action" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3">
+                                                                                    <button class="list-group-item list-group-item-action categoryselect" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                                         @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                                    </a>
+                                                                                    </button>
                                                                                 }
                                                                             }
                                                                         }
@@ -349,7 +392,7 @@
                             </div>
                             <p>
                                 <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                <button class="btn hvr-hover" type="submit">查尋</button>
+                                <button class="btn hvr-hover" type="button" id="PriceSelect">查尋</button>
                             </p>
                         </div>
                     </div>
@@ -359,16 +402,3 @@
     </div>
 </div>
 <!-- End Shop Page -->
-@section Scripts{
-    <script>
-        //$("#basic").change(function () {
-        //    $("#slectForm").submit();
-        //    var opt = $("#basic").val;
-        //    console.log(opt);
-        //});
-        @*下拉式選單選時要跳到那個選項*@
-        @*$("#basic").find("option[value=@ViewBag.Select]").prop("selected", true);*@
-
-    </script>
-    <script src="~/js/jquery-ui.js"></script>
-}

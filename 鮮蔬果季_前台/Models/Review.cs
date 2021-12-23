@@ -15,6 +15,5 @@ namespace 鮮蔬果季_前台.Models
 
         public virtual OrderDetail OrderDetail { get; set; }
 
-        public static double Avgstr { get; set; }
     }
 }

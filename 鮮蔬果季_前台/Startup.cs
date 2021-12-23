@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using 鮮蔬果季_前台.Models;
 
 namespace 鮮蔬果季_前台
 {
@@ -23,6 +25,10 @@ namespace 鮮蔬果季_前台
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<鮮蔬果季Context>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("VegetableConnection"));
+            });
             services.AddControllersWithViews();
             services.AddSession();
         }
