@@ -24,6 +24,7 @@
         .list-group-item[data-toggle="collapse"]::after {
             content: normal;
         }
+
         .highlight {
             background: lightgreen;
             color: cornflowerblue;
@@ -35,10 +36,10 @@
     </style>
 }
 @section Scripts{
-   
-    <script src="~/js/jquery-ui.js"></script>
+
+    <script src="~/js/jquery-ui.min.js"></script>
     <script>
-        
+
         //$("#basic").change(function () {
         //    $("#slectForm").submit();
         //    var opt = $("#basic").val;
@@ -73,41 +74,45 @@
             $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
         })
         //查詢
-        //var availableTags = [
-        //    "ActionScript",
-        //    "AppleScript",
-        //    "Asp",
-        //    "BASIC",
-        //    "C",
-        //    "C++",
-        //    "Clojure",
-        //    "COBOL",
-        //    "ColdFusion",
-        //    "Erlang",
-        //    "Fortran",
-        //    "Groovy",
-        //    "Haskell",
-        //    "Java",
-        //    "JavaScript",
-        //    "Lisp",
-        //    "Perl",
-        //    "PHP",
-        //    "Python",
-        //    "Ruby",
-        //    "Scala",
-        //    "Scheme"
-        //];
-        //$("#tags").autocomplete({
-        //    source: availableTags,
-        //    // autoFocus: true,
-        //    classes: {
-        //        "ui-autocomplete": "highlight"
-        //    }
-        //});
+        async function selProductName() {
+            let response=await fetch("@Url.Content("~/Shopping/ProductName")")
+        }
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $("#tags").autocomplete({
+            source: availableTags,
+            autoFocus: true,
+            classes: {
+                "ui-autocomplete": "highlight", //下拉式選單樣式
+                "ui-autocomplete-input": "focus"
+            }
+        });
 
-        console.log(selectProduct);
+        //console.log(selectProduct);
     </script>
-    
+
 }
 <!-- Start All Title Box -->
 <div class="all-title-box">
@@ -164,7 +169,7 @@
                     <div class="product-categorie-box">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                <div class="row">                                  
+                                <div class="row">
                                     @*商品List 開始*@
                                     @foreach (var item in Model)
                                     {
