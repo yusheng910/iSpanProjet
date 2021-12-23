@@ -27,7 +27,7 @@ namespace 鮮蔬果季_前台.Controllers
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
                               //where ord.MemberId == UserLogin.member.MemberId                           
-                              where ord.MemberId == 19 && ord.StatusId == 6
+                              where ord.MemberId == 19
                               select new { ord, stat }).ToList();
 
                 //db = new 鮮蔬果季Context();
@@ -51,7 +51,7 @@ namespace 鮮蔬果季_前台.Controllers
             //}
         }
 
-        public IActionResult OrdersDelivered()
+        public IActionResult OrdersAll()
         {
             //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             //{
@@ -62,7 +62,7 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
-                              where ord.MemberId == 19 && ord.StatusId == 6
+                              where ord.MemberId == 19
                               select new { ord, stat }).ToList();
 
                 //db = new 鮮蔬果季Context();
@@ -77,6 +77,41 @@ namespace 鮮蔬果季_前台.Controllers
                     list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
                 }
                 return PartialView(list);
+            //}
+            //else //Seesion沒找到
+            //{
+            //    ViewBag.USER = null;
+            //    UserLogin.member = null;
+            //    return RedirectToAction("Login", "Login");
+            //}
+        }
+
+        public IActionResult OrdersDelivered()
+        {
+            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            //{
+            //    ViewBag.USER = UserLogin.member.MemberName;
+            //=============================
+            //鮮蔬果季Context db = new 鮮蔬果季Context();
+            List<OrderListViewModel> list = new List<OrderListViewModel>();
+            var orders = (from ord in db.Orders
+                          join stat in db.Statuses
+                          on ord.StatusId equals stat.StatusId
+                          where ord.MemberId == 19 && ord.StatusId == 6
+                          select new { ord, stat }).ToList();
+
+            //db = new 鮮蔬果季Context();
+            foreach (var o in orders)
+            {
+                var 訂單總價 = (from od in db.OrderDetails
+                            join pro in db.Products
+                            on od.ProductId equals pro.ProductId
+                            where od.OrderId == o.ord.OrderId
+                            group new { od, pro } by od.OrderId into g
+                            select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
+                list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
+            }
+            return PartialView(list);
             //}
             //else //Seesion沒找到
             //{
@@ -133,41 +168,6 @@ namespace 鮮蔬果季_前台.Controllers
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
                           where ord.MemberId == 19 && ord.StatusId == 4
-                          select new { ord, stat }).ToList();
-
-            //db = new 鮮蔬果季Context();
-            foreach (var o in orders)
-            {
-                var 訂單總價 = (from od in db.OrderDetails
-                            join pro in db.Products
-                            on od.ProductId equals pro.ProductId
-                            where od.OrderId == o.ord.OrderId
-                            group new { od, pro } by od.OrderId into g
-                            select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
-            }
-            return PartialView(list);
-            //}
-            //else //Seesion沒找到
-            //{
-            //    ViewBag.USER = null;
-            //    UserLogin.member = null;
-            //    return RedirectToAction("Login", "Login");
-            //}
-        }
-
-        public IActionResult OrdersDeliveredNoRecipient()
-        {
-            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            //{
-            //    ViewBag.USER = UserLogin.member.MemberName;
-            //=============================
-            //鮮蔬果季Context db = new 鮮蔬果季Context();
-            List<OrderListViewModel> list = new List<OrderListViewModel>();
-            var orders = (from ord in db.Orders
-                          join stat in db.Statuses
-                          on ord.StatusId equals stat.StatusId
-                          where ord.MemberId == 19 && ord.StatusId == 7
                           select new { ord, stat }).ToList();
 
             //db = new 鮮蔬果季Context();
