@@ -13,6 +13,11 @@ namespace 鮮蔬果季_前台.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly 鮮蔬果季Context db;
+        public LoginController(鮮蔬果季Context dbContext)
+        {
+            db = dbContext;
+        }
         public IActionResult Login()
         {
             return View();
@@ -20,7 +25,7 @@ namespace 鮮蔬果季_前台.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel LOGIN)
         {
-            Member user = (new 鮮蔬果季Context()).Members.FirstOrDefault(t => t.UserId.Equals(LOGIN.username) && t.Password.Equals(LOGIN.password));
+            Member user = db.Members.FirstOrDefault(t => t.UserId.Equals(LOGIN.username) && t.Password.Equals(LOGIN.password));
             if (user != null)
             {
                 if(user.UserId.Equals(LOGIN.username)&& user.Password.Equals(LOGIN.password))
@@ -44,7 +49,6 @@ namespace 鮮蔬果季_前台.Controllers
         [HttpPost]
         public IActionResult Register(MemberViewModel p)
         {
-            鮮蔬果季Context db = new 鮮蔬果季Context();
             DateTime rt = new DateTime(2019, 01, 01);  //註冊日期固定
             var CityID =(from a in db.Cities
                          where p.city.Equals(a.CityName)
@@ -69,7 +73,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult AccountVerification(string email)
         {
-            Member user = (new 鮮蔬果季Context()).Members.FirstOrDefault(t => t.UserId.Equals(email));
+            Member user = db.Members.FirstOrDefault(t => t.UserId.Equals(email));
 
             if (email != null)
             {
@@ -137,8 +141,8 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult LoadCities()
         {
-            鮮蔬果季Context DB = new 鮮蔬果季Context();
-            var cities = DB.Cities.Select(a => new
+            
+            var cities = db.Cities.Select(a => new
             {
                 a.CityName
             }).Distinct().OrderBy(a => a.CityName);
