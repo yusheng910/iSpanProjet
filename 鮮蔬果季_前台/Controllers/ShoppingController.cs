@@ -344,7 +344,7 @@ namespace 鮮蔬果季_前台.Controllers
                               join stat in db.Statuses
                               on item.StatusId equals stat.StatusId
                               where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                              select new { item, pro, stat });
+                              select new { item, pro, stat }).ToList();
 
                 foreach (var c in 購物車商品)
                 {
