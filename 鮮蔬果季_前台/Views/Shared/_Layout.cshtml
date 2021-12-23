@@ -190,37 +190,15 @@
                     <ul class="cart-list">
                         <li>
                             <a href="#" class="photo"><img src="~/images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6>
-                                <a href="#">紅蘿蔔 </a>
-                            </h6>
-                            <p>
+                            <h6 id="itemName">紅蘿蔔</h6>
+                            <p id="itemQty">
                                 1x -
-                                <span class="price">NT$ 60.00</span>
+                                <span id="itemPrice" class="price">NT$ 60.00</span>
                             </p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="~/images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
-                            <h6>
-                                <a href="#">小番茄 </a>
-                            </h6>
-                            <p>
-                                1x -
-                                <span class="price">NT$ 60.00</span>
-                            </p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="~/images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6>
-                                <a href="#">青椒 </a>
-                            </h6>
-                            <p>
-                                1x -
-                                <span class="price">NT$ 60.00</span>
-                            </p>
-                        </li>
+                        </li>                      
                         <li class="total">
                             <a asp-area="" asp-controller="Shopping" asp-action="Cart" class="btn btn-default hvr-hover btn-cart">查看購物車</a>
-                            <span class="float-right"><strong>總價</strong>: NT$ 180.00</span>
+                            <span id="totalPrice" class="float-right"><strong>總價</strong>: NT$ 180.00</span>
                         </li>
                     </ul>
                 </li>
@@ -341,6 +319,16 @@
             $("#bot-open").removeClass("action");
             $("#bot-close").addClass("action");
         })
+        fetch('@Url.Content("~/ShoppingApi/LayoutCart")')
+            .then(response => response.json())
+            .then(data => {
+                var itemName = document.querySelector('#itemName')
+                var itemQty = document.querySelector('#itemQty')
+                var itemPrice = document.querySelector('#itemPrice')
+                var totalPrice = document.querySelector("totalPrice")
+                data.forEach()
+            })
+
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
