@@ -136,7 +136,7 @@ namespace 鮮蔬果季_前台.Controllers
                     OrderDetailId = r.AddId,
                     Comments = r.AddComments,
                     ReviewDate = DateTime.Now,
-                    StarRanking = r.AddStarRanking,
+                    StarRanking = r.AddStarRanking
 
                 };
                 db.Add(review);
@@ -161,6 +161,29 @@ namespace 鮮蔬果季_前台.Controllers
 
 
             return RedirectToAction("OrderDetail", "Order");
+        }
+        public IActionResult ShowSuplierName(int id)
+        {
+            var 供應商 = (from od in db.OrderDetails
+                       join p in db.Products
+                       on od.ProductId equals p.ProductId
+                       join s in db.Suppliers
+                       on p.SupplierId equals s.SupplierId
+                       where od.OrderDetailId == id
+                       select s.SupplierName).FirstOrDefault();
+
+            return Content($"【{供應商}】");
+        }
+
+        public IActionResult ShowProdName(int id)
+        {
+            var 商品名 = (from od in db.OrderDetails
+                       join p in db.Products
+                       on od.ProductId equals p.ProductId
+                       where od.OrderDetailId == id
+                       select p.ProductName).FirstOrDefault();
+
+            return Content($"{商品名}");
         }
     }
 }
