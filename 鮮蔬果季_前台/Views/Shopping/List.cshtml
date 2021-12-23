@@ -53,8 +53,8 @@
         //價錢查詢
         var priceSelect = $("#PriceSelect");
         priceSelect.click(function () {
-            let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10
-            let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10
+            let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10/2
+            let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10/2
             let categetoryId = $(".categoriesId").val();
             console.log(min)
             console.log(max)
