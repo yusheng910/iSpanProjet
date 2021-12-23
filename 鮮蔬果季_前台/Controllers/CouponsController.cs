@@ -73,11 +73,21 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.USER = null;
                 UserLogin.member = null;
             }
-            var qall = (from p in db.Coupons
-                        select p).ToList();
+            var qexcept = from c in db.Coupons
+                    join cd in db.CouponDetails
+                    on c.CouponId equals cd.CouponId
+                    where cd.MemberId == UserLogin.member.MemberId
+                    select c.CouponId;
+
+
+
+            var qexcp = from c in db.Coupons
+                          where !qexcept.Contains(c.CouponId)
+                          select c;
+
 
             List<CouponsListViewModel> list = new List<CouponsListViewModel>();
-            foreach (var item in qall)
+            foreach (var item in qexcp)
             {
                 var q = (from cd in db.CouponDetails
                          where cd.CouponId == item.CouponId &&
