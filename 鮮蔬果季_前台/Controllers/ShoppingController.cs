@@ -167,6 +167,41 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult PricePartial(int min,int max,int categetoryId)
         {
+            if (categetoryId == 0)
+            {
+                List<ShoppingListViewModel> 商品列表 = new List<ShoppingListViewModel>();
+                var 所有商品2 = (from prod in db.Products
+                             join supp in db.Suppliers
+                            on prod.SupplierId equals supp.SupplierId
+                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                             select new
+                             {
+                                 prod.ProductId,
+                                 prod.ProductName,
+                                 prod.ProductUnitPrice,
+                                 prod.ProductSize,
+                                 supp.SupplierName
+                             }).ToList();
+                foreach (var item in 所有商品2)
+                {
+                    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                    相片List.Add(封面相片);
+                    商品列表.Add(new ShoppingListViewModel()
+                    {
+                        ProductId = item.ProductId,
+                        ProductName = item.ProductName,
+                        ProductUnitPrice = item.ProductUnitPrice,
+                        ProductSize = item.ProductSize,
+                        SupplierName = item.SupplierName,
+                        myFavorite = 最愛商品,
+                        photoBank = 相片List
+                    });
+                }
+                return PartialView(商品列表);
+            }
+
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers
@@ -183,25 +218,7 @@ namespace 鮮蔬果季_前台.Controllers
                             prod.ProductSize,
                             supp.SupplierName
                         }).ToList();
-            if (categetoryId == 0)
-            {
-                所有商品 = (from prod in db.Products
-                        join supp in db.Suppliers
-                       on prod.SupplierId equals supp.SupplierId
-                        join c in db.CategoryDetails
-                        on prod.ProductId equals c.ProductId
-                        where  prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
-                        select new
-                        {
-                            c.CategoryId,
-                            prod.ProductId,
-                            prod.ProductName,
-                            prod.ProductUnitPrice,
-                            prod.ProductSize,
-                            supp.SupplierName
-                        }).ToList();
-            }
-
+          
             foreach (var item in 所有商品)
             {
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
@@ -327,7 +344,7 @@ namespace 鮮蔬果季_前台.Controllers
                               join stat in db.Statuses
                               on item.StatusId equals stat.StatusId
                               where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                              select new { item, pro, stat });
+                              select new { item, pro, stat }).ToList();
 
                 foreach (var c in 購物車商品)
                 {
