@@ -39,6 +39,9 @@
             border: 1px solid #b0b435;          
         }
 
+        /*123*/
+
+
     </style>
 }
 @section Scripts{
@@ -86,15 +89,22 @@
 
             $("#tags").autocomplete({
                 source: data,
-                autoFocus: true,
+                autoFocus: false,
                 classes: {
                     "ui-autocomplete": "highlight"//下拉式選單樣式
                 }
             });
         }
         selProductName()
-       
-       
+        $("#selectProduct").submit(function (e) {
+            e.preventDefault();
+            let productName = $("#tags").val();
+            let categetoryId = $(".categoriesId").val();
+            console.log(test)
+
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/ProductSearchjPartial")?prodName=" + productName  + "&categetoryId=" + categetoryId)
+        })
+
 
         //console.log(selectProduct);
     </script>
@@ -122,17 +132,12 @@
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
 
-
-
-                                @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
-                                    {*@
                                 <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
                                     <option value="0" data-display="Select">鮮蔬果季隨機推薦</option>
                                     <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
                                 </select>
-                                @*}*@
 
                             </div>
                             @*<p>Showing all 4 results</p>*@
@@ -337,7 +342,7 @@
             <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
                 <div class="product-categori">
                     <div class="search-product">
-                        <form action="#">
+                        <form action="#" id="selectProduct">
                             <input id="tags" name="txtKeyword" class="form-control" placeholder="搜尋商品..." type="text">
                             <button type="submit"> <i class="fa fa-search"></i> </button>
                         </form>

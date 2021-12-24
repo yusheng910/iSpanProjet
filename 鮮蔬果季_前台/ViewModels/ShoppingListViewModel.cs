@@ -95,7 +95,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _favorite = value;
             }
         }
-
+        public List<CCategoryDetailName> _categoryDetails = null;
+        public List<CCategoryDetailName> categoryDetails
+        {
+            get
+            {
+                if (_categoryDetails == null)
+                    _categoryDetails = new List<CCategoryDetailName>();
+                return _categoryDetails;
+            }
+            set
+            {
+                _categoryDetails = value;
+            }
+        }
         public List<Review> _review = null;
         public List<Review> review
         {
