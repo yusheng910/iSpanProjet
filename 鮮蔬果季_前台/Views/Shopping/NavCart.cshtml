@@ -1,0 +1,35 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
+
+@{
+    int 商品價乘數量 = 0;
+    int 總價 = 0;
+
+    if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            商品價乘數量 = item.product.ProductUnitPrice * item.shopCart.UnitsInCart;
+            總價 += 商品價乘數量;
+            <li class="NavCart-li" style="padding: 10px;">
+                <a href="#" class="photo"><img src="~/images/商品照/@item.photoforCart.PhotoPath" class="cart-thumb" alt="" /></a>
+                <h6 id="itemName">@item.product.ProductName</h6>
+                <p id="itemQty">
+                    @item.shopCart.UnitsInCart x NT$ @item.product.ProductUnitPrice
+                    <span id="itemPrice" class="price">=NT$ @商品價乘數量</span>
+                </p>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="NavCart-li" style="padding: 10px;">
+            <p>購物車內無商品</p>
+        </li>
+    }
+
+}
+
+<li class="total">
+    <a asp-area="" asp-controller="Shopping" asp-action="Cart" class="btn btn-default hvr-hover btn-cart">查看購物車</a>
+    <span id="totalPrice" class="float-right"><strong>總價</strong>: NT$ @總價</span>
+</li>
