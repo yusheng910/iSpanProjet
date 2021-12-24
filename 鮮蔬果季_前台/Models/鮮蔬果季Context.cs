@@ -28,6 +28,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual DbSet<EventPhotoBank> EventPhotoBanks { get; set; }
         public virtual DbSet<EventRegistration> EventRegistrations { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<FeedbackResponse> FeedbackResponses { get; set; }
         public virtual DbSet<HomePageCover> HomePageCovers { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MyFavorite> MyFavorites { get; set; }
@@ -301,6 +302,19 @@ namespace 鮮蔬果季_前台.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+            });
+
+            modelBuilder.Entity<FeedbackResponse>(entity =>
+            {
+                entity.ToTable("FeedbackResponse");
+
+                entity.Property(e => e.FeedbackResponseId).HasColumnName("FeedbackResponseID");
+
+                entity.Property(e => e.FeedbackComment)
+                    .HasMaxLength(100)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             });
 
             modelBuilder.Entity<HomePageCover>(entity =>
