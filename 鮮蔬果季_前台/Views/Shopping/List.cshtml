@@ -100,7 +100,7 @@
             e.preventDefault();
             let productName = $("#tags").val();
             let categetoryId = $(".categoriesId").val();
-            console.log(test)
+            console.log(productName)
 
             $('#grid-view').find('.row').load("@Url.Content("~/Shopping/ProductSearchjPartial")?prodName=" + productName  + "&categetoryId=" + categetoryId)
         })
