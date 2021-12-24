@@ -27,6 +27,17 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult EventBlog()
         {
+
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+
             //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             var datas = (from E in db.Events
                        select E).ToList();
@@ -55,6 +66,16 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult EventSignUp_1(int id)
         {
+
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = (from E in db.Events
                         where id ==E.EventId           //回傳的id與活動id相等
