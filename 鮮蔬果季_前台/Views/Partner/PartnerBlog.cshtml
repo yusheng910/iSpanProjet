@@ -55,7 +55,7 @@
         @*限制行數,並隱藏*@
         .pp {
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -91,7 +91,7 @@
 </style>
 
 <!-- Start All Title Box===================================================== -->
-<div class="all-title-box_Partner">
+<div class="all-title-box">  @*class="all-title-box_Partner"  查詢後會跳掉,找不到原因*@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -108,12 +108,22 @@
 
 
 <div class="SelectBackGround ">
-    <h2 class="SelectTag ">全部文章</h2>
-    <h2 class="SelectTag "> 青農返鄉 </h2>
-    <h2 class="SelectTag ">有機天地</h2>
-    <h2 class="SelectTag ">履歷無毒
-        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="1">1111</a>
+
+    <h2 class="SelectTag ">      @*回傳id為空值,不然曾經查詢其他的id值還會殘存,導致無法查詢全部*@
+        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=>全部文章</a>
+    </h2>
+
+    <h2 class="SelectTag ">
+        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="1">青農返鄉</a>
     </h2>                                  @*目前卡關,想透過前端回傳的id值,來判斷使用哪種LINQ篩選*@
+
+    <h2 class="SelectTag ">
+        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="2">履歷無毒</a>
+    </h2>
+
+    <h2 class="SelectTag ">
+        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="3">有機天地</a>
+    </h2>
 
 </div>
 
@@ -140,9 +150,10 @@
                                         <a href="single-news.html"></a>
                                     </h2>
                                     <p class="blog-meta pp" style="padding: 1px  0px;  font-size: large">
+                                        <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
+                                        <br />
                                         <span class="author"><i class="fas fa-user"></i> @item.City.CityName</span>
                                         <span class="author"><i class="fas fa-user"></i> @item._Supplier.SupplierName</span>
-                                        <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
                                     </p>
                                     <p class="excerpt pp">@Html.DisplayFor(modelitem => item.BlogDetail.Maintext)</p>
                                     @*<a class="read-more-btn" asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1">read more <i class="fas fa-angle-right"></i></a>*@
