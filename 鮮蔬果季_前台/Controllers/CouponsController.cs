@@ -20,7 +20,11 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult CouponsList()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -47,7 +51,11 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult AddCoupons(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+                
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -67,7 +75,10 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult PartialHavent()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -90,15 +101,16 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
 
-
-
             return PartialView(list);
         }
 
         public IActionResult PartialAll()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -125,7 +137,10 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult partialexpired()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -154,7 +169,10 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult partialHad()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -183,7 +201,10 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult partialAdd(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;

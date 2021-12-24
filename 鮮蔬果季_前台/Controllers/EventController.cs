@@ -27,16 +27,18 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult EventBlog()
         {
-
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+                
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
             }
-
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             var datas = (from E in db.Events
@@ -69,7 +71,10 @@ namespace 鮮蔬果季_前台.Controllers
 
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -114,7 +119,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-
+                ViewBag.userID = UserLogin.member.MemberId;
                 EventRegistration 送出報名資料 = new EventRegistration()
                 {
                     MemberId = UserLogin.member.MemberId,

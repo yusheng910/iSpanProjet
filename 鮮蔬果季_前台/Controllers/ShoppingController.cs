@@ -18,7 +18,11 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult List(CSelectViewModel select)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.USER = UserLogin.member.MemberName;
+            }
+            
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -321,7 +325,10 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult ShopDetail(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -379,6 +386,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
                 MyFavorite myFavorite = new MyFavorite()
                 {
                     MemberId=UserLogin.member.MemberId,
@@ -400,7 +408,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-
+                ViewBag.userID = UserLogin.member.MemberId;
                 MyFavorite myFavorite = new MyFavorite()
                 {
                     MemberId = UserLogin.member.MemberId,
@@ -422,6 +430,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
                 //=============================
                 List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
 
@@ -459,6 +468,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId
@@ -506,6 +516,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId

@@ -20,6 +20,8 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+
                 //=============================
                 List<OrderListViewModel> list = new List<OrderListViewModel>();
                 var orders = (from ord in db.Orders
@@ -54,6 +56,8 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+
                 //=============================
                 List<OrderListViewModel> list = new List<OrderListViewModel>();
                 var orders = (from ord in db.Orders
@@ -87,6 +91,8 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+
                 //=============================
                 List<OrderListViewModel> list = new List<OrderListViewModel>();
                 var orders = (from ord in db.Orders
@@ -121,6 +127,8 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+
                 //=============================
                 List<OrderListViewModel> list = new List<OrderListViewModel>();
                 var orders = (from ord in db.Orders
@@ -154,6 +162,8 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+
                 //=============================
                 List<OrderListViewModel> list = new List<OrderListViewModel>();
                 var orders = (from ord in db.Orders
@@ -187,6 +197,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
 
                 List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
                 var 所有訂單細項 = (from od in db.OrderDetails
@@ -221,6 +232,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
 
                 Review review = new Review()
                 {

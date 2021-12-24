@@ -32,7 +32,10 @@ namespace 鮮蔬果季_前台.Controllers
 
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -132,7 +135,10 @@ namespace 鮮蔬果季_前台.Controllers
 
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.USER = UserLogin.member.MemberName;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
