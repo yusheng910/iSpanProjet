@@ -6,39 +6,63 @@
 @section Styles{
     <style>
 
-                /*  #標題text {
+        /*  #標題text {
                     margin-top: 2vh;
                     font-family: 'Noto Sans TC', sans-serif;
                 }
         */
-                body {
-                    margin: 0;
-                    padding: 0;
-                    background-color: #ffffff;
-                    height: 100vh;
-                }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            background: #fff url("~/images/tree.jpg" )center center fixed no-repeat;
+            height: 100vh;
+        }
 
-                #contact .container #contact-row #contact-column #contact-box {
-                    margin-top: 6vh;
-                    margin-bottom: 6vh;
-                    max-width: 600px;
-                    height: 800px;
-                    border: 1px solid #9C9C9C;
-                    background-color: #EAEAEA;
-                    border-radius: 10px;
-                }
+        #contact .container #contact-row #contact-column #contact-box {
+            margin-top: 6vh;
+            margin-bottom: 6vh;
+            max-width: 600px;
+            height: 800px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+            border-radius: 10px;
+        }
 
-                    #contact .container #contact-row #contact-column #contact-box #contact-form {
-                        padding: 20px;
-                    }
+            #contact .container #contact-row #contact-column #contact-box #contact-form {
+                padding: 20px;
+            }
 
-                #contact .container #contact-row #lcontact-column #contact-box #contact-form #register-link {
-                    margin-top: -93px;
-                }
-      
+        #contact .container #contact-row #lcontact-column #contact-box #contact-form #register-link {
+            margin-top: -93px;
+        }
 
-
-        
+       /* * {
+            box-sizing: border-box;
+            letter-spacing: 0.05rem;
+            outline: 0 none;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }*/
+        select {
+            width: 150px;
+            padding: 12px;
+            border: 0 !important;
+            background-color: #EAEAEA;
+            /* needed */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /* SVG background image */
+            background-position: calc(100% - 1.3em) center;
+            background-repeat: no-repeat;
+        }
+        .select::-ms-expand {
+            display: none;
+        }
+        textarea {
+            row-gap:600px;
+        }
     </style>
 
 }
@@ -66,44 +90,43 @@
 
                         <div class="form-group">
 
-                            <div class="form-floating">
-                                <select name="catordog">
-                                    <optgroup label="運送問題">
-                                        <option>地點錯誤</option>
-                                        <option>時間未到</option>
-                                        <option>準時送達</option>
-                                    </optgroup>
-                                    <optgroup label="產品問題">
-                                        <option>外表出現瑕疵</option>
-                                        <option>食用後異常</option>
-                                        <option>產品評價</option>
-                                    </optgroup>
-                                    <optgroup label="其他">
-                                        <option>品質服務</option>
-                                        <option></option>
-                                        <option>Fennec</option>
-                                    </optgroup>
-                                </select>
-                                <select name="catordog">
-                                    <optgroup label="運送問題">
-                                        <option>地點錯誤</option>
-                                        <option>時間未到</option>
-                                        <option>準時送達</option>
-                                    </optgroup>
-                                    <optgroup label="產品問題">
-                                        <option>外表出現瑕疵</option>
-                                        <option>食用後異常</option>
-                                        <option>產品評價</option>
-                                    </optgroup>
-                                    <optgroup label="其他">
-                                        <option>品質服務</option>
-                                        <option></option>
-                                        <option>Fennec</option>
-                                    </optgroup>
-                                </select>
-                                
-                            </div>
+                            <select name="catordog">
+                                <optgroup label="運送問題">
+                                    <option>地點錯誤</option>
+                                    <option>時間未到</option>
+                                    <option>準時送達</option>
+                                </optgroup>
+                                <optgroup label="產品問題">
+                                    <option>外表出現瑕疵</option>
+                                    <option>食用後異常</option>
+                                    <option>產品評價</option>
+                                </optgroup>
+                                <optgroup label="其他">
+                                    <option>品質服務</option>
+                                    <option></option>
+                                    <option>Fennec</option>
+                                </optgroup>
+                            </select>
+                            <select name="catordog">
+                                <optgroup label="運送問題">
+                                    <option>地點錯誤</option>
+                                    <option>時間未到</option>
+                                    <option>準時送達</option>
+                                </optgroup>
+                                <optgroup label="產品問題">
+                                    <option>外表出現瑕疵</option>
+                                    <option>食用後異常</option>
+                                    <option>產品評價</option>
+                                </optgroup>
+                                <optgroup label="其他">
+                                    <option>品質服務</option>
+                                    <option></option>
+                                    <option>Fennec</option>
+                                </optgroup>
+                            </select>
                         </div>
+                        <div style="padding-bottom:20px"></div> @*間格用*@
+
                         <div class="form-group">
 
                             <div class="form-floating">
@@ -126,6 +149,7 @@
 </div>
 <!-- Contact End -->
 <!---->>
+
 
 @*string Account = "testing@gmail.com";
     string Password = "test123";
