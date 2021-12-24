@@ -36,5 +36,6 @@ namespace 鮮蔬果季_前台.ViewModels
                 _couponDetail = value;
             }
         }
+        public int cid { get; set; }
     }
 }

@@ -133,18 +133,48 @@
             padding-top:70px;
             width:1110px;
         }
+        #nav-tab a {
+            cursor:pointer;
+        }
     </style>
 }
 @section Scripts{
     <script>
         var haventcoupons = $('#haventcoupons');
         haventcoupons.click(function () {
-            $('#addcp').load("@Url.Content("~/Coupons/PartialHavent")")
+            $('#addcparea').load("@Url.Content("~/Coupons/PartialHavent")")
         })
 
         var allcoupons = $('#allcoupons');
         allcoupons.click(function () {
-            $('#addcp').load("@Url.Content("~/Coupons/PartialAll")")
+            $('#addcparea').load("@Url.Content("~/Coupons/PartialAll")")
+        })
+
+
+        var couponsexpired = $('#couponsexpired');
+        couponsexpired.click(function () {
+            $('#addcparea').load("@Url.Content("~/Coupons/partialexpired")")
+        })
+
+        var hadcoupons = $('#hadcoupons');
+        hadcoupons.click(function () {
+            $('#addcparea').load("@Url.Content("~/Coupons/partialHad")")
+        })
+
+        var addcpbtn = $('.addcpbtn');
+        addcpbtn.click(function () {
+            var value = $(this).find(".findcid").val()
+            console.log(value)
+            $('#addcparea').load("@Url.Content("~/Coupons/partialAdd/")" + value)
+            //let val = $('.row').find(".test").html()
+            //console.log(val)
+            //if (typeof (val) == "undefined") {
+            //    // 創建事件物件
+            //    var evt = document.createEvent("HTMLEvents");
+            //    // 初始化
+            //    evt.initEvent("click", false, false);
+            //    document.querySelector(".cplogin").dispatchEvent(evt);
+            //}
         })
     </script>
 }
@@ -172,8 +202,8 @@
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" style="width:25%" id="allcoupons" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">全部優惠券</a>
                     <a class="nav-item nav-link" style="width:25%" id="haventcoupons" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">尚未領取</a>
-                    <a class="nav-item nav-link" style="width:25%" id="notYetShipped-tab" data-toggle="tab" role="tab" aria-controls="nav-contact" aria-selected="false">已領取</a>
-                    <a class="nav-item nav-link" style="width:25%" id="deliveredNoRecipient-tab" data-toggle="tab" role="tab" aria-controls="nav-about" aria-selected="false">已過期</a>
+                    <a class="nav-item nav-link" style="width:25%" id="hadcoupons" data-toggle="tab" role="tab" aria-controls="nav-contact" aria-selected="false">已領取</a>
+                    <a class="nav-item nav-link" style="width:25%" id="couponsexpired" data-toggle="tab" role="tab" aria-controls="nav-about" aria-selected="false">已過期</a>
                 </div>
             </nav>
         </div>
@@ -194,7 +224,7 @@
                         </thead>
                     </table>
                     <div class="container my-5">
-                        <div class="row" id="addcp">
+                        <div class="row" id="addcparea">
                             @foreach (var item in Model)
                             {
                                 <div class="col-sm-6">
@@ -278,7 +308,10 @@
                                                         }
                                                         else
                                                         {
-                                                            <a asp-area="" asp-controller="Coupons" asp-action="AddCoupons" asp-route-id="@item.coupon.CouponId" class="btn btn-sm btn-outline-danger btn-block">
+                                                            
+                                                            <a class="btn btn-sm btn-outline-danger btn-block addcpbtn" >
+                                                               @* <input type="hidden" class="cplogin" onclick="window.location.href='@Url.Content("/Login/Login")'" />*@
+                                                                <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
                                                                 領取
                                                             </a>
                                                         }

@@ -1,15 +1,5 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
 
-@*@section Scripts{ 
-    <script>
-            var addcpbtn = $('.addcpbtn');
-        addcpbtn.click(function () {
-            var value = $(this).find(".findcid").val()
-            console.log(value)
-        })
-    </script>
-}*@
-
 @foreach (var item in Model)
 {
     <div class="col-sm-6">
@@ -85,7 +75,7 @@
                                     已結束
                                 </a>
                             }
-                            else if (item.couponDetail.CouponQuantity >= 0 &&  item.couponDetail.CouponId != 0)
+                            else if (item.couponDetail.CouponQuantity >= 0 && item.couponDetail.CouponId != 0)
                             {
                                 <a style="background-color:#b0b435;color:white;" class="btn btn-sm btn-outline-light btn-block disabled">
                                     已領取
