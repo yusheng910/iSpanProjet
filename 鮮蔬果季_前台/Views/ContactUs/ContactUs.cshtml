@@ -15,7 +15,6 @@
             margin: 0;
             padding: 0;
             background-color: #ffffff;
-            background: #fff url("~/images/tree.jpg" )center center fixed no-repeat;
             height: 100vh;
         }
 
@@ -37,7 +36,7 @@
             margin-top: -93px;
         }
 
-       /* * {
+        /* * {
             box-sizing: border-box;
             letter-spacing: 0.05rem;
             outline: 0 none;
@@ -46,10 +45,10 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }*/
         select {
-            width: 150px;
-            padding: 12px;
+            width: 225px;
+            padding: 8px;
             border: 0 !important;
-            background-color: #EAEAEA;
+            background-color: #93c435;
             /* needed */
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -57,28 +56,19 @@
             background-position: calc(100% - 1.3em) center;
             background-repeat: no-repeat;
         }
+
         .select::-ms-expand {
             display: none;
         }
+
         textarea {
-            width: 500px;
+            width: 450px;
             height: 650px;
-            max-width: 500px;
+            max-width: 450px;
             max-height: 1000px;
             resize: none;
         }
     </style>
-}
-@section Scripts{ 
-    <script>
-        const selFeedbackId = document.querySelector("#feedback1")
-        const selFatherFeedbackId = document.querySelector("#feedback2")
-
-        async function LoadFeedback() {
-            const response = await fetch('/')
-        }
-
-    </script>
 }
 
 <!-- Start All Title Box -->
@@ -106,14 +96,13 @@
 
                             <select id="feedback1">
                                 <optgroup label="請選擇:">
-                                   
                                 </optgroup>
                             </select>
                             <select id="feedback2">
                                 <optgroup label="請選擇:">
                                 </optgroup>
                             </select>
-                            
+
                         </div>
                         <div style="padding-bottom:20px"></div> @*間格用*@
 
@@ -139,6 +128,43 @@
 </div>
 <!-- Contact End -->
 <!---->>
+@section Scripts{
+    <script>
+        const selFeedbackName = document.querySelector("#feedback1")
+        const selFatherFeedbackId = document.querySelector("#feedback2")
+        async function Loadfeedback() {
+            //載入回應項目
+            const response = await fetch('/ContactUs/FeedbackNames')
+            RenderFeedbackName(await response.json())
+        }
+
+
+
+
+
+        Loadfeedback()
+        function RenderFeedbackName(datas) {
+            datas.forEach((item) => {
+                const opt = new Option(item.feedbackName, item.feedbackName)
+                selFeedbackName.options.add(opt)
+            })
+        }
+
+
+
+
+
+
+        //載入回應項目
+        selFeedbackName.addEventListener('change', async function () {
+
+            const FeedbackName = selFeedbackName.options[selFeedbackName.selectedIndex].value
+            const response1 = await fetch('/ContactUs/FeedbackNames' + FeedbackName)
+            RenderFeedbackName(await response1.json())
+        })
+
+    </script>
+}
 
 
 @*string Account = "testing@gmail.com";
