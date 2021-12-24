@@ -329,6 +329,12 @@
             $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
         })
 
+        var cartNum = document.querySelector('#cartNum')
+        $(document).ready(async function () {
+            var response = await fetch('@Url.Content("~/Shopping/LAddtoCart")')
+            var data = await response.text()
+            cartNum.innerHTML = data
+        })
 
     </script>
     @await RenderSectionAsync("Scripts", required: false)
