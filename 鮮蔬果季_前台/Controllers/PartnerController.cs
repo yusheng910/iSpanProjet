@@ -137,7 +137,7 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
             }
             else //Seesion沒找到
             {
