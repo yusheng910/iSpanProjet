@@ -14,6 +14,5 @@ namespace 鮮蔬果季_前台.Models
         public int StarRanking { get; set; }
 
         public virtual OrderDetail OrderDetail { get; set; }
-
     }
 }

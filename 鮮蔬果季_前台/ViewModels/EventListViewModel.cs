@@ -53,5 +53,22 @@ namespace 鮮蔬果季_前台.ViewModels
                 _City = value;
             }
         }
+
+
+        public EventRegistration _EventRegistration = null;
+        public EventRegistration EventRegistration
+        {
+            get
+            {
+                if (_EventRegistration == null)
+                    _EventRegistration = new EventRegistration();
+                return _EventRegistration;
+            }
+            set
+            {
+                _EventRegistration = value;
+            }
+        }
+
     }
 }
