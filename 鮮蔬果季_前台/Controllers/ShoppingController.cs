@@ -337,20 +337,19 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Cart()
         {
-            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            //{
-            //    ViewBag.USER = UserLogin.member.MemberName;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
                 //=============================
                 List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
-                
+
                 var 購物車商品 = (from pro in db.Products
-                              join item in db.ShoppingCarts
-                              on pro.ProductId equals item.ProductId
-                              join stat in db.Statuses
-                              on item.StatusId equals stat.StatusId
-                             //where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                             where item.MemberId == 19
-                              select new { item, pro, stat }).ToList();
+                             join item in db.ShoppingCarts
+                             on pro.ProductId equals item.ProductId
+                             join stat in db.Statuses
+                             on item.StatusId equals stat.StatusId
+                             where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             select new { item, pro, stat }).ToList();
 
                 foreach (var c in 購物車商品)
                 {
@@ -365,13 +364,13 @@ namespace 鮮蔬果季_前台.Controllers
                     });
                 }
                 return View(購物車商品列表);
-            //}
-            //else //Seesion沒找到
-            //{
-            //    ViewBag.USER = null;
-            //    UserLogin.member = null;
-            //    return RedirectToAction("Login", "Login");
-            //}
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
         }
 
         public IActionResult ListAddToCart(int id)
@@ -458,6 +457,33 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return RedirectToAction("ShopDetail", new { id });
         }
+
+        public IActionResult NavCart()
+        {
+                List <ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
+            var 購物車商品 = (from pro in db.Products
+                         join item in db.ShoppingCarts
+                         on pro.ProductId equals item.ProductId
+                         join stat in db.Statuses
+                         on item.StatusId equals stat.StatusId
+                         where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                         select new { item, pro, stat }).ToList();
+
+            foreach (var c in 購物車商品)
+            {
+                var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == c.pro.ProductId).FirstOrDefault();
+                購物車商品列表.Add(new ShoppingListViewModel()
+                {
+                    shopCart = c.item,
+                    product = c.pro,
+                    photoforCart = 封面相片,
+                    status = c.stat
+                    ////單筆訂單細項總價 = 訂單細項總價
+                });
+            }          
+            return PartialView(購物車商品列表);
+        }
+
         public IActionResult Checkout()
         {
             return View();           
