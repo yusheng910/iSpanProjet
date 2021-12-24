@@ -27,6 +27,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventPhotoBank> EventPhotoBanks { get; set; }
         public virtual DbSet<EventRegistration> EventRegistrations { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<HomePageCover> HomePageCovers { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MyFavorite> MyFavorites { get; set; }
@@ -257,9 +258,29 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.EventRegistrationId).HasColumnName("EventRegistrationID");
 
+                entity.Property(e => e.ContactEmail)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.ContactMobile)
+                    .HasMaxLength(10)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.ContactName)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
                 entity.Property(e => e.EventId).HasColumnName("EventID");
 
+                entity.Property(e => e.FoodPreference)
+                    .HasMaxLength(10)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.Remark)
+                    .HasMaxLength(80)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.SubmitDate).HasColumnType("datetime");
 
@@ -272,6 +293,14 @@ namespace 鮮蔬果季_前台.Models
                     .WithMany(p => p.EventRegistrations)
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_EventRegistration_Members");
+            });
+
+            modelBuilder.Entity<Feedback>(entity =>
+            {
+                entity.Property(e => e.FeedbackName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             });
 
             modelBuilder.Entity<HomePageCover>(entity =>

@@ -29,15 +29,19 @@
             background: #FFF9E9;
             color: #8B4513;
             border-radius: 0px 0px 10px 10px;
-            letter-spacing:1px;
-            font-weight:bolder;
-            padding:5px
+            letter-spacing: 1px;
+            font-weight: bolder;
+            padding: 5px
         }
+
         .ui-menu-item .ui-state-active {
             background: #b0b435;
             border-radius: 10px;
-            border: 1px solid #b0b435;          
+            border: 1px solid #b0b435;
         }
+
+        /*123*/
+
 
     </style>
 }
@@ -86,20 +90,50 @@
 
             $("#tags").autocomplete({
                 source: data,
-                autoFocus: true,
+                autoFocus: false,
                 classes: {
                     "ui-autocomplete": "highlight"//下拉式選單樣式
                 }
             });
         }
         selProductName()
-       
-       
+        $("#selectProduct").submit(function (e) {
+            e.preventDefault();
+            let productName = $("#tags").val();
+            let categetoryId = $(".categoriesId").val();
+            console.log(productName)
 
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/ProductSearchjPartial")?prodName=" + productName  + "&categetoryId=" + categetoryId)
+        })
+        //加入購物車
+
+        $(".addCart").click(function (e) {
+            let value = $(this).find(".add").val();
+            console.log(value)
+            async function AddtoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/ListAddToCart/")" + value)
+                let data = await response.text()
+                console.log(data)
+                if (data != 0) {
+                    $("#cartNum").html(data)
+                    $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".CarttoLogin").dispatchEvent(evt)
+                }
+
+            }
+            AddtoCart();
+
+        })
         //console.log(selectProduct);
     </script>
 
 }
+
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -122,17 +156,12 @@
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
 
-
-
-                                @*@using (Html.BeginForm(FormMethod.Post, new { id = "slectForm" }))
-                                    {*@
                                 <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
                                     <option value="0" data-display="Select">鮮蔬果季隨機推薦</option>
                                     <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
                                 </select>
-                                @*}*@
 
                             </div>
                             @*<p>Showing all 4 results</p>*@
@@ -171,29 +200,33 @@
                                                         }
                                                     }
 
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li>
-                                                                <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
-                                                            </li>
-                                                            @{
-                                                                if (item.myFavorite.MyFavoriteId != 0)
-                                                                {
-                                                                    <li>
-                                                                        <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
-                                                                    </li>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <li>
-                                                                        <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
-                                                                    </li>
-                                                                }
+                                                <div class="mask-icon">
+                                                    <ul>
+                                                        <li>
+                                                            <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
+                                                        </li>
+                                                        @{
+                                                            if (item.myFavorite.MyFavoriteId != 0)
+                                                            {
+                                                                <li>
+                                                                    <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
+                                                                </li>
                                                             }
-                                                        </ul>
-                                                        <a class="cart">加入購物車</a>
-                                                        <a class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>
-                                                    </div>
+                                                            else
+                                                            {
+                                                                <li>
+                                                                    <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                    @*<a id="addCart" class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>*@
+                                                    <a class="cart addCart" style="cursor:pointer">
+                                                        加入購物車
+                                                        <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'" value="123"  />
+                                                    </a>
+                                                </div>
                                                 </div>
                                                 <div class="why-text">
                                                     @{
@@ -337,7 +370,7 @@
             <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
                 <div class="product-categori">
                     <div class="search-product">
-                        <form action="#">
+                        <form action="#" id="selectProduct">
                             <input id="tags" name="txtKeyword" class="form-control" placeholder="搜尋商品..." type="text">
                             <button type="submit"> <i class="fa fa-search"></i> </button>
                         </form>

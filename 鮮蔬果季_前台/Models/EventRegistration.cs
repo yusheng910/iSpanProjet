@@ -12,6 +12,11 @@ namespace 鮮蔬果季_前台.Models
         public int? MemberId { get; set; }
         public int? ParticipantNumber { get; set; }
         public DateTime? SubmitDate { get; set; }
+        public string FoodPreference { get; set; }
+        public string ContactName { get; set; }
+        public string ContactMobile { get; set; }
+        public string ContactEmail { get; set; }
+        public string Remark { get; set; }
 
         public virtual Event Event { get; set; }
         public virtual Member Member { get; set; }

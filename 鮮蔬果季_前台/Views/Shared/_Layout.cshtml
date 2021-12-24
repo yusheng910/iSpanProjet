@@ -21,6 +21,16 @@
     <!-- Custom CSS -->
     @*<link rel="stylesheet" href="~/css/custom.css">*@
     <link rel="stylesheet" href="~/css/_LayoutSetting.css">
+
+    <style>
+        .cart-thumb {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+    </style>
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body style="margin:0px">
@@ -174,9 +184,9 @@
                             <a href="#"><i class="fa fa-search"></i></a>
                         </li>
                         <li class="side-menu">
-                            <a href="#">
+                            <a id="cartIcon" href="#">
                                 <i class="fa fa-shopping-bag"></i>
-                                <span class="badge">3</span>
+                                <span id="cartNum" class="badge"></span>
                                 <p>購物車</p>
                             </a>
                         </li>
@@ -184,21 +194,16 @@
                 </div>
             </div>
             <!-- Start Side Menu -->
-            <div class="side">
+            <div id="navCartView" class="side">
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
-                    <ul class="cart-list">
+                    <ul id="cart-ul" class="cart-list">
                         <li>
-                            <a href="#" class="photo"><img src="~/images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6 id="itemName">紅蘿蔔</h6>
-                            <p id="itemQty">
-                                1x -
-                                <span id="itemPrice" class="price">NT$ 60.00</span>
-                            </p>
+                           <p>購物車內無商品</p>
                         </li>                      
                         <li class="total">
                             <a asp-area="" asp-controller="Shopping" asp-action="Cart" class="btn btn-default hvr-hover btn-cart">查看購物車</a>
-                            <span id="totalPrice" class="float-right"><strong>總價</strong>: NT$ 180.00</span>
+                            <span id="totalPrice" class="float-right"><strong>總價</strong>: NT$ 0</span>
                         </li>
                     </ul>
                 </li>
@@ -319,15 +324,11 @@
             $("#bot-open").removeClass("action");
             $("#bot-close").addClass("action");
         })
-        fetch('@Url.Content("~/ShoppingApi/LayoutCart")')
-            .then(response => response.json())
-            .then(data => {
-                var itemName = document.querySelector('#itemName')
-                var itemQty = document.querySelector('#itemQty')
-                var itemPrice = document.querySelector('#itemPrice')
-                var totalPrice = document.querySelector("totalPrice")
-                data.forEach()
-            })
+
+        $('#cartIcon').click(function () {
+            $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
+        })
+
 
     </script>
     @await RenderSectionAsync("Scripts", required: false)

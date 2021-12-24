@@ -240,6 +240,80 @@ namespace 鮮蔬果季_前台.Controllers
             return PartialView(所有商品列表);
         }
 
+        public IActionResult ProductSearchjPartial(string prodName, int categetoryId)
+        {
+            if (categetoryId == 0)
+            {
+                List<ShoppingListViewModel> 商品列表 = new List<ShoppingListViewModel>();
+                var 所有商品2 = (from prod in db.Products
+                             join supp in db.Suppliers
+                            on prod.SupplierId equals supp.SupplierId
+                             where prod.ProductName.Contains(prodName)
+                             select new
+                             {
+                                 prod.ProductId,
+                                 prod.ProductName,
+                                 prod.ProductUnitPrice,
+                                 prod.ProductSize,
+                                 supp.SupplierName
+                             }).ToList();
+                foreach (var item in 所有商品2)
+                {
+                    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                    相片List.Add(封面相片);
+                    商品列表.Add(new ShoppingListViewModel()
+                    {
+                        ProductId = item.ProductId,
+                        ProductName = item.ProductName,
+                        ProductUnitPrice = item.ProductUnitPrice,
+                        ProductSize = item.ProductSize,
+                        SupplierName = item.SupplierName,
+                        myFavorite = 最愛商品,
+                        photoBank = 相片List
+                    });
+                }
+                return PartialView(商品列表);
+            }
+
+            List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
+            var 所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                        join c in db.CategoryDetails
+                        on prod.ProductId equals c.ProductId
+                        where c.CategoryId == categetoryId &&  prod.ProductName.Contains(prodName)
+                        select new
+                        {
+                            c.CategoryId,
+                            prod.ProductId,
+                            prod.ProductName,
+                            prod.ProductUnitPrice,
+                            prod.ProductSize,
+                            supp.SupplierName
+                        }).ToList();
+
+            foreach (var item in 所有商品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                相片List.Add(封面相片);
+                所有商品列表.Add(new ShoppingListViewModel()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductUnitPrice = item.ProductUnitPrice,
+                    ProductSize = item.ProductSize,
+                    SupplierName = item.SupplierName,
+                    myFavorite = 最愛商品,
+                    photoBank = 相片List,
+                    CategoryId = item.CategoryId
+                });
+            }
+            return PartialView(所有商品列表);
+        }
         public IActionResult ProductName() {
             var 所有商品 = (from p in db.Products orderby p.ProductName select p.ProductName).Distinct().ToList();
             return Json(所有商品);
@@ -275,13 +349,21 @@ namespace 鮮蔬果季_前台.Controllers
                        on a.OrderId equals b.OrderId
                        where a.ProductId == id
                        select new { p, b.MemberId }).ToList();
+            var 分類明細 = (from cd in db.CategoryDetails
+                        join c in db.Categories
+                        on cd.CategoryId equals c.CategoryId
+                       where cd.ProductId == id
+                       orderby cd.CategoryId
+                       select new { cd.CategoryId,c.CategoryName}
+                       ).ToList();
             單筆商品.product = 商品明細.p;
             單筆商品.supplier = 商品明細.s;
             foreach (var 照片 in 封面相片)
                 單筆商品.photoBank.Add(照片);
             單筆商品.出售量 = 商品出售數量;
             單筆商品.myFavorite = 最愛商品;
-
+            foreach (var 分類 in 分類明細)
+                單筆商品.categoryDetails.Add(new CCategoryDetailName { CategoryId=分類.CategoryId,CategoryName=分類.CategoryName});
             foreach (var item in 列出評論)
             {
                 var 會員資訊 = (from x in db.Members
@@ -337,20 +419,19 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Cart()
         {
-            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            //{
-            //    ViewBag.USER = UserLogin.member.MemberName;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
                 //=============================
                 List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
-                
+
                 var 購物車商品 = (from pro in db.Products
-                              join item in db.ShoppingCarts
-                              on pro.ProductId equals item.ProductId
-                              join stat in db.Statuses
-                              on item.StatusId equals stat.StatusId
-                             //where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                             where item.MemberId == 19
-                              select new { item, pro, stat }).ToList();
+                             join item in db.ShoppingCarts
+                             on pro.ProductId equals item.ProductId
+                             join stat in db.Statuses
+                             on item.StatusId equals stat.StatusId
+                             where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             select new { item, pro, stat }).ToList();
 
                 foreach (var c in 購物車商品)
                 {
@@ -365,27 +446,26 @@ namespace 鮮蔬果季_前台.Controllers
                     });
                 }
                 return View(購物車商品列表);
-            //}
-            //else //Seesion沒找到
-            //{
-            //    ViewBag.USER = null;
-            //    UserLogin.member = null;
-            //    return RedirectToAction("Login", "Login");
-            //}
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
         }
-
         public IActionResult ListAddToCart(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 var 購物車內商品 = (from p in db.Products
-                            join c in db.ShoppingCarts
-                            on p.ProductId equals c.ProductId
-                            where p.ProductId == id
-                            select new { p, c }).FirstOrDefault();
+                              join c in db.ShoppingCarts
+                              on p.ProductId equals c.ProductId
+                              where p.ProductId == id
+                              select new { p, c }).FirstOrDefault();
 
-                if(購物車內商品 == null)
+                if (購物車內商品 == null)
                 {
                     ShoppingCart myCartitem = new ShoppingCart()
                     {
@@ -399,7 +479,7 @@ namespace 鮮蔬果季_前台.Controllers
                 }
                 else
                 {
-                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);                    
+                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);
                     myCartitem.MemberId = UserLogin.member.MemberId;
                     myCartitem.ProductId = id;
                     myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + 1;
@@ -407,15 +487,20 @@ namespace 鮮蔬果季_前台.Controllers
                     db.SaveChanges();
                 }
 
+           
             }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                return RedirectToAction("Login", "Login");
+                return Content("0");
             }
-            return RedirectToAction("List");
+            var 購物車品量 = (from c in db.ShoppingCarts
+                         where c.MemberId == UserLogin.member.MemberId
+                         select c).Count();
+            return Content(購物車品量.ToString());
         }
+
         public IActionResult DetailAddToCart(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -458,6 +543,33 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return RedirectToAction("ShopDetail", new { id });
         }
+
+        public IActionResult NavCart()
+        {
+                List <ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
+            var 購物車商品 = (from pro in db.Products
+                         join item in db.ShoppingCarts
+                         on pro.ProductId equals item.ProductId
+                         join stat in db.Statuses
+                         on item.StatusId equals stat.StatusId
+                         where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                         select new { item, pro, stat }).ToList();
+
+            foreach (var c in 購物車商品)
+            {
+                var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == c.pro.ProductId).FirstOrDefault();
+                購物車商品列表.Add(new ShoppingListViewModel()
+                {
+                    shopCart = c.item,
+                    product = c.pro,
+                    photoforCart = 封面相片,
+                    status = c.stat
+                    ////單筆訂單細項總價 = 訂單細項總價
+                });
+            }          
+            return PartialView(購物車商品列表);
+        }
+
         public IActionResult Checkout()
         {
             return View();           
