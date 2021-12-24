@@ -468,7 +468,6 @@ namespace 鮮蔬果季_前台.Controllers
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId

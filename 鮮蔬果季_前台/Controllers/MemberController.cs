@@ -45,6 +45,7 @@ namespace 鮮蔬果季_前台.Controllers
             if(HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
                 ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
                 ViewBag.CITY = mc.CityName;
                 ViewBag.GENDER = mc.i.Gender;
                 mv = new MemberViewModel()
