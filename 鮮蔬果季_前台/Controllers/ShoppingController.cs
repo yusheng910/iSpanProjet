@@ -454,7 +454,7 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
-        public IActionResult LAddToCart(int id)
+        public IActionResult ListAddToCart(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {

@@ -111,14 +111,18 @@
             let value = $(this).find(".add").val();
             console.log(value)
             async function AddtoCart() {
-                let response = await fetch("@Url.Content("~/Shopping/LAddToCart/")" + value)
+                let response = await fetch("@Url.Content("~/Shopping/ListAddToCart/")" + value)
                 let data = await response.text()
                 console.log(data)
                 if (data != 0) {
                     $("#cartNum").html(data)
                     $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
                 } else {
-
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".CarttoLogin").dispatchEvent(evt)
                 }
 
             }
@@ -220,6 +224,7 @@
                                                     <a class="cart addCart" style="cursor:pointer">
                                                         加入購物車
                                                         <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'" value="123"  />
                                                     </a>
                                                 </div>
                                                 </div>
