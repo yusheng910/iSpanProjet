@@ -98,41 +98,44 @@ namespace 鮮蔬果季_前台.Controllers
         }
 
 
-
-
-        public IActionResult EventRegistration(int id)
-        {
-
+        //public IActionResult EventRegistration()
+        //{ 
+        //    //var 活動報名資料 = (from ER in db.EventRegistrations
+        //    //              join M in db.Members
+        //    //              on ER.MemberId equals M.MemberId
+        //    //              where ER.EventId == id
+        //    //              select new { M, ER }).FirstOrDefault();
+        //    return View();
+        //}
+        [HttpPost]  //同名方法
+            public IActionResult EventSignUp_1(EventRegistration XXX)
+        { 
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
                 ViewBag.USER = UserLogin.member.MemberName;
-            else //Seesion沒找到
+
+                EventRegistration 送出報名資料 = new EventRegistration()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    EventId = XXX.EventId,
+                    ParticipantNumber = XXX.ParticipantNumber,
+                    ContactName = XXX.ContactName,
+                    ContactEmail = XXX.ContactEmail,
+                    ContactMobile = XXX.ContactMobile,
+                    SubmitDate = DateTime.Now,
+                };
+                    db.Add(送出報名資料);
+                   db.SaveChanges();
+               return   RedirectToAction("EventSignUp_1"/*, new { XXX.EventId } */);
+            }
+
+            else  //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
+                return RedirectToAction("Login", "Login");   //返回登入頁面
             }
-
-            //鮮蔬果季Context db = new 鮮蔬果季Context();
-            var datas = (from E in db.Events
-                         where id == E.EventId           //回傳的id與活動id相等
-                         select E).ToList();
-
-            List<EventListViewModel> list = new List<EventListViewModel>();
-            foreach (var item in datas)
-            {
-                //db = new 鮮蔬果季Context();
-                var EventPhotos = (from EI in db.EventPhotoBanks
-                                   where EI.EventId == item.EventId
-                                   select EI).FirstOrDefault();
-                list.Add(new EventListViewModel()
-                {
-                    Event = item,
-                    EventPhotoBank = EventPhotos
-                });
-            }
-            return View(list);
         }
-
-
     }
 }
