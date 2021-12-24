@@ -454,19 +454,18 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
-
-        public IActionResult ListAddToCart(int id)
+        public IActionResult LAddToCart(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 var 購物車內商品 = (from p in db.Products
-                            join c in db.ShoppingCarts
-                            on p.ProductId equals c.ProductId
-                            where p.ProductId == id
-                            select new { p, c }).FirstOrDefault();
+                              join c in db.ShoppingCarts
+                              on p.ProductId equals c.ProductId
+                              where p.ProductId == id
+                              select new { p, c }).FirstOrDefault();
 
-                if(購物車內商品 == null)
+                if (購物車內商品 == null)
                 {
                     ShoppingCart myCartitem = new ShoppingCart()
                     {
@@ -480,7 +479,7 @@ namespace 鮮蔬果季_前台.Controllers
                 }
                 else
                 {
-                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);                    
+                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);
                     myCartitem.MemberId = UserLogin.member.MemberId;
                     myCartitem.ProductId = id;
                     myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + 1;
@@ -488,15 +487,20 @@ namespace 鮮蔬果季_前台.Controllers
                     db.SaveChanges();
                 }
 
+           
             }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                return RedirectToAction("Login", "Login");
+                return Content("0");
             }
-            return RedirectToAction("List");
+            var 購物車品量 = (from c in db.ShoppingCarts
+                         where c.MemberId == UserLogin.member.MemberId
+                         select c).Count();
+            return Content(購物車品量.ToString());
         }
+
         public IActionResult DetailAddToCart(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到

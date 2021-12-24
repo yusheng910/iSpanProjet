@@ -29,14 +29,15 @@
             background: #FFF9E9;
             color: #8B4513;
             border-radius: 0px 0px 10px 10px;
-            letter-spacing:1px;
-            font-weight:bolder;
-            padding:5px
+            letter-spacing: 1px;
+            font-weight: bolder;
+            padding: 5px
         }
+
         .ui-menu-item .ui-state-active {
             background: #b0b435;
             border-radius: 10px;
-            border: 1px solid #b0b435;          
+            border: 1px solid #b0b435;
         }
 
         /*123*/
@@ -105,16 +106,30 @@
             $('#grid-view').find('.row').load("@Url.Content("~/Shopping/ProductSearchjPartial")?prodName=" + productName  + "&categetoryId=" + categetoryId)
         })
         //加入購物車
-        $("#addCart").click(function () {
-            async function selProductName() {
-                let response = await fetch("@Url.Content("~/Shopping/ProductName")")
-                let data = await response.json()
+
+        $(".addCart").click(function (e) {
+            let value = $(this).find(".add").val();
+            console.log(value)
+            async function AddtoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/LAddToCart/")" + value)
+                let data = await response.text()
+                console.log(data)
+                if (data != 0) {
+                    $("#cartNum").html(data)
+                    $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
+                } else {
+
+                }
+
             }
+            AddtoCart();
+
         })
         //console.log(selectProduct);
     </script>
 
 }
+
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -202,7 +217,10 @@
                                                         }
                                                     </ul>
                                                     @*<a id="addCart" class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>*@
-                                                    <a id="addCart" class="cart" style="cursor:pointer">加入購物車</a>
+                                                    <a class="cart addCart" style="cursor:pointer">
+                                                        加入購物車
+                                                        <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                    </a>
                                                 </div>
                                                 </div>
                                                 <div class="why-text">
