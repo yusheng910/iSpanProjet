@@ -97,5 +97,42 @@ namespace 鮮蔬果季_前台.Controllers
             return View(list);
         }
 
+
+
+
+        public IActionResult EventRegistration(int id)
+        {
+
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            //鮮蔬果季Context db = new 鮮蔬果季Context();
+            var datas = (from E in db.Events
+                         where id == E.EventId           //回傳的id與活動id相等
+                         select E).ToList();
+
+            List<EventListViewModel> list = new List<EventListViewModel>();
+            foreach (var item in datas)
+            {
+                //db = new 鮮蔬果季Context();
+                var EventPhotos = (from EI in db.EventPhotoBanks
+                                   where EI.EventId == item.EventId
+                                   select EI).FirstOrDefault();
+                list.Add(new EventListViewModel()
+                {
+                    Event = item,
+                    EventPhotoBank = EventPhotos
+                });
+            }
+            return View(list);
+        }
+
+
     }
 }

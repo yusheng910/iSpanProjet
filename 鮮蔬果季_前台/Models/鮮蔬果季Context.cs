@@ -27,6 +27,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventPhotoBank> EventPhotoBanks { get; set; }
         public virtual DbSet<EventRegistration> EventRegistrations { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<HomePageCover> HomePageCovers { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MyFavorite> MyFavorites { get; set; }
@@ -45,11 +46,11 @@ namespace 鮮蔬果季_前台.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=114.34.127.248\\DESKTOP-FBDIF9U,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
-//            }
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=114.34.127.248\\DESKTOP-FBDIF9U,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -257,9 +258,29 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.EventRegistrationId).HasColumnName("EventRegistrationID");
 
+                entity.Property(e => e.ContactEmail)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.ContactMobile)
+                    .HasMaxLength(10)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.ContactName)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
                 entity.Property(e => e.EventId).HasColumnName("EventID");
 
+                entity.Property(e => e.FoodPreference)
+                    .HasMaxLength(10)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.Remark)
+                    .HasMaxLength(80)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.SubmitDate).HasColumnType("datetime");
 
@@ -272,6 +293,14 @@ namespace 鮮蔬果季_前台.Models
                     .WithMany(p => p.EventRegistrations)
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_EventRegistration_Members");
+            });
+
+            modelBuilder.Entity<Feedback>(entity =>
+            {
+                entity.Property(e => e.FeedbackName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             });
 
             modelBuilder.Entity<HomePageCover>(entity =>
