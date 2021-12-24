@@ -78,6 +78,7 @@
                                 <img class="ImgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">
 
                                 <p class="blog-meta" style="padding: 5px  0px; font-size: larger ">
+                                    <span class="author"><i class="fas fa-user"></i> @item.City.CityName</span>
                                     <span class="author"><i class="fas fa-user"></i>  @item._Supplier.SupplierName</span>
                                     <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
                                 </p>
@@ -121,43 +122,36 @@
             </div>
             <div class="col-lg-4">
                 <div class="sidebar-section">
-                    <div class="recent-posts">
-                        <h4>近期文章</h4>
-                        <ul>
+                    <!--<div class="recent-posts">
+                        <h4>近期文章</h4>-->               @*預計使用Ajax獨立頁面顯示,顯示當月的文章標籤,並可進行連結*@
+                        <!--<ul>
                             <li>
                                 <a href="single-news.html">台中大甲檳榔心芋頭</a>
                             </li>
                             <li>
                                 <a href="single-news.html">橙界貴族台東肚臍柑</a>
                             </li>
-                            <li>
-                                <a href="single-news.html">宜蘭阿瑞的番茄農場</a>
-                            </li>
-                            <li>
-                                <a href="single-news.html">高雄大樹阿瑋芭樂園</a>
-                            </li>
-                            <li>
-                                <a href="single-news.html">小熙的無農藥玉米筍</a>
-                            </li>
                         </ul>
-                    </div>
+                    </div>-->
+
+
                     <div class="archive-posts">
-                        <h4>月份</h4>
+                        <h4>發佈月份</h4>
                         <ul>
                             <li>
-                                <a href="single-news.html">JAN 2019 (5)</a>
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=11>
+                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.Month.ToString()
+                                </a>
                             </li>
                             <li>
-                                <a href="single-news.html">FEB 2019 (3)</a>
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=12>
+                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.AddMonths(-1).Month.ToString()
+                                </a>
                             </li>
                             <li>
-                                <a href="single-news.html">MAY 2019 (4)</a>
-                            </li>
-                            <li>
-                                <a href="single-news.html">SEP 2019 (4)</a>
-                            </li>
-                            <li>
-                                <a href="single-news.html">DEC 2019 (3)</a>
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=13>
+                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.AddMonths(-2).Month.ToString()
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -165,16 +159,13 @@
                         <h4>標籤</h4>
                         <ul>
                             <li>
-                                <a href="single-news.html">芋頭</a>
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=1>青農返鄉</a>
                             </li>
                             <li>
-                                <a href="single-news.html">台灣</a>
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=2>履歷無毒</a>
                             </li>
                             <li>
-                                <a href="single-news.html">小農</a>
-                            </li>
-                            <li>
-                                <a href="single-news.html">玉米筍</a>
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=3>有機天地</a>
                             </li>
                         </ul>
                     </div>

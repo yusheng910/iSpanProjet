@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
+using System.Globalization;
 
 namespace 鮮蔬果季_前台.ViewModels
 {
