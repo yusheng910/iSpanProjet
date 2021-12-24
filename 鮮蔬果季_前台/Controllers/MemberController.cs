@@ -10,6 +10,11 @@ namespace 鮮蔬果季_前台.Controllers
 {
     public class MemberController : Controller
     {
+        private readonly 鮮蔬果季Context db;
+        public MemberController(鮮蔬果季Context dbContext)
+        {
+            db = dbContext;
+        }
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -22,6 +27,48 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult MemberCenter()
         {
+            MemberViewModel mv = null;
+            var mc = (from i in db.Members
+                      join a in db.Cities on i.CityId equals a.CityId
+                      where i.UserId == UserLogin.member.UserId
+                      select new { i, a.CityName }).FirstOrDefault();
+            if(HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.CITY = mc.CityName;
+                ViewBag.GENDER = mc.i.Gender;
+                mv = new MemberViewModel()
+                {
+                    member = mc.i,
+                    city = mc.CityName,
+                   
+                };
+                
+            }
+            else
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login","Login");
+            }
+
+            return View(mv);
+        }
+        [HttpPost]
+        public IActionResult MemberCenter(Member p)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                
+            }
+                
+            else
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
             return View();
         }
     }

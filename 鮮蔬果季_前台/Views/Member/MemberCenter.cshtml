@@ -1,7 +1,36 @@
-﻿
+﻿@model 鮮蔬果季_前台.ViewModels.MemberViewModel
 @{
     ViewData["Title"] = "MemberCenter";
 }
+@section Scripts {
+    <script>
+        var xhr = new XMLHttpRequest();
+        var selCity = document.querySelector("#State");
+     async function Loadcity() {
+            /*const response = await fetch("/Login/LoadCities")*/
+            const response = await fetch("@Url.Action("LoadCities","Login")")
+            RenderCity(await response.json())
+        }
+        Loadcity()
+        function RenderCity(datas) {
+            datas.forEach((item) => {
+                const opt = new Option(item.cityName, item.cityName)
+                selCity.options.add(opt)
+            })
+        }
+        $("#State").change(function () {
+            var ct = $("#State").find(":selected").text();
+           /* console.log(ct);*/
+            $("#cityLB").val(ct)
+
+        })
+        $("#gender").change(function () {
+            var gt = $("#gender").find(":selected").text();
+            $("#genderLB").val(gt)
+        })
+    </script>
+}
+
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -19,7 +48,7 @@
             <div class="col-12 col-lg-10 col-xl-8">
                 <h2 class="h3 mb-4 page-title" style="margin-top:50px;">會員資料</h2>
                 <div class="my-4">
-                    <form>
+                    <form asp-action="MemberCenter">
                         <div class="row mt-5 align-items-center">
                             <div class="col-md-3 text-center mb-5">
                                 <div id="photo" style="margin-left:-120px; margin-top: 0px; padding-bottom: 0px; height: 100px ">
@@ -36,35 +65,36 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="name">姓名</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="您的大名"value="許銘豪" required data-error="請填寫您的欄位">                          
+                                <input asp-for="MemberName" type="text" id="name" name="MemberName" class="form-control" placeholder="您的大名" required data-error="請填寫您的欄位">                          
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="gender">性別</label>
-                                <select id="gender" class="form-control" required data-error="請填寫您的欄位">
-                                    <option selected="selected">男性</option>
-                                    <option>女性</option>
+                                性別：<input readonly="readonly" id="genderLB" asp-for="Gender" name="Gender" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
+                                <select  id="gender" class="form-control" required data-error="請填寫您的欄位">
+                                    <option></option>
+                                    <option >男</option>
+                                    <option>女</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail4">電子郵件帳號</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="您的電子郵件" value="abc12345@gmail.com" required data-error="請填寫您的欄位">
+                            <input asp-for="UserId" type="email" name="UserId" class="form-control" id="inputEmail4" placeholder="您的電子郵件"  required data-error="請填寫您的欄位">
                         </div>
                         <div class="form-group">
                             <label for="inputAddress5">現居地址</label>
-                            <input type="text" class="form-control" id="inputAddress5" placeholder="您的現居地址" value="台北市大安區信義路三段153號3樓" required data-error="請填寫您的欄位">
+                            <input asp-for="MemberAddress" type="text" name="MemberAddress" class="form-control" id="inputAddress5" placeholder="您的現居地址"  required data-error="請填寫您的欄位">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="phone">聯絡電話</label>
-                                <input type="text" class="form-control" placeholder="您的電話" required data-error="請填寫您的欄位">
+                                <input asp-for="Mobile" type="text" name="Mobile" class="form-control" placeholder="您的電話" required data-error="請填寫您的欄位">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="State">現居縣市</label>
-                                <select id="State" class="form-control" required data-error="請填寫您的欄位">
-                                    <option selected="">台北市</option>
-                                    <option>...</option>
+                                現居縣市：<input  readonly="readonly" id="cityLB" asp-for="city" name="city" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
+                                <select  id="State" class="form-control" required data-error="請填寫您的欄位">
+                                    <option></option>
                                 </select>
+                                
                             </div>
                         </div>
                         <hr class="my-4">
