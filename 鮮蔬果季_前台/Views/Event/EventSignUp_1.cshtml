@@ -110,14 +110,8 @@
                                 <h2>
                                     @Html.DisplayFor(modelitem => item.Event.EventName)
                                 </h2>
-                                <p style="font-size:large">@Html.DisplayFor(modelitem=>item.Event.EventDescription)</p>
+                                <p style="font-size:large">@Html.DisplayFor(modelitem => item.Event.EventDescription)</p>
                                 <br />
-                                @*<ul style="list-style-type:square; font-size:large;">
-                                    <li>◾ 為因應防疫措施暫時休園，後續將依據政府公告進行滾動式調整營運，如有造成不便敬請見諒。</li>
-                                    <li>◾ 台灣特殊體驗控磚窯，讓你回到古早時期的台灣。</li>
-                                    <li>◾ 原汁原味，傳統農村的記憶再次浮現。</li>
-                                    <li>◾ 兩萬顆有機無毒栽種的株紅心地瓜，品嚐最優質的在食材。</li>
-                                </ul>*@
                             </div>
                         </div>
                     </div>
@@ -126,6 +120,8 @@
         </div>
     } }
 <div style="padding-bottom:50px"></div> @*間格用*@
+
+
 
 
 <div class="checkout-section mt-150 mb-150">
@@ -143,44 +139,50 @@
                                     </button>
                                 </h5>
                             </div>
+                            @{foreach (var item in Model)
+                                {
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="background-color: #FFF9E9">
+                                        <div class="card-body">
+                                            <div class="billing-address-form">
+                                                @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
+                                                <form method="post" class="col-6" name="XXX">
+                                                    <p style="padding-bottom: 10px">
+                                                        <input type="text" placeholder="姓名" name="ContactName">
+                                                    </p>
+                                                    <p style="padding-bottom: 10px">
+                                                        <input type="email" placeholder="聯絡電話" name="ContactMobile">
+                                                    </p>
+                                                    <p style="padding-bottom: 10px">
+                                                        <input type="text" placeholder="電子信箱" name="ContactEmail">
+                                                    </p>
+                                                    <p style="padding-bottom: 10px">
+                                                        <input placeholder="預計報名人數" name="ParticipantNumber">
+                                                    </p>
 
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="background-color: #FFF9E9">
-                                <div class="card-body">
-                                    <div class="billing-address-form">
-                                        <form action="index.html" class="col-6">
-                                            @*加上col-6 減少input的寬度*@
-                                            <p style="padding-bottom: 10px">
-                                                <input type="text" placeholder="姓名">
-                                            </p>
-                                            <p style="padding-bottom: 10px">
-                                                <input type="email" placeholder="聯絡電話">
-                                            </p>
-                                            <p style="padding-bottom: 10px">
-                                                <input type="text" placeholder="電子信箱">
-                                            </p>
-                                            <p style="padding-bottom: 10px">
-                                                <input placeholder="預計報名人數">
-                                            </p>
+                                                    @*單選不知怎送出進SQL*@
+                                                    <p> 餐點葷素 : </p>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                        <label class="form-check-label" for="inlineRadio1">葷食</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                        <label class="form-check-label" for="inlineRadio2">素食</label>
+                                                    </div>
 
-                                            <p> 餐點葷素 : </p>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                <label class="form-check-label" for="inlineRadio1">葷食</label>
+                                                    <p>
+                                                        <textarea name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
+                                                    </p>
+                                                    <div style="padding-top:15px"> </div>
+
+                                                    <button type="submit"  asp-route-id="@item.Event.EventId" class="btn btn-success">送出報名</button>   @*偷雞摸狗法: type必須使用Submit*@
+
+                                                </form>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                <label class="form-check-label" for="inlineRadio2">素食</label>
-                                            </div>
-
-                                            <p>
-                                            <textarea name="bill" id="bill" cols="30" rows="10" placeholder="其他"></textarea>
-                                            </p>
-                                            <div style="padding-top:15px"> </div>
-                                            <button type="button" class="btn btn-success btn-lg">送出</button>
-                                        </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>
@@ -189,3 +191,28 @@
     </div>
 </div>
 <div style="padding-bottom:50px"></div> @*間格用*@
+
+@*Bootstrap 的彈跳警告視窗(目前點了沒反應,待解決)*@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
