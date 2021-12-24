@@ -74,6 +74,7 @@
                                 {
                                     <li id="member">
                                         <i class="fa fa-user s_color"></i> @ViewBag.USER
+                                        <input type="hidden" class="userId" value="@ViewBag.userID">
                                     </li>
                                 }
 
@@ -330,9 +331,13 @@
         })
 
         var cartNum = document.querySelector('#cartNum')
+        var value = $(".userId").val()
         $(document).ready(async function () {
-            var response = await fetch('@Url.Content("~/Shopping/LAddtoCart")')
+            console.log(value)
+            var response = await fetch('@Url.Content("~/Shopping/ListAddtoCart/")'+ value)
             var data = await response.text()
+            console.log(data)
+            if(data!=0)
             cartNum.innerHTML = data
         })
 
