@@ -10,9 +10,10 @@
         {
             商品價乘數量 = item.product.ProductUnitPrice * item.shopCart.UnitsInCart;
             總價 += 商品價乘數量;
-            <li class="NavCart-li" style="padding: 10px;">
+            <li class="NavCart-li" style="padding: 8px;">
                 <a href="#" class="photo"><img src="~/images/商品照/@item.photoforCart.PhotoPath" class="cart-thumb" alt="" /></a>
-                <h6 id="itemName">@item.product.ProductName</h6>
+                <h5 id="supName">@item.supplier.SupplierName</h5>
+                <h5 id="itemName">@item.product.ProductName</h5>
                 <p id="itemQty">
                     @item.shopCart.UnitsInCart x NT$ @item.product.ProductUnitPrice
                     <span id="itemPrice" class="price">=NT$ @商品價乘數量</span>

@@ -23,10 +23,14 @@
     <link rel="stylesheet" href="~/css/_LayoutSetting.css">
 
     <style>
-        .cart-thumb {
-            width: 100px;
-            height: 80px;
-            object-fit: cover;
+        ul.cart-list > li > a.photo {
+            width: 60px;
+            height: 60px;
+            object-fit:cover;
+        }
+        ul.cart-list > li img {
+            width: 60px;
+            height: 60px;
         }
 
     </style>
@@ -334,7 +338,7 @@
         var value = $(".userId").val()
         $(document).ready(async function () {
             console.log(value)
-            var response = await fetch('@Url.Content("~/Shopping/ListAddtoCart/")'+ value)
+            var response = await fetch('@Url.Content("~/Shopping/CartNum")')
             var data = await response.text()
             console.log(data)
             if(data!=0)
