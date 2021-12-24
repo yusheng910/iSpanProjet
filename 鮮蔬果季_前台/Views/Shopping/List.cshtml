@@ -24,10 +24,28 @@
         .list-group-item[data-toggle="collapse"]::after {
             content: normal;
         }
+
+        .highlight {
+            background: #FFF9E9;
+            color: #8B4513;
+            border-radius: 0px 0px 10px 10px;
+            letter-spacing:1px;
+            font-weight:bolder;
+            padding:5px
+        }
+        .ui-menu-item .ui-state-active {
+            background: #b0b435;
+            border-radius: 10px;
+            border: 1px solid #b0b435;          
+        }
+
     </style>
 }
 @section Scripts{
+
+    <script src="~/js/jquery-ui.min.js"></script>
     <script>
+
         //$("#basic").change(function () {
         //    $("#slectForm").submit();
         //    var opt = $("#basic").val;
@@ -61,8 +79,26 @@
             console.log(categetoryId)
             $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
         })
+        //搜尋商品
+        async function selProductName() {
+            let response = await fetch("@Url.Content("~/Shopping/ProductName")")
+            let data = await response.json()
+
+            $("#tags").autocomplete({
+                source: data,
+                autoFocus: true,
+                classes: {
+                    "ui-autocomplete": "highlight"//下拉式選單樣式
+                }
+            });
+        }
+        selProductName()
+       
+       
+
+        //console.log(selectProduct);
     </script>
-    <script src="~/js/jquery-ui.js"></script>
+
 }
 <!-- Start All Title Box -->
 <div class="all-title-box">
@@ -119,7 +155,7 @@
                     <div class="product-categorie-box">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                <div class="row">                                  
+                                <div class="row">
                                     @*商品List 開始*@
                                     @foreach (var item in Model)
                                     {
@@ -302,7 +338,7 @@
                 <div class="product-categori">
                     <div class="search-product">
                         <form action="#">
-                            <input name="txtKeyword" class="form-control" placeholder="搜尋商品..." type="text">
+                            <input id="tags" name="txtKeyword" class="form-control" placeholder="搜尋商品..." type="text">
                             <button type="submit"> <i class="fa fa-search"></i> </button>
                         </form>
                     </div>

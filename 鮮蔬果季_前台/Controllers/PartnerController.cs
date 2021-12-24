@@ -24,6 +24,16 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult PartnerBlog(int Id)
         {
+
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = (from E in db.BlogDetails orderby E.PublishedDate descending
                         select E).ToList();
@@ -57,8 +67,18 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult PartnerBlogSelectTag(int id)
             {
-                 //鮮蔬果季Context db = new 鮮蔬果季Context();
-                  var datas = (from E in db.BlogDetails
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+
+            //鮮蔬果季Context db = new 鮮蔬果季Context();
+            var datas = (from E in db.BlogDetails
                         where E.LabelId==1
                         select E).ToList();
 
@@ -81,6 +101,15 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult PartnerBlog_1(int id)     //此處的id為前台回傳的該農友ID
         {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+                ViewBag.USER = UserLogin.member.MemberName;
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = (from E in db.BlogDetails
                         where id == E.SupplierId

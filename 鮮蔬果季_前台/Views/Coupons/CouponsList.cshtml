@@ -63,7 +63,7 @@
         }*/
 
         /*navbar的CSS*/
-        
+
         nav > .nav.nav-tabs {
             border: none;
             color: #fff;
@@ -107,7 +107,7 @@
             transition: background 0.20s linear;
         }
 
-        #nav-tab div a {
+        .nav-status a {
             margin: 0;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             font-size: 1rem;
@@ -117,18 +117,35 @@
             text-align: left;
             background-color: #fff;
         }
-        .col-xs-12{
-            padding-top:40px;
+        .couponsbar{
+            width: 666px;
+            height: 59px;
+            padding-left: 15px;
+        }
+        .nav-status {
+            width: 666px;
+            height: 59px;
         }
         .wishlist-box-main {
             padding-top:0px;
         }
-
-
+        #rowfix{
+            padding-top:70px;
+            width:1110px;
+        }
     </style>
 }
 @section Scripts{
     <script>
+        var haventcoupons = $('#haventcoupons');
+        haventcoupons.click(function () {
+            $('#addcp').load("@Url.Content("~/Coupons/PartialHavent")")
+        })
+
+        var allcoupons = $('#allcoupons');
+        allcoupons.click(function () {
+            $('#addcp').load("@Url.Content("~/Coupons/PartialAll")")
+        })
     </script>
 }
 
@@ -149,14 +166,14 @@
 <!-- End All Title Box -->
 <!-- Start Navbar  -->
 <div style="padding-bottom:20px" class="container">
-    <div class="row">
-        <div class="col-xs-12" style="width:60%">
-            <nav>
+    <div class="row" id="rowfix">
+        <div class="col-xs-12 couponsbar" style="width:60%">
+            <nav class="nav-status">
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" style="width:25%" id="delivered-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">訂單紀錄</a>
-                    <a class="nav-item nav-link" style="width:25%" id="shipped-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">已出貨</a>
-                    <a class="nav-item nav-link" style="width:25%" id="notYetShipped-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">未出貨</a>
-                    <a class="nav-item nav-link" style="width:25%" id="deliveredNoRecipient-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">送達未取</a>
+                    <a class="nav-item nav-link active" style="width:25%" id="allcoupons" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">全部優惠券</a>
+                    <a class="nav-item nav-link" style="width:25%" id="haventcoupons" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">尚未領取</a>
+                    <a class="nav-item nav-link" style="width:25%" id="notYetShipped-tab" data-toggle="tab" role="tab" aria-controls="nav-contact" aria-selected="false">已領取</a>
+                    <a class="nav-item nav-link" style="width:25%" id="deliveredNoRecipient-tab" data-toggle="tab" role="tab" aria-controls="nav-about" aria-selected="false">已過期</a>
                 </div>
             </nav>
         </div>
@@ -177,8 +194,7 @@
                         </thead>
                     </table>
                     <div class="container my-5">
-                        <div class="row">
-
+                        <div class="row" id="addcp">
                             @foreach (var item in Model)
                             {
                                 <div class="col-sm-6">
