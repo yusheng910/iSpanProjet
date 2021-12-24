@@ -25,21 +25,23 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
-        //讀取回應項目
+        //測試讀取回應項目是否成功
         public IActionResult FeedbackNames() {
-            var feedbacknames = _context.Feedbacks.Select(a => new
+            var feedbacknames = _context.Feedbacks.Where(a=>a.FatherFeedbackId==null).OrderBy(a=>a.FeedbackId).Select(a => new
             {
+                a.FeedbackId,
                 a.FeedbackName
-            }).Distinct().OrderBy(a => a.FeedbackName);
+            }).ToList();
             return Json(feedbacknames);
         }
-        //讀取細項類別
-        public IActionResult FatherFeedbackIds()
+        //測試讀取細項類別是否成功
+        public IActionResult FatherFeedbackIds(int id)
         {
-            var fatherfeedackids = _context.Feedbacks.Select(b => new
+            var fatherfeedackids = _context.Feedbacks.Where(a=>a.FatherFeedbackId==id).OrderBy(b => b.FatherFeedbackId).Select(b => new
             {
-                b.FatherFeedbackId
-            }).Distinct().OrderBy(b => b.FatherFeedbackId);
+                b.FeedbackId,
+                b.FeedbackName
+            }).ToList();
             return Json(fatherfeedackids);
         }
     }
