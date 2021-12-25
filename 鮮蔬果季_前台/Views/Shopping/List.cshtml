@@ -29,7 +29,6 @@
             background: #FFF9E9;
             color: #8B4513;
             border-radius: 0px 0px 10px 10px;
-            letter-spacing: 1px;
             font-weight: bolder;
             padding: 5px
         }
@@ -44,6 +43,7 @@
         .product-item-filter .toolbar-sorter-right {
             width: 50%;
         }
+
         #basic {
             width: 70%;
             background-color: #FFF9E9;
@@ -59,12 +59,14 @@
                     color: #495057;
                     background-color: #FFF9E9;
                 }
+
         #trash {
             border: 0;
             background: none;
             cursor: pointer;
-            transition:.5s
+            transition: .5s
         }
+
             #trash:hover {
                 color: #b0b435
             }
@@ -87,6 +89,11 @@
         selcted.addEventListener('change',()=> {
             console.log(selcted.options[selcted.selectedIndex].value)
         })
+        function countfind() {
+            var prodCount = $(".ProductCount").val();
+            var textCount = $(".textCount")
+            textCount.html("共 " + prodCount + " 比，")
+        }
         //分類查詢
         var categoryselect = $(".categoryselect");
         categoryselect.click( function () {
@@ -101,7 +108,8 @@
                 $("#textPrice").html("價錢 $" + min + " ~ $" + max)
                 $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
                 let value = $(this).val()
-                $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" +value+"?min=" + min + "&max=" + max )
+                $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + value + "?min=" + min + "&max=" + max, countfind)
+
             }
         })
         //價錢查詢
@@ -116,19 +124,18 @@
                 $("#textPrice").html("價錢 $" + min + " ~ $" + max)
                 $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
             } else {
-                //$("#textSel").html("篩選：<span id='textName'> </span> <span id='textPrice'>價錢 $" + min + " ~ $" + max + "</span><span class='categorytrash'></span><input type='hidden' class='categorySel' value=''>")
-                $(".categorySel").val(" ") 
+                $(".categorySel").val(" ")
                 $("#textName").html(" ")
                 $("#textPrice").html("價錢 $" + min + " ~ $" + max)
                 $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
             }
             console.log(categorySelId)
-            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categorySelId)
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categorySelId, countfind)
         })
         //清空篩選
         var trashBtn = $(".categorytrash");
         trashBtn.click(() => {
-            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/AllProductPartial")")
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/AllProductPartial")", countfind)
             $("#textName").html("無")
             $("#textPrice").html("")
             $(".categorytrash").html("")
@@ -151,10 +158,12 @@
         $("#selectProduct").submit(function (e) {
             e.preventDefault();
             let productName = $("#tags").val();
-            let categetoryId = $(".categoriesId").val();
             console.log(productName)
-
-            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/ProductSearchjPartial")?prodName=" + productName  + "&categetoryId=" + categetoryId)
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/ProductSearchPartial")?prodName=" + productName, countfind)
+            $("#textName").html(productName)
+            $(".categorySel").val(" ")
+            $("#textPrice").html(" ")
+            $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
         })
         //加入購物車
 
@@ -180,6 +189,7 @@
             AddtoCart();
 
         })
+        $(document).ready(countfind)
         //console.log(selectProduct);
     </script>
 
@@ -214,10 +224,12 @@
                                 </select>
                             </div>
                             <p id="textSel" style="text-align:left">
+                                <span class="textCount"></span>
                                 篩選：
                                 <span id="textName">無</span>
                                 <span id="textPrice"></span>
                                 <span class="categorytrash"></span>
+
                                 <input type="hidden" class="categorySel" value="">
                             </p>
                         </div>
@@ -238,62 +250,66 @@
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                 <div class="row">
                                     @*商品List 開始*@
-                                    @foreach (var item in Model)
-                                    {
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    @{if (@item.photoBank[0] != null)
-                                                        {
-                                                            <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-fluid" alt="Image">
-                                                        }
-                                                    }
-
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li>
-                                                                <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
-                                                            </li>
-                                                            @{
-                                                                if (item.myFavorite.MyFavoriteId != 0)
-                                                                {
-                                                                    <li>
-                                                                        <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
-                                                                    </li>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <li>
-                                                                        <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
-                                                                    </li>
-                                                                }
+                                    @{ int count = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <div class="type-lb">
+                                                            <p class="sale">Sale</p>
+                                                        </div>
+                                                        @{if (@item.photoBank[0] != null)
+                                                            {
+                                                                <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-fluid" alt="Image">
                                                             }
-                                                        </ul>
-                                                        @*<a id="addCart" class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>*@
-                                                        <a class="cart addCart" style="cursor:pointer">
-                                                            加入購物車
-                                                            <input class="add" type="hidden" value="@item.product.ProductId" />
-                                                            <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'" />
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="why-text">
-                                                    @{
+                                                        }
 
-                                                    }
-                                                    <h4>【@item.supplier.SupplierName】</h4>
-                                                    <h4>@item.product.ProductName</h4>
-                                                    @{
-                                                        string 規格 = @item.product.ProductSize;
-                                                        string[] 公克 = 規格.Split("/");
-                                                    }
-                                                    <h5> @公克[0]/NT$@item.product.ProductUnitPrice</h5>
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li>
+                                                                    <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
+                                                                </li>
+                                                                @{
+                                                                    if (item.myFavorite.MyFavoriteId != 0)
+                                                                    {
+                                                                        <li>
+                                                                            <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
+                                                                        </li>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li>
+                                                                            <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                                        </li>
+                                                                    }
+                                                                }
+                                                            </ul>
+                                                            @*<a id="addCart" class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>*@
+                                                            <a class="cart addCart" style="cursor:pointer">
+                                                                加入購物車
+                                                                <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                                <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="why-text">
+                                                        @{
+
+                                                        }
+                                                        <h4>【@item.supplier.SupplierName】</h4>
+                                                        <h4>@item.product.ProductName</h4>
+                                                        @{
+                                                            string 規格 = @item.product.ProductSize;
+                                                            string[] 公克 = 規格.Split("/");
+                                                        }
+                                                        <h5> @公克[0]/NT$@item.product.ProductUnitPrice</h5>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+                                        <input type="hidden" class="ProductCount" value="@count" />@*存放商品數*@
                                     }
                                     @*商品List 結束*@
                                 </div>
