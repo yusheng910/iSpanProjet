@@ -89,6 +89,7 @@
         selcted.addEventListener('change',()=> {
             console.log(selcted.options[selcted.selectedIndex].value)
         })
+        //商品比數查詢
         function countfind() {
             var prodCount = $(".ProductCount").val();
             var textCount = $(".textCount")
@@ -172,7 +173,7 @@
             console.log(value)
             async function AddtoCart() {
                 let response = await fetch("@Url.Content("~/Shopping/ListAddToCart/")" + value)
-                let data = await response.text()
+                let data = await response.text() //如果沒登入會回傳0
                 console.log(data)
                 if (data != 0) {
                     $("#cartNum").html(data)
@@ -189,8 +190,8 @@
             AddtoCart();
 
         })
+        //首次時讀取商品比數
         $(document).ready(countfind)
-        //console.log(selectProduct);
     </script>
 
 }
@@ -290,7 +291,7 @@
                                                             <a class="cart addCart" style="cursor:pointer">
                                                                 加入購物車
                                                                 <input class="add" type="hidden" value="@item.product.ProductId" />
-                                                                <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'" />
+                                                                <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
                                                             </a>
                                                         </div>
                                                     </div>
