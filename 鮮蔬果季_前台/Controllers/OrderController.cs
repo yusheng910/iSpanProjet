@@ -203,8 +203,10 @@ namespace 鮮蔬果季_前台.Controllers
                 var 所有訂單細項 = (from od in db.OrderDetails
                               join p in db.Products
                               on od.ProductId equals p.ProductId
+                              join sup in db.Suppliers
+                              on p.SupplierId equals sup.SupplierId
                               where od.OrderId == id
-                              select new { od, p }).ToList();
+                              select new { od, p, sup }).ToList();
                 
                 foreach (var o in 所有訂單細項)
                 {
@@ -213,6 +215,7 @@ namespace 鮮蔬果季_前台.Controllers
                     {
                         odetail = o.od,
                         product = o.p,
+                        supplier = o.sup,
                         photoBank = 封面相片,
                         //單筆訂單細項總價 = 訂單細項總價
                     });
