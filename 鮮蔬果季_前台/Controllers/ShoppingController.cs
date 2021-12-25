@@ -130,8 +130,41 @@ namespace 鮮蔬果季_前台.Controllers
 
             return View(所有商品列表);
         }
-
-        public IActionResult CategoryPartial(int id)
+        //PartialView 開始
+        public IActionResult AllProductPartial()
+        {
+            List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
+            var 所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                        select new
+                        {
+                            prod.ProductId,
+                            prod.ProductName,
+                            prod.ProductUnitPrice,
+                            prod.ProductSize,
+                            supp.SupplierName
+                        }).ToList();
+            foreach (var item in 所有商品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                相片List.Add(封面相片);
+                所有商品列表.Add(new ShoppingListViewModel()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductUnitPrice = item.ProductUnitPrice,
+                    ProductSize = item.ProductSize,
+                    SupplierName = item.SupplierName,
+                    myFavorite = 最愛商品,
+                    photoBank = 相片List
+                });
+            }
+            return PartialView("ProductSearchjPartial", 所有商品列表);
+        }
+        public IActionResult CategoryPartial(int id, int min, int max)
         {
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
@@ -139,7 +172,7 @@ namespace 鮮蔬果季_前台.Controllers
                        on prod.SupplierId equals supp.SupplierId
                         join c in db.CategoryDetails
                         on prod.ProductId equals c.ProductId
-                        where c.CategoryId == id
+                        where c.CategoryId == id && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
                         select new
                         {
                             c.CategoryId,
@@ -167,7 +200,7 @@ namespace 鮮蔬果季_前台.Controllers
                     CategoryId=item.CategoryId
                 });
             }
-            return PartialView(所有商品列表);
+            return PartialView("ProductSearchjPartial", 所有商品列表);
         }
         public IActionResult PricePartial(int min,int max,int categetoryId)
         {
@@ -203,7 +236,7 @@ namespace 鮮蔬果季_前台.Controllers
                         photoBank = 相片List
                     });
                 }
-                return PartialView(商品列表);
+                return PartialView("ProductSearchjPartial", 商品列表);
             }
 
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
@@ -241,7 +274,7 @@ namespace 鮮蔬果季_前台.Controllers
                     CategoryId = item.CategoryId
                 });
             }
-            return PartialView(所有商品列表);
+            return PartialView("ProductSearchjPartial", 所有商品列表);
         }
 
         public IActionResult ProductSearchjPartial(string prodName, int categetoryId)
@@ -316,7 +349,7 @@ namespace 鮮蔬果季_前台.Controllers
                     CategoryId = item.CategoryId
                 });
             }
-            return PartialView(所有商品列表);
+            return PartialView("ProductSearchjPartial", 所有商品列表);
         }
         public IActionResult ProductName() {
             var 所有商品 = (from p in db.Products orderby p.ProductName select p.ProductName).Distinct().ToList();

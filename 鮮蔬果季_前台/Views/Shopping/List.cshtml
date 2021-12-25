@@ -41,13 +41,39 @@
         }
 
         /*123*/
+        .product-item-filter .toolbar-sorter-right {
+            width: 50%;
+        }
+        #basic {
+            width: 70%;
+            background-color: #FFF9E9;
+            cursor: pointer;
+        }
 
+            #basic:hover {
+                color: white;
+                background: #767676;
+            }
 
+                #basic:hover option {
+                    color: #495057;
+                    background-color: #FFF9E9;
+                }
+        #trash {
+            border: 0;
+            background: none;
+            cursor: pointer;
+            transition:.5s
+        }
+            #trash:hover {
+                color: #b0b435
+            }
     </style>
 }
 @section Scripts{
 
     <script src="~/js/jquery-ui.min.js"></script>
+
     <script>
 
         //$("#basic").change(function () {
@@ -64,12 +90,18 @@
         //分類查詢
         var categoryselect = $(".categoryselect");
         categoryselect.click( function () {
-
+            let categorySelId = $(this).val();
             if ($(this).val() == 1 || $(this).val() == 6) { }
             else {
-                //console.log($(this).val())
+                $(".categorySel").val(categorySelId) //設定有塞選過的編號
+                let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10 / 2
+                let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10 / 2
+                var str = $(this).text()
+                $("#textName").html($.trim(str).split(" ")[0] + "    ")
+                $("#textPrice").html("價錢 $" + min + " ~ $" + max)
+                $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
                 let value = $(this).val()
-                $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + value)
+                $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" +value+"?min=" + min + "&max=" + max )
             }
         })
         //價錢查詢
@@ -77,11 +109,30 @@
         priceSelect.click(function () {
             let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10/2
             let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10/2
-            let categetoryId = $(".categoriesId").val();
+            let categorySelId = $(".categorySel").val();
             console.log(min)
             console.log(max)
-            console.log(categetoryId)
-            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categetoryId)
+            if ($(".categorySel").val() != "") {
+                $("#textPrice").html("價錢 $" + min + " ~ $" + max)
+                $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
+            } else {
+                //$("#textSel").html("篩選：<span id='textName'> </span> <span id='textPrice'>價錢 $" + min + " ~ $" + max + "</span><span class='categorytrash'></span><input type='hidden' class='categorySel' value=''>")
+                $(".categorySel").val(" ") 
+                $("#textName").html(" ")
+                $("#textPrice").html("價錢 $" + min + " ~ $" + max)
+                $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
+            }
+            console.log(categorySelId)
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categorySelId)
+        })
+        //清空篩選
+        var trashBtn = $(".categorytrash");
+        trashBtn.click(() => {
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/AllProductPartial")")
+            $("#textName").html("無")
+            $("#textPrice").html("")
+            $(".categorytrash").html("")
+            $(".categorySel").val("")
         })
         //搜尋商品
         async function selProductName() {
@@ -152,25 +203,26 @@
             <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
                 <div class="right-product-box">
                     <div class="product-item-filter row">
-                        <div class="col-12 col-sm-8 text-center text-sm-left">
+                        <div class="col-12 col-sm-10 text-center text-sm-left">
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
-
-                                <select id="basic" name="SelectOrderBy" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                                    <option value="0" data-display="Select">鮮蔬果季隨機推薦</option>
+                                <select id="basic" name="SelectOrderBy" class="show-tick form-control">
+                                    <option value="0">鮮蔬果季隨機推薦</option>
                                     <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
                                 </select>
-
                             </div>
-                            @*<p>Showing all 4 results</p>*@
+                            <p id="textSel" style="text-align:left">
+                                篩選：
+                                <span id="textName">無</span>
+                                <span id="textPrice"></span>
+                                <span class="categorytrash"></span>
+                                <input type="hidden" class="categorySel" value="">
+                            </p>
                         </div>
-                        <div class="col-12 col-sm-4 text-center text-sm-right">
+                        <div class="col-12 col-sm-2 text-center text-sm-right">
                             <ul class="nav nav-tabs ml-auto">
-                                <li>
-                                    <a class="nav-link " href="" data-toggle="tab"><i class="fas fa-filter"></i> </a>
-                                </li>
                                 <li>
                                     <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
                                 </li>
@@ -200,33 +252,33 @@
                                                         }
                                                     }
 
-                                                <div class="mask-icon">
-                                                    <ul>
-                                                        <li>
-                                                            <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
-                                                        </li>
-                                                        @{
-                                                            if (item.myFavorite.MyFavoriteId != 0)
-                                                            {
-                                                                <li>
-                                                                    <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
-                                                                </li>
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li>
+                                                                <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
+                                                            </li>
+                                                            @{
+                                                                if (item.myFavorite.MyFavoriteId != 0)
+                                                                {
+                                                                    <li>
+                                                                        <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li>
+                                                                        <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                                    </li>
+                                                                }
                                                             }
-                                                            else
-                                                            {
-                                                                <li>
-                                                                    <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
-                                                                </li>
-                                                            }
-                                                        }
-                                                    </ul>
-                                                    @*<a id="addCart" class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>*@
-                                                    <a class="cart addCart" style="cursor:pointer">
-                                                        加入購物車
-                                                        <input class="add" type="hidden" value="@item.product.ProductId" />
-                                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'"   />
-                                                    </a>
-                                                </div>
+                                                        </ul>
+                                                        @*<a id="addCart" class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.product.ProductId">加入購物車</a>*@
+                                                        <a class="cart addCart" style="cursor:pointer">
+                                                            加入購物車
+                                                            <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                            <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("/Login/Login")'" />
+                                                        </a>
+                                                    </div>
                                                 </div>
                                                 <div class="why-text">
                                                     @{
