@@ -25,19 +25,29 @@
                                 if (item.myFavorite.MyFavoriteId != 0)
                                 {
                                     <li>
-                                        <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
+                                        <a class="RemoveFavorite" style="cursor: pointer; color: #FF2D2D;" data-toggle="tooltip" data-placement="right" title="移除我的最愛">
+                                            <i class="fas fa-heart"></i>
+                                            <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                        </a>
                                     </li>
                                 }
                                 else
                                 {
                                     <li>
-                                        <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                        <a class="addFavorite" style="cursor: pointer; color: #ffffff;" data-toggle="tooltip" data-placement="right" title="加入我的最愛">
+                                            <i class="far fa-heart"></i>
+                                            <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                            <input class="FavoritetoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                        </a>
                                     </li>
                                 }
                             }
                         </ul>
-                        <a class="cart">加入購物車</a>
-                        <a class="cart" asp-area="" asp-controller="Shopping" asp-action="ListAddToCart" asp-route-id="@item.ProductId">加入購物車</a>
+                        <a class="cart addCart" style="cursor:pointer">
+                            加入購物車
+                            <input class="add" type="hidden" value="@item.product.ProductId" />
+                            <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                        </a>
                     </div>
                 </div>
                 <div class="why-text">

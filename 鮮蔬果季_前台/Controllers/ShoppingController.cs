@@ -455,9 +455,26 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                return RedirectToAction("Login","Login");
+                return Content("0");
             }
-            return RedirectToAction("List");
+            return Content("1");
+        }
+        public IActionResult ListRemoveMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                var 移除我的最愛=db.MyFavorites.Remove(db.MyFavorites.Where(a=>a.MemberId==UserLogin.member.MemberId&&a.ProductId==id).FirstOrDefault());              
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            return Content("1");
         }
         public IActionResult DetailAddMyFavorite(int id)
         {

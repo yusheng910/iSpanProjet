@@ -171,9 +171,8 @@
             $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
             selcted.selectedIndex = 0;
         })
-        //加入購物車
-
-        $(".addCart").click(function (e) {
+        //加入購物車(改用document來解決利用ajax加載partialView後，無法觸發jquery事件 )
+        $(document).on("click", ".addCart", function (e) {
             let value = $(this).find(".add").val();
             console.log(value)
             async function AddtoCart() {
@@ -190,10 +189,56 @@
                     evt.initEvent("click", false, false);
                     document.querySelector(".CarttoLogin").dispatchEvent(evt)
                 }
-
             }
             AddtoCart();
-
+        })
+        //加入我的最愛
+        $(document).on("click", ".addFavorite", function (e) {
+            let obj = $(this);
+            let value = $(this).find(".FavoritePId").val();
+            console.log(obj)
+            async function AddtoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/ListAddMyFavorite/")" + value)
+                let data = await response.text() //如果沒登入會回傳0
+                console.log(data)
+                if (data != 0) {
+                    obj.removeClass().addClass("RemoveFavorite")
+                    obj.css("color", "#FF2D2D")
+                    obj.find("i").removeClass().addClass("fas fa-heart")
+                    obj.attr("data-original-title", "移除我的最愛")
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".FavoritetoLogin").dispatchEvent(evt)
+                }
+            }
+            AddtoCart();
+        })
+         //移除我的最愛
+        $(document).on("click", ".RemoveFavorite", function (e) {
+            let obj = $(this);
+            let value = $(this).find(".FavoritePId").val();
+            console.log(obj)
+            async function RemovetoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/ListRemoveMyFavorite/")" + value)
+                let data = await response.text() //如果沒登入會回傳0
+                console.log(data)
+                if (data != 0) {
+                    obj.removeClass().addClass("addFavorite")
+                    obj.css("color", "#ffffff")
+                    obj.find("i").removeClass().addClass("far fa-heart")
+                    obj.attr("data-original-title", "加到我的最愛")
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".FavoritetoLogin").dispatchEvent(evt)
+                }
+            }
+            RemovetoCart();
         })
         //首次時讀取商品比數
         $(document).ready(countfind)
@@ -223,7 +268,7 @@
                             <div class="toolbar-sorter-right">
                                 <span>排序依 </span>
                                 <select id="basic" name="SelectOrderBy" class="show-tick form-control">
-                                    <option value="0" >鮮蔬果季隨機推薦</option>
+                                    <option value="0">鮮蔬果季隨機推薦</option>
                                     <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
@@ -281,13 +326,20 @@
                                                                     if (item.myFavorite.MyFavoriteId != 0)
                                                                     {
                                                                         <li>
-                                                                            <a asp-area="" asp-controller="MyFavorite" asp-action="List" data-toggle="tooltip" data-placement="right" title="移除我的最愛" style="color: #FF2D2D"><i class="fas fa-heart"></i></a>
+                                                                            <a class="RemoveFavorite" style="cursor: pointer; color: #FF2D2D;" data-toggle="tooltip" data-placement="right" title="移除我的最愛">
+                                                                                <i class="fas fa-heart"></i>
+                                                                                <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                                                            </a>
                                                                         </li>
                                                                     }
                                                                     else
                                                                     {
                                                                         <li>
-                                                                            <a asp-area="" asp-controller="Shopping" asp-action="ListAddMyFavorite" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
+                                                                            <a class="addFavorite" style="cursor: pointer; color: #ffffff;" data-toggle="tooltip" data-placement="right" title="加入我的最愛">
+                                                                                <i class="far fa-heart"></i>
+                                                                                <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                                                                <input class="FavoritetoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                                            </a>
                                                                         </li>
                                                                     }
                                                                 }
