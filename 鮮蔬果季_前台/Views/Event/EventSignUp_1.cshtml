@@ -146,6 +146,7 @@
                                             <div class="billing-address-form">
                                                 @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
                                                 <form method="post" class="col-6" name="XXX">
+                                                    <input type="hidden" placeholder="活動ID" name="EventId" value=@item.Event.EventId>
                                                     <p style="padding-bottom: 10px">
                                                         <input type="text" placeholder="姓名" name="ContactName">
                                                     </p>
@@ -159,14 +160,15 @@
                                                         <input placeholder="預計報名人數" name="ParticipantNumber">
                                                     </p>
 
-                                                    @*單選不知怎送出進SQL*@
-                                                    <p> 餐點葷素 : </p>
+
+                                                    <p style="float:left; padding-right:15px "> 餐點葷素 : </p>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                        @*透過Value寫死回傳值*@
+                                                        <input class="form-check-input" type="radio" name="FoodPreference" value="葷食">
                                                         <label class="form-check-label" for="inlineRadio1">葷食</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <div class="form-check form-check-inline" style="padding-bottom:10px">
+                                                        <input class="form-check-input" type="radio" name="FoodPreference" value="素食">
                                                         <label class="form-check-label" for="inlineRadio2">素食</label>
                                                     </div>
 
@@ -174,8 +176,8 @@
                                                         <textarea name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
                                                     </p>
                                                     <div style="padding-top:15px"> </div>
-
-                                                    <button type="submit"  asp-route-id="@item.Event.EventId" class="btn btn-success">送出報名</button>   @*偷雞摸狗法: type必須使用Submit*@
+                                                    @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
+                                                    <button type="submit" class="btn btn-success ">送出報名</button>
 
                                                 </form>
                                             </div>

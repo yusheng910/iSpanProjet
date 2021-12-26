@@ -42,26 +42,25 @@ namespace 鮮蔬果季_前台.Controllers
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             var datas = (from E in db.Events
-                       select E).ToList();
+                         join 照片 in db.EventPhotoBanks on E.EventId equals 照片.EventId
+                         select E).ToList();
 
             List<EventListViewModel> list = new List<EventListViewModel>();
             foreach (var item in datas)
             {
                 //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
-                var EventPhotos = (from EI in db.EventPhotoBanks
-                         where EI.EventId == item.EventId
-                         select EI).FirstOrDefault();                            //.FirstOrDefault跟ToList相同有斷點效果
+                var 活動供應商與城市 = (from SI in db.Suppliers
+                              join C in db.Cities on SI.CityId equals C.CityId
+                         where SI.SupplierId == item.SupplierId
+                         select new { SI,C }).FirstOrDefault();                            //.FirstOrDefault跟ToList相同有斷點效果
                 list.Add(new EventListViewModel()              
                 {
                     Event = item,
-                    EventPhotoBank = EventPhotos
+                    Supplier = 活動供應商與城市.SI,
+                    City = 活動供應商與城市.C
                 });
             }
             return View(list);
-            //鮮蔬果季Context db = new 鮮蔬果季Context();
-            //var datas = from E in db.Events
-            //            select E;
-            //return View(datas);
         }
 
 
@@ -96,7 +95,7 @@ namespace 鮮蔬果季_前台.Controllers
                 list.Add(new EventListViewModel()
                 {
                     Event = item,
-                    EventPhotoBank = EventPhotos
+
                 });
             }
             return View(list);
@@ -120,6 +119,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
+
                 EventRegistration 送出報名資料 = new EventRegistration()
                 {
                     MemberId = UserLogin.member.MemberId,
@@ -128,11 +128,12 @@ namespace 鮮蔬果季_前台.Controllers
                     ContactName = XXX.ContactName,
                     ContactEmail = XXX.ContactEmail,
                     ContactMobile = XXX.ContactMobile,
+                    FoodPreference =XXX.FoodPreference,
                     SubmitDate = DateTime.Now,
                 };
                     db.Add(送出報名資料);
                    db.SaveChanges();
-               return   RedirectToAction("EventSignUp_1"/*, new { XXX.EventId } */);
+               return   RedirectToAction("EventSignUp_1"/* new { XXX.EventId }*/);
             }
 
             else  //Seesion沒找到
