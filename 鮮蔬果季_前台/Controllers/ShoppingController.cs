@@ -372,6 +372,45 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return PartialView("ProductSearchPartial", 所有商品列表);
         }
+        public IActionResult ListAddMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                MyFavorite myFavorite = new MyFavorite()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    ProductId = id
+                };
+                db.Add(myFavorite);
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            return Content("1");
+        }
+        public IActionResult ListRemoveMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                var 移除我的最愛 = db.MyFavorites.Remove(db.MyFavorites.Where(a => a.MemberId == UserLogin.member.MemberId && a.ProductId == id).FirstOrDefault());
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            return Content("1");
+        }
         #endregion
         public IActionResult ProductName() {
             var 所有商品 = (from p in db.Products orderby p.ProductName select p.ProductName).Distinct().ToList();
@@ -437,45 +476,7 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(單筆商品);
         }
-        public IActionResult ListAddMyFavorite(int id)
-        {
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            {
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
-                MyFavorite myFavorite = new MyFavorite()
-                {
-                    MemberId=UserLogin.member.MemberId,
-                    ProductId=id
-                };
-                db.Add(myFavorite);
-                db.SaveChanges();
-            }               
-            else //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return Content("0");
-            }
-            return Content("1");
-        }
-        public IActionResult ListRemoveMyFavorite(int id)
-        {
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            {
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
-                var 移除我的最愛=db.MyFavorites.Remove(db.MyFavorites.Where(a=>a.MemberId==UserLogin.member.MemberId&&a.ProductId==id).FirstOrDefault());              
-                db.SaveChanges();
-            }
-            else //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return Content("0");
-            }
-            return Content("1");
-        }
+       
         public IActionResult DetailAddMyFavorite(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
