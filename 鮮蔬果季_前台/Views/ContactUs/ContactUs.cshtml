@@ -145,6 +145,7 @@
 
         Loadfeedback()
         function RenderFeedbackName(datas) {
+            selFeedbackName.options.length = 0
             datas.forEach((item) => {
                 const opt = new Option(item.feedbackName, item.feedbackId) //name value
                 selFeedbackName.options.add(opt)
@@ -152,17 +153,12 @@
         }
         
         function RenderfatherFeedbackName(datas) {
+            
             datas.forEach((item) => {
                 const opt = new Option(item.feedbackName, item.feedbackId) //name value
                 selFatherFeedbackId.options.add(opt)
             })
         }
-
-
-
-
-
-
         //載入回應項目
         selFeedbackName.addEventListener('change', async function () {
             const value = selFeedbackName.options[selFeedbackName.selectedIndex].value
