@@ -689,6 +689,10 @@ namespace 鮮蔬果季_前台.Models
                     .HasMaxLength(30)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
+                entity.Property(e => e.SupplierAccount)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
                 entity.Property(e => e.SupplierAddress)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -697,6 +701,10 @@ namespace 鮮蔬果季_前台.Models
                 entity.Property(e => e.SupplierName)
                     .IsRequired()
                     .HasMaxLength(30)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.SupplierPassword)
+                    .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.SupplierProfile).UseCollation("SQL_Latin1_General_CP1_CI_AS");

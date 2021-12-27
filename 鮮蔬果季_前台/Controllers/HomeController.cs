@@ -24,7 +24,12 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
-            }               
+            }
+            else if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_SUPPLIER)) //Seesion有找到
+            {
+                ViewBag.SUPP = UserLogin.supplier.SupplierName;
+                ViewBag.userID = UserLogin.supplier.SupplierAccount;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
