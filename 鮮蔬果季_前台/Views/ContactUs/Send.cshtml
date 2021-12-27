@@ -136,12 +136,7 @@
             //載入回應項目
             const response1 = await fetch('/ContactUs/FeedbackNames')
             RenderFeedbackName(await response1.json())
-           
         }
-
-
-
-
 
         Loadfeedback()
         function RenderFeedbackName(datas) {
@@ -150,7 +145,7 @@
                 selFeedbackName.options.add(opt)
             })
         }
-        
+
         function RenderfatherFeedbackName(datas) {
             selFatherFeedbackId.options.length = 0//用 selFatherFeedbackId.options.length = 0可行;selFeedbackName出問題???
             datas.forEach((item) => {
@@ -165,7 +160,7 @@
             const response1 = await fetch('/ContactUs/FatherFeedbackIds/' + value)
             RenderfatherFeedbackName(await response1.json())
         })
-       
+
 
     </script>
 }

@@ -44,6 +44,10 @@ namespace 鮮蔬果季_前台.Controllers
             }).ToList();
             return Json(fatherfeedackids);
         }
+        public IActionResult Send()
+        {
+            return View();
+        }
     }
     
 }
