@@ -132,7 +132,7 @@ namespace 鮮蔬果季_前台.Controllers
                     couponDetail = q
                 });
             }
-            return PartialView(list);
+            return PartialView("CouponsListPartial",list);
         }
         public IActionResult partialexpired()
         {
@@ -163,7 +163,7 @@ namespace 鮮蔬果季_前台.Controllers
                     couponDetail = q
                 });
             }
-            return PartialView(list);
+            return PartialView("CouponsListPartial",list);
         }
 
         public IActionResult partialHad()
@@ -233,7 +233,48 @@ namespace 鮮蔬果季_前台.Controllers
                     couponDetail = q2
                 });
             }
-            return PartialView(list);
+            return PartialView("CouponsListPartial",list);
         }
+
+
+        public IActionResult partialAdd_Havent(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return NoContent();
+            }
+            var q = (from p in db.Coupons
+                     where p.CouponId == id
+                     select p.CouponQuantityIssued).FirstOrDefault();
+            var qall = (from p in db.Coupons
+                        select p).ToList();
+            CouponDetail couponDetail = (new CouponDetail() { CouponId = id, MemberId = UserLogin.member.MemberId, CouponQuantity = q });
+
+            db.Add(couponDetail);
+            db.SaveChanges();
+            List<CouponsListViewModel> list = new List<CouponsListViewModel>();
+            foreach (var item in qall)
+            {
+                var q2 = (from cd in db.CouponDetails
+                          where cd.CouponId == item.CouponId &&
+                          cd.MemberId == UserLogin.member.MemberId
+                          select cd).FirstOrDefault();
+                list.Add(new CouponsListViewModel()
+                {
+                    coupon = item,
+                    couponDetail = q2
+                });
+            }
+            return PartialView("partialAdd_Havent", list);
+        }
+
+
     }
 }
