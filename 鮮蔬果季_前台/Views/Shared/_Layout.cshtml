@@ -27,12 +27,12 @@
             width: 60px;
             height: 60px;
         }
+
         ul.cart-list > li img {
             width: 60px;
             height: 60px;
             object-fit: cover;
         }
-
     </style>
 
     @await RenderSectionAsync("Styles", required: false)
@@ -81,7 +81,13 @@
                                         <input type="hidden" class="userId" value="@ViewBag.userID">
                                     </li>
                                 }
-
+                                else if (ViewBag.SUPP != null)
+                                {
+                                    <li id="member">
+                                        <i class="fa fa-user s_color"></i> @ViewBag.SUPP
+                                        <input type="hidden" class="userId" value="@ViewBag.userID">
+                                    </li>
+                                }
                                 else
                                 {
                                     <li id="member">
@@ -154,31 +160,52 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
-                                會員中心 <i class="fas fa-chevron-down arrowcustomer"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a asp-area="" asp-controller="Member" asp-action="MemberCenter" class="transition">會員資料</a>
-                                </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Order" asp-action="Orders" class="transition">訂單紀錄</a>
-                                </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList" class="transition">我的收藏</a>
-                                </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Coupons" asp-action="CouponsList" class="transition">優惠券</a>
-                                </li>
-                                @{
-                                    if (ViewBag.USER != null)
+                            @if (ViewBag.SUPP != null)
+                            {
+                                <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
+                                    廠商中心 <i class="fas fa-chevron-down arrowcustomer"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-area="" asp-controller="Member" asp-action="MemberCenter" class="transition">廠商資料</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Order" asp-action="Orders" class="transition">產品管理</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList" class="transition">訂單管理</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
+                                    會員中心 <i class="fas fa-chevron-down arrowcustomer"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-area="" asp-controller="Member" asp-action="MemberCenter" class="transition">會員資料</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Order" asp-action="Orders" class="transition">訂單紀錄</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList" class="transition">我的收藏</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Coupons" asp-action="CouponsList" class="transition">優惠券</a>
+                                    </li>
+                                    @if (ViewBag.USER != null)
                                     {
                                         <li>
                                             <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a>
                                         </li>
                                     }
-                                }
-                            </ul>
+                                </ul>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -204,8 +231,8 @@
                 <li class="cart-box">
                     <ul id="cart-ul" class="cart-list">
                         <li>
-                           <p>購物車內無商品</p>
-                        </li>                      
+                            <p>購物車內無商品</p>
+                        </li>
                         <li class="total">
                             <a asp-area="" asp-controller="Shopping" asp-action="Cart" class="btn btn-default hvr-hover btn-cart">查看購物車</a>
                             <span id="totalPrice" class="float-right"><strong>總價</strong>: NT$ 0</span>

@@ -4,18 +4,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
+using 鮮蔬果季_前台.ViewModels;
 
 namespace 鮮蔬果季_前台.Controllers
 {
     public class BackstageController : Controller
     {
+        private readonly 鮮蔬果季Context db;
+        public BackstageController(鮮蔬果季Context dbContext)
+        {
+            db = dbContext;
+        }
         public IActionResult Home()
         {
             return View();
         }
         public IActionResult Member()
         {
-            return View();
+            var 會員資料 = (from m in db.Members
+                        join c in db.Cities
+                        on m.CityId equals c.CityId
+                        select new { m, c }).ToList();
+            List<MemberViewModel> member = new List<MemberViewModel>();
+
+            foreach (var item in 會員資料) {
+                member.Add(new MemberViewModel()
+                {
+                    member=item.m,
+                    city=item.c.CityName
+                });
+            }
+            return View(member);
         }
         public IActionResult Order()
         {
