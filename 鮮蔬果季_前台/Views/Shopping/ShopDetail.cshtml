@@ -52,6 +52,7 @@
         .rankbody i {
             color: yellowgreen;
         }
+
         .lbl {
             padding: .5rem 1rem;
             border-radius: .2rem;
@@ -63,7 +64,7 @@
         .lbl-success {
             background-color: rgba(10, 187, 135, 0.1);
             color: #0abb87;
-            font-weight:bolder;
+            font-weight: bolder;
         }
 
             .lbl-success:hover {
@@ -155,6 +156,53 @@
             }
             AddtoCart();
         })
+         //加入我的最愛
+        $(document).on("click", ".addFavorite", function (e) {
+            let obj = $(this);
+            let value = $(this).find(".FavoritePId").val();
+            console.log(obj)
+            async function AddtoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/ListAddMyFavorite/")" + value)
+                let data = await response.text() //如果沒登入會回傳0
+                console.log(data)
+                if (data != 0) {
+                    obj.removeClass("addFavorite").addClass("RemoveFavorite")
+                    obj.html("<i class='fas fa-heart' style='color:#FF2D2D'></i><input class='FavoritePId' type='hidden' value='@Model.product.ProductId'' />移除我的最愛")
+                    obj.find("i").css("color", "#FF2D2D")
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".FavoritetoLogin").dispatchEvent(evt)
+                }
+            }
+            AddtoCart();
+        })
+         //移除我的最愛
+        $(document).on("click", ".RemoveFavorite", function (e) {
+            let obj = $(this);
+            let value = $(this).find(".FavoritePId").val();
+            console.log(obj)
+            async function RemovetoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/ListRemoveMyFavorite/")" + value)
+                let data = await response.text() //如果沒登入會回傳0
+                console.log(data)
+                if (data != 0) {
+                    obj.removeClass("RemoveFavorite").addClass("addFavorite")
+                    obj.html("<i class='fas fa-heart' style='color:#ffffff'></i>加入我的最愛<input class='FavoritePId' type='hidden' value='@Model.product.ProductId'' /><input class='FavoritetoLogin' type='hidden' onclick='window.location.href='@Url.Content("~/Login/Login")'' />")
+                    obj.find("i").css("color", "#ffffff")
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".FavoritetoLogin").dispatchEvent(evt)
+                }
+            }
+            RemovetoCart();
+        })
+
 
     </script>
 }
@@ -243,10 +291,11 @@
                         <p>
                             <h4>商品分類:</h4>
                         <p>
-                            @foreach (var 分類項目 in Model.categoryDetails) { 
-                            <label class="lbl lbl-success"><span>@分類項目.CategoryName</span></label>
+                            @foreach (var 分類項目 in Model.categoryDetails)
+                            {
+                                <label class="lbl lbl-success"><span>@分類項目.CategoryName</span></label>
                             }
-                            
+
                         </p>
                         <h4>商品描述:</h4>
                         <p>
@@ -286,11 +335,18 @@
                                 @{
                                     if (Model.myFavorite.MyFavoriteId != 0)
                                     {
-                                        <a class="btn hvr-hover" asp-area="" asp-controller="MyFavorite" asp-action="List"><i class="fas fa-heart" style="color: #FF2D2D"></i> 移除我的最愛</a>
+                                        <a class="btn hvr-hover RemoveFavorite" style="cursor: pointer; color: #ffffff;">
+                                            <i class="fas fa-heart" style="color:#FF2D2D"></i>移除我的最愛
+                                            <input class="FavoritePId" type="hidden" value="@Model.product.ProductId" />
+                                        </a>
                                     }
                                     else
                                     {
-                                        <a class="btn hvr-hover" aasp-area="" asp-controller="Shopping" asp-action="DetailAddMyFavorite" asp-route-id="@Model.product.ProductId"><i class="fas fa-heart"></i> 加入我的最愛</a>
+                                        <a class="btn hvr-hover addFavorite" style="cursor: pointer; color: #ffffff;">
+                                            <i class="fas fa-heart" style="color: #ffffff;"></i>加入我的最愛
+                                            <input class="FavoritePId" type="hidden" value="@Model.product.ProductId" />
+                                            <input class="FavoritetoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                        </a>
                                     }
                                 }
 
