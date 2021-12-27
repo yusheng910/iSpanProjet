@@ -145,7 +145,6 @@
 
         Loadfeedback()
         function RenderFeedbackName(datas) {
-            selFeedbackName.options.length = 0
             datas.forEach((item) => {
                 const opt = new Option(item.feedbackName, item.feedbackId) //name value
                 selFeedbackName.options.add(opt)
@@ -153,7 +152,7 @@
         }
         
         function RenderfatherFeedbackName(datas) {
-            
+            selFatherFeedbackId.options.length = 0//用 selFatherFeedbackId.options.length = 0可行;selFeedbackName出問題???
             datas.forEach((item) => {
                 const opt = new Option(item.feedbackName, item.feedbackId) //name value
                 selFatherFeedbackId.options.add(opt)
