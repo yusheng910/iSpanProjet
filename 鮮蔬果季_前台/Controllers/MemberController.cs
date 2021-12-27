@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
@@ -10,11 +13,16 @@ namespace 鮮蔬果季_前台.Controllers
 {
     public class MemberController : Controller
     {
+        //IWebHostEnvironment _enviroment;
         private readonly 鮮蔬果季Context db;
         public MemberController(鮮蔬果季Context dbContext)
         {
             db = dbContext;
         }
+        //public MemberController(IWebHostEnvironment p)
+        //{
+        //    _enviroment = p;
+        //}
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -46,8 +54,6 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
-                ViewBag.CITY = mc.CityName;
-                ViewBag.GENDER = mc.i.Gender;
                 mv = new MemberViewModel()
                 {
                     member = mc.i,
@@ -66,12 +72,31 @@ namespace 鮮蔬果季_前台.Controllers
             return View(mv);
         }
         [HttpPost]
-        public IActionResult MemberCenter(Member p)
+        public IActionResult MemberCenter(MemberViewModel p)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
+                var cityid = (from i in db.Cities
+                              where p.city==i.CityName
+                              select i.CityId).FirstOrDefault();
+
+                Member cust = db.Members.FirstOrDefault(c => c.MemberId == p.MemberId);
+                if(cust!=null)
+                {
+                    cust.UserId = p.UserId;
+                    cust.Mobile = p.Mobile;
+                    cust.MemberAddress = p.MemberAddress;
+                    cust.CityId = cityid;
+                    cust.Gender = p.Gender;
+                    cust.MemberName = p.MemberName;
+                    //cust.MemberPhotoPass = p.MemberPhotoPass;
+                    db.SaveChanges();
+                    
+                };
+                
+
             }
 
             else
@@ -82,5 +107,12 @@ namespace 鮮蔬果季_前台.Controllers
 
             return View();
         }
+        //[HttpPost] //上傳檔案(待測試)
+
+        //public IActionResult uploadPhoto(IFormFile photo)
+        //{
+        //    photo.CopyTo(new FileStream(_enviroment.WebRootPath+@"\MemberPhoto\test.jpg",FileMode.Create));
+        //    return View();
+        //}
     }
 }
