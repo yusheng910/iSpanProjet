@@ -161,7 +161,7 @@
                 </div>
             </div>
             <div class="col-12 d-flex shopping-box">
-                <a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a>
+                <a id="goCheck" asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a>
             </div>
         </div>
 
@@ -201,6 +201,7 @@
                         </div>
                         <hr>
                     </div>*@
+            <input type="hidden" value="@Model.Count" class="count" />
             </div>
             @*<div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a> </div>*@
         </div>
@@ -210,7 +211,20 @@
 <!-- End Cart -->
 @section Scripts{
     <script>
-        document.getElementById('qtyChange').value
+        //document.getElementById('qtyChange').value
 
+        function showAlert() {
+            alert('購物車內尚無商品');
+        }
+
+        $('#goCheck').click(function () {
+            let value = $(".count").val();
+            console.log(value)
+            //let value = @Model.Count
+            if (value == 0) {
+                showAlert();
+                return false;        
+            }
+        })
     </script>
 }
