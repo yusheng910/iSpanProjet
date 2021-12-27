@@ -23,6 +23,9 @@ namespace 鮮蔬果季_前台.Models
         public DateTime? EventEndDate { get; set; }
         public int? CategoryId { get; set; }
         public int? EventPrice { get; set; }
+        public string Subtitle { get; set; }
+        public int? LableId { get; set; }
+        public string Lable { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }

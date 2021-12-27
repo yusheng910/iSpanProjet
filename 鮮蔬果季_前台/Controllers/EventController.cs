@@ -41,31 +41,57 @@ namespace 鮮蔬果季_前台.Controllers
             }
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
-            var datas = (from E in db.Events
-                         join 照片 in db.EventPhotoBanks on E.EventId equals 照片.EventId
-                         select E).ToList();
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                         select  new {E,supp }).ToList();
 
-            List<EventListViewModel> list = new List<EventListViewModel>();
-            foreach (var item in datas)
+            foreach (var item in 所有活動)
             {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
                 //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
-                var 活動供應商與城市 = (from SI in db.Suppliers
-                              join C in db.Cities on SI.CityId equals C.CityId
-                         where SI.SupplierId == item.SupplierId
-                         select new { SI,C }).FirstOrDefault();                            //.FirstOrDefault跟ToList相同有斷點效果
-                list.Add(new EventListViewModel()              
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                //var 照片資料 = db.EventPhotoBanks.Where(P => P.EventId == item.E.EventId).ToList();
+                所有活動列表.Add(new EventListViewModel()              
                 {
-                    Event = item,
-                    Supplier = 活動供應商與城市.SI,
-                    City = 活動供應商與城市.C
+                    Event = item.E,
+                    City = 城市資料,
+                    _EventPhotoBank = 相片list,
                 });
             }
-            return View(list);
+            return View(所有活動列表);
         }
 
+        //舊的留存
+        ////鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
+        //var datas = (from E in db.Events
+        //                 //join 照片 in db.EventPhotoBanks on E.EventId equals 照片.EventId
+        //             select E).ToList();
+
+        //List<EventListViewModel> list = new List<EventListViewModel>();
+        //    foreach (var item in datas)
+        //    {
+        //        //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
+        //        var 活動供應商與城市 = (from SI in db.Suppliers
+        //                        join C in db.Cities on SI.CityId equals C.CityId
+        //                        where SI.SupplierId == item.SupplierId
+        //                        select new { SI, C }).FirstOrDefault();                            //.FirstOrDefault跟ToList相同有斷點效果
+        //list.Add(new EventListViewModel()
+        //{
+        //    Event = item,
+        //            Supplier = 活動供應商與城市.SI,
+        //            City = 活動供應商與城市.C
+        //        });
+        //    }
+        //    return View(list);
 
 
-        public IActionResult EventSignUp_1(int id)
+
+    public IActionResult EventSignUp_1(int id)
         {
 
             // 判斷會員是否登入
