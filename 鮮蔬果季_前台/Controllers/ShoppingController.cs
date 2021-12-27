@@ -681,6 +681,7 @@ namespace 鮮蔬果季_前台.Controllers
                              join sup in db.Suppliers
                              on pro.SupplierId equals sup.SupplierId
                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             //where item.MemberId ==19 && stat.StatusId == 1
                              select new { item, pro, stat, sup }).ToList();
 
                 foreach (var i in 購物車商品)
@@ -699,6 +700,39 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
+        }
+        public IActionResult CheckAddOrder(string address, int paymentMethod)
+        {
+            ViewBag.USER = UserLogin.member.MemberName;
+
+            var 結帳區商品商品 = (from items in db.ShoppingCarts
+                          where items.MemberId == UserLogin.member.MemberId && items.StatusId == 1
+                          select items).ToList();
+
+                if (結帳區商品商品 != null)
+                {
+                    Order newOrder = new Order()
+                    {
+                        MemberId = UserLogin.member.MemberId,
+                        OrderDate = DateTime.Now,
+                        ShippedTo = address,
+                        StatusId = 4,
+                        PayMethodId = paymentMethod
+                    };
+                    db.Add(newOrder);
+                    db.SaveChanges();
+                }
+
+            //var q = from sc in db.ShoppingCarts
+            //        where sc.MemberId == UserLogin.member.MemberId && sc.StatusId == 1
+            //        select sc;
+            //foreach (var i in q)
+            //{
+            //    i.StatusId = 3;
+            //}
+
+            return Content("1");
+
         }
     }
 }
