@@ -240,7 +240,7 @@
                                     您確定要結帳購物車內的商品嗎?
                                 </div>
                                 <div class="modal-footer">
-                                    <button id="btnCheck" type="button" class="btn btn-primary" onclick="window.location.href = '@Url.Content("~/Shopping/CheckAddOrder")' +'?address='+address+'&paymentMethod='+paymentMethod">確定</button>
+                                    <button id="btnCheck" type="button" class="btn btn-primary" onclick="window.location.href = '@Url.Content("~/Shopping/CheckAddOrder")' +'?address='+'仁愛路'+'&paymentMethod='+2">確定</button>
                                     <input class="toOrder" type="hidden" onclick="window.location.href = '@Url.Content("~/Order/Orders")'">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
                                 </div>
@@ -257,9 +257,11 @@
 @section Scripts{
     <script>
         var btn = document.querySelector('#btnCheck')
+        var payRadio = $('input[name="paymentMethod"]:checked').val()
+        var txtAddress = $('#address').val()
 
         btn.addEventListener('click', async function () {
-            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + address + '&paymentMethod=' + paymentMethod)
+            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio)
             var data = await response.text();
             if (data == 1) {
                 console.log("454674")

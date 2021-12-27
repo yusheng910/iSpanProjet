@@ -20,10 +20,15 @@
             padding-left: 10px;
         }
 
+        .add-pr {
+            text-align: right;
+            padding-right: 10px;
+        }
+
         .add-rv {
             text-align: right;
             padding-right: 20px;
-            width: 248.29px;
+            width: 160px;
         }
 
         .last-th {
@@ -139,7 +144,7 @@
                         $(".stargroup > i").prevAll().off("mouseenter");
                         $(".result").text("分數為" + starnum + "分！");
                         $(".showRanking").val(starnum);
-                        
+
                         console.log($(".showRanking").val())
                     }).dblclick(function () {
                         $(".result").text("評分中...");
@@ -232,6 +237,7 @@
                                 <th>價格</th>
                                 <th>數量</th>
                                 <th>小計</th>
+                                <th></th>
                                 <th style="padding-right:45px;" class="last-th">評價</th>
                             </tr>
                         </thead>
@@ -278,6 +284,9 @@
                                             <p id="total-pr">NT$ @商品價乘數量</p>
                                             @*<p>@item.單筆訂單細項總價</p>*@
                                         </td>
+                                        <td class="add-pr">
+                                            <a style="padding:8px 12px;" href="#" class="btn hvr-hover">問題回報</a>
+                                        </td>
                                         <td style="padding-right:20px;" class="add-rv">
                                             <div class="aboveadd">
                                                 <div class="text-right">
@@ -322,7 +331,11 @@
                         <textarea class="form-control animated new-review getcomments" cols="50" placeholder="在這裡寫下您的評論..." rows="5"></textarea>
                         <div class="sysrank">
                             <div class="stargroup">
-                                <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
                             </div>
                             <div>
                                 <span class="result">評分中...</span>
