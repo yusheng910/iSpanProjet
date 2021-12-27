@@ -730,6 +730,32 @@ namespace 鮮蔬果季_前台.Controllers
                     };
                     db.Add(newOrder);
                     db.SaveChanges();
+
+                var latestOrder = (from i in db.Orders
+                                 orderby i.OrderId descending
+                                 select i.OrderId).FirstOrDefault();
+                OrderDetail OD = null;
+                foreach(var i in 結帳區商品商品)
+                {
+                    OD = new OrderDetail
+                    {
+                        OrderId = latestOrder,
+                        ProductId = i.ProductId,
+                        UnitsPurchased = i.UnitsInCart,
+                        HaveReviews = false
+                    };
+                    db.OrderDetails.Add(OD);
+                    var units = (from p in db.Products
+                                 where p.ProductId == i.ProductId
+                                 select p).FirstOrDefault();
+                    units.ProductUnitsInStock -= i.UnitsInCart;
+                }
+                db.SaveChanges();
+
+                foreach(var j in 結帳區商品商品)
+                {
+                    j.StatusId = 3;
+                }
                 }
 
             //var q = from sc in db.ShoppingCarts
