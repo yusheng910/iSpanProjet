@@ -103,7 +103,7 @@ namespace 鮮蔬果季_前台.Controllers
                          select E).ToList();
             }
 
-            else         //卡關,搜索過其他標籤後,再點全部文章,就沒改變
+            else       
             { 
                 
                 datas = (from E in db.BlogDetails
@@ -115,13 +115,13 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 //db = new 鮮蔬果季Context();
                 var 供應商與城市 = (from Sl in db.Suppliers
-                           join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表,不確定是否是這樣
+                           join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
                            where Sl.SupplierId == item.SupplierId  
                            select new { Sl, C } ).FirstOrDefault();     //抓取兩個資料表
                 list.Add(new BlogDetailListViewModel()          
                 {
                     BlogDetail = item,
-                    Supplier = 供應商與城市.Sl, 
+                    Supplier = 供應商與城市.Sl , 
                     City = 供應商與城市.C
                 });
             }

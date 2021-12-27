@@ -24,13 +24,13 @@ namespace 鮮蔬果季_前台.ViewModels
         }
 
 
-        public EventPhotoBank _EventPhotoBank = null;
-        public EventPhotoBank EventPhotoBank
+        public List <EventPhotoBank> _EventPhotoBank = null;
+        public  List<EventPhotoBank> EventPhoto
         {
             get
             {
                 if (_EventPhotoBank == null)
-                    _EventPhotoBank = new EventPhotoBank();
+                    _EventPhotoBank = new List<EventPhotoBank>();
                 return _EventPhotoBank;
             }
             set
@@ -67,6 +67,21 @@ namespace 鮮蔬果季_前台.ViewModels
             set
             {
                 _EventRegistration = value;
+            }
+        }
+
+        public Supplier _Supplier = null;
+        public Supplier Supplier
+        {
+            get
+            {
+                if (_Supplier == null)
+                    _Supplier = new Supplier();
+                return _Supplier;
+            }
+            set
+            {
+                _Supplier = value;
             }
         }
 

@@ -68,6 +68,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prod = value;
             }
         }
+        public Supplier _sup = null;
+        public Supplier supplier
+        {
+            get
+            {
+                if (_sup == null)
+                    _sup = new Supplier();
+                return _sup;
+            }
+            set
+            {
+                _sup = value;
+            }
+        }
         public OrderDetail _odetail = null;
         public OrderDetail odetail
         {

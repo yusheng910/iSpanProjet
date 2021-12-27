@@ -34,63 +34,6 @@ namespace 鮮蔬果季_前台.Controllers
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                        select new { prod, supp }).ToList();
-            //if (select.SelectOrderBy == 1)/*最新商品*/
-            //{
-            //    所有產品 = from prod in db.Products
-            //           join supp in db.Suppliers
-            //           on prod.SupplierId equals supp.SupplierId
-            //           orderby prod.ProduceDate descending
-            //           select new { prod, supp };
-            //    if (!string.IsNullOrEmpty(select.txtKeyword))
-            //        所有產品 = from prod in db.Products
-            //               join supp in db.Suppliers
-            //               on prod.SupplierId equals supp.SupplierId
-            //               where prod.ProductName.Contains(@select.txtKeyword)
-            //               orderby prod.ProduceDate descending
-            //               select new { prod, supp };
-            //    ViewBag.Select = 1;
-            //}
-            //else if (select.SelectOrderBy == 2) /*價格高到低*/
-            //{
-            //    所有產品 = from prod in db.Products
-            //           join supp in db.Suppliers
-            //           on prod.SupplierId equals supp.SupplierId
-            //           orderby prod.ProductUnitPrice descending
-            //           select new { prod, supp };
-            //    if (!string.IsNullOrEmpty(select.txtKeyword))
-            //        所有產品 = from prod in db.Products
-            //               join supp in db.Suppliers
-            //               on prod.SupplierId equals supp.SupplierId
-            //               where prod.ProductName.Contains(@select.txtKeyword)
-            //               orderby prod.ProductUnitPrice descending
-            //               select new { prod, supp };
-            //    ViewBag.Select = 2;
-            //}
-            //else if (select.SelectOrderBy == 3)/*價格低到高*/
-            //{
-            //    所有產品 = from prod in db.Products
-            //           join supp in db.Suppliers
-            //           on prod.SupplierId equals supp.SupplierId
-            //           orderby prod.ProductUnitPrice
-            //           select new { prod, supp };
-            //    if (!string.IsNullOrEmpty(select.txtKeyword))
-            //        所有產品 = from prod in db.Products
-            //               join supp in db.Suppliers
-            //               on prod.SupplierId equals supp.SupplierId
-            //               where prod.ProductName.Contains(@select.txtKeyword)
-            //               orderby prod.ProductUnitPrice
-            //               select new { prod, supp };
-            //    ViewBag.Select = 3;
-            //}
-            //else if (!string.IsNullOrEmpty(select.txtKeyword)) /*沒選排序直接搜尋*/
-            //{
-            //    所有產品 = from prod in db.Products
-            //           join supp in db.Suppliers
-            //           on prod.SupplierId equals supp.SupplierId
-            //           where prod.ProductName.Contains(@select.txtKeyword)
-            //           select new { prod, supp };
-            //}
-            //db = new 鮮蔬果季Context();
             foreach (var item in 所有產品)
             {            
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
@@ -130,8 +73,42 @@ namespace 鮮蔬果季_前台.Controllers
 
             return View(所有商品列表);
         }
-
-        public IActionResult CategoryPartial(int id)
+        #region List的PartialView商業邏輯查詢
+        //PartialView 開始
+        public IActionResult AllProductPartial()
+        {
+            List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
+            var 所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                       on prod.SupplierId equals supp.SupplierId
+                        select new
+                        {
+                            prod.ProductId,
+                            prod.ProductName,
+                            prod.ProductUnitPrice,
+                            prod.ProductSize,
+                            supp.SupplierName
+                        }).ToList();
+            foreach (var item in 所有商品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                相片List.Add(封面相片);
+                所有商品列表.Add(new ShoppingListViewModel()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductUnitPrice = item.ProductUnitPrice,
+                    ProductSize = item.ProductSize,
+                    SupplierName = item.SupplierName,
+                    myFavorite = 最愛商品,
+                    photoBank = 相片List
+                });
+            }
+            return PartialView("ProductSearchPartial", 所有商品列表);
+        }
+        public IActionResult CategoryPartial(int id, int min, int max)
         {
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
@@ -139,7 +116,7 @@ namespace 鮮蔬果季_前台.Controllers
                        on prod.SupplierId equals supp.SupplierId
                         join c in db.CategoryDetails
                         on prod.ProductId equals c.ProductId
-                        where c.CategoryId == id
+                        where c.CategoryId == id && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
                         select new
                         {
                             c.CategoryId,
@@ -167,7 +144,7 @@ namespace 鮮蔬果季_前台.Controllers
                     CategoryId=item.CategoryId
                 });
             }
-            return PartialView(所有商品列表);
+            return PartialView("ProductSearchPartial", 所有商品列表);
         }
         public IActionResult PricePartial(int min,int max,int categetoryId)
         {
@@ -203,7 +180,7 @@ namespace 鮮蔬果季_前台.Controllers
                         photoBank = 相片List
                     });
                 }
-                return PartialView(商品列表);
+                return PartialView("ProductSearchPartial", 商品列表);
             }
 
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
@@ -241,56 +218,17 @@ namespace 鮮蔬果季_前台.Controllers
                     CategoryId = item.CategoryId
                 });
             }
-            return PartialView(所有商品列表);
+            return PartialView("ProductSearchPartial", 所有商品列表);
         }
-
-        public IActionResult ProductSearchjPartial(string prodName, int categetoryId)
+        public IActionResult ProductSearchPartial(string prodName)
         {
-            if (categetoryId == 0)
-            {
-                List<ShoppingListViewModel> 商品列表 = new List<ShoppingListViewModel>();
-                var 所有商品2 = (from prod in db.Products
-                             join supp in db.Suppliers
-                            on prod.SupplierId equals supp.SupplierId
-                             where prod.ProductName.Contains(prodName)
-                             select new
-                             {
-                                 prod.ProductId,
-                                 prod.ProductName,
-                                 prod.ProductUnitPrice,
-                                 prod.ProductSize,
-                                 supp.SupplierName
-                             }).ToList();
-                foreach (var item in 所有商品2)
-                {
-                    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
-                    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
-                    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
-                    相片List.Add(封面相片);
-                    商品列表.Add(new ShoppingListViewModel()
-                    {
-                        ProductId = item.ProductId,
-                        ProductName = item.ProductName,
-                        ProductUnitPrice = item.ProductUnitPrice,
-                        ProductSize = item.ProductSize,
-                        SupplierName = item.SupplierName,
-                        myFavorite = 最愛商品,
-                        photoBank = 相片List
-                    });
-                }
-                return PartialView(商品列表);
-            }
-
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
-                        join c in db.CategoryDetails
-                        on prod.ProductId equals c.ProductId
-                        where c.CategoryId == categetoryId &&  prod.ProductName.Contains(prodName)
+                        where   prod.ProductName.Contains(prodName)
                         select new
                         {
-                            c.CategoryId,
                             prod.ProductId,
                             prod.ProductName,
                             prod.ProductUnitPrice,
@@ -312,16 +250,173 @@ namespace 鮮蔬果季_前台.Controllers
                     ProductSize = item.ProductSize,
                     SupplierName = item.SupplierName,
                     myFavorite = 最愛商品,
-                    photoBank = 相片List,
-                    CategoryId = item.CategoryId
+                    photoBank = 相片List
                 });
             }
-            return PartialView(所有商品列表);
+            return PartialView("ProductSearchPartial", 所有商品列表);
         }
+        public IActionResult OrderProductPartial(int id,int min, int max, int categetoryId)
+        {
+            List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
+
+            var 所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+            if (id == 0) {
+                if (categetoryId == 0)
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+                else
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            join c in db.CategoryDetails on prod.ProductId equals c.ProductId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+            }
+            //最新商品
+            if (id == 1) {
+                所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                        orderby prod.ProduceDate descending
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                if (categetoryId == 0)
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                            orderby prod.ProduceDate descending
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+                else {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            join c in db.CategoryDetails on prod.ProductId equals c.ProductId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
+                            orderby prod.ProduceDate descending
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+            }
+            //價格由高至低
+            if (id == 2)
+            {
+                所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                        orderby prod.ProductUnitPrice descending
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                if (categetoryId == 0)
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                            orderby prod.ProductUnitPrice descending
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+                else
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            join c in db.CategoryDetails on prod.ProductId equals c.ProductId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
+                            orderby prod.ProductUnitPrice descending
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+            }
+            //價格由低至高
+            if (id == 3)
+            {
+                所有商品 = (from prod in db.Products
+                        join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                        orderby prod.ProductUnitPrice
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                if (categetoryId == 0)
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                            orderby prod.ProductUnitPrice
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+                else
+                {
+                    所有商品 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            join c in db.CategoryDetails on prod.ProductId equals c.ProductId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
+                            orderby prod.ProductUnitPrice
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                }
+            }
+            //=============================
+            foreach (var item in 所有商品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                相片List.Add(封面相片);
+                所有商品列表.Add(new ShoppingListViewModel()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductUnitPrice = item.ProductUnitPrice,
+                    ProductSize = item.ProductSize,
+                    SupplierName = item.SupplierName,
+                    myFavorite = 最愛商品,
+                    photoBank = 相片List
+                });
+            }
+            return PartialView("ProductSearchPartial", 所有商品列表);
+        }
+        public IActionResult ListAddMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                MyFavorite myFavorite = new MyFavorite()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    ProductId = id
+                };
+                db.Add(myFavorite);
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            return Content("1");
+        }
+        public IActionResult ListRemoveMyFavorite(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                var 移除我的最愛 = db.MyFavorites.Remove(db.MyFavorites.Where(a => a.MemberId == UserLogin.member.MemberId && a.ProductId == id).FirstOrDefault());
+                db.SaveChanges();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            return Content("1");
+        }
+        #endregion
         public IActionResult ProductName() {
             var 所有商品 = (from p in db.Products orderby p.ProductName select p.ProductName).Distinct().ToList();
             return Json(所有商品);
         }
+
         public IActionResult ShopDetail(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -381,28 +476,7 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(單筆商品);
         }
-        public IActionResult ListAddMyFavorite(int id)
-        {
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            {
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
-                MyFavorite myFavorite = new MyFavorite()
-                {
-                    MemberId=UserLogin.member.MemberId,
-                    ProductId=id
-                };
-                db.Add(myFavorite);
-                db.SaveChanges();
-            }               
-            else //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return RedirectToAction("Login","Login");
-            }
-            return RedirectToAction("List");
-        }
+       
         public IActionResult DetailAddMyFavorite(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -593,7 +667,36 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult Checkout()
         {
-            return View();           
+            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            //{
+            //    ViewBag.USER = UserLogin.member.MemberName;
+            //    ViewBag.userID = UserLogin.member.MemberId;
+
+            //=============================
+            List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
+            var 購物車商品 = (from pro in db.Products
+                         join item in db.ShoppingCarts
+                         on pro.ProductId equals item.ProductId
+                         join stat in db.Statuses
+                         on item.StatusId equals stat.StatusId
+                         join sup in db.Suppliers
+                         on pro.SupplierId equals sup.SupplierId
+                         //where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                         where item.MemberId == 19 && stat.StatusId == 1
+                         select new { item, pro, stat, sup }).ToList();
+
+            foreach (var i in 購物車商品)
+                {
+                購物車商品列表.Add(new ShoppingListViewModel()
+                {
+                    shopCart = i.item,
+                    product = i.pro,
+                    status = i.stat,
+                    supplier = i.sup
+                });
+            }
+                return View(購物車商品列表);
+            //}                   
         }
     }
 }
