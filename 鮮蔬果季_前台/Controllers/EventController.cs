@@ -44,8 +44,8 @@ namespace 鮮蔬果季_前台.Controllers
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
                         join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                         select  new {E,supp }).ToList();
+                       on E.SupplierId equals supp.SupplierId
+                       select  new {E,supp }).ToList();
 
             foreach (var item in 所有活動)
             {
@@ -60,7 +60,7 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     Event = item.E,
                     City = 城市資料,
-                    _EventPhotoBank = 相片list,
+                    EventPhoto = 相片list,
                 });
             }
             return View(所有活動列表);
