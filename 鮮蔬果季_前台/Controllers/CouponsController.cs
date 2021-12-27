@@ -23,14 +23,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
-            }
-
-            else //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-            }
-            var qall = (from p in db.Coupons
+                            var qall = (from p in db.Coupons
                         select p).ToList();
 
             List<CouponsListViewModel> list = new List<CouponsListViewModel>();
@@ -47,6 +40,14 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
             return View(list);
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
         }
         public IActionResult AddCoupons(int id)
         {
@@ -248,7 +249,6 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                return NoContent();
             }
             var q = (from p in db.Coupons
                      where p.CouponId == id
