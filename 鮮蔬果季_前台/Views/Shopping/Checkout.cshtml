@@ -44,8 +44,8 @@
                     <form class="needs-validation" novalidate>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="firstName">收件姓名 *</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <label for="firstName">會員姓名 *</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value="@UserLogin.member.MemberName" readonly>
                                 <div class="invalid-feedback"> Valid first name is required. </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                                     <div class="rounded p-2 bg-light">
                                         <div class="media mb-2 border-bottom">
                                             <div class="media-body">
-                                                <h3 style="font-weight:bold;"> @item.product.ProductName (@item.supplier.SupplierName)</h3>
+                                                <h4 style="font-weight:bold;"> @item.product.ProductName (@item.supplier.SupplierName)</h4>
                                                 <div class="small text-muted">
                                                     價格: NT$ @item.product.ProductUnitPrice
                                                     <span class="mx-2">|</span> 數量: @item.shopCart.UnitsInCart

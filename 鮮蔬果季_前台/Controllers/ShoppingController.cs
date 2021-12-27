@@ -667,36 +667,38 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult Checkout()
         {
-            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            //{
-            //    ViewBag.USER = UserLogin.member.MemberName;
-            //    ViewBag.userID = UserLogin.member.MemberId;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
 
-            //=============================
-            List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
-            var 購物車商品 = (from pro in db.Products
-                         join item in db.ShoppingCarts
-                         on pro.ProductId equals item.ProductId
-                         join stat in db.Statuses
-                         on item.StatusId equals stat.StatusId
-                         join sup in db.Suppliers
-                         on pro.SupplierId equals sup.SupplierId
-                         //where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                         where item.MemberId == 19 && stat.StatusId == 1
-                         select new { item, pro, stat, sup }).ToList();
+                List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
+                var 購物車商品 = (from pro in db.Products
+                             join item in db.ShoppingCarts
+                             on pro.ProductId equals item.ProductId
+                             join stat in db.Statuses
+                             on item.StatusId equals stat.StatusId
+                             join sup in db.Suppliers
+                             on pro.SupplierId equals sup.SupplierId
+                             where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             select new { item, pro, stat, sup }).ToList();
 
-            foreach (var i in 購物車商品)
+                foreach (var i in 購物車商品)
                 {
-                購物車商品列表.Add(new ShoppingListViewModel()
-                {
-                    shopCart = i.item,
-                    product = i.pro,
-                    status = i.stat,
-                    supplier = i.sup
-                });
-            }
+                    購物車商品列表.Add(new ShoppingListViewModel()
+                    {
+                        shopCart = i.item,
+                        product = i.pro,
+                        status = i.stat,
+                        supplier = i.sup
+                    });
+                }
                 return View(購物車商品列表);
-            //}                   
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
     }
 }
