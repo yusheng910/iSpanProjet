@@ -46,7 +46,7 @@ namespace 鮮蔬果季_前台.Controllers
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                        select  new {E,supp }).ToList();
-
+            
             foreach (var item in 所有活動)
             {
 
@@ -55,12 +55,14 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                //ViewBag.活動數量 =  db.Events.Count().ToString() ;            //活動數量總計
                 //var 照片資料 = db.EventPhotoBanks.Where(P => P.EventId == item.E.EventId).ToList();
                 所有活動列表.Add(new EventListViewModel()              
                 {
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    
                 });
             }
             return View(所有活動列表);
