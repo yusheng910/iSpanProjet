@@ -1,15 +1,5 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
 
-@*@section Scripts{ 
-    <script>
-            var addcpbtn = $('.addcpbtn');
-        addcpbtn.click(function () {
-            var value = $(this).find(".findcid").val()
-            console.log(value)
-        })
-    </script>
-}*@
-
 @foreach (var item in Model)
 {
     <div class="col-sm-6">

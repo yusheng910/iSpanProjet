@@ -219,6 +219,16 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.EventStartDate).HasColumnType("datetime");
 
+                entity.Property(e => e.Lable)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.LableId).HasColumnName("LableID");
+
+                entity.Property(e => e.Subtitle)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
                 entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
                 entity.HasOne(d => d.Category)
@@ -429,6 +439,8 @@ namespace 鮮蔬果季_前台.Models
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.CouponId).HasColumnName("CouponID");
+
+                entity.Property(e => e.DeliveryAddress).UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
