@@ -176,7 +176,7 @@
             let value = $(this).find(".add").val();
             console.log(value)
             async function AddtoCart() {
-                let response = await fetch("@Url.Content("~/Shopping/ListAddToCart/")" + value)
+                let response = await fetch("@Url.Content("~/Shopping/ListAddToCart/")" + value+"?count=1")
                 let data = await response.text() //如果沒登入會回傳0
                 console.log(data)
                 if (data != 0) {

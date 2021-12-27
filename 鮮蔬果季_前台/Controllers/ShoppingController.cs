@@ -22,7 +22,11 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
             }
-            
+            else if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_SUPPLIER)) //Seesion有找到
+            {
+                ViewBag.SUPP = UserLogin.supplier.SupplierName;
+                ViewBag.userID = UserLogin.supplier.SupplierAccount;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -424,6 +428,11 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
             }
+            else if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_SUPPLIER)) //Seesion有找到
+            {
+                ViewBag.SUPP = UserLogin.supplier.SupplierName;
+                ViewBag.userID = UserLogin.supplier.SupplierAccount;
+            }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
@@ -537,7 +546,7 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
-        public IActionResult ListAddToCart(int id)
+        public IActionResult ListAddToCart(int id,int count)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
@@ -554,7 +563,7 @@ namespace 鮮蔬果季_前台.Controllers
                     {
                         MemberId = UserLogin.member.MemberId,
                         ProductId = id,
-                        UnitsInCart = 1,
+                        UnitsInCart = count,
                         StatusId = 1
                     };
                     db.Add(myCartitem);
@@ -565,7 +574,7 @@ namespace 鮮蔬果季_前台.Controllers
                     ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);
                     myCartitem.MemberId = UserLogin.member.MemberId;
                     myCartitem.ProductId = id;
-                    myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + 1;
+                    myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + count;
                     myCartitem.StatusId = 1;
                     db.SaveChanges();
                 }
