@@ -28,6 +28,8 @@
                             <th><strong>ID</strong></th>
                             <th><strong>頭像</strong></th>
                             <th><strong>會員</strong></th>
+                            <th><strong>帳號</strong></th>
+                            <th><strong>密碼</strong></th>
                             <th><strong>地址</strong></th>
                             <th><strong>城市</strong></th>
                             <th><strong>電話</strong></th>
@@ -37,46 +39,59 @@
                     </thead>
                     <tbody>
                         @{
+                            int count = 0;
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="1">
-                                            <label class="custom-control-label" for="1"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-muted"><strong>@item.member.MemberId</strong></p>
-                                    </td>
-                                    <td>
-                                        <div class="avatar avatar-sm">
-                                            <img src="~/images/MemberPhoto/@item.member.MemberPhotoPass" alt="..." class="avatar-img rounded-circle">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-muted"><strong>@item.member.MemberName</strong></p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-muted"><strong>@item.member.MemberAddress</strong></p>
-                                    </td>
-                                    <td>
-                                        <small class="mb-0 text-muted"><strong>@item.city</strong></small>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>@item.member.Mobile</strong></a></p>
-                                    </td>
-                                    <td class="text-muted"><strong>@item.member.BirthDate</strong></td>
-                                    <td>
-                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">修改</a>
-                                            <a class="dropdown-item" href="#">移除</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                count++;
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="@count">
+                                                            <label class="custom-control-label" for="@count"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-muted"><strong>@item.member.MemberId</strong></p>
+                                                    </td>
+                                                    <td>
+                                                        <div class="avatar avatar-sm">
+                                                            <img src="~/images/MemberPhoto/@item.member.MemberPhotoPass" alt="..." class="avatar-img rounded-circle">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-muted"><strong>@item.member.MemberName</strong></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-muted"><strong>@item.member.UserId</strong></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-muted"><strong>@item.member.Password</strong></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-muted"><strong>@item.member.MemberAddress</strong></p>
+                                                    </td>
+                                                    <td>
+                                                        <small class="mb-0 text-muted"><strong>@item.city</strong></small>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>@item.member.Mobile</strong></a></p>
+                                                    </td>
+                                                    @{
+                                                        string date = (item.member.BirthDate).ToString();
+                                                        date = date.Split(" ")[0];
+                                                        <td class="text-muted"><strong>@date</strong></td>
+                                                    }
+
+                                                    <td>
+                                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="text-muted sr-only">Action</span>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#">修改</a>
+                                                            <a class="dropdown-item" href="#">移除</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                             }
                         }
 
