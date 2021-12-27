@@ -21,6 +21,8 @@ namespace 鮮蔬果季_前台.Models
         public string Mobile { get; set; }
         public int CityId { get; set; }
         public string SupplierProfile { get; set; }
+        public string SupplierAccount { get; set; }
+        public string SupplierPassword { get; set; }
 
         public virtual City City { get; set; }
         public virtual ICollection<Event> Events { get; set; }

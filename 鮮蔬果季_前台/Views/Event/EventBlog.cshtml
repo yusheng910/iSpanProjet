@@ -168,7 +168,7 @@
                         <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="~/images/EventImg/活動1-1.jpg" alt="First slide">
+                                    <img class="d-block w-100" src="~/images/活動照片/@item._EventPhotoBank" alt="First slide">
 
                                 </div>
                             </div>
@@ -176,16 +176,29 @@
                     </div>
                     <div class="col-xl-7 col-lg-7 col-md-6">
                         <div class="single-product-details">
-                            <h2>@Html.DisplayFor(modelitem => item.Event.EventName )</h2>  @*活動項目標題*@
+                            <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2>  @*活動項目標題*@
                             <h5>
                                 <del>   @(item.Event.EventPrice*1.2) </del> @*原價=SQL定價*1.2*@
                                 @Html.DisplayFor(modelitem => item.Event.EventPrice)  / 人
                             </h5>
                             <p class="available-stock pp">
-                                <span> 新北市 , 金山縣 , 現場收費 <a href="#"></a></span>
+                                <span> @item.City.CityName , 現場收費 <a href="#"></a></span>
                             <p>
+                                <div>
+                                    <span class="date">
+                                        <i class="fas fa-calendar" style="padding-right:10px">
+                                        </i>@item.Event.EventLocation
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span class="date">
+                                        <i class="fas fa-calendar" style="padding-right:10px">
+                                        </i>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                    </span>
+                                </div>
                                 <h4>適合攜家帶眷同樂樂 </h4>  @*放主標題,待資料庫新增欄位*@
-                            <p>
+<p>
                                 @Html.DisplayFor(modelitem => item.Event.EventDescription)
                             </p>
                             <div class="price-box-bar">
@@ -202,6 +215,6 @@
             }
         }
 
-        
+
 
 
