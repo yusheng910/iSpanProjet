@@ -27,8 +27,8 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
-                              //where ord.MemberId == UserLogin.member.MemberId                           
-                              where ord.MemberId == 19
+                              where ord.MemberId == UserLogin.member.MemberId                           
+                              orderby ord.OrderId descending
                               select new { ord, stat }).ToList();
 
                 foreach (var o in orders)
@@ -63,7 +63,8 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
-                              where ord.MemberId == 19
+                              where ord.MemberId == UserLogin.member.MemberId
+                              orderby ord.OrderId descending
                               select new { ord, stat }).ToList();
 
                 foreach (var o in orders)
@@ -98,7 +99,8 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
-                          where ord.MemberId == 19 && ord.StatusId == 6
+                          where ord.MemberId == UserLogin.member.MemberId && ord.StatusId == 6
+                          orderby ord.OrderId descending
                           select new { ord, stat }).ToList();
 
             //db = new 鮮蔬果季Context();
@@ -134,7 +136,8 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
-                          where ord.MemberId == 19 && ord.StatusId == 5
+                          where ord.MemberId == UserLogin.member.MemberId && ord.StatusId == 5
+                          orderby ord.OrderId descending
                           select new { ord, stat }).ToList();
 
             foreach (var o in orders)
@@ -169,7 +172,8 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
-                          where ord.MemberId == 19 && ord.StatusId == 4
+                          where ord.MemberId == UserLogin.member.MemberId && ord.StatusId == 4
+                          orderby ord.OrderId descending
                           select new { ord, stat }).ToList();
 
                 foreach (var o in orders)
@@ -206,6 +210,7 @@ namespace 鮮蔬果季_前台.Controllers
                               join sup in db.Suppliers
                               on p.SupplierId equals sup.SupplierId
                               where od.OrderId == id
+                              orderby od.ProductId
                               select new { od, p, sup }).ToList();
                 
                 foreach (var o in 所有訂單細項)
