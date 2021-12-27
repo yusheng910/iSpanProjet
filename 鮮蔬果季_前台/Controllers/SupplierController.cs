@@ -11,7 +11,7 @@ namespace 鮮蔬果季_前台.Controllers
     public class SupplierController : Controller
     {
        
-        public IActionResult SupplierList(KeywordViewModel kvm)
+        public IActionResult ProductList(KeywordViewModel kvm)
         {
             string keyword = kvm.txtKeyword;
             IEnumerable<Supplier> suppliers = null;

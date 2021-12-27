@@ -374,120 +374,84 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane fade" id="list-view">
-                                <div class="list-view-box">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="~/images/商品照/美生菜.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
-                                                            </li>
-                                                        </ul>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        if (item.DefectiveGood)
+                                        {
+                                            <div class="list-view-box">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                        <div class="products-single fix">
+                                                            <div class="box-img-hover">
+                                                                <div class="type-lb">
+                                                                    <p class="sale">Sale</p>
+                                                                </div>
+                                                                @{if (@item.photoBank[0] != null)
+                                                                    {
+                                                                        <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-fluid" alt="Image">
+                                                                    }
+                                                                }
+                                                                <div class="mask-icon">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
+                                                                        </li>
+                                                                        @{
+                                                                            if (item.myFavorite.MyFavoriteId != 0)
+                                                                            {
+                                                                                <li>
+                                                                                    <a class="RemoveFavorite" style="cursor: pointer; color: #FF2D2D;" data-toggle="tooltip" data-placement="right" title="移除我的最愛">
+                                                                                        <i class="fas fa-heart"></i>
+                                                                                        <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                                                                    </a>
+                                                                                </li>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <li>
+                                                                                    <a class="addFavorite" style="cursor: pointer; color: #ffffff;" data-toggle="tooltip" data-placement="right" title="加入我的最愛">
+                                                                                        <i class="far fa-heart"></i>
+                                                                                        <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                                                                        <input class="FavoritetoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                                                    </a>
+                                                                                </li>
+                                                                            }
+                                                                        }
+                                                                    </ul>
 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                        <div class="why-text full-width">
+                                                            <h4>@item.ProductName 特價中</h4>
+                                                            <h5>
+                                                                @{
+                                                                    string 規格 = @item.product.ProductSize;
+                                                                    string[] 公克 = 規格.Split("/");
+                                                                    decimal price = Convert.ToDecimal(@item.ProductUnitPrice * 0.75);
+                                                                    int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                                                                }
+                                                                @公克[0]
+                                                                <del>NT$ @item.ProductUnitPrice</del> NT$ @打折過
+                                                            </h5>
+                                                            <p>
+                                                                營養豐富高纖蔬菜，冬陽下的沙拉或冬夜裡的火鍋都少不了這一味。
+                                                            </p>
+                                                            <a class="btn hvr-hover addCart" style="cursor:pointer">
+                                                                加入購物車
+                                                                <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                                <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                            <div class="why-text full-width">
-                                                <h4>有機美生菜特價中</h4>
-                                                <h5>
-                                                    600g
-                                                    <del>NT$ 92</del> NT$80
-                                                </h5>
-                                                <p>
-                                                    營養豐富高纖蔬菜，冬陽下的沙拉或冬夜裡的火鍋都少不了這一味。
-                                                </p>
-                                                <a class="btn hvr-hover" href="#">加入購物車</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-view-box">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="~/images/商品照/柿子.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
-                                                            </li>
-                                                        </ul>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                            <div class="why-text full-width">
-                                                <h4>高山甜柿特價中，趕緊手刀搶購!</h4>
-                                                <h5>
-                                                    500g
-                                                    <del>NT$ 80.00</del> NT$50
-                                                </h5>
-                                                <p>
-                                                    一年一度甜柿季節搭配折扣讓您吃到滿意，錯過再等一年!
-                                                </p>
-                                                <a class="btn hvr-hover" href="#">加入購物車</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-view-box">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="~/images/商品照/牛番茄.jpg" class="img-fluid" alt="Image">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="檢視"><i class="fas fa-eye"></i></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#" data-toggle="tooltip" data-placement="right" title="加入我的最愛"><i class="far fa-heart"></i></a>
-                                                            </li>
-                                                        </ul>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                            <div class="why-text full-width">
-                                                <h4>牛番茄熱銷回饋</h4>
-                                                <h5>
-                                                    600g
-                                                    <del>NT$ 90.00</del> NT$82
-                                                </h5>
-                                                <p>
-                                                    當季鮮美牛番茄，入菜鮮吃都讓您獲得滿分營養!
-                                                </p>
-                                                <a class="btn hvr-hover" href="#">加入購物車</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        }
+                                    }
+                                }
                             </div>
                         </div>
                     </div>

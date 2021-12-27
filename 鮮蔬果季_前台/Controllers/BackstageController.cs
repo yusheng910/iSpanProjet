@@ -38,7 +38,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Order()
         {
-            var q = from p in (new 鮮蔬果季Context()).Orders
+            var q = from p in db.Orders
                     select p;
             return View(q);
         }
