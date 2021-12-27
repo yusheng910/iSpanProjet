@@ -140,42 +140,41 @@
 }
 @section Scripts{
     <script>
-        var haventcoupons = $('#haventcoupons');
-        haventcoupons.click(function () {
+
+        $(document).on("click", "#haventcoupons", function () {
             $('#addcparea').load("@Url.Content("~/Coupons/PartialHavent")")
         })
 
-        var allcoupons = $('#allcoupons');
-        allcoupons.click(function () {
+
+        $(document).on("click", "#allcoupons", function () {
             $('#addcparea').load("@Url.Content("~/Coupons/PartialAll")")
         })
 
 
-        var couponsexpired = $('#couponsexpired');
-        couponsexpired.click(function () {
+        $(document).on("click", "#couponsexpired", function () {
             $('#addcparea').load("@Url.Content("~/Coupons/partialexpired")")
         })
 
-        var hadcoupons = $('#hadcoupons');
-        hadcoupons.click(function () {
+        $(document).on("click", "#hadcoupons", function () {
             $('#addcparea').load("@Url.Content("~/Coupons/partialHad")")
         })
 
-        var addcpbtn = $('.addcpbtn');
-        addcpbtn.click(function () {
+        //整頁按的連結
+        $(document).on("click", ".addcpbtn", function () {
             var value = $(this).find(".findcid").val()
             console.log(value)
             $('#addcparea').load("@Url.Content("~/Coupons/partialAdd/")" + value)
-            //let val = $('.row').find(".test").html()
-            //console.log(val)
-            //if (typeof (val) == "undefined") {
-            //    // 創建事件物件
-            //    var evt = document.createEvent("HTMLEvents");
-            //    // 初始化
-            //    evt.initEvent("click", false, false);
-            //    document.querySelector(".cplogin").dispatchEvent(evt);
-            //}
+            
         })
+        //篩選頁的連結
+        $(document).on("click", ".addcpbtn2", function () {
+            var value = $(this).find(".findcid").val()
+            console.log(value)
+            $('#addcparea').load("@Url.Content("~/Coupons/partialAdd_Havent/")" + value)
+        })
+
+
+
     </script>
 }
 

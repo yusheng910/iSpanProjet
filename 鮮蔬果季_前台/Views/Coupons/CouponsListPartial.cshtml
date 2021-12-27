@@ -1,9 +1,5 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
 
-@{
-    ViewData["Title"] = "PartialHavent";
-}
-
 @foreach (var item in Model)
 {
     <div class="col-sm-6">
@@ -87,7 +83,9 @@
                             }
                             else
                             {
-                                <a asp-area="" asp-controller="Coupons" asp-action="AddCoupons" asp-route-id="@item.coupon.CouponId" class="btn btn-sm btn-outline-danger btn-block">
+                                <a class="btn btn-sm btn-outline-danger btn-block addcpbtn">
+                                    @* <input type="hidden" class="cplogin" onclick="window.location.href='@Url.Content("/Login/Login")'" />*@
+                                    <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
                                     領取
                                 </a>
                             }
@@ -98,3 +96,6 @@
         </div>
     </div>
 }
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
