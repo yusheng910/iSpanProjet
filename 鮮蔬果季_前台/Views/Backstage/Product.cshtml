@@ -152,11 +152,23 @@
                 })
 
             }
-
-
-
         })
 
-
+        console.log($(".selectphoto"))
+        $(document).on("change",".selectphoto",async function () {
+            console.log($(this)[0].files);
+            let value = $(this)[0].files
+            @*var a = new Array();
+            $.each(value, function (index, data) {
+                a[index] = data.name
+            })
+            var fd = new FormData()
+            fd.append("photo", a)
+            const response = await fetch('@Url.Content("~/BackstageApi/PhotoLoad")', {
+                method: "POST",
+                body: fd
+            })
+            const data = await response.json()*@
+        });
     </script>
 }

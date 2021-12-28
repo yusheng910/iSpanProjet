@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -66,7 +67,8 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphotoforCart = value;
             }
         }
-
+        public IFormFile photo { get; set; }
+        public string[] photoList { get; set; }
         public List<ProductPhotoBank> _prodphoto = null;
         public List<ProductPhotoBank> photoBank
         {

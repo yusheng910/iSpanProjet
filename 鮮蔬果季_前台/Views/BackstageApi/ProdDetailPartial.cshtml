@@ -1,5 +1,13 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.ShoppingListViewModel
+@section Styles{
+    <style>
+        .custom-file-label::after {
+            content: "選擇";
+        }
+    </style>
 
+
+}
 <div class="row">
     <div class="col-md-12">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -61,12 +69,22 @@
         </div>
         <div class="form-group">
             <label class="control-label">產品相片(第一張圖片會為封面)</label>
-            <div class="col-md-12" style="border:1px solid lightgray;padding:20px">
+            <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">
                 @foreach (var item in Model.photoBank)
                 {
-                    <img src="~/images/商品照/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px">
+                    <img src="~/images/商品照/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
+                    <input type="hidden" name="photoList" class="photoHid" value="@item.PhotoPath" />
                 }
-
+                <div class="input-group mb-3">
+                    @*<input type="file" class="selectphoto"/>*@
+                    <div class="custom-file">
+                        <input type="file" multiple class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
+                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02" >選擇圖片</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroupFileAddon02">清空</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -104,4 +122,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+
+</script>
 }
