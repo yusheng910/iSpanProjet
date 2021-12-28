@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
@@ -11,8 +14,10 @@ namespace 鮮蔬果季_前台.Controllers
     public class BackstageApiController : Controller
     {
         private readonly 鮮蔬果季Context db;
-        public BackstageApiController(鮮蔬果季Context dbContext)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public BackstageApiController(IWebHostEnvironment webHost,鮮蔬果季Context dbContext)
         {
+            _hostingEnvironment = webHost; //取的wwwroot的路徑
             db = dbContext;
         }
         public IActionResult ProdDetailPartial(int id)
@@ -91,19 +96,50 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult ProdEditPartial(ShoppingListViewModel ProdEdit)
         {
-            var product = db.Products.FirstOrDefault(a => a.ProductId == ProdEdit.ProductId);
+            var product = (from p in db.Products
+                                        where p.ProductId == ProdEdit.ProductId
+                                        select p).FirstOrDefault();
+            var Sid = db.Suppliers.FirstOrDefault(a => a.SupplierName == ProdEdit.SupplierName);
             product.ProductName = ProdEdit.ProductName;
             product.ProductUnitPrice = ProdEdit.ProductUnitPrice;
             product.ProductUnitsInStock = ProdEdit.ProductUnitsInStock;
             product.ProductCostPrice = ProdEdit.ProductCostPrice;
             product.ProductDescription = ProdEdit.ProductDescription;
+            product.SupplierId = Sid.SupplierId;
+            if (product.InShop == false&&ProdEdit.InShop)
+            {
+                product.ProduceDate = DateTime.Now;
+            }
+            product.InShop = ProdEdit.InShop;
+          
             db.SaveChanges();
 
+
+            if (ProdEdit.photo != null)
+            {
+                string photoName = Guid.NewGuid().ToString() + ".jpg";
+                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/商品照/" + photoName); //取得路徑+要上傳的圖片檔案名稱
+                using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
+                {
+                    ProdEdit.photo.CopyTo(fileStream); //上傳指令
+                }
+                var q = new ProductPhotoBank()
+                {
+                    ProductId = ProdEdit.ProductId,
+                    PhotoPath = photoName
+                };
+                db.Add(q);
+                db.SaveChanges();
+            }
+          
             return Content("1");
+        }
+        public IActionResult PhotoLoad(List<string> photo)
+        {
+            return Json("1");
         }
 
 
 
-
-    }
+        }
 }

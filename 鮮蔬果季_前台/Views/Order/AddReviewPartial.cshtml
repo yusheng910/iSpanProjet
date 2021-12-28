@@ -1,0 +1,66 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.OrderListViewModel>
+@{
+    int count = 0;
+    int 商品價乘數量 = 0;
+    int 總價 = 0;
+    int 訂單ID = 0;
+    foreach (var item in Model)
+    {
+        count++;
+        商品價乘數量 = item.product.ProductUnitPrice * item.odetail.UnitsPurchased;
+        總價 += 商品價乘數量;
+        訂單ID = item.odetail.OrderId;
+        <tr>
+            <td>
+                @count
+            </td>
+            <td class="thumbnail-img">
+                <a href="#">
+                    <img class="img-fluid" src="~/images/商品照/@item.photoBank.PhotoPath" alt="" />
+                </a>
+            </td>
+            <td class="name-pr">
+                <a href="#">
+                    @item.product.ProductName
+                </a>
+            </td>
+            <td class="sup-pr">
+                <a href="#">
+                    @item.supplier.SupplierName
+                </a>
+            </td>
+            <td class="price-pr">
+                <p id="price-pr">NT$ @item.product.ProductUnitPrice</p>
+            </td>
+            <td class="quantity-box">
+                <p id="units">
+                    @item.odetail.UnitsPurchased
+                </p>
+            </td>
+            <td class="total-pr">
+                <p id="total-pr">NT$ @商品價乘數量</p>
+                @*<p>@item.單筆訂單細項總價</p>*@
+            </td>
+            <td class="add-pr">
+                <a style="padding:8px 12px;" href="#" class="btn hvr-hover">問題回報</a>
+            </td>
+            <td style="padding-right:20px;" class="add-rv">
+                <div class="aboveadd">
+                    <div class="text-right">
+                        <input class="haverv" type="hidden" value="@item.odetail.HaveReviews" />
+                        @{ if (item.odetail.HaveReviews == false)
+                            {
+                                <button class="btn hvr-hover open-review-box " value="@item.odetail.OrderDetailId">新增評價</button>
+                            }
+                            else
+                            {
+                                <button class="btn findodid disabled" value="@item.odetail.OrderDetailId">已評價</button>
+                            }
+                        }
+                        <input type="hidden" value="@item.odetail.OrderDetailId" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+}
