@@ -101,6 +101,9 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
+                ViewBag.姓名 = UserLogin.member.MemberName.ToString();   //前台報名表單,帶入會員資料
+                ViewBag.電郵 = UserLogin.member.UserId.ToString();
+                ViewBag.電話 = UserLogin.member.Mobile.ToString();
             }
             else //Seesion沒找到
             {
@@ -150,6 +153,7 @@ namespace 鮮蔬果季_前台.Controllers
 
                 EventRegistration 送出報名資料 = new EventRegistration()
                 {
+
                     MemberId = UserLogin.member.MemberId,
                     EventId = XXX.EventId,
                     ParticipantNumber = XXX.ParticipantNumber,
@@ -158,6 +162,14 @@ namespace 鮮蔬果季_前台.Controllers
                     ContactMobile = XXX.ContactMobile,
                     FoodPreference =XXX.FoodPreference,
                     SubmitDate = DateTime.Now,
+
+                    //EventId = XXX.EventId,
+                    //ParticipantNumber = XXX.ParticipantNumber,
+                    //ContactName = XXX.ContactName,
+                    //ContactEmail = XXX.ContactEmail,
+                    //ContactMobile = XXX.ContactMobile,
+                    //FoodPreference = XXX.FoodPreference,
+
                 };
                     db.Add(送出報名資料);
                    db.SaveChanges();

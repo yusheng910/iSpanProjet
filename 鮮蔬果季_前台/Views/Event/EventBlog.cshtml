@@ -97,13 +97,16 @@
            color:black
         }
 
-        @*限制行數,並隱藏*@ .pp {
+        @*限制行數,並隱藏*@
+        .pp {
             display: -webkit-box;
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+
 
     </style>
 }
@@ -202,11 +205,11 @@
                                     </span>
                                 </div>
                                 @*<div>
-                                    <span class="date">
-                                        <i class="fas fa-calendar" style="padding-right:10px">
-                                        </i>@ViewBag.活動數量
-                                    </span>
-                                </div>*@
+                                        <span class="date">
+                                            <i class="fas fa-calendar" style="padding-right:10px">
+                                            </i>@ViewBag.活動數量
+                                        </span>
+                                    </div>*@
 
 
                                 <div>
@@ -226,13 +229,12 @@
                                         </button>
                                     </div>
                                 </div>
-</div>
+                        </div>
+
                     </div>
                 </div>
                 <div style="padding-bottom:20px"></div> @*間格用*@
             }
         }
-
-
-
-
+    </div>
+</div>

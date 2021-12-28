@@ -756,7 +756,8 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     j.StatusId = 3;
                 }
-                }
+                db.SaveChanges();
+            }
 
             //var q = from sc in db.ShoppingCarts
             //        where sc.MemberId == UserLogin.member.MemberId && sc.StatusId == 1

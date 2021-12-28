@@ -39,6 +39,12 @@
             width: 400px;
             height: 500px;
         }
+
+        .SignUpText {
+            font-size: large
+        }
+
+
     </style>
 }
 
@@ -144,42 +150,46 @@
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="background-color: #FFF9E9">
                                         <div class="card-body">
                                             <div class="billing-address-form">
+
+                                                @*<button type="button" class="btn btn-primary" id="AAA">帶入會員資料</button>
+                                                <p id="PPP" name="測試"> </p>*@
+
+
                                                 @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
                                                 <form method="post" class="col-6" name="XXX">
                                                     <input type="hidden" placeholder="活動ID" name="EventId" value=@item.Event.EventId>
                                                     <p style="padding-bottom: 10px">
-                                                        <input type="text" placeholder="姓名" name="ContactName">
+                                                        <input type="text" placeholder="姓名"   class="SignUpText" name="ContactName" id="name"  value= @ViewBag.姓名  required>
+                                                        </p>
+                                                    <p style="padding-bottom: 10px">
+                                                        <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
                                                     </p>
                                                     <p style="padding-bottom: 10px">
-                                                        <input type="email" placeholder="聯絡電話" name="ContactMobile">
+                                                        <input type="email" placeholder="電子信箱" class="SignUpText" name="ContactEmail" id="email" value=@ViewBag.電郵 required>
                                                     </p>
                                                     <p style="padding-bottom: 10px">
-                                                        <input type="text" placeholder="電子信箱" name="ContactEmail">
-                                                    </p>
-                                                    <p style="padding-bottom: 10px">
-                                                        <input placeholder="預計報名人數" name="ParticipantNumber">
-                                                    </p>
+                                                        <input type="number" placeholder="預計報名人數" class="SignUpText" name="ParticipantNumber" id="person" required>
+                                                    </p>      @*可以透過input內的type達到初階的輸入控制功能*@                                    @*required代表該輸入為必填*@
 
 
-                                                    <p style="float:left; padding-right:15px "> 餐點葷素 : </p>
+                                                    <p style="float:left; padding-right:15px " class="SignUpText"> 餐點葷素 : </p>
                                                     <div class="form-check form-check-inline">
-                                                        @*透過Value寫死回傳值*@
-                                                        <input class="form-check-input" type="radio" name="FoodPreference" value="葷食">
-                                                        <label class="form-check-label" for="inlineRadio1">葷食</label>
+                                                        @*透過Value寫死回傳值*@                                                                                         @* checked為預設*@
+                                                        <input class="form-check-input" type="radio" name="FoodPreference" value="葷食" checked>
+                                                        <label class="form-check-label SignUpText" for="inlineRadio1">葷食</label>
                                                     </div>
                                                     <div class="form-check form-check-inline" style="padding-bottom:10px">
                                                         <input class="form-check-input" type="radio" name="FoodPreference" value="素食">
-                                                        <label class="form-check-label" for="inlineRadio2">素食</label>
+                                                        <label class="form-check-label  SignUpText " for="inlineRadio2">素食</label>
                                                     </div>
 
                                                     <p>
-                                                        <textarea name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
+                                                        <textarea class="SignUpText" name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
                                                     </p>
                                                     <div style="padding-top:15px"> </div>
                                                     @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
-                                                    <button type="submit" class="btn btn-success ">送出報名</button>
-
-                                                </form>
+                                                    <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
+                                                </form>                                                                                   @*透過onclick引用Javascript跳出Alert*@
                                             </div>
                                         </div>
                                     </div>
@@ -194,27 +204,42 @@
 </div>
 <div style="padding-bottom:50px"></div> @*間格用*@
 
-@*Bootstrap 的彈跳警告視窗(目前點了沒反應,待解決)*@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-</button>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+<script>
+
+    if ($("#name").length == 0 ) {
+        $("#chickBT").click(function () {
+            { alert("報名失敗!!"); }
+        })
+    }
+    else {
+        $("#chickBT").click(function () {
+            { alert("報名成功!!"); }
+        })
+    }
+
+    var P = $("#PPP").get.name;
+    $("#AAA").click(function (event) {
+        /*     $("#PPP").name = ("change");*/
+        console.log$("#PPP").name;
+     })
+
+
+    //$("#AAA").click(function () {
+    //    console.log("ok")
+    //    //$("#username").val("a001@gmail.com");
+    //    //$("#password").val("a12345");
+    //});
+
+
+
+    //$("#AAA").click(function () {
+    //    console.log("ok")
+    //});
+
+
+</script>
