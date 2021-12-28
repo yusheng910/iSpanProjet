@@ -60,7 +60,7 @@
                         </div>*@
                         <div class="mb-3">
                             <label for="address">寄送地址 *</label>
-                            <input name="address" type="text" class="form-control" id="address" placeholder="" required>
+                            <input name="address" type="text" class="form-control address" id="address" placeholder="" required>
                             <div class="invalid-feedback"> Please enter your shipping address. </div>
                         </div>
                         @*<div class="custom-control custom-checkbox"> //todo 存 cookie 做地址暫存?
@@ -240,7 +240,7 @@
                                     您確定要結帳購物車內的商品嗎?
                                 </div>
                                 <div class="modal-footer">
-                                    <button id="btnCheck" type="button" class="btn btn-primary" onclick="window.location.href = '@Url.Content("~/Shopping/CheckAddOrder")' +'?address='+'仁愛路'+'&paymentMethod='+2">確定</button>
+                                    <button id="btnCheck" type="button" class="btn btn-primary" @*onclick="window.location.href = '@Url.Content("~/Shopping/CheckAddOrder")' +'?address='+'仁愛路'+'&paymentMethod='+2"*@>確定</button>
                                     <input class="toOrder" type="hidden" onclick="window.location.href = '@Url.Content("~/Order/Orders")'">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
                                 </div>
@@ -257,14 +257,14 @@
 @section Scripts{
     <script>
         var btn = document.querySelector('#btnCheck')
-        var payRadio = $('input[name="paymentMethod"]:checked').val()
-        var txtAddress = $('#address').val()
+        var payRadio = $('input[name=paymentMethod]:checked').val()
 
         btn.addEventListener('click', async function () {
+            var payRadio = $('input[name=paymentMethod]:checked').val()
+            var txtAddress = $('.address').val()
             var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio)
             var data = await response.text();
             if (data == 1) {
-                console.log("454674")
                 // 創建事件物件
                 var evt = document.createEvent("HTMLEvents");
                 // 初始化

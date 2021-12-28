@@ -57,8 +57,9 @@ namespace 鮮蔬果季_前台.Controllers
             foreach (var item in 所有產品)
             {
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
-                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
-                相片List.Add(封面相片);
+                var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == item.prod.ProductId);
+                foreach(var 相片 in 封面相片)
+                相片List.Add(相片);
                 var 欲加購物車商品 = db.ShoppingCarts.FirstOrDefault(c => c.MemberId == UserLogin.member.MemberId && c.ProductId == item.prod.ProductId);
                 var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.prod.ProductId); /*TODO 目前會員ID寫死的*/
                 所有商品列表.Add(new ShoppingListViewModel()

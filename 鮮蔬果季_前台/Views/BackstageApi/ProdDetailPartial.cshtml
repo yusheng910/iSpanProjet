@@ -1,0 +1,70 @@
+﻿@model 鮮蔬果季_前台.ViewModels.ShoppingListViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ProductId" />
+        <div class="form-group">
+            <label asp-for="ProductName" class="control-label"></label>
+            <input asp-for="ProductName" class="form-control" />
+            <span asp-validation-for="ProductName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SupplierName" class="control-label"></label>
+            <input asp-for="SupplierName" class="form-control" />
+            <span asp-validation-for="SupplierName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductUnitPrice" class="control-label"></label>
+            <input asp-for="ProductUnitPrice" class="form-control" />
+            <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductCostPrice" class="control-label"></label>
+            <input asp-for="ProductCostPrice" class="form-control" />
+            <span asp-validation-for="ProductCostPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductUnitsInStock" class="control-label"></label>
+            <input asp-for="ProductUnitsInStock" class="form-control" />
+            <span asp-validation-for="ProductUnitsInStock" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ProductDescription" class="control-label"></label>
+            <input asp-for="ProductDescription" class="form-control" />
+            <span asp-validation-for="ProductDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductSize" class="control-label"></label>
+            <input asp-for="ProductSize" class="form-control" />
+            <span asp-validation-for="ProductSize" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProduceDate" class="control-label"></label>
+            <input asp-for="ProduceDate" class="form-control" disabled />
+            <span asp-validation-for="ProduceDate" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="InShop" /> @Html.DisplayNameFor(model => model.InShop)
+            </label>
+        </div>
+
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
+            </label>
+        </div>
+
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="HotProduct" /> @Html.DisplayNameFor(model => model.HotProduct)
+            </label>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

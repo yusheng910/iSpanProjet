@@ -4,6 +4,8 @@
 }
 @section Scripts{
     <script>
+        var xhr = new XMLHttpRequest();
+        var selCity = document.querySelector("#state");
         $("#email").blur(function () {
             console.log(this)
             var Useremail = $("#email").val();
@@ -67,8 +69,7 @@
                 return false;
             }
         })
-        var xhr = new XMLHttpRequest();
-        var selCity = document.querySelector("#state");
+        
         //xhr.open("get", "/Login/LoadCities");
         //xhr.send();
         //xhr.addEventListener('load', () => {

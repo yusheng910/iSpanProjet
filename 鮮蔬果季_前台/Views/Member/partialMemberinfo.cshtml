@@ -1,0 +1,85 @@
+﻿@model  鮮蔬果季_前台.ViewModels.MemberViewModel
+
+<h2 class="h3 mb-4 page-title" style="margin-top:50px;">會員資料</h2>
+<form id="contactForm" asp-action="MemberCenter">
+    <div class="row mt-5 align-items-center">
+        <div class="col-md-3 text-center mb-5">
+            <div id="photo" style="margin-left:-120px; margin-top: 0px; padding-bottom: 0px; height: 100px ">
+                <p style="position:relative;">
+                    @{
+                        if (Model.MemberPhotoPass != null)
+                        {
+                            <img src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:160px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                        }
+                        else
+                        {
+                            <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:160px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                        }
+                    }
+                    <a class="fas fa-camera btn hvr-hover" style="border-radius:50%; left:250px; top:60px; position:absolute; color:white; margin-top:20px; padding:10px;"></a>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="hidden" asp-for="MemberId" name="MemberId" />
+            <label for="name">姓名</label>
+            <input asp-for="MemberName" type="text" id="MemberName" name="MemberName" class="form-control" placeholder="您的大名" required data-error="請填寫您的欄位">
+            <div class="help-block with-errors">
+                @*錯誤訊息的ul要先自己建出來 並且li需要給個id(emailerr)*@
+                <ul class="list-unstyled">
+                    <li id="MemberNameerr"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            性別：
+            <input readonly="readonly" id="genderLB" asp-for="Gender" name="Gender" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
+            <select id="gender" class="form-control">
+                <option></option>
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail4">電子郵件帳號</label>
+        <input readonly="readonly" asp-for="UserId" type="email" name="UserId" class="form-control" id="inputEmail4" placeholder="您的電子郵件" required data-error="請填寫您的欄位">
+    </div>
+    <div class="form-group">
+        <label for="inputAddress5">現居地址</label>
+        <input asp-for="MemberAddress" type="text" name="MemberAddress" class="form-control" id="inputAddress5" placeholder="您的現居地址" required data-error="請填寫您的欄位">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="phone">聯絡電話</label>
+            <input asp-for="Mobile" type="text" name="Mobile" id="Mobile" class="form-control" placeholder="您的電話" required data-error="請填寫您的欄位">
+            <div class="help-block with-errors">
+                @*錯誤訊息的ul要先自己建出來 並且li需要給個id(emailerr)*@
+                <ul class="list-unstyled">
+                    <li id="Mobileerr"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            現居縣市：
+            <input readonly="readonly" id="cityLB" asp-for="city" name="city" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
+            <select id="State" class="form-control state">
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="submit-button">
+        <button class="btn hvr-hover" id="submit" type="submit" style="color:white">確認修改</button>
+        <div id="msgSubmit" class="h3 text-center hidden"></div>
+        <div class="clearfix"></div>
+    </div>
+</form>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
