@@ -5,6 +5,8 @@
 }
 
 <link rel="stylesheet" href="~/assets/css/main.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="external nofollow" rel="stylesheet"> @*ican的CDN*@
+
 
 @section Styles{
     <style>
@@ -106,6 +108,10 @@
             text-overflow: ellipsis;
         }
 
+        @*正黑體*@
+        .字體 {
+            font-family: Microsoft JhengHei
+        }
 
 
     </style>
@@ -127,6 +133,9 @@
 </div>
 <br />
 <br />
+
+
+
 
 <div class="logo-carousel-section">
     <div class="container">
@@ -158,22 +167,23 @@
                     <img class="分類圖片大小" src="~/assets/img/活動分類/課程.jpg" alt="">
                 </div>
 
+
             </div>
         </div>
     </div>
 </div>
 <br />
 
+
+
 @*================================================活動========================================*@
 @*<P class="文字標題 container"> 熱門活動</P>*@
 <div id="eventbox">
     <div class="container">
         @{
-            //int 活動原價 = 0;
-
             foreach (var item in Model)
             {
-                //活動原價 += item.Event.EventPrice.Value;
+
                 <div class="row art">
                     <div class="col-xl-5 col-lg-5 col-md-6">
                         <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
@@ -188,6 +198,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-xl-7 col-lg-7 col-md-6">
                         <div class="single-product-details">
                             <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2>  @*活動項目標題*@
@@ -199,8 +210,8 @@
                                 <span> @item.City.CityName , 現場收費 <a href="#"></a></span>
                             <p>
                                 <div>
-                                    <span class="date">
-                                        <i class="fas fa-calendar" style="padding-right:10px">
+                                    <span class="glyphicon glyphicon-home">
+                                        <i class="fas fa-map-marker-alt" style="padding-right:10px">
                                         </i>@item.Event.EventLocation
                                     </span>
                                 </div>
@@ -214,7 +225,7 @@
 
                                 <div>
                                     <span class="date">
-                                        <i class="fas fa-calendar" style="padding-right:10px">
+                                        <i class="fas fa-calendar-alt" style="padding-right:10px">
                                         </i>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
                                     </span>
                                 </div>
