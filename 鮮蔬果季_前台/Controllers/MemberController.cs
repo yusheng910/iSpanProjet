@@ -59,9 +59,7 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     member = mc.i,
                     city = mc.CityName,
-                   
                 };
-                
             }
             else
             {
@@ -93,7 +91,7 @@ namespace 鮮蔬果季_前台.Controllers
                     cust.CityId = cityid;
                     cust.Gender = p.Gender;
                     cust.MemberName = p.MemberName;
-                    cust.MemberPhotoPass = p.MemberPhotoPass;
+                    //cust.MemberPhotoPass = p.MemberPhotoPass;
                     db.SaveChanges();
                     
                 };
@@ -118,11 +116,19 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult PasswordChange()
         {
+            MemberViewModel mv = null;
+            var mc = (from i in db.Members
+                     where i.MemberId == UserLogin.member.MemberId
+                     select new { i.MemberId }).FirstOrDefault();
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
 
+                mv = new MemberViewModel()
+                {
+                    MemberId=mc.MemberId
+                };
             }
             else //Seesion沒找到
             {
@@ -131,7 +137,7 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
 
-            return View();
+            return View(mv);
         }
         [HttpPost]
         public IActionResult PasswordChange(MemberViewModel p)
@@ -140,13 +146,13 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
-               
-                Member password = db.Members.FirstOrDefault(c => c.MemberId == p.MemberId);
-                if (password != null)
+
+                Member cust = db.Members.FirstOrDefault(c => c.MemberId == p.MemberId);
+                if (cust != null)
                 {
-                    password.Password = p.Password;
+                    cust.Password = p.Password;
                     db.SaveChanges();
-                }
+                };
             }
             else //Seesion沒找到
             {
@@ -154,7 +160,7 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
                 return RedirectToAction("Login", "Login");
             }
-            return RedirectToAction("MemberCenter","Member");
+            return RedirectToAction("Login", "Login");
         }
         public IActionResult CheckPassword(string oldPassword)
         {
