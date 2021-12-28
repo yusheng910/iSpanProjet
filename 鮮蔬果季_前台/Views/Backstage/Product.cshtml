@@ -66,7 +66,10 @@
                                                     <span class="text-muted sr-only">Action</span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#">修改</a>
+                                                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                        修改
+                                                    </button>
+                                                    <input type="hidden" class="Pid" value="@item.ProductId" />
                                                     <a class="dropdown-item" href="#">移除</a>
                                                 </div>
                                             </td>
@@ -75,6 +78,29 @@
                                 }
                             </tbody>
                         </table>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">產品修改</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form asp-action="ProdDetailPartial">
+                                        <div class="modal-body prodBody">
+                                            <!--內容-->
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <input type="submit" value="儲存" class="btn btn-primary" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> <!-- simple table -->
@@ -93,5 +119,11 @@
                     [16, 32, 64, "All"]
                 ]
             });
+
+        $(document).on("click", ".btnEdit", function () {
+            var pid = $(this).next(".Pid").val();
+            console.log(pid);
+            $('.prodBody').load("@Url.Content("~/BackstageApi/ProdDetailPartial")/" + pid)
+        })
     </script>
 }
