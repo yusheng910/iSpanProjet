@@ -74,10 +74,11 @@
                                                 <p>NT$ @item.product.ProductUnitPrice</p>
                                             </td>
                                             <td class="quantity-box">
-                                                <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="15" class="c-input-text qty text">
+                                                <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="15" class="c-input-text qty text qtyChange">
+                                                <input type="hidden" class="cartid" value="@item.shopCart.ShoppingCartId"/>                                       
                                             </td>
                                             <td class="total-pr">
-                                                <p>NT$ @商品價乘數量</p>
+                                                <p class="itemPrice">NT$ @商品價乘數量</p>
                                             </td>
                                             <td class="remove-pr">
                                                 <a href="#">
@@ -220,6 +221,28 @@
 @section Scripts{
     <script>
         //document.getElementById('qtyChange').value
+        $(document).on("change", ".qtyChange", function (e) {
+            var obj = $(this);
+            var qty = $(this).val();
+            var cid = $(this).next(".cartid").val()
+
+            console.log(obj);
+            console.log(value);
+            async function ChangeQty() {
+                var response = await fetch('@Url.Content("~/ShoppingApi/ChangeCartQty/")' + cid +"?qty="+qty)
+                var data = await response.text()
+                console.log(data);
+                if (data != 0) {
+                    console.log("success");
+                    var p = parseInt(data);
+                    obj.closest('.quantity-box').next().find("p").html("NT$ " + p);
+                    console.log(obj.closest('.quantity-box'))
+                    //pItemPrice.innerHTML = p;
+                    
+                }
+            }
+            ChangeQty();
+        })
 
         function showAlert() {
             alert('購物車內尚無商品');

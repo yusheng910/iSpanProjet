@@ -1,0 +1,46 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
+@{ int count = 0;
+    foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="@count">
+                    <label class="custom-control-label" for="@count"></label>
+                </div>
+            </td>
+            <td>@count</td>
+            <td>@item.ProductName</td>
+            @{if (@item.photoBank[0] != null)
+                {
+                    <td>
+                        <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="" alt="Image" style="width:100px;height:70px;object-fit:cover">
+                    </td>
+                }
+            }
+            <td>@item.SupplierName</td>
+            <td>@item.ProductUnitPrice</td>
+            <td>@item.ProductCostPrice</td>
+            <td>@item.ProductDescription</td>
+            @{
+                string date = (item.ProduceDate).ToString();
+                date = date.Split(" ")[0];
+                <td>@date</td>
+            }
+            <td>@item.category.CategoryName</td>
+            <td>
+                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="text-muted sr-only">Action</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                        修改
+                    </button>
+                    <input type="hidden" class="Pid" value="@item.ProductId" />
+                    <a class="dropdown-item" href="#">移除</a>
+                </div>
+            </td>
+        </tr>
+    }
+}

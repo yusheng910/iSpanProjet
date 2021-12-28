@@ -546,6 +546,7 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
+
         public IActionResult ListAddToCart(int id,int count)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -756,7 +757,8 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     j.StatusId = 3;
                 }
-                }
+                db.SaveChanges();
+            }
 
             //var q = from sc in db.ShoppingCarts
             //        where sc.MemberId == UserLogin.member.MemberId && sc.StatusId == 1
