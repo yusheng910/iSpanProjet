@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Linq;
 using System.IO;
 namespace 鮮蔬果季_前台.Controllers
 {
@@ -53,6 +52,13 @@ namespace 鮮蔬果季_前台.Controllers
                 b.FeedbackName
             }).ToList();
             return Json(fatherfeedackids);
+        }
+        public IActionResult Send(FeedbackResponse _respose)
+        {
+            _context.FeedbackResponses.Add(_respose);
+            _context.SaveChanges();
+            //return View();
+            return RedirectToAction("Index", "Home");
         }
     }
     
