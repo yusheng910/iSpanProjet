@@ -146,7 +146,7 @@
                     <hr class="my-1">
                     <div class="d-flex">
                         <h4>商品金額</h4>
-                        <div class="ml-auto font-weight-bold"> NT$ @總價 </div>
+                        <div class="ml-auto font-weight-bold grandTotal"> NT$ @總價 </div>
                     </div>
                     <div class="d-flex">
                         <h4>運費</h4>
@@ -224,7 +224,7 @@
         $(document).on("change", ".qtyChange", function (e) {
             var obj = $(this);
             var qty = $(this).val();
-            var cid = $(this).next(".cartid").val()
+            var cid = $(this).next(".cartid").val();
 
             console.log(obj);
             console.log(value);
@@ -238,7 +238,12 @@
                     obj.closest('.quantity-box').next().find("p").html("NT$ " + p);
                     console.log(obj.closest('.quantity-box'))
                     //pItemPrice.innerHTML = p;
-                    
+
+                    var grandTotal = 0;
+                    $('.itemPrice').each(function () {
+                        grandTotal += p;
+                        $('div.grandTotal').html("NT$ " + grandTotal);
+                    });
                 }
             }
             ChangeQty();
