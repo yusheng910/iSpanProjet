@@ -7,6 +7,10 @@
 }
 
 <link rel="stylesheet" href="~/assets/css/main.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 @section Styles{
     <style>
@@ -91,7 +95,8 @@
 </style>
 
 <!-- Start All Title Box===================================================== -->
-<div class="all-title-box">  @*class="all-title-box_Partner"  查詢後會跳掉,找不到原因*@
+<div class="all-title-box">
+    @*class="all-title-box_Partner"  查詢後會跳掉,找不到原因*@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -108,20 +113,20 @@
 
 
 <div class="SelectBackGround ">
-
-    <h2 class="SelectTag ">      @*回傳id為空值,不然曾經查詢其他的id值還會殘存,導致無法查詢全部*@
+    <h2 class="SelectTag" id="動畫1">
+        @*回傳id為空值,不然曾經查詢其他的id值還會殘存,導致無法查詢全部*@
         <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=>全部文章</a>
     </h2>
 
-    <h2 class="SelectTag ">
+    <h2 class="SelectTag " id="動畫2">
         <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="1">青農返鄉</a>
-    </h2>                                  @*目前卡關,想透過前端回傳的id值,來判斷使用哪種LINQ篩選*@
+    </h2>
 
-    <h2 class="SelectTag ">
+    <h2 class="SelectTag " id="動畫3">
         <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="2">履歷無毒</a>
     </h2>
 
-    <h2 class="SelectTag ">
+    <h2 class="SelectTag " id="動畫4">
         <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="3">有機天地</a>
     </h2>
 
@@ -138,7 +143,7 @@
                     {
                         <div class="col-lg-4 col-md-6 blogSize">
                             <div class="single-latest-news">
-                                <div>                 
+                                <div>
                                     <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.SupplierId">
                                         <img class="imgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">  @*圖片超連結*@
                                     </a>
@@ -201,3 +206,31 @@
 </div>
 
 <div style="padding-bottom:50px"></div> @*間格用*@
+
+<script>
+    $("#動畫1").mouseenter(function () {
+        $("#動畫1").addClass("animate__animated animate__pulse")
+    })
+    
+    $("#動畫2").mouseenter(function () {
+        $("#動畫2").addClass("animate__animated animate__pulse")
+    })
+
+    $("#動畫3").mouseenter(function () {
+        $("#動畫3").addClass("animate__animated animate__pulse")
+    })
+
+    $("#動畫4").mouseenter(function () {
+        $("#動畫4").addClass("animate__animated animate__pulse")
+    })
+
+
+    //$(function () {
+    //    $("#TEST").mouseenter(function () {
+    //        /*            $("#TEST").addClass("animate__animated animate__backInLeft")*/
+    //        console.log("AAA")
+    //    })
+    //})
+
+
+</script>

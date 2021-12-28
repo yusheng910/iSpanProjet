@@ -5,6 +5,9 @@
 @*該頁使用獨立的css樣式*@
 <link rel="stylesheet" href="~/assets/css/main.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="external nofollow" rel="stylesheet"> @*ican的CDN*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
+
+
 
 
 @section Styles{
@@ -51,6 +54,9 @@
         span {
             font-family: Microsoft JhengHei
         }
+
+
+
 
     </style>
 }
@@ -127,7 +133,7 @@
 
                                 <div style="margin:15px 0px">
                                     <span class="dat" style="font-size: x-large; ">
-                                        <i class="fas fa-money-check-alt"  style="padding-right: 15px ">
+                                        <i class="fas fa-money-check-alt" style="padding-right: 15px ">
                                         </i>
                                         @item.Event.EventPrice  元/人 (現場收費)
                                     </span>
@@ -161,6 +167,7 @@
         </div>
     } }
 <div style="padding-bottom:50px"></div> @*間格用*@
+
 
 
 
@@ -224,6 +231,7 @@
                                                     <div style="padding-top:15px"> </div>
                                                     @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
                                                     <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
+                                                    <div id="判讀輸入" style="float:right;  padding-right:160px; font-size:x-large; font-weight:700;"></div>
                                                 </form>                                                                                   @*透過onclick引用Javascript跳出Alert*@
                                             </div>
                                         </div>
@@ -239,24 +247,37 @@
 </div>
 <div style="padding-bottom:50px"></div> @*間格用*@
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 
 
 <script>
+    $("#chickBT").click(function () {
+        let 姓名 = $("#name").val();
+        let 電話 = $("#phone").val();
+        let 電郵 = $("#email").val();
+        let 參與人數 = $("#person").val();
 
-    @*怪怪的,無法進行判斷*@
-    if ($("#name").get.length == 0) {
-        $("#chickBT").click(function () {
-            { alert("報名失敗!!"); }
-        })
+        if (姓名 != "" || 電郵 != "" || 電話 != "" || 參與人數 != "")
+            $("#判讀輸入").text("尚有資料未輸入!").css('color', 'red').addClass("animate__animated animate__heartBeat")
+
+        else
+
+            $("#chickBT").on('click', function () {
+                var options = getOptions();
+                options.title = 'Well Done!';
+                options.description = 'You just submit your resume successfully.';
+                options.type = 'success';
+                GrowlNotification.notify(options);
+            });
     }
-    else {
-        $("#chickBT").click(function () {
-            { alert("報名成功!!"); }
-        })
-    }
+
+
+        /*            $("#判讀輸入").text("報名成功").focus(this).css('color', 'forestgreen').addClass("modal fade");*/
+
+
 
     //$("#AAA").click(function () {
     //    console.log("ok")

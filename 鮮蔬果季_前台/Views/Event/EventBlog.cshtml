@@ -49,7 +49,7 @@
             }
             @*活動box外框*@
         .row.art {
-            padding-top: 50px;
+            padding-top: 40px;
             border-radius: 10px;
             background-color: #FFF9E9;
         }
@@ -118,7 +118,7 @@
 }
 
 <!-- Start All Title Box===================================================== -->
-<div class="all-title-box_Partner">
+<div class="all-title-box">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -139,12 +139,14 @@
 
 <div class="logo-carousel-section">
     <div class="container">
-        <P class="文字標題"> 活動分類</P>
+        <P class="文字標題"  style="padding-left:10px" > 活動分類</P>
         <div class="row">
             <div class="col-lg-12">
                 <div class="分類圖片含標題大小">
-                    <p class="分類BOX標題">DIY體驗</p>
-                    <img class="分類圖片大小" src="~/assets/img/活動分類/diy.jpg" alt="">
+                    <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="1">
+                        <p class="分類BOX標題">DIY體驗</p>
+                        <img class="分類圖片大小" src="~/assets/img/活動分類/diy.jpg" alt="">
+                    </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
@@ -170,7 +172,9 @@
 
             </div>
         </div>
+        <h1 style="margin-top:20px; padding-left:950px"> 全部精彩活動... </h1>
     </div>
+
 </div>
 <br />
 

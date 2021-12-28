@@ -25,7 +25,7 @@ namespace 鮮蔬果季_前台.Controllers
     }
 
 
-        public IActionResult EventBlog()
+        public IActionResult EventBlog(int id)
         {
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -40,12 +40,27 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
             }
 
-            //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             var 所有活動 = (from E in db.Events
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
-                       select  new {E,supp }).ToList();
+                        select new { E, supp }).ToList();
+
+            if (id == 1)
+            { 
+                所有活動 = (from E in db.Events
+                join supp in db.Suppliers
+                on E.SupplierId equals supp.SupplierId
+                where E.LableId == 1
+                select  new {E,supp }).ToList();
+            
+            
+            }
+
+
+
+
             
             foreach (var item in 所有活動)
             {
