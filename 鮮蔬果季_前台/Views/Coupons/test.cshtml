@@ -1,0 +1,78 @@
+﻿@section Styles{
+    <style>
+        /*        body {
+                    background: #dedede;
+                }
+        */
+        .coupon .kanan {
+            border-left: 1px dashed #ddd;
+            width: 40% !important;
+            position: relative;
+        }
+
+            .coupon .kanan .info::after, .coupon .kanan .info::before {
+                content: '';
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: #dedede;
+                border-radius: 100%;
+            }
+
+            .coupon .kanan .info::before {
+                top: -10px;
+                left: -10px;
+            }
+
+            .coupon .kanan .info::after {
+                bottom: -10px;
+                left: -10px;
+            }
+
+        .coupon .time {
+            font-size: 1.6rem;
+        }
+
+        .wishlist-box-main {
+            padding-left: 50px;
+        }
+
+        .include {
+            width: 190px;
+            height: 100px;
+            padding: 10px;
+            background-color: aliceblue;
+            border-radius: 10px;
+            border: 1px dotted gray;
+        }
+
+        .discountnum {
+            font-size: 30px;
+            padding-left:5px;
+        }
+
+        .lead {
+            font-weight: bold;
+            padding-bottom: 0px;
+            padding-right: 10px;
+        }
+        .usebtn{
+            margin-left:30px;
+            margin-bottom:15px;
+        }
+        .cpnum{
+        }
+    </style>
+}
+<div class="wishlist-box-main">
+    <div class="include">
+        <span class="lead">開心100</span>
+        <span class="badge badge-success cpnum">剩餘10張</span>
+        <div class="discount">
+            <span class="discounttext">折NT$</span><span class="text-muted mb-0 discountnum">50</span>
+            <a class="btn btn-sm btn-outline-danger usebtn ">
+                使用
+            </a>
+        </div>
+    </div>
+</div>

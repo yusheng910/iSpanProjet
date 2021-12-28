@@ -272,33 +272,23 @@ namespace 鮮蔬果季_前台.Controllers
         //    return RedirectToAction("OrderDetail", "Order");
         //}
 
-        public IActionResult AddReview2(int id,int starrank,string AddComments,int oid)
+        public IActionResult AddReviewPartial(int id,int starrank,string AddComments)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
             {
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
-
-                Review review = new Review()
-                {
-                    OrderDetailId = id,
-                    Comments = AddComments,
-                    ReviewDate = DateTime.Now,
-                    StarRanking = starrank
-
-                };
-                db.Add(review);
-                db.SaveChanges();
-
                 List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
+                var q = (from od in db.OrderDetails
+                         where od.OrderDetailId == id
+                         select od.OrderId).FirstOrDefault();
+
                 var 所有訂單細項 = (from od in db.OrderDetails
                               join p in db.Products
                               on od.ProductId equals p.ProductId
                               join sup in db.Suppliers
                               on p.SupplierId equals sup.SupplierId
-                              where od.OrderId == id
+                              where od.OrderId == q
+                              orderby od.ProductId
                               select new { od, p, sup }).ToList();
-
                 foreach (var o in 所有訂單細項)
                 {
                     var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
@@ -311,6 +301,19 @@ namespace 鮮蔬果季_前台.Controllers
                         //單筆訂單細項總價 = 訂單細項總價
                     });
                 }
+                Review review = new Review()
+                {
+                    OrderDetailId = id,
+                    Comments = AddComments,
+                    ReviewDate = DateTime.Now,
+                    StarRanking = starrank
+                };
+                var 是否評論 = (from x in db.OrderDetails
+                            where x.OrderDetailId == id
+                            select x).FirstOrDefault();
+                是否評論.HaveReviews = true;
+                db.Add(review);
+                db.SaveChanges();
                 return PartialView(訂單細項列表);
             }
             else //Seesion會員沒登入
@@ -320,10 +323,6 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
-
-
-
-
         public IActionResult ShowSuplierName(int id)
         {
             var 供應商 = (from od in db.OrderDetails

@@ -41,11 +41,23 @@
                 <p id="total-pr">NT$ @商品價乘數量</p>
                 @*<p>@item.單筆訂單細項總價</p>*@
             </td>
+            <td class="add-pr">
+                <a style="padding:8px 12px;" href="#" class="btn hvr-hover">問題回報</a>
+            </td>
             <td style="padding-right:20px;" class="add-rv">
                 <div class="aboveadd">
                     <div class="text-right">
                         <input class="haverv" type="hidden" value="@item.odetail.HaveReviews" />
-                        <button class="btn hvr-hover open-review-box" value="@item.odetail.OrderDetailId">新增評價</button>
+                        @{ if (item.odetail.HaveReviews == false)
+                            {
+                                <button class="btn hvr-hover open-review-box " value="@item.odetail.OrderDetailId">新增評價</button>
+                            }
+                            else
+                            {
+                                <button class="btn findodid disabled" value="@item.odetail.OrderDetailId">已評價</button>
+                            }
+                        }
+                        <input type="hidden" value="@item.odetail.OrderDetailId" />
                     </div>
                 </div>
             </td>
