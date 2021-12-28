@@ -22,6 +22,16 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult ContactUs()
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
             return View();
         }
         //測試讀取回應項目是否成功

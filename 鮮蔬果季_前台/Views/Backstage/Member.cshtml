@@ -1,4 +1,4 @@
-﻿
+﻿@model List<鮮蔬果季_前台.ViewModels.MemberViewModel>
 @{
     ViewData["Title"] = "Member";
 }
@@ -28,6 +28,8 @@
                             <th><strong>ID</strong></th>
                             <th><strong>頭像</strong></th>
                             <th><strong>會員</strong></th>
+                            <th><strong>帳號</strong></th>
+                            <th><strong>密碼</strong></th>
                             <th><strong>地址</strong></th>
                             <th><strong>城市</strong></th>
                             <th><strong>電話</strong></th>
@@ -36,161 +38,94 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="1">
-                                    <label class="custom-control-label" for="1"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>1</strong></p>
-                            </td>
-                            <td>
-                                <div class="avatar avatar-sm">
-                                    <img src="~/backstage/assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>江凱詳</strong></p>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>新北市板橋區南雅南路2段</strong></p>
-                            </td>
-                            <td>
-                                <small class="mb-0 text-muted"><strong>新北市</strong></small>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>0917981198</strong></a></p>
-                            </td>
-                            <td class="text-muted"><strong>1999/06/02</strong></td>
-                            <td>
-                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">修改</a>
-                                    <a class="dropdown-item" href="#">移除</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="2">
-                                    <label class="custom-control-label" for="2"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>2</strong></p>
-                            </td>
-                            <td>
-                                <div class="avatar avatar-sm">
-                                    <img src="~/backstage/assets/avatars/face-2.jpg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>張宇盛</strong></p>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>新北市板橋區裕民路</strong></p>
-                            </td>
-                            <td>
-                                <small class="mb-0 text-muted"><strong>新北市</strong></small>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>0917981198</strong></a></p>
-                            </td>
-                            <td class="text-muted"><strong>1999/06/02</strong></td>
-                            <td>
-                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">修改</a>
-                                    <a class="dropdown-item" href="#">移除</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="3">
-                                    <label class="custom-control-label" for="3"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>3</strong></p>
-                            </td>
-                            <td>
-                                <div class="avatar avatar-sm">
-                                    <img src="~/backstage/assets/avatars/face-4.jpg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>李振主</strong></p>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>新北市板橋區南雅南路2段</strong></p>
-                            </td>
-                            <td>
-                                <small class="mb-0 text-muted"><strong>新北市</strong></small>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>0917981198</strong></a></p>
-                            </td>
-                            <td class="text-muted"><strong>1999/06/02</strong></td>
-                            <td>
-                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">修改</a>
-                                    <a class="dropdown-item" href="#">移除</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="4">
-                                    <label class="custom-control-label" for="4"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>4</strong></p>
-                            </td>
-                            <td>
-                                <div class="avatar avatar-sm">
-                                    <img src="~/backstage/assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>林庭毅</strong></p>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><strong>新北市板橋區信義路</strong></p>
-                            </td>
-                            <td>
-                                <small class="mb-0 text-muted"><strong>新北市</strong></small>
-                            </td>
-                            <td>
-                                <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>0917981198</strong></a></p>
-                            </td>
-                            <td class="text-muted"><strong>1999/06/02</strong></td>
-                            <td>
-                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">修改</a>
-                                    <a class="dropdown-item" href="#">移除</a>
-                                </div>
-                            </td>
-                        </tr>
+                        @{
+                            int count = 0;
+                            foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="@count">
+                                            <label class="custom-control-label" for="@count"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.member.MemberId</strong></p>
+                                    </td>
+                                    <td>
+                                        <div class="avatar avatar-sm">
+                                            <img src="~/images/MemberPhoto/@item.member.MemberPhotoPass" alt="..." class="avatar-img rounded-circle">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted mName"><strong>@item.member.MemberName</strong></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.member.UserId</strong></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.member.Password</strong></p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><strong>@item.member.MemberAddress</strong></p>
+                                    </td>
+                                    <td>
+                                        <small class="mb-0 text-muted"><strong>@item.city</strong></small>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 text-muted"><a href="#" class="text-muted"><strong>@item.member.Mobile</strong></a></p>
+                                    </td>
+                                    @{
+                                        string date = (item.member.BirthDate).ToString();
+                                        date = date.Split(" ")[0];
+                                        <td class="text-muted"><strong>@date</strong></td>
+                                    }
 
+                                    <td>
+                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            @*<a class="dropdown-item Medit" data-toggle="modal" data-target="#MemberEdit" style="color:black">修改</a>*@
+                                            <a class="dropdown-item" href="#">修改</a>
+                                            <a class="dropdown-item" href="#">移除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
+                <!-- Modal -->
+                @*<div class="modal fade" id="MemberEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form asp-action="Edit" enctype="multipart/form-data">
+                                    <input type="hidden" class="MemberId" name="MemberId" value="" />
+                                    <div class="form-group">
+                                        <label  class="control-label">會員:</label>
+                                        <input id="MemberName"  class="form-control MemberName" />
+                                    </div>                                 
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
             </div>
         </div>
         <nav aria-label="Table Paging" class="my-3">
@@ -204,3 +139,7 @@
         </nav>
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
+@section Scripts{ 
+    <script>
+    </script>
+}

@@ -26,18 +26,32 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult Login(LoginViewModel LOGIN)
         {
             Member user = db.Members.FirstOrDefault(t => t.UserId.Equals(LOGIN.username) && t.Password.Equals(LOGIN.password));
+            Supplier supplier = db.Suppliers.FirstOrDefault(t => t.SupplierAccount.Equals(LOGIN.username) && t.SupplierPassword.Equals(LOGIN.password));
             if (user != null)
             {
-                if(user.UserId.Equals(LOGIN.username)&& user.Password.Equals(LOGIN.password))
+                if (user.UserId.Equals(LOGIN.username) && user.Password.Equals(LOGIN.password))
                 {
                     string json = "";
 
                     json = JsonSerializer.Serialize(user);
                     HttpContext.Session.SetString(CDictionary.SK_LOGINED_USER, json);
                     UserLogin.member = user;
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
 
                 }
+            }
+            else if(supplier!=null) {
+                if (supplier.SupplierAccount.Equals(LOGIN.username) && supplier.SupplierPassword.Equals(LOGIN.password))
+                {
+                    string json = "";
+                    json = JsonSerializer.Serialize(user);
+                    HttpContext.Session.SetString(CDictionary.SK_LOGINED_SUPPLIER, json);
+                    UserLogin.supplier = supplier;
+                    return RedirectToAction("Index", "Home");
+
+                }
+
+                
             }
             return View();
         }

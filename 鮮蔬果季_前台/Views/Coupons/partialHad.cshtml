@@ -1,8 +1,9 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
 
+
 @foreach (var item in Model)
 {
-    if (item.couponDetail.CouponId != item.coupon.CouponId && item.coupon.CouponEndDate > DateTime.Now)
+    if (item.coupon.CouponEndDate > DateTime.Now)
     {
         <div class="col-sm-6">
             <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
@@ -85,9 +86,7 @@
                                 }
                                 else
                                 {
-                                    <a class="btn btn-sm btn-outline-danger btn-block addcpbtn2">
-                                        @* <input type="hidden" class="cplogin" onclick="window.location.href='@Url.Content("/Login/Login")'" />*@
-                                        <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
+                                    <a asp-area="" asp-controller="Coupons" asp-action="AddCoupons" asp-route-id="@item.coupon.CouponId" class="btn btn-sm btn-outline-danger btn-block">
                                         領取
                                     </a>
                                 }
@@ -98,7 +97,5 @@
             </div>
         </div>
     }
+
 }
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@

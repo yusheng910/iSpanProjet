@@ -83,7 +83,9 @@
                             }
                             else
                             {
-                                <a asp-area="" asp-controller="Coupons" asp-action="AddCoupons" asp-route-id="@item.coupon.CouponId" class="btn btn-sm btn-outline-danger btn-block">
+                                <a class="btn btn-sm btn-outline-danger btn-block addcpbtn">
+                                    @* <input type="hidden" class="cplogin" onclick="window.location.href='@Url.Content("/Login/Login")'" />*@
+                                    <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
                                     領取
                                 </a>
                             }

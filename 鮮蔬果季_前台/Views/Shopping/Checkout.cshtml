@@ -1,22 +1,24 @@
-﻿
+﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
+
 @{
     ViewData["Title"] = "Checkout";
 }
 
-@section Styles{ 
-<style>
-    .custom-control-label{
-        padding-left:23px;
-    }
+@section Styles{
+    <style>
+        .custom-control-label {
+            padding-left: 23px;
+        }
 
-    .all-title-box {
-        background: url("../images/broccoli-stir-fry.jpg") no-repeat center center;
-        background-size: cover;
-    }
-    .order-box h3 {
-    font-size:18px;
-    }
-</style>
+        .all-title-box {
+            background: url("../images/broccoli-stir-fry.jpg") no-repeat center center;
+            background-size: cover;
+        }
+
+        .order-box h3 {
+            font-size: 18px;
+        }
+    </style>
 }
 
 <!-- Start All Title Box -->
@@ -33,81 +35,62 @@
 <!-- Start Cart  -->
 <div class="cart-box-main">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-lg-6 mb-3">
-                <div class="checkout-address">
-                    <div class="title-left">
-                        <h3>寄送資訊</h3>
-                    </div>
-                    <form class="needs-validation" novalidate>
+        <form class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="checkout-address">
+                        <div class="title-left">
+                            <h3>寄送資訊</h3>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="firstName">姓名 *</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <label for="firstName">會員姓名 *</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value="@UserLogin.member.MemberName" readonly>
                                 <div class="invalid-feedback"> Valid first name is required. </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="email">電子郵件 *</label>
-                            <input type="email" class="form-control" id="email" placeholder="">
-                            <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address">寄送地址 *</label>
-                            <input type="text" class="form-control" id="address" placeholder="" required>
-                            <div class="invalid-feedback"> Please enter your shipping address. </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5 mb-3">
-                                <label for="country">國家 *</label>
-                                <select class="wide w-100" id="country">
-                                    <option value="選擇..." data-display="Select">選擇...</option>
-                                    <option value="台灣">台灣</option>
-                                </select>
-                                <div class="invalid-feedback"> 請選擇國家 </div>
-                            </div>
+                        @*<div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="state">縣市 *</label>
-                                <select class="wide w-100" id="state">
-                                    <option data-display="Select">選擇...</option>
-                                    <option>台北市</option>
-                                    <option>新北市</option>
-                                    <option>台中市</option>
-                                    <option>高雄市</option>
+                                <select class="wide w-100" id="citySelect">
                                 </select>
                                 <div class="invalid-feedback"> 請選擇縣市 </div>
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="zip">郵遞區號 *</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required>
-                                <div class="invalid-feedback"> 郵遞區號為必填 </div>
-                            </div>
+                        </div>*@
+                        <div class="mb-3">
+                            <label for="address">寄送地址 *</label>
+                            <input name="address" type="text" class="form-control" id="address" placeholder="" required>
+                            <div class="invalid-feedback"> Please enter your shipping address. </div>
                         </div>
-                        <hr class="mb-4">
-                        <div class="custom-control custom-checkbox">
+                        @*<div class="custom-control custom-checkbox"> //todo 存 cookie 做地址暫存?
                             <input type="checkbox" class="custom-control-input" id="save-info">
                             <label class="custom-control-label" for="save-info">為我儲存此郵寄地址</label>
-                        </div>
+                        </div>*@
+                        <br />
                         <hr class="mb-4">
-                        <div class="title"> <span>付款方式</span> </div>
+                        <div class="title">
+                            <span>付款方式</span>
+                        </div>
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                <input id="credit" name="paymentMethod" value="1" type="radio" class="custom-control-input" checked required>
                                 <label class="custom-control-label" for="credit">信用卡</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                <input id="debit" name="paymentMethod" value="2" type="radio" class="custom-control-input" required>
                                 <label class="custom-control-label" for="debit">匯款</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                <input id="paypal" name="paymentMethod" value="3" type="radio" class="custom-control-input" required>
                                 <label class="custom-control-label" for="paypal">Paypal</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="cc-name">持卡人姓名</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required> <small class="text-muted">Full name as displayed on card</small>
+                                <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                                <small class="text-muted">Full name as displayed on card</small>
                                 <div class="invalid-feedback"> 此為必填欄位 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -130,111 +113,164 @@
                             <div class="col-md-6 mb-3">
                                 <div class="payment-icon">
                                     <ul>
-                                        <li><img class="img-fluid" src="~/images/payment-icon/1.png" alt=""></li>
-                                        <li><img class="img-fluid" src="~/images/payment-icon/2.png" alt=""></li>
-                                        <li><img class="img-fluid" src="~/images/payment-icon/3.png" alt=""></li>
-                                        <li><img class="img-fluid" src="~/images/payment-icon/5.png" alt=""></li>
-                                        <li><img class="img-fluid" src="~/images/payment-icon/7.png" alt=""></li>
+                                        <li>
+                                            <img class="img-fluid" src="~/images/payment-icon/1.png" alt="">
+                                        </li>
+                                        <li>
+                                            <img class="img-fluid" src="~/images/payment-icon/2.png" alt="">
+                                        </li>
+                                        <li>
+                                            <img class="img-fluid" src="~/images/payment-icon/3.png" alt="">
+                                        </li>
+                                        <li>
+                                            <img class="img-fluid" src="~/images/payment-icon/5.png" alt="">
+                                        </li>
+                                        <li>
+                                            <img class="img-fluid" src="~/images/payment-icon/7.png" alt="">
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <hr class="mb-1">
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-lg-6 mb-3">
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="shipping-method-box">
-                            <div class="title-left">
-                                <h3>配送時間</h3>
-                            </div>
-                            <div class="mb-4">
-                                <div class="custom-control custom-radio">
-                                    <input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
-                                    <label class="custom-control-label" for="shippingOption1">標準配送</label> <span class="float-right font-weight-bold">超過 NT$ 500 免運費</span>
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="shipping-method-box">
+                                <div class="title-left">
+                                    <h3>配送時間</h3>
                                 </div>
-                                <div class="ml-4 mb-2 small">(3-7 工作天)</div>
-                                <div class="custom-control custom-radio">
-                                    <input id="shippingOption2" name="shipping-option" class="custom-control-input" type="radio">
-                                    <label class="custom-control-label" for="shippingOption2">限時配送</label> <span class="float-right font-weight-bold">NT$ 60</span>
-                                </div>
-                                <div class="ml-4 mb-2 small">(2-4 工作天)</div>
-                                <div class="custom-control custom-radio">
-                                    <input id="shippingOption3" name="shipping-option" class="custom-control-input" type="radio">
-                                    <label class="custom-control-label" for="shippingOption3">超級快遞 (中午前下單於隔日即送達)</label> <span class="float-right font-weight-bold">NT$ 150</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-12">
-                        <div class="odr-box">
-                            <div class="title-left">
-                                <h3>購物清單</h3>
-                            </div>
-                            <div class="rounded p-2 bg-light">
-                                <div class="media mb-2 border-bottom">
-                                    <div class="media-body">
-                                        <a href="detail.html"> 紅蘿蔔 (全福種苗)</a>
-                                        <div class="small text-muted">價格: NT$ 60 <span class="mx-2">|</span> 數量: 1 <span class="mx-2">|</span> 小計: NT$ 60</div>
+                                <div class="mb-4">
+                                    <div class="custom-control custom-radio">
+                                        <input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
+                                        <label class="custom-control-label" for="shippingOption1">標準配送</label>
+                                        <span class="float-right font-weight-bold">超過 NT$ 500 免運費</span>
                                     </div>
-                                </div>
-                                <div class="media mb-2 border-bottom">
-                                    <div class="media-body">
-                                        <a href="detail.html"> 牛番茄 (興農種苗)</a>
-                                        <div class="small text-muted">價格: NT$ 82 <span class="mx-2">|</span> 數量: 1 <span class="mx-2">|</span> 小計: NT$ 82</div>
+                                    <div class="ml-4 mb-2 small">(3-7 工作天)</div>
+                                    <div class="custom-control custom-radio">
+                                        <input id="shippingOption2" name="shipping-option" class="custom-control-input" type="radio">
+                                        <label class="custom-control-label" for="shippingOption2">限時配送</label>
+                                        <span class="float-right font-weight-bold">NT$ 60</span>
                                     </div>
-                                </div>
-                                <div class="media mb-2">
-                                    <div class="media-body">
-                                        <a href="detail.html"> 山藥 (泓興育苗)</a>
-                                        <div class="small text-muted">價格: NT$ 200 <span class="mx-2">|</span> 數量: 1 <span class="mx-2">|</span> 小計: NT$ 200</div>
+                                    <div class="ml-4 mb-2 small">(2-4 工作天)</div>
+                                    <div class="custom-control custom-radio">
+                                        <input id="shippingOption3" name="shipping-option" class="custom-control-input" type="radio">
+                                        <label class="custom-control-label" for="shippingOption3">超級快遞 (中午前下單於隔日即送達)</label>
+                                        <span class="float-right font-weight-bold">NT$ 150</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-lg-12">
-                        <div class="order-box">
-                            <div class="title-left" style="padding-top:20px">
-                                <h3>訂單明細</h3>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="odr-box">
+                                <div class="title-left">
+                                    <h3>購物清單</h3>
+                                </div>
+                                @{
+                                    int 商品價乘數量 = 0;
+                                    int 總價 = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        商品價乘數量 = item.product.ProductUnitPrice * item.shopCart.UnitsInCart;
+                                        總價 += 商品價乘數量;
+                                        <div class="rounded p-2 bg-light">
+                                            <div class="media mb-2 border-bottom">
+                                                <div class="media-body">
+                                                    <h4 style="font-weight:bold;"> @item.product.ProductName (@item.supplier.SupplierName)</h4>
+                                                    <div class="small text-muted">
+                                                        價格: NT$ @item.product.ProductUnitPrice
+                                                        <span class="mx-2">|</span> 數量: @item.shopCart.UnitsInCart
+                                                        <span class="mx-2">|</span> 小計: NT$ @商品價乘數量
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             </div>
-                            <hr class="my-1">
-                            <div class="d-flex">
-                                <h4>商品金額</h4>
-                                <div class="ml-auto font-weight-bold"> NT$ 342 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>消費稅</h4>
-                                <div class="ml-auto font-weight-bold"> NT$ 5 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>運費</h4>
-                                <div class="ml-auto font-weight-bold"> NT$ 50 </div>
-                            </div>
-                            <hr class="my-1">
-                            <div class="d-flex">
-                                <h4>商品折扣</h4>
-                                <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>酷碰折扣</h4>
-                                <div class="ml-auto font-weight-bold"> -NT$ 20 </div>
-                            </div>
-                            <hr>
-                            <div class="d-flex gr-total">
-                                <h5>應付金額</h5>
-                                <div class="ml-auto h5"> $ 377 </div>
-                            </div>
-                            <hr>
                         </div>
-                    </div>
-                    <div class="col-12 d-flex shopping-box"> <a href="checkout.html" class="ml-auto btn hvr-hover">付款</a> </div>
-                </div>
-            </div>
-        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="order-box">
+                                <div class="title-left" style="padding-top:20px">
+                                    <h3>訂單明細</h3>
+                                </div>
+                                <hr class="my-1">
+                                <div class="d-flex">
+                                    <h4>商品金額</h4>
+                                    <div class="ml-auto font-weight-bold"> NT$ @總價 </div>
+                                </div>
+                                <div class="d-flex">
+                                    <h4>運費</h4>
+                                    <div class="ml-auto font-weight-bold"> NT$ 50 </div>
+                                </div>
+                                <hr class="my-1">
+                                <div class="d-flex">
+                                    <h4>商品折扣</h4>
+                                    <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
+                                </div>
+                                <div class="d-flex">
+                                    <h4>酷碰折扣</h4>
+                                    <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex gr-total">
+                                    <h5>應付金額</h5>
+                                    <div class="ml-auto h5"> NT$ @(總價+50) </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex shopping-box">
+                            <button class="ml-auto btn hvr-hover" id="submit" type="button" data-toggle="modal" data-target="#exampleModal" style="color:white; padding:10px 20px 10px 20px ;">付款</button>
+                        </div>
 
+                         Modal 
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">付款確認</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    您確定要結帳購物車內的商品嗎?
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btnCheck" type="button" class="btn btn-primary" onclick="window.location.href = '@Url.Content("~/Shopping/CheckAddOrder")' +'?address='+'仁愛路'+'&paymentMethod='+2">確定</button>
+                                    <input class="toOrder" type="hidden" onclick="window.location.href = '@Url.Content("~/Order/Orders")'">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <!-- End Cart -->
+@section Scripts{
+    <script>
+        var btn = document.querySelector('#btnCheck')
+        var payRadio = $('input[name="paymentMethod"]:checked').val()
+        var txtAddress = $('#address').val()
+
+        btn.addEventListener('click', async function () {
+            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio)
+            var data = await response.text();
+            if (data == 1) {
+                console.log("454674")
+                // 創建事件物件
+                var evt = document.createEvent("HTMLEvents");
+                // 初始化
+                evt.initEvent("click", false, false);
+                document.querySelector(".toOrder").dispatchEvent(evt)
+            }
+        })
+    </script>
+}

@@ -21,5 +21,20 @@ namespace 鮮蔬果季_前台.Models
                 _memb = value;
             }
         }
+        public static Supplier _supp = null;
+        public static Supplier supplier
+        {
+            get
+            {
+                if (_supp == null)
+                    _supp = new Supplier();
+                return _supp;
+            }
+            set
+            {
+                _supp = value;
+            }
+        }
+
     }
 }

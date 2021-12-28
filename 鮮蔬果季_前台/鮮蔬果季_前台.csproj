@@ -30,4 +30,8 @@
     <Folder Include="wwwroot\assets\img\合作農友\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Supplier\ProductList.cshtml" />
+  </ItemGroup>
+
 </Project>

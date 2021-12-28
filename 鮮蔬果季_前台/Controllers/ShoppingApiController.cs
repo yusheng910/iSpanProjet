@@ -18,5 +18,15 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return Json(db.ShoppingCarts);
         }
+
+        public IActionResult Cities()
+        {
+            var cities = db.Cities.Select(c => new
+            {
+                c.CityId,
+                c.CityName
+            }).OrderBy(c => c.CityId);
+            return Json(cities);
+        }
     }
 }

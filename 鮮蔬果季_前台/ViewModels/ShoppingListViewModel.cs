@@ -165,6 +165,21 @@ namespace 鮮蔬果季_前台.ViewModels
                 _categoryDetail = value;
             }
         }
+
+        public Category _category = null;
+        public Category category
+        {
+            get
+            {
+                if (_category == null)
+                    _category = new Category();
+                return _category;
+            }
+            set
+            {
+                _category = value;
+            }
+        }
         public int CategoryId { get { return this.categoryDetail.CategoryId; } set { this.categoryDetail.CategoryId = value; } }
         public int ProductId { get { return this.product.ProductId; } set { this.product.ProductId = value; } }
         public string ProductName { get { return this.product.ProductName; } set { this.product.ProductName = value; } }
