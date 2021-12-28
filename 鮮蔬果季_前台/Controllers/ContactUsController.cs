@@ -53,9 +53,12 @@ namespace 鮮蔬果季_前台.Controllers
             }).ToList();
             return Json(fatherfeedackids);
         }
-        public IActionResult Send()
+        public IActionResult Send(FeedbackResponse _respose)
         {
-            return View();
+            _context.FeedbackResponses.Add(_respose);
+            _context.SaveChanges();
+            //return View();
+            return RedirectToAction("Index", "Home");
         }
     }
     
