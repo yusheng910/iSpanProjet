@@ -28,5 +28,22 @@ namespace 鮮蔬果季_前台.Controllers
             }).OrderBy(c => c.CityId);
             return Json(cities);
         }
+        public IActionResult ChangeCartQty(int id, int qty)
+        {
+                var q = (from i in db.ShoppingCarts
+                         join pro in db.Products
+                         on i.ProductId equals pro.ProductId
+                        where i.ShoppingCartId == id
+                        select new { i, pro }).FirstOrDefault();
+
+                ShoppingCart Cart = db.ShoppingCarts.FirstOrDefault(i => i.ShoppingCartId == id);
+                Cart.UnitsInCart = qty;
+                db.SaveChanges();
+
+            var unit = Cart.UnitsInCart;
+            var uPrice = q.pro.ProductUnitPrice;
+            var price = unit * uPrice;
+            return Content(price.ToString()); 
+        }
     }
 }
