@@ -4,6 +4,11 @@
 }
 @*該頁使用獨立的css樣式*@
 <link rel="stylesheet" href="~/assets/css/main.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="external nofollow" rel="stylesheet"> @*ican的CDN*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
+
+
+
 
 @section Styles{
 
@@ -41,8 +46,16 @@
         }
 
         .SignUpText {
-            font-size: large
+            font-size: large;
+            font-family: Microsoft JhengHei
         }
+
+        @*正黑體*@
+        span {
+            font-family: Microsoft JhengHei
+        }
+
+
 
 
     </style>
@@ -61,42 +74,44 @@
 
 <div style="padding-bottom:20px"></div>   @*間格用*@
 @* =====================================輪播大圖=====================================================*@
-<div class="col-xl-5 col-lg-5 col-md-5" style="display:block; margin:auto;">
-    <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="~/images/EventImg/活動1-1.jpg" alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="~/images/EventImg/活動1-2.jpg" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="~/images/EventImg/活動1-3.jpg" alt="Third slide">
+
+@{foreach (var item in Model)
+    {
+        <div class="col-xl-5 col-lg-5 col-md-5" style="display:block; margin:auto;">
+            <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+
+                    @{if (@item.EventPhoto[0] != null)  //必須加上動態判斷式,不然執行到錯誤(沒圖片),就會停止
+                        {
+                            <img class="d-block w-100" src="~/images/活動照片/@item.EventPhoto[0].PhotoPath" alt="First slide">
+                        }
+                    }
+
+                    @*<div class="carousel-item active">
+                            <img class="d-block w-100" src="~/images/EventImg/活動1-1.jpg" alt="First slide">
+                        </div>*@
+
+                </div>
+                <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only">Next</span>
+                </a>
+                <ol class="carousel-indicators" style="background: #ffffff">
+                    @* 控制小圖的控制*@
+                    <li data-target="#carousel-example-1" data-slide-to="0" class="active ">
+                        @{if (@item.EventPhoto[0] != null)
+                            {
+                                <img style="float:left" class="d-block w-100" src="~/images/活動照片/@item.EventPhoto[1].PhotoPath" alt="">
+                            }
+                        }
+                </ol>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            <span class="sr-only">Next</span>
-        </a>
-        <ol class="carousel-indicators" style="background: #ffffff">
-            @* 控制小圖的控制*@
-            <li data-target="#carousel-example-1" data-slide-to="0" class="active">
-                <img class="d-block w-100 img-fluid" src="~/images/EventImg/活動1-1.jpg" alt="" />
-            </li>
-            <li data-target="#carousel-example-1" data-slide-to="1">
-                <img class="d-block w-100 img-fluid" src="~/images/EventImg/活動1-2.jpg" alt="" />
-            </li>
-            <li data-target="#carousel-example-1" data-slide-to="2">
-                <img class="d-block w-100 img-fluid" src="~/images/EventImg/活動1-3.jpg" alt="" />
-            </li>
-        </ol>
-    </div>
-</div>
-
+    } }
 
 <!-- single article section -->
 @{foreach (var item in Model)
@@ -109,14 +124,40 @@
                             <div class="single-article-text">
                                 <div></div>  @*class="single-artcile-bg"*@
                                 <br />
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> 村長</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 2021-12-01</span>
-                                </p>
-                                <h2>
-                                    @Html.DisplayFor(modelitem => item.Event.EventName)
-                                </h2>
-                                <p style="font-size:large">@Html.DisplayFor(modelitem => item.Event.EventDescription)</p>
+
+                                <div style="margin:15px 0px">
+                                    <p style="font-size: xx-large; font-weight:700 " class="字體">
+                                        @Html.DisplayFor(modelitem => item.Event.EventName)
+                                    </p>
+                                </div>
+
+                                <div style="margin:15px 0px">
+                                    <span class="dat" style="font-size: x-large; ">
+                                        <i class="fas fa-money-check-alt" style="padding-right: 15px ">
+                                        </i>
+                                        @item.Event.EventPrice  元/人 (現場收費)
+                                    </span>
+                                </div>
+
+
+                                <div style="margin:15px 0px">
+                                    <span class="dat" style="font-size: x-large; ">
+                                        <i class="fas fa-map-marker-alt" style="padding-right: 20px ">
+                                        </i>
+                                        @item.Event.EventLocation
+                                    </span>
+                                </div>
+
+                                <div style="margin:15px 0px">
+                                    <span class="dat" style="font-size: x-large; ">
+                                        <i class="fas fa-calendar-alt" style="padding-right: 20px ">
+                                        </i>
+                                        @item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                    </span>
+                                </div>
+
+
+                                <p style="font-size:x-large">@Html.DisplayFor(modelitem => item.Event.EventDescription)</p>
                                 <br />
                             </div>
                         </div>
@@ -126,6 +167,7 @@
         </div>
     } }
 <div style="padding-bottom:50px"></div> @*間格用*@
+
 
 
 
@@ -152,15 +194,15 @@
                                             <div class="billing-address-form">
 
                                                 @*<button type="button" class="btn btn-primary" id="AAA">帶入會員資料</button>
-                                                <p id="PPP" name="測試"> </p>*@
+                                                    <p id="PPP" name="測試">AA</p>*@
 
 
                                                 @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
                                                 <form method="post" class="col-6" name="XXX">
                                                     <input type="hidden" placeholder="活動ID" name="EventId" value=@item.Event.EventId>
-                                                    <p style="padding-bottom: 10px">
-                                                        <input type="text" placeholder="姓名"   class="SignUpText" name="ContactName" id="name"  value= @ViewBag.姓名  required>
-                                                        </p>
+                                                    <p style="padding-bottom: 10px; ">
+                                                        <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 title="ZZ" required>
+                                                    </p>
                                                     <p style="padding-bottom: 10px">
                                                         <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
                                                     </p>
@@ -189,6 +231,7 @@
                                                     <div style="padding-top:15px"> </div>
                                                     @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
                                                     <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
+                                                    <div id="判讀輸入" style="float:right;  padding-right:160px; font-size:x-large; font-weight:700;"></div>
                                                 </form>                                                                                   @*透過onclick引用Javascript跳出Alert*@
                                             </div>
                                         </div>
@@ -204,29 +247,36 @@
 </div>
 <div style="padding-bottom:50px"></div> @*間格用*@
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 
 
 <script>
+    $("#chickBT").click(function () {
+        let 姓名 = $("#name").val();
+        let 電話 = $("#phone").val();
+        let 電郵 = $("#email").val();
+        let 參與人數 = $("#person").val();
 
-    if ($("#name").length == 0 ) {
-        $("#chickBT").click(function () {
-            { alert("報名失敗!!"); }
-        })
-    }
-    else {
-        $("#chickBT").click(function () {
-            { alert("報名成功!!"); }
-        })
+        if (姓名 != "" || 電郵 != "" || 電話 != "" || 參與人數 != "")
+            $("#判讀輸入").text("尚有資料未輸入!").css('color', 'red').addClass("animate__animated animate__heartBeat")
+
+        else
+
+            $("#chickBT").on('click', function () {
+                var options = getOptions();
+                options.title = 'Well Done!';
+                options.description = 'You just submit your resume successfully.';
+                options.type = 'success';
+                GrowlNotification.notify(options);
+            });
     }
 
-    var P = $("#PPP").get.name;
-    $("#AAA").click(function (event) {
-        /*     $("#PPP").name = ("change");*/
-        console.log$("#PPP").name;
-     })
+
+        /*            $("#判讀輸入").text("報名成功").focus(this).css('color', 'forestgreen').addClass("modal fade");*/
+
 
 
     //$("#AAA").click(function () {
@@ -236,9 +286,9 @@
     //});
 
 
-
     //$("#AAA").click(function () {
-    //    console.log("ok")
+    //    var AA = $("#PPP").get.length
+    //    console.log(AA)
     //});
 
 

@@ -25,7 +25,7 @@ namespace 鮮蔬果季_前台.Controllers
     }
 
 
-        public IActionResult EventBlog()
+        public IActionResult EventBlog(int id)
         {
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -40,12 +40,27 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
             }
 
-            //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            //鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
             var 所有活動 = (from E in db.Events
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
-                       select  new {E,supp }).ToList();
+                        select new { E, supp }).ToList();
+
+            if (id == 1)
+            { 
+                所有活動 = (from E in db.Events
+                join supp in db.Suppliers
+                on E.SupplierId equals supp.SupplierId
+                where E.LableId == 1
+                select  new {E,supp }).ToList();
+            
+            
+            }
+
+
+
+
             
             foreach (var item in 所有活動)
             {
@@ -104,32 +119,45 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.姓名 = UserLogin.member.MemberName.ToString();   //前台報名表單,帶入會員資料
                 ViewBag.電郵 = UserLogin.member.UserId.ToString();
                 ViewBag.電話 = UserLogin.member.Mobile.ToString();
+
+
+
+
             }
             else //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
+                return RedirectToAction("Login", "Login");   //返回登入頁面
             }
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();
-            var datas = (from E in db.Events
+            List<EventListViewModel> 活動列表 = new List<EventListViewModel>();
+            var 活動 = (from E in db.Events
+                      join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
                         where id ==E.EventId           //回傳的id與活動id相等
-                        select E).ToList();
+                        select new { E,supp }).ToList();
 
-            List<EventListViewModel> list = new List<EventListViewModel>();
-            foreach (var item in datas)
+            foreach (var item in 活動)
             {
-                //db = new 鮮蔬果季Context();
-                var EventPhotos = (from EI in db.EventPhotoBanks
-                                   where EI.EventId == item.EventId
-                                   select EI).FirstOrDefault();
-                list.Add(new EventListViewModel()
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+                //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                //var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                // 相片list.Add(照片資料); 
+                var 照片資料 = db.EventPhotoBanks.Where(P => P.EventId == item.E.EventId).ToList();
+                foreach (var 照片 in 照片資料)
+                    相片list.Add(照片);
+
+                活動列表.Add(new EventListViewModel()
                 {
-                    Event = item,
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
 
                 });
             }
-            return View(list);
+            return View(活動列表);
         }
 
 
