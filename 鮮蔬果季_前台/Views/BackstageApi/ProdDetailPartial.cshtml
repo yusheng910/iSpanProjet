@@ -71,7 +71,15 @@
         </div>
         <div class="form-group">
             <label asp-for="ProduceDate" class="control-label"></label>
-            <input asp-for="ProduceDate" class="form-control" disabled />
+            @if (Model.InShop)
+            {
+                <input asp-for="ProduceDate" class="form-control" disabled />
+            }
+            else
+            {
+                <input value="尚未上架" class="form-control" disabled />
+            }
+
             <span asp-validation-for="ProduceDate" class="text-danger"></span>
         </div>
         <div class="form-group form-check">

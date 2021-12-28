@@ -60,7 +60,15 @@
                                             @{
                                                 string date = (item.ProduceDate).ToString();
                                                 date = date.Split(" ")[0];
-                                                <td>@date</td>
+                                                if (item.InShop)
+                                                {
+                                                    <td>@date</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>尚未上架</td>
+                                                }
+
                                             }
                                             <td>@item.category.CategoryName</td>
                                             <td>

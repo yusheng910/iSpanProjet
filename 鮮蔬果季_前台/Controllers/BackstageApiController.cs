@@ -91,12 +91,23 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult ProdEditPartial(ShoppingListViewModel ProdEdit)
         {
-            var product = db.Products.FirstOrDefault(a => a.ProductId == ProdEdit.ProductId);
+            var product = (from p in db.Products
+                                        where p.ProductId == ProdEdit.ProductId
+                                        select p).FirstOrDefault();
+            var Sid = db.Suppliers.FirstOrDefault(a => a.SupplierName == ProdEdit.SupplierName);
             product.ProductName = ProdEdit.ProductName;
             product.ProductUnitPrice = ProdEdit.ProductUnitPrice;
             product.ProductUnitsInStock = ProdEdit.ProductUnitsInStock;
             product.ProductCostPrice = ProdEdit.ProductCostPrice;
             product.ProductDescription = ProdEdit.ProductDescription;
+            product.SupplierId = Sid.SupplierId;
+            if (product.InShop == false&&ProdEdit.InShop)
+            {
+                product.ProduceDate = DateTime.Now;
+            }
+            product.InShop = ProdEdit.InShop;
+
+
             db.SaveChanges();
 
             return Content("1");
