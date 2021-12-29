@@ -11,11 +11,11 @@ using 鮮蔬果季_前台.ViewModels;
 
 namespace 鮮蔬果季_前台.Controllers
 {
-    public class BackstageApiController : Controller
+    public class BackstageProductApiController : Controller
     {
         private readonly 鮮蔬果季Context db;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        public BackstageApiController(IWebHostEnvironment webHost,鮮蔬果季Context dbContext)
+        public BackstageProductApiController(IWebHostEnvironment webHost,鮮蔬果季Context dbContext)
         {
             _hostingEnvironment = webHost; //取的wwwroot的路徑
             db = dbContext;

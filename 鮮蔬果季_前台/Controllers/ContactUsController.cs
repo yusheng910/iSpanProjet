@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using 鮮蔬果季_前台.Models;
-using 鮮蔬果季_前台.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.RegularExpressions;
+using 鮮蔬果季_前台.Models;
 
 namespace 鮮蔬果季_前台.Controllers
 {
@@ -39,7 +34,8 @@ namespace 鮮蔬果季_前台.Controllers
             return View(id);
         }
         //==============================列出回報選項===============================================//
-        public IActionResult FeedbackNames() {
+        public IActionResult FeedbackNames()
+        {
             var feedbacknames = _context.Feedbacks.Where(a => a.FatherFeedbackId == null).OrderBy(a => a.FeedbackId).Select(a => new
             {
                 a.FeedbackId,
@@ -47,18 +43,27 @@ namespace 鮮蔬果季_前台.Controllers
             }).ToList();
             return Json(feedbacknames);
         }
-        //測試讀取細項類別是否成功
+        
         public IActionResult FatherFeedbackIds(int id)
         {
+            var feedackids = _context.Feedbacks.OrderBy(b => b.FeedbackId).Select(b => new
+            {
+                b.FeedbackId,
+                b.FeedbackName
+            }).ToList();
             var fatherfeedackids = _context.Feedbacks.Where(a => a.FatherFeedbackId == id).OrderBy(b => b.FatherFeedbackId).Select(b => new
             {
                 b.FeedbackId,
                 b.FeedbackName
             }).ToList();
+            if (fatherfeedackids == null)
+            {
+                return Json(feedackids);
+            }
             return Json(fatherfeedackids);
         }
         //將產品意見回饋傳入資料庫
-        
+
         //===================問題回報傳回資料庫===========================================================//
         public IActionResult Send(FeedbackResponse _respose)
         {
@@ -74,16 +79,9 @@ namespace 鮮蔬果季_前台.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-        //=========================防呆功能==================================================================//
-        public IActionResult FeedbackResponseIdRegex(int FeedbackResponseId ) {
-            if (FeedbackResponseId == 0)
-            {
-                return Content("請選擇");
-            }
-            return Content("");
-        }
+       
 
 
-    } 
-    
+    }
+
 }

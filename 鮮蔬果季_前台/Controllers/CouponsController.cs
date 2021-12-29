@@ -23,9 +23,9 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
-                            var qall = (from p in db.Coupons
-                        select p).ToList();
 
+            var qall = (from p in db.Coupons
+            select p).ToList();
             List<CouponsListViewModel> list = new List<CouponsListViewModel>();
             foreach (var item in qall)
             {
@@ -41,6 +41,8 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(list);
             }
+
+
 
             else //Seesion沒找到
             {
