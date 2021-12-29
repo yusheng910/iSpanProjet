@@ -36,12 +36,7 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(member);
         }
-        public IActionResult Order()
-        {
-            var q = from p in db.Orders
-                    select p;
-            return View(q);
-        }
+        
         public IActionResult Product()
         {
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();

@@ -20,7 +20,6 @@ namespace 鮮蔬果季_前台.Models
         public int MemberId { get; set; }
         public int? CouponId { get; set; }
         public int PayMethodId { get; set; }
-        public string DeliveryAddress { get; set; }
 
         public virtual Coupon Coupon { get; set; }
         public virtual Member Member { get; set; }
