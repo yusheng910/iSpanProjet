@@ -1,5 +1,6 @@
 ﻿@*加照片資料夾
 *@
+@model int
 @{
     ViewData["Title"] = "ContactUs";
 }
@@ -89,6 +90,7 @@
             <div id="contact-column" class="col-md-6">
                 <div id="contact-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
                     <form id="contact-form" class="form" action="~/ContactUs/Send" method="post">
+                        <input type="hidden" value="@Model" name="OrderDetailId"/>
                         <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡鮮蔬果季</h3>
                         <h3 class="text-center">請提供簡述您所面臨到的問題，鮮蔬果季很樂意為您服務</h3>
 
@@ -104,10 +106,7 @@
                             
                         </div>
                         <div style="padding-bottom:3px"></div> @*間格用*@
-                        @*寫死產品名稱序號*@
-                        <div>
-                            <label name="OrderDetailID" value="1"></label>
-                        </div>
+                        
                         <div class="form-group">
 
                             <div class="form-floating">
