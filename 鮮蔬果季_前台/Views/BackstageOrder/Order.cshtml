@@ -1,6 +1,6 @@
-﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
+﻿@model List<鮮蔬果季_前台.ViewModels.OrderListViewModel>
 @{
-    ViewData["Title"] = "Product";
+    ViewData["Title"] = "Order";
 }
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
@@ -8,7 +8,7 @@
 
 <div class="row justify-content-center">
     <div class="col-12">
-        <h2 class="mb-2 page-title">產品管理</h2>
+        <h2 class="mb-2 page-title">訂單管理</h2>
         <p class="card-text"></p>
         <div class="row my-4">
             <!-- Small table -->
@@ -20,59 +20,49 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th></th>
-                                    <th>序號</th>
-                                    <th>產品名稱</th>
-                                    <th>照片</th>
-                                    <th>供應商名稱</th>
-                                    <th>售價</th>
-                                    <th>進價</th>
-                                    <th>庫存</th>
-                                    <th>產品描述</th>
-                                    <th>上架時間</th>
-                                    <th>分類名稱</th>
-                                    <th>編輯</th>
+                                    <th>訂單編號</th>
+                                    <th>訂購會員</th>
+                                    <th>下單日期</th>
+                                    <th>出貨日期</th>
+                                    <th>使用酷碰券</th>
+                                    <th>訂單金額</th>
+                                    <th>寄送地址</th>
+                                    <th>付款方式</th>
+                                    <th>更改配送狀態</th>
                                 </tr>
                             </thead>
                             <tbody class="tprodbody">
                                 @{ int count = 0;
                                     foreach (var item in Model)
                                     {
-                                        count++;
+
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="@count">
-                                                    <label class="custom-control-label" for="@count"></label>
+                                                    <label class="custom-control-label" for="@item.OrderId"></label>
                                                 </div>
                                             </td>
-                                            <td>@count</td>
-                                            <td>@item.ProductName</td>
-                                            @{if (@item.photoBank[0] != null)
-                                                {
-                                                    <td>
-                                                        <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="" alt="Image" style="width:100px;height:70px;object-fit:cover">
-                                                    </td>
-                                                }
-                                            }
-                                            <td>@item.SupplierName</td>
-                                            <td>@item.ProductUnitPrice</td>
-                                            <td>@item.ProductCostPrice</td>
-                                            <td>@item.ProductUnitsInStock</td>
-                                            <td>@item.ProductDescription</td>
+                                            <td>@item.OrderId</td>
+                                            <td>@item.member.MemberName</td>
+                                            <td>@item.OrderDate</td>
                                             @{
-                                                string date = (item.ProduceDate).ToString();
+                                                string date = (item.ShippedDate).ToString();
                                                 date = date.Split(" ")[0];
-                                                if (item.InShop)
+                                                if (item.ShippedDate != null)
                                                 {
                                                     <td>@date</td>
                                                 }
                                                 else
                                                 {
-                                                    <td>尚未上架</td>
+                                                    <td>訂單未出貨</td>
                                                 }
 
                                             }
-                                            <td>@item.category.CategoryName</td>
+                                            <td>@item.coupon.CouponName</td>
+                                            <td>@item.總價</td> @*todo coupon折扣要在這邊抓*@
+                                            <td>@item.ShippedTo</td>
+                                            <td>@item.paymethod.Method</td>
                                             <td>
                                                 <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
@@ -156,9 +146,10 @@
 
         console.log($(".selectphoto"))
         $(document).on("change",".selectphoto",async function () {
+            let value = $(this)[0].files
             let pid = $("#ProductId").val()
             @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
-            let obj = $(this);
+
             const formData = new FormData(document.ProdEdit)
             const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
                 method: "POST",
@@ -167,8 +158,7 @@
             const data = await response.text()
             if (data == 1) {
                 $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功");
-                    obj.val("")
+                    alert("上傳圖片成功")
                 })
             }
         });
@@ -180,7 +170,7 @@
             console.log(data)
             if (data == 1) {
                 $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("清空圖片成功")
+                    alert("上傳圖片成功")
                 })
             }
         })

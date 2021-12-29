@@ -125,6 +125,9 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     ProdEdit.photo.CopyTo(fileStream); //上傳指令
                 }
+                var 移除noimage = db.ProductPhotoBanks.Where(p => p.ProductId == ProdEdit.ProductId&&p.PhotoPath== "nprod.jpg").FirstOrDefault();
+                if(移除noimage!=null)
+                    db.Remove(移除noimage);
                 var q = new ProductPhotoBank()
                 {
                     ProductId = ProdEdit.ProductId,
@@ -142,12 +145,42 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult imgLoad(int id)
         {
             var q = db.ProductPhotoBanks.Where(p => p.ProductId == id).ToList();
+            if (q == null) {
+                return Content("請上傳圖片");
+            }
             return PartialView(q);
         }
         public IActionResult ClearImg(int id)
         {
             var q = db.ProductPhotoBanks.Where(p => p.ProductId == id).ToList();
-            return PartialView(q);
+            foreach (var 圖片 in q) {
+                if (圖片.PhotoPath != "nprod.jpg")
+                {
+                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/商品照/" + 圖片.PhotoPath); //取得路徑
+                    bool result = System.IO.File.Exists(filePath);
+                    if (result == true)
+                    {
+                        System.IO.File.Delete(filePath);
+                        db.ProductPhotoBanks.Remove(圖片);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return Content("0");
+                    }
+                }
+                else {
+                    db.Remove(圖片);
+                }
+            }
+            var q2 = new ProductPhotoBank()
+            {
+                ProductId =id,
+                PhotoPath = "nprod.jpg"
+            };
+            db.Add(q2);
+            db.SaveChanges();
+            return Content("1");
         }
     }
 }
