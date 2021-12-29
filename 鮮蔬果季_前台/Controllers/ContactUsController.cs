@@ -79,15 +79,7 @@ namespace 鮮蔬果季_前台.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-        //=========================防呆功能==================================================================//
-        public IActionResult FeedbackResponseIdRegex(int FeedbackResponseId)
-        {
-            if (FeedbackResponseId == 0)
-            {
-                return Content("請選擇");
-            }
-            return Content("");
-        }
+       
 
 
     }
