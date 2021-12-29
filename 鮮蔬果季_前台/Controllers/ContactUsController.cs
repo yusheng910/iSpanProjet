@@ -16,14 +16,15 @@ namespace 鮮蔬果季_前台.Controllers
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly 鮮蔬果季Context _context;
-        
-        public ContactUsController(IWebHostEnvironment hostEnvironment,鮮蔬果季Context context)
+
+        public ContactUsController(IWebHostEnvironment hostEnvironment, 鮮蔬果季Context context)
         {
             _hostEnvironment = hostEnvironment;
             _context = context;
         }
         public IActionResult ContactUs(int id)
         {
+            //========================引用帳號登入屏蔽================================================//
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
@@ -33,13 +34,13 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                //return RedirectToAction("Login", "Login");//修改完後解除
+                return RedirectToAction("Login", "Login");//修改完後解除
             }
             return View(id);
         }
-        //測試讀取回應項目是否成功
+        //==============================列出回報選項===============================================//
         public IActionResult FeedbackNames() {
-            var feedbacknames = _context.Feedbacks.Where(a=>a.FatherFeedbackId==null).OrderBy(a=>a.FeedbackId).Select(a => new
+            var feedbacknames = _context.Feedbacks.Where(a => a.FatherFeedbackId == null).OrderBy(a => a.FeedbackId).Select(a => new
             {
                 a.FeedbackId,
                 a.FeedbackName
@@ -49,13 +50,16 @@ namespace 鮮蔬果季_前台.Controllers
         //測試讀取細項類別是否成功
         public IActionResult FatherFeedbackIds(int id)
         {
-            var fatherfeedackids = _context.Feedbacks.Where(a=>a.FatherFeedbackId==id).OrderBy(b => b.FatherFeedbackId).Select(b => new
+            var fatherfeedackids = _context.Feedbacks.Where(a => a.FatherFeedbackId == id).OrderBy(b => b.FatherFeedbackId).Select(b => new
             {
                 b.FeedbackId,
                 b.FeedbackName
             }).ToList();
             return Json(fatherfeedackids);
         }
+        //將產品意見回饋傳入資料庫
+        
+        //===================問題回報傳回資料庫===========================================================//
         public IActionResult Send(FeedbackResponse _respose)
         {
             FeedbackResponse q = new FeedbackResponse()
@@ -68,12 +72,18 @@ namespace 鮮蔬果季_前台.Controllers
 
             _context.FeedbackResponses.Add(q);
             _context.SaveChanges();
-            //return View();
             return RedirectToAction("Index", "Home");
         }
+        //=========================防呆功能==================================================================//
+        public IActionResult FeedbackResponseIdRegex(int FeedbackResponseId ) {
+            if (FeedbackResponseId == 0)
+            {
+                return Content("請選擇");
+            }
+            return Content("");
+        }
 
-        
 
-    }
+    } 
     
 }

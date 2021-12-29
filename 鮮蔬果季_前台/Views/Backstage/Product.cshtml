@@ -26,6 +26,7 @@
                                     <th>供應商名稱</th>
                                     <th>售價</th>
                                     <th>進價</th>
+                                    <th>庫存</th>
                                     <th>產品描述</th>
                                     <th>上架時間</th>
                                     <th>分類名稱</th>
@@ -56,6 +57,7 @@
                                             <td>@item.SupplierName</td>
                                             <td>@item.ProductUnitPrice</td>
                                             <td>@item.ProductCostPrice</td>
+                                            <td>@item.ProductUnitsInStock</td>
                                             <td>@item.ProductDescription</td>
                                             @{
                                                 string date = (item.ProduceDate).ToString();
@@ -154,7 +156,6 @@
 
         console.log($(".selectphoto"))
         $(document).on("change",".selectphoto",async function () {
-            console.log($(this)[0].files);
             let value = $(this)[0].files
             let pid = $("#ProductId").val()
             @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
@@ -171,6 +172,19 @@
                 })
             }
         });
+
+        $(document).on("click", ".imgClear", async function (e) {
+            let pid = $("#ProductId").val()
+            const response = await fetch('@Url.Content("~/BackstageApi/ClearImg/")'+pid)
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.imgLoad').load("@Url.Content("~/BackstageApi/imgLoad/")" + pid, function () {
+                    alert("上傳圖片成功")
+                })
+            }
+        })
+
     </script>
 
 }

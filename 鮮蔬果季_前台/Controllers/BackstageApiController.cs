@@ -144,6 +144,10 @@ namespace 鮮蔬果季_前台.Controllers
             var q = db.ProductPhotoBanks.Where(p => p.ProductId == id).ToList();
             return PartialView(q);
         }
-
+        public IActionResult ClearImg(int id)
+        {
+            var q = db.ProductPhotoBanks.Where(p => p.ProductId == id).ToList();
+            return PartialView(q);
+        }
     }
 }
