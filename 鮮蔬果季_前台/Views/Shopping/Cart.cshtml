@@ -143,7 +143,7 @@
                                             </td>
                                         </tr>
                                         總價 += 商品價乘數量;
-                                        應付金額 = 總價 + 運費 - 商品折扣 - 酷碰折扣;
+                                        應付金額 = 總價 - 酷碰折扣;
                                     }
                                 }
                                 else
@@ -164,7 +164,6 @@
                                         </td>
                                     </tr>
                                     運費 = 0;
-                                    商品折扣 = 0;
                                     酷碰折扣 = 0;
                                 }
                             }
@@ -181,7 +180,6 @@
                     <div class="title-left" style="padding-top:20px">
                         <h3>使用優惠券</h3>
                     </div>
-                    <hr class="my-1">
                 </div>
                 <div class="row cpbox">
                     @foreach (var item in ViewBag.Coupons)
@@ -209,23 +207,13 @@
                     <div class="title-left" style="padding-top:20px">
                         <h3>您的訂單</h3>
                     </div>
-                    <hr class="my-1">
                     <div class="d-flex">
                         <h4>商品金額</h4>
                         <div class="ml-auto font-weight-bold grandTotal"> NT$ @總價 </div>
                     </div>
                     <div class="d-flex">
-                        <h4>運費</h4>
-                        <div class="ml-auto font-weight-bold"> NT$ @運費 </div>
-                    </div>
-                    <hr class="my-1">
-                    <div class="d-flex">
-                        <h4>商品折扣</h4>
-                        <div class="ml-auto font-weight-bold"> -NT$ @商品折扣 </div>
-                    </div>
-                    <div class="d-flex">
                         <h4>酷碰折扣</h4>
-                        <div class="ml-auto font-weight-bold"> -NT$ @酷碰折扣 </div>
+                        <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
                     </div>
                     <hr>
                     <div class="d-flex gr-total">
@@ -320,7 +308,7 @@
                         $('div.grandTotal').html("NT$ " + grandTotal);
                     });
 
-                    $('div.payTotal').html("NT$ " + (grandTotal+50));
+                    $('div.payTotal').html("NT$ " + (grandTotal-0)); // 振主 酷碰折扣金額的 int 變數寫在減號後面 --宇盛
                 }
             }
             ChangeQty();
