@@ -12,8 +12,6 @@ namespace 鮮蔬果季_前台.Controllers
 
     public class EventController : Controller
     {
-
-
         // 使用注入的方式啟用db (注入程式在Startup內)
         // 後續引用資料庫,直接使用以下設定的變數db即可
         // 在使用LINQ時,每次都要有斷點(可以用ToList / FirstOrDefault)
@@ -54,19 +52,57 @@ namespace 鮮蔬果季_前台.Controllers
                 on E.SupplierId equals supp.SupplierId
                 where E.LableId == 1
                 select  new {E,supp }).ToList();
-            
-            
+            }
+
+            if (id == 2)
+            {
+                所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        where E.LableId == 2
+                        select new { E, supp }).ToList();
+            }
+
+            if (id == 3)
+            {
+                所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        where E.LableId == 3
+                        select new { E, supp }).ToList();
+            }
+
+            if (id == 4)
+            {
+                所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        where E.LableId == 4
+                        select new { E, supp }).ToList();
+            }
+
+            if (id == 5)
+            {
+                所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        where E.LableId == 5
+                        select new { E, supp }).ToList();
             }
 
 
 
-
-            
             foreach (var item in 所有活動)
             {
 
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
                 //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
+
+                //原本LINQ的寫法,下面是轉換為Landa寫法(較簡潔也較抽象)
+                //var 城市資料 = (from C in db.Cities
+                //            where C.CityId == item.supp.CityId
+                //            select C).FirstOrDefault();
+
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
@@ -77,7 +113,6 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
-                    
                 });
             }
             return View(所有活動列表);
