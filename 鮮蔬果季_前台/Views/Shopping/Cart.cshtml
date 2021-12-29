@@ -14,7 +14,8 @@
             height: 80px;
             object-fit: cover;
         }
-                .include {
+
+        .include {
             position: relative;
             width: 190px;
             height: 100px;
@@ -24,6 +25,21 @@
             border: 1px dotted gray;
             margin-right: 10px;
             margin-top: 10px;
+        }
+
+        .setinclude {
+            position: relative;
+            width: 190px;
+            height: 100px;
+            padding: 10px;
+            background-color: aliceblue;
+            border-radius: 10px;
+            border: 1px solid darkred;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .include:hover {
+            border: 1px solid yellowgreen;
         }
 
         .discountnum {
@@ -41,23 +57,25 @@
         }
 
         .usebtn {
-            right: 20px;
-            bottom: 15px;
+            left: 122px;
+            bottom: 10px;
             position: absolute;
         }
+
         .setusebtn {
-            right: 20px;
-            bottom: 15px;
+            left: 122px;
+            bottom: 10px;
             position: absolute;
+            background-color: #ffc107;
         }
 
         .cpbox {
             width: 100%;
-            height: 220px;
+            height: 260px;
             /*background-color: gray;*/
             padding: 17.5px;
             margin-left: 1px;
-            margin-top: 10px;
+            margin-top: -20px;
         }
 
         .order-box {
@@ -68,13 +86,14 @@
         .cpnum {
             position: absolute;
             right: 15px;
-            top: 15px;
+            top: 11px;
         }
 
         .discount {
             position: absolute;
             bottom: 5px;
         }
+
     </style>
 }
 
@@ -110,8 +129,6 @@
                             @{
                                 int 商品價乘數量 = 0;
                                 int 總價 = 0;
-                                int 運費 = 50;
-                                int 商品折扣 = 0;
                                 int 酷碰折扣 = 0;
                                 int 應付金額 = 0;
                                 if (Model.Count != 0)
@@ -143,7 +160,7 @@
                                             </td>
                                             <td class="remove-pr">
                                                 <a href="#">
-                                                    <i class="fas fa-times"></i>
+                                                    <i id="btnRemove" class="fas fa-times btnRemove"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -168,11 +185,8 @@
                                         <td class="remove-pr">
                                         </td>
                                     </tr>
-                                    運費 = 0;
-                                    酷碰折扣 = 0;
                                 }
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -180,34 +194,34 @@
         </div>
 
         <div class="row my-5">
-            <div class="col-lg-7 col-sm-6">
+            <div class="col-lg-7 col-sm-6" style="background-color:#FFF7FB; border-radius: 15px ">
                 <div class="order-box" style="width:100%">
                     <div class="title-left" style="padding-top:20px">
                         <h3>使用優惠券</h3>
                     </div>
                 </div>
                 @*酷碰券顯示開始*@
-            <div class="row cpbox">
-                @foreach (var item in ViewBag.Coupons)
-                {
-                    
-                    if (item.coupon.CouponEndDate > DateTime.Now && item.coupon.DiscountCondition <= 總價)
+                <div class="row cpbox">
+                    @foreach (var item in ViewBag.Coupons)
                     {
-                        <div class="include">
-                            <span class="lead">@item.coupon.CouponName</span>
-                            <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
-                            <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
-                            <div class="discount">
-                                <span class="discounttext">折NT$</span>
-                                <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+
+                        if (item.coupon.CouponEndDate > DateTime.Now && item.coupon.DiscountCondition <= 總價)
+                        {
+                            <div class="include">
+                                <span class="lead">@item.coupon.CouponName</span>
+                                <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
+                                <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
+                                <div class="discount">
+                                    <span class="discounttext">折NT$</span>
+                                    <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+                                </div>
+                                <a class="btn btn-sm btn-outline-warning usebtn ">選取</a>
+                                <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
+                                <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
                             </div>
-                            <a class="btn btn-sm btn-outline-danger usebtn ">選取</a>
-                            <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
-                            <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
-                        </div>
+                        }
                     }
-                }
-            </div>
+                </div>
                 @*酷碰券顯示結束*@
             </div>
             <div class="col-lg-5 col-sm-6">
@@ -240,38 +254,38 @@
             <div class="col-lg-8 col-sm-12"></div>
             <div class="col-lg-4 col-sm-12">
                 @*<div class="order-box">
-                    <div class="title-left" style="padding-top:20px">
-                        <h3>您的訂單</h3>
-                    </div>
-                    <hr class="my-1">
-                    <div class="d-flex">
-                        <h4>商品金額</h4>
-                        <div class="ml-auto font-weight-bold"> NT$ 342 </div>
-                    </div>
-                    <div class="d-flex">
-                        <h4>消費稅</h4>
-                        <div class="ml-auto font-weight-bold"> NT$ 5 </div>
-                    </div>
-                    <div class="d-flex">
-                        <h4>運費</h4>
-                        <div class="ml-auto font-weight-bold"> NT$ 50 </div>
-                    </div>
-                    <hr class="my-1">
-                    <div class="d-flex">
-                        <h4>商品折扣</h4>
-                        <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
-                    </div>
-                    <div class="d-flex">
-                        <h4>酷碰折扣</h4>
-                        <div class="ml-auto font-weight-bold"> -NT$ 20 </div>
-                    </div>
-                    <hr>
-                    <div class="d-flex gr-total">
-                        <h5>應付金額</h5>
-                        <div class="ml-auto h5"> $ 377 </div>
-                    </div>
-                    <hr>
-                </div>*@
+                        <div class="title-left" style="padding-top:20px">
+                            <h3>您的訂單</h3>
+                        </div>
+                        <hr class="my-1">
+                        <div class="d-flex">
+                            <h4>商品金額</h4>
+                            <div class="ml-auto font-weight-bold"> NT$ 342 </div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>消費稅</h4>
+                            <div class="ml-auto font-weight-bold"> NT$ 5 </div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>運費</h4>
+                            <div class="ml-auto font-weight-bold"> NT$ 50 </div>
+                        </div>
+                        <hr class="my-1">
+                        <div class="d-flex">
+                            <h4>商品折扣</h4>
+                            <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>酷碰折扣</h4>
+                            <div class="ml-auto font-weight-bold"> -NT$ 20 </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex gr-total">
+                            <h5>應付金額</h5>
+                            <div class="ml-auto h5"> $ 377 </div>
+                        </div>
+                        <hr>
+                    </div>*@
                 <input type="hidden" value="@Model.Count" class="count" />
             </div>
             @*<div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a> </div>*@
@@ -282,7 +296,18 @@
 <!-- End Cart -->
 @section Scripts{
     <script>
-        //document.getElementById('qtyChange').value
+        //移出購物車
+        $(document).on('click', '.btnRemove', function () {
+            var btnRemove = $(this);
+            var cid = $(this).parent().parent().siblings('.quantity-box').find('.cartid').val();
+            async function removeCart() {
+                var response = await fetch('@Url.Content("~/ShoppingApi/RemoveCart/")' + cid);
+                var data = await response.text();
+            }
+            removeCart();
+        });
+
+        //商品數量調整與價格計算
         $(document).on("change", ".qtyChange", function () {
             var obj = $(this);
             var qty = $(this).val();
@@ -316,7 +341,9 @@
                     });
                     console.log("grandTotal="+grandTotal)
                     $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal)
-                    $('.payTotal').html("NT$ " + (grandTotal-0)); // 振主 酷碰折扣金額的 int 變數寫在減號後面 --宇盛
+                    $('#disdisprice').html("-NT$ 0");
+                    $('.payTotal').html("NT$ " + (grandTotal - 0));
+
                 }
             }
             ChangeQty();
@@ -325,7 +352,10 @@
             $(this).text("使用中");
             $(".setusebtn").text("選取");
             $(".setusebtn").removeClass("setusebtn").addClass("usebtn");
+            $(".setinclude").removeClass("setinclude").addClass("include");
             $(this).removeClass("usebtn").addClass("setusebtn");
+            //console.log($(this).parent(".include"));
+            $(this).parent(".include").removeClass("include").addClass("setinclude");
             //console.log($(this).text());
             var disprice = $(this).next().next().val();
             var grandTotal = $('div.grandTotal').html();
@@ -338,6 +368,7 @@
         $(document).on("click", ".setusebtn", function () {
             $(this).text("選取");
             $(this).removeClass("setusebtn").addClass("usebtn");
+            $(this).parent(".setinclude").removeClass("setinclude").addClass("include");
             var grandTotal = $('div.grandTotal').html();
             grandTotal = grandTotal.replace(/[^0-9]/ig, "");
             $('#disdisprice').html("-NT$ 0");
