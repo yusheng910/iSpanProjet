@@ -1,4 +1,6 @@
-﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
+﻿@*@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>*@
+@model 鮮蔬果季_前台.ViewModels.EventListViewModel
+
 @{
     ViewData["Title"] = "EventSignUp_1";
 }
@@ -75,96 +77,116 @@
 <div style="padding-bottom:20px"></div>   @*間格用*@
 @* =====================================輪播大圖=====================================================*@
 
-@{foreach (var item in Model)
-    {
-        <div class="col-xl-5 col-lg-5 col-md-5" style="display:block; margin:auto;">
-            <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
+<div class="col-xl-5 col-lg-5 col-md-5" style="display:block; margin:auto;">
+    <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
 
-                    @{if (@item.EventPhoto[0] != null)  //必須加上動態判斷式,不然執行到錯誤(沒圖片),就會停止
-                        {
-                            <img class="d-block w-100" src="~/images/活動照片/@item.EventPhoto[0].PhotoPath" alt="First slide">
-                        }
-                    }
-
-                    @*<div class="carousel-item active">
-                            <img class="d-block w-100" src="~/images/EventImg/活動1-1.jpg" alt="First slide">
-                        </div>*@
-
-                </div>
-                <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    <span class="sr-only">Next</span>
-                </a>
-                <ol class="carousel-indicators" style="background: #ffffff">
-                    @* 控制小圖的控制*@
-                    <li data-target="#carousel-example-1" data-slide-to="0" class="active ">
-                        @{if (@item.EventPhoto[0] != null)
-                            {
-                                <img style="float:left" class="d-block w-100" src="~/images/活動照片/@item.EventPhoto[1].PhotoPath" alt="">
-                            }
-                        }
-                </ol>
-            </div>
+            @{
+                bool flag = true; @*首張預設*@
+                foreach (var 照片 in Model.EventPhoto)
+                {
+                    if (flag)           @*套版的首張照片有active,故使用IF+布林執行,來做判斷*@
+                    {                    @*首張預設有Activa,執行完後取消,後面其他張沒有active*@
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="~/images/活動照片/@照片.PhotoPath" alt="">
+                    </div>
+                    flag = false;
+                }
+                else
+                {
+                    <div class="carousel-item ">
+                        <img class="d-block w-100" src="~/images/活動照片/@照片.PhotoPath" alt="">
+                    </div>
+                }
+            }
+            }
         </div>
-    } }
+        <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+        </a>
+        <ol class="carousel-indicators" style="background: #ffffff">
+            @{
+                int count = 0;
+                bool flag2 = true;
+                foreach (var 照片 in Model.EventPhoto)
+                {
+                    if (flag2)
+                    {                                       @*原理同上面大圖,但這邊套版有數字,故加上count依照排列*@
+                        <li data-target="#carousel-example-1" data-slide-to="@count" class="active">
+                            <img class="d-block w-100 img-fluid" src="~/images/活動照片/@照片.PhotoPath" alt="" />
+                        </li>
+                        count++;
+                        flag2 = false;
+                    }
+                    else
+                    {
+                        <li data-target="#carousel-example-1" data-slide-to="@count">
+                            <img class="d-block w-100 img-fluid" src="~/images/活動照片/@照片.PhotoPath" alt="" />
+                        </li>
+                        count++;
+                    }
+                }
+            }
+        </ol>
+    </div>
+</div>
+
 
 <!-- single article section -->
-@{foreach (var item in Model)
-    {
-        <div class="mt-150 mb-150">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="single-article-section">
-                            <div class="single-article-text">
-                                <div></div>  @*class="single-artcile-bg"*@
-                                <br />
+<div class="mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-article-section">
+                    <div class="single-article-text">
+                        <div></div>  @*class="single-artcile-bg"*@
+                        <br />
 
-                                <div style="margin:15px 0px">
-                                    <p style="font-size: xx-large; font-weight:700 " class="字體">
-                                        @Html.DisplayFor(modelitem => item.Event.EventName)
-                                    </p>
-                                </div>
-
-                                <div style="margin:15px 0px">
-                                    <span class="dat" style="font-size: x-large; ">
-                                        <i class="fas fa-money-check-alt" style="padding-right: 15px ">
-                                        </i>
-                                        @item.Event.EventPrice  元/人 (現場收費)
-                                    </span>
-                                </div>
-
-
-                                <div style="margin:15px 0px">
-                                    <span class="dat" style="font-size: x-large; ">
-                                        <i class="fas fa-map-marker-alt" style="padding-right: 20px ">
-                                        </i>
-                                        @item.Event.EventLocation
-                                    </span>
-                                </div>
-
-                                <div style="margin:15px 0px">
-                                    <span class="dat" style="font-size: x-large; ">
-                                        <i class="fas fa-calendar-alt" style="padding-right: 20px ">
-                                        </i>
-                                        @item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
-                                    </span>
-                                </div>
-
-
-                                <p style="font-size:x-large">@Html.DisplayFor(modelitem => item.Event.EventDescription)</p>
-                                <br />
-                            </div>
+                        <div style="margin:15px 0px">
+                            <p style="font-size: xx-large; font-weight:700 " class="字體">
+                                @Model.Event.EventName)
+                            </p>
                         </div>
+
+                        <div style="margin:15px 0px">
+                            <span class="dat" style="font-size: x-large; ">
+                                <i class="fas fa-money-check-alt" style="padding-right: 15px ">
+                                </i>
+                                @Model.Event.EventPrice  元/人 (現場收費)
+                            </span>
+                        </div>
+
+
+                        <div style="margin:15px 0px">
+                            <span class="dat" style="font-size: x-large; ">
+                                <i class="fas fa-map-marker-alt" style="padding-right: 20px ">
+                                </i>
+                                @Model.Event.EventLocation
+                            </span>
+                        </div>
+
+                        <div style="margin:15px 0px">
+                            <span class="dat" style="font-size: x-large; ">
+                                <i class="fas fa-calendar-alt" style="padding-right: 20px ">
+                                </i>
+                                @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                            </span>
+                        </div>
+
+
+                        <p style="font-size:x-large">@Model.Event.EventDescription)</p>
+                        <br />
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
     } }
 <div style="padding-bottom:50px"></div> @*間格用*@
 
@@ -187,57 +209,53 @@
                                     </button>
                                 </h5>
                             </div>
-                            @{foreach (var item in Model)
-                                {
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="background-color: #FFF9E9">
-                                        <div class="card-body">
-                                            <div class="billing-address-form">
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="background-color: #FFF9E9">
+                                <div class="card-body">
+                                    <div class="billing-address-form">
 
-                                                @*<button type="button" class="btn btn-primary" id="AAA">帶入會員資料</button>
-                                                    <p id="PPP" name="測試">AA</p>*@
+                                        @*<button type="button" class="btn btn-primary" id="AAA">帶入會員資料</button>
+                                            <p id="PPP" name="測試">AA</p>*@
 
 
-                                                @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                                <form method="post" class="col-6" name="XXX">
-                                                    <input type="hidden" placeholder="活動ID" name="EventId" value=@item.Event.EventId>
-                                                    <p style="padding-bottom: 10px; ">
-                                                        <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 title="ZZ" required>
-                                                    </p>
-                                                    <p style="padding-bottom: 10px">
-                                                        <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
-                                                    </p>
-                                                    <p style="padding-bottom: 10px">
-                                                        <input type="email" placeholder="電子信箱" class="SignUpText" name="ContactEmail" id="email" value=@ViewBag.電郵 required>
-                                                    </p>
-                                                    <p style="padding-bottom: 10px">
-                                                        <input type="number" placeholder="預計報名人數" class="SignUpText" name="ParticipantNumber" id="person" required>
-                                                    </p>      @*可以透過input內的type達到初階的輸入控制功能*@                                    @*required代表該輸入為必填*@
+                                        @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
+                                        <form method="post" class="col-6" name="XXX">
+                                            <input type="hidden" placeholder="活動ID" name="EventId" value=@Model.Event.EventId>
+                                            <p style="padding-bottom: 10px; ">
+                                                <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 title="ZZ" required>
+                                            </p>
+                                            <p style="padding-bottom: 10px">
+                                                <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
+                                            </p>
+                                            <p style="padding-bottom: 10px">
+                                                <input type="email" placeholder="電子信箱" class="SignUpText" name="ContactEmail" id="email" value=@ViewBag.電郵 required>
+                                            </p>
+                                            <p style="padding-bottom: 10px">
+                                                <input type="number" placeholder="預計報名人數" class="SignUpText" name="ParticipantNumber" id="person" required>
+                                            </p>      @*可以透過input內的type達到初階的輸入控制功能*@                                    @*required代表該輸入為必填*@
 
 
-                                                    <p style="float:left; padding-right:15px " class="SignUpText"> 餐點葷素 : </p>
-                                                    <div class="form-check form-check-inline">
-                                                        @*透過Value寫死回傳值*@                                                                                         @* checked為預設*@
-                                                        <input class="form-check-input" type="radio" name="FoodPreference" value="葷食" checked>
-                                                        <label class="form-check-label SignUpText" for="inlineRadio1">葷食</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline" style="padding-bottom:10px">
-                                                        <input class="form-check-input" type="radio" name="FoodPreference" value="素食">
-                                                        <label class="form-check-label  SignUpText " for="inlineRadio2">素食</label>
-                                                    </div>
-
-                                                    <p>
-                                                        <textarea class="SignUpText" name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
-                                                    </p>
-                                                    <div style="padding-top:15px"> </div>
-                                                    @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
-                                                    <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
-                                                    <div id="判讀輸入" style="float:right;  padding-right:160px; font-size:x-large; font-weight:700;"></div>
-                                                </form>                                                                                   @*透過onclick引用Javascript跳出Alert*@
+                                            <p style="float:left; padding-right:15px " class="SignUpText"> 餐點葷素 : </p>
+                                            <div class="form-check form-check-inline">
+                                                @*透過Value寫死回傳值*@                                                                                         @* checked為預設*@
+                                                <input class="form-check-input" type="radio" name="FoodPreference" value="葷食" checked>
+                                                <label class="form-check-label SignUpText" for="inlineRadio1">葷食</label>
                                             </div>
-                                        </div>
+                                            <div class="form-check form-check-inline" style="padding-bottom:10px">
+                                                <input class="form-check-input" type="radio" name="FoodPreference" value="素食">
+                                                <label class="form-check-label  SignUpText " for="inlineRadio2">素食</label>
+                                            </div>
+
+                                            <p>
+                                                <textarea class="SignUpText" name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
+                                            </p>
+                                            <div style="padding-top:15px"> </div>
+                                            @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
+                                            <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
+                                            <div id="判讀輸入" style="float:right;  padding-right:160px; font-size:x-large; font-weight:700;"></div>
+                                        </form>                                                                                   @*透過onclick引用Javascript跳出Alert*@
                                     </div>
-                                }
-                            }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

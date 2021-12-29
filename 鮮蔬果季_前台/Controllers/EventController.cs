@@ -155,9 +155,6 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.電郵 = UserLogin.member.UserId.ToString();
                 ViewBag.電話 = UserLogin.member.Mobile.ToString();
 
-
-
-
             }
             else //Seesion沒找到
             {
@@ -166,33 +163,25 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");   //返回登入頁面
             }
 
-            //鮮蔬果季Context db = new 鮮蔬果季Context();
-            List<EventListViewModel> 活動列表 = new List<EventListViewModel>();
-            var 活動 = (from E in db.Events
+            var 活動及供應商明細 = (from E in db.Events
                       join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
-                        where id ==E.EventId           //回傳的id與活動id相等
-                        select new { E,supp }).ToList();
+                      where id ==E.EventId           //回傳的id與活動id相等
+                      select new { E,supp }).FirstOrDefault();
 
-            foreach (var item in 活動)
-            {
-                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
-                //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
-                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
-                //var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
-                // 相片list.Add(照片資料); 
-                var 照片資料 = db.EventPhotoBanks.Where(P => P.EventId == item.E.EventId).ToList();
-                foreach (var 照片 in 照片資料)
-                    相片list.Add(照片);
+            //進到指定的活動頁(單筆活動),故不使用list,透過回傳的ID僅只一筆對應資料
+            EventListViewModel 單筆活動 = new EventListViewModel();   
+            List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+             
 
-                活動列表.Add(new EventListViewModel()
-                {
-                    Event = item.E,
-                    City = 城市資料,
-                    EventPhoto = 相片list,
+            單筆活動.Event = 活動及供應商明細.E;
+            單筆活動.Supplier = 活動及供應商明細.supp;
+            var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == 單筆活動.Event.Supplier.CityId);
+            //因為是多張照片,故使用Where(找全部),型態List
+            var 照片資料 = db.EventPhotoBanks.Where(EP => EP.EventId == id).ToList();
+            //把上面找到的照片加入到 單筆活動(物件),因EventPhoto ViewModel型態為list,故可以用以下list加法
+            foreach (var 照片 in 照片資料)    單筆活動.EventPhoto.Add(照片);
 
-                });
-            }
-            return View(活動列表);
+            return View(單筆活動);
         }
 
 

@@ -1,7 +1,8 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
 
+
 @{
-    ViewData["Title"] = "Event";
+    ViewData["Title"] = "EventList";
 }
 
 @section Styles{
@@ -12,9 +13,9 @@
     <div class="col-12">
         <h2 class="mb-2 page-title">活動管理</h2>
         <br />
-            <button type="button" class="btn btn-primary btn-lg">
-                    @Html.ActionLink("新增活動", "EventCreate","Backstage")
-            </button>
+        <button type="button" class="btn btn-primary btn-lg">
+            @Html.ActionLink("新增活動", "EventCreate", "Backstage")
+        </button>
         <div class="row my-3">
             <!-- Small table -->
             <div class="col-md-12">
@@ -102,3 +103,5 @@
             });
     </script>
 }
+
+
