@@ -81,7 +81,7 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphotoforCart = value;
             }
         }
-        public IFormFile photo { get; set; }
+        public List<IFormFile> photo { get; set; }
         public string[] photoList { get; set; }
         public List<ProductPhotoBank> _prodphoto = null;
         public List<ProductPhotoBank> photoBank
