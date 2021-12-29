@@ -54,6 +54,22 @@ namespace 鮮蔬果季_前台.ViewModels
                 _stat = value;
             }
         }
+
+        public Member _member = null;
+        public Member member
+        {
+            get
+            {
+                if (_member == null)
+                    _member = new Member();
+                return _member;
+            }
+            set
+            {
+                _member = value;
+            }
+        }
+
         public Product _prod = null;
         public Product product
         {
@@ -110,6 +126,36 @@ namespace 鮮蔬果季_前台.ViewModels
                 _prodphoto = value;
             }
         }
+
+        public PayMethod _paymethod = null;
+        public PayMethod paymethod
+        {
+            get
+            {
+                if (_paymethod == null)
+                    _paymethod = new PayMethod();
+                return _paymethod;
+            }
+            set
+            {
+                _paymethod = value;
+            }
+        }
+
+        public Coupon _coupon = null;
+        public Coupon coupon
+        {
+            get
+            {
+                if (_coupon == null)
+                    _coupon = new Coupon();
+                return _coupon;
+            }
+            set
+            {
+                _coupon = value;
+            }
+        }
         public int 總價 { get; set; }
 
         public int 單筆訂單細項總價 { get; set; }
@@ -126,8 +172,6 @@ namespace 鮮蔬果季_前台.ViewModels
 
         public int PayMethodId { get; set; }
 
-        public virtual Coupon coupon { get; set; }
-        public virtual Member member { get; set; }
         public virtual ICollection<OrderDetail> orderDetails { get; set; }
 
     }
