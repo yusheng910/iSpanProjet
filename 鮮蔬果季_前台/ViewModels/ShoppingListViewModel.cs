@@ -24,6 +24,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _coupon = value;
             }
         }
+        public CouponDetail _couponDetail = null;
+        public CouponDetail couponDetail
+        {
+            get
+            {
+                if (_couponDetail == null)
+                    _couponDetail = new CouponDetail();
+                return _couponDetail;
+            }
+            set
+            {
+                _couponDetail = value;
+            }
+        }
 
         public Product _prod = null;
         public Product product {
