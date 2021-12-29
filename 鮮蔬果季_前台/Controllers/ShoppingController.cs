@@ -537,20 +537,40 @@ namespace 鮮蔬果季_前台.Controllers
                         ////單筆訂單細項總價 = 訂單細項總價
                     });
                 }
+                var produnit = (from pro in db.Products
+                                join item in db.ShoppingCarts
+                                on pro.ProductId equals item.ProductId
+                                join stat in db.Statuses
+                                on item.StatusId equals stat.StatusId
+                                where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                                select pro.ProductUnitPrice).Sum();
+                var unitscart = (from pro in db.Products
+                                 join item in db.ShoppingCarts
+                                 on pro.ProductId equals item.ProductId
+                                 join stat in db.Statuses
+                                 on item.StatusId equals stat.StatusId
+                                 where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                                 select item.UnitsInCart).Sum();
+
+                var 總價 = produnit * unitscart;
+
                 var couponsHad = (from p in db.Coupons
                                   join cd in db.CouponDetails
                                   on p.CouponId equals cd.CouponId
                                   where cd.CouponQuantity >= 0 &&
                                   cd.CouponId != 0 &&
-                                  cd.MemberId == UserLogin.member.MemberId 
+                                  cd.MemberId == UserLogin.member.MemberId &&
+                                  p.DiscountCondition <= 總價 &&
+                                  p.CouponEndDate > DateTime.Now
                                   select new { p, cd }).ToList();
+
                 List<CouponsListViewModel> list = new List<CouponsListViewModel>();
                 foreach (var item in couponsHad)
                 {
                     list.Add(new CouponsListViewModel()
                     {
                         coupon = item.p,
-                        couponDetail = item.cd
+                        couponDetail = item.cd,
                     });
                 }
                 ViewBag.Coupons = list;
@@ -801,7 +821,8 @@ namespace 鮮蔬果季_前台.Controllers
                                   where cd.CouponQuantity >= 0 &&
                                   cd.CouponId != 0 &&
                                   cd.MemberId == UserLogin.member.MemberId &&
-                                  p.DiscountCondition <= ttcart
+                                  p.DiscountCondition <= ttcart &&
+                                  p.CouponEndDate >DateTime.Now
                                   select new { p, cd }).ToList();
                 List<CouponsListViewModel> list = new List<CouponsListViewModel>();
                 foreach (var item in couponsHad)

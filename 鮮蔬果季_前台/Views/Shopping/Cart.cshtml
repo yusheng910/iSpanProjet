@@ -38,6 +38,7 @@
             margin-right: 10px;
             margin-top: 10px;
         }
+
         .include:hover {
             border: 1px solid yellowgreen;
         }
@@ -93,7 +94,10 @@
             position: absolute;
             bottom: 5px;
         }
-
+        .nonecp h1{
+            font-size:20px;
+            font-style:italic;
+        }
     </style>
 }
 
@@ -201,11 +205,11 @@
                     </div>
                 </div>
                 @*酷碰券顯示開始*@
-                <div class="row cpbox">
-                    @foreach (var item in ViewBag.Coupons)
+            <div class="row cpbox">
+                @{
+                    if (ViewBag.Coupons.Count != 0)
                     {
-
-                        if (item.coupon.CouponEndDate > DateTime.Now && item.coupon.DiscountCondition <= 總價)
+                        @foreach (var item in ViewBag.Coupons)
                         {
                             <div class="include">
                                 <span class="lead">@item.coupon.CouponName</span>
@@ -221,7 +225,14 @@
                             </div>
                         }
                     }
-                </div>
+                    else
+                    {
+                        <div class="nonecp">
+                            <h1>*無酷碰券可使用*</h1>
+                        </div>
+                    }
+                }
+            </div>
                 @*酷碰券顯示結束*@
             </div>
             <div class="col-lg-5 col-sm-6">
