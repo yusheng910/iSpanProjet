@@ -254,6 +254,7 @@
 
 
 <script>
+    @*執行起來怪怪的*@
     $("#chickBT").click(function () {
         let 姓名 = $("#name").val();
         let 電話 = $("#phone").val();
@@ -264,20 +265,8 @@
             $("#判讀輸入").text("尚有資料未輸入!").css('color', 'red').addClass("animate__animated animate__heartBeat")
 
         else
-
-            $("#chickBT").on('click', function () {
-                var options = getOptions();
-                options.title = 'Well Done!';
-                options.description = 'You just submit your resume successfully.';
-                options.type = 'success';
-                GrowlNotification.notify(options);
-            });
-    }
-
-
-        /*            $("#判讀輸入").text("報名成功").focus(this).css('color', 'forestgreen').addClass("modal fade");*/
-
-
+            $("#判讀輸入").text("報名成功").css('color', 'forestgreen').addClass("animate__animated animate__heartBeat");
+    });
 
     //$("#AAA").click(function () {
     //    console.log("ok")

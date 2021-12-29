@@ -27,11 +27,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\assets\btn\" />
     <Folder Include="wwwroot\assets\img\合作農友\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\Supplier\ProductList.cshtml" />
+    <None Include="wwwroot\assets\css\scss\base\_mixins.scss" />
+    <None Include="wwwroot\assets\css\scss\base\_typography.scss" />
+    <None Include="wwwroot\assets\css\scss\base\_variables.scss" />
+    <None Include="wwwroot\assets\css\scss\common\_common.scss" />
+    <None Include="wwwroot\assets\css\scss\common\_footer.scss" />
+    <None Include="wwwroot\assets\css\scss\common\_header.scss" />
+    <None Include="wwwroot\assets\css\scss\common\_hover.scss" />
+    <None Include="wwwroot\assets\css\scss\main.scss" />
+    <None Include="wwwroot\assets\css\scss\pages\_404.scss" />
+    <None Include="wwwroot\assets\css\scss\pages\_about.scss" />
+    <None Include="wwwroot\assets\css\scss\pages\_contact.scss" />
+    <None Include="wwwroot\assets\css\scss\pages\_shop.scss" />
+    <None Include="wwwroot\assets\css\scss\prepros-6.config" />
+    <None Include="wwwroot\assets\css\scss\sections\_about.scss" />
+    <None Include="wwwroot\assets\css\scss\sections\_cart-banner.scss" />
+    <None Include="wwwroot\assets\css\scss\sections\_hero.scss" />
+    <None Include="wwwroot\assets\css\scss\sections\_list.scss" />
+    <None Include="wwwroot\assets\css\scss\sections\_news.scss" />
+    <None Include="wwwroot\assets\css\scss\sections\_shop-banner.scss" />
+    <None Include="wwwroot\assets\css\scss\sections\_testimonials.scss" />
   </ItemGroup>
 
 </Project>
