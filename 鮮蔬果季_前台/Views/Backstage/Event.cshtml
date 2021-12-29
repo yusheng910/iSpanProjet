@@ -12,7 +12,9 @@
     <div class="col-12">
         <h2 class="mb-2 page-title">活動管理</h2>
         <br />
-        <button type="button" class="btn btn-primary btn-lg">新增活動</button>
+            <button type="button" class="btn btn-primary btn-lg">
+                    @Html.ActionLink("新增活動", "EventCreate","Backstage")
+            </button>
         <div class="row my-3">
             <!-- Small table -->
             <div class="col-md-12">
@@ -20,19 +22,23 @@
                     <div class="card-body">
 
 
-                                <!-- table -->
-                        <table class="table datatables" id="dataTable-1">
-                            <thead>
+                        <!-- table -->
+                        <table class="table datatables border-dark" id="dataTable-1">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th></th>
-                                    <th>產品ID</th>
-                                    <th>產品名稱</th>
+                                    <th>活動ID</th>
+                                    <th>活動名稱</th>
                                     <th>供應商ID</th>
                                     <th>供應商名稱</th>
-                                    <th>售價</th>
-                                    <th>進價</th>
-                                    <th>生效日</th>
-                                    <th>分類名稱</th>
+                                    <th>活動人員上限</th>
+                                    <th>活動地點</th>
+                                    <th>活動費用</th>
+                                    <th>活動開始時間</th>
+                                    <th>活動結束時間</th>
+                                    <th>活動類別ID</th>
+                                    <th>活動類別</th>
+                                    <th></th>
                                     <th>編輯</th>
                                 </tr>
                             </thead>
@@ -47,14 +53,18 @@
                                                     <label class="custom-control-label"></label>
                                                 </div>
                                             </td>
-                                            <td>2</td>
-                                            <td>紅蘿蔔</td>
-                                            <td>13</td>
-                                            <td>大自然農場</td>
-                                            <td>35</td>
-                                            <td>20</td>
-                                            <td>2021/10/5</td>
-                                            <td>根莖類</td>
+                                            <td>@item.Event.EventId</td>
+                                            <td>@item.Event.EventName</td>
+                                            <td>@item.Event.Supplier.SupplierId</td>
+                                            <td>@item.Event.Supplier.SupplierName</td>
+                                            <td>@item.Event.EventParticipantCap</td>
+                                            <td>@item.Event.EventLocation</td>
+                                            <td>@item.Event.EventPrice</td>
+                                            <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
+                                            <td>@item.Event.EventEndDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
+                                            <td>@item.Event.LableId</td>
+                                            <td>@item.Event.Lable</td>
+                                            <td></td>
                                             <td>
                                                 <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
