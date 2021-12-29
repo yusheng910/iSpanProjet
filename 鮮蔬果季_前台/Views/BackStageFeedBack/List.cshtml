@@ -1,0 +1,47 @@
+﻿@model IEnumerable<鮮蔬果季_前台.Models.FeedbackResponse>
+
+@{
+    ViewData["Title"] = "清單";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FeedbackId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FeedbackComment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDetailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeedbackId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeedbackComment)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FeedbackResponseId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FeedbackResponseId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FeedbackResponseId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
