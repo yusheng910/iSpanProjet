@@ -14,16 +14,14 @@ namespace 鮮蔬果季_前台.Controllers
 {
     public class MemberController : Controller
     {
-        //IWebHostEnvironment _enviroment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly 鮮蔬果季Context db;
-        public MemberController(鮮蔬果季Context dbContext)
+        public MemberController(IWebHostEnvironment webHost,鮮蔬果季Context dbContext )
         {
+            _hostingEnvironment = webHost;//取得wwwroot的路徑
             db = dbContext;
         }
-        //public MemberController(IWebHostEnvironment p)
-        //{
-        //    _enviroment = p;
-        //}
+       
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -266,12 +264,33 @@ namespace 鮮蔬果季_前台.Controllers
 
         //    return PartialView(mv);
         //}
-        //[HttpPost] //上傳檔案(待測試)
-
-        //public IActionResult uploadPhoto(IFormFile photo)
-        //{
-        //    photo.CopyTo(new FileStream(_enviroment.WebRootPath+@"\MemberPhoto\test.jpg",FileMode.Create));
-        //    return View();
-        //}
+        public IActionResult uploadPhoto(MemberViewModel memberphoto)
+        {
+            if (memberphoto.photo != null)
+            {
+                string photoName = Guid.NewGuid().ToString() + ".jpg";
+                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/MemberPhoto/" + photoName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))//創造新圖片,如果已存在就覆寫
+                {
+                    memberphoto.photo.CopyTo(fileStream);//上傳指令
+                }
+                Member cust= db.Members.FirstOrDefault(c => c.MemberId == memberphoto.MemberId);
+                if (cust!= null)
+                {
+                    cust.MemberPhotoPass = photoName;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                return Content("0");
+            }
+            return Content("1");
+         }
+        public IActionResult Photoload(int id)
+        {
+            var q = db.Members.Where(p => p.MemberId == id).FirstOrDefault();
+            return PartialView(q);
+        }
     }
 }

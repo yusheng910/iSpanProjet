@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace 鮮蔬果季_前台.ViewModels
             }
             set { _memb = value; }
         }
+        public IFormFile photo { get; set; }
         public string  city { get; set; }
         public int MemberId { get { return this.member.MemberId; } set { this.member.MemberId = value; }  }
         public string UserId { get {return this.member.UserId; } set {this.member.UserId=value; } }
