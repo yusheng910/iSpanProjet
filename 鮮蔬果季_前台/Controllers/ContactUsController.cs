@@ -31,6 +31,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
+                //return RedirectToAction("Login", "Login");
             }
             return View();
         }
@@ -59,6 +60,22 @@ namespace 鮮蔬果季_前台.Controllers
             _context.SaveChanges();
             //return View();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult FeedbackCommentRegex(string FeedbackComment)
+        {
+            if (FeedbackComment != null)
+            {
+                if (FeedbackComment.Length < 2)
+                {
+                    return Content("意見不得少於2字");
+                }
+            }
+            return Content("");
+        }
+        public IActionResult FatherFeedbackIdRegex(FeedbackId _feedbackId)
+        {
+            
         }
     }
     
