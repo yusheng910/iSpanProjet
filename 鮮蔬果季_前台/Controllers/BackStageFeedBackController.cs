@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
+using 鮮蔬果季_前台.ViewModels;
 
 namespace 鮮蔬果季_前台.Controllers
 {
@@ -17,6 +18,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult List()
         {
+            //List<FeedbackResponseViewModel> 所有意見回饋 = new List<FeedbackResponseViewModel>() ;
             
             return View(_context.FeedbackResponses);
         }
