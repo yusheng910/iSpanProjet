@@ -112,9 +112,11 @@ namespace 鮮蔬果季_前台.Controllers
             }
             product.InShop = ProdEdit.InShop;
           
-            db.SaveChanges();
-
-
+            db.SaveChanges();          
+            return Content("1");
+        }
+        public IActionResult PhotoLoad(ShoppingListViewModel ProdEdit)
+        {
             if (ProdEdit.photo != null)
             {
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
@@ -131,15 +133,17 @@ namespace 鮮蔬果季_前台.Controllers
                 db.Add(q);
                 db.SaveChanges();
             }
-          
+            else {
+                return Content("0");
+            }
             return Content("1");
         }
-        public IActionResult PhotoLoad(List<string> photo)
+
+        public IActionResult imgLoad(int id)
         {
-            return Json("1");
+            var q = db.ProductPhotoBanks.Where(p => p.ProductId == id).ToList();
+            return PartialView(q);
         }
 
-
-
-        }
+    }
 }
