@@ -135,20 +135,20 @@
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageApi/ProdDetailPartial")/" + pid)
+            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid)
         })
 
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
             const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageApi/ProdEditPartial")', {
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.tprodbody').load("@Url.Content("~/BackstageApi/ProdListPartial")", function () {
+                $('.tprodbody').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
                     alert("修改成功")
                 })
             }
@@ -161,13 +161,13 @@
             @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
 
             const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageApi/PhotoLoad")', {
+            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageApi/imgLoad/")" + pid, function () {
+                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
                     alert("上傳圖片成功")
                 })
             }
@@ -175,11 +175,11 @@
 
         $(document).on("click", ".imgClear", async function (e) {
             let pid = $("#ProductId").val()
-            const response = await fetch('@Url.Content("~/BackstageApi/ClearImg/")'+pid)
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageApi/imgLoad/")" + pid, function () {
+                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
                     alert("上傳圖片成功")
                 })
             }
