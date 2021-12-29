@@ -24,7 +24,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult ContactUs(int id)
         {
-            //========================引用帳號登入優先================================================//
+            //========================引用帳號登入屏蔽================================================//
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
                 ViewBag.USER = UserLogin.member.MemberName;
@@ -34,7 +34,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                //return RedirectToAction("Login", "Login");//修改完後解除
+                return RedirectToAction("Login", "Login");//修改完後解除
             }
             return View(id);
         }
