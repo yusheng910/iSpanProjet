@@ -378,6 +378,7 @@ namespace 鮮蔬果季_前台.Models
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.MemberPhotoPass)
+                    .IsRequired()
                     .HasDefaultValueSql("('inihead.png')")
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
@@ -439,8 +440,6 @@ namespace 鮮蔬果季_前台.Models
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.CouponId).HasColumnName("CouponID");
-
-                entity.Property(e => e.DeliveryAddress).UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
 

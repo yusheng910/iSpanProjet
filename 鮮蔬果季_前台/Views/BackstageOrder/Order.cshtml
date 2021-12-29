@@ -1,0 +1,180 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.OrderListViewModel>
+@{
+    ViewData["Title"] = "Order";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+}
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h2 class="mb-2 page-title">訂單管理</h2>
+        <p class="card-text"></p>
+        <div class="row my-4">
+            <!-- Small table -->
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <!-- table -->
+                        <table class="table datatables border-dark" id="dataTable-1">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th></th>
+                                    <th>訂單編號</th>
+                                    <th>訂購會員</th>
+                                    <th>下單日期</th>
+                                    <th>出貨日期</th>
+                                    <th>使用酷碰券</th>
+                                    <th>訂單金額</th>
+                                    <th>寄送地址</th>
+                                    <th>付款方式</th>
+                                    <th>更改配送狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tprodbody">
+                                @{ int count = 0;
+                                    foreach (var item in Model)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="@count">
+                                                    <label class="custom-control-label" for="@item.OrderId"></label>
+                                                </div>
+                                            </td>
+                                            <td>@item.OrderId</td>
+                                            <td>@item.member.MemberName</td>
+                                            <td>@item.OrderDate</td>
+                                            @{
+                                                string date = (item.ShippedDate).ToString();
+                                                date = date.Split(" ")[0];
+                                                if (item.ShippedDate != null)
+                                                {
+                                                    <td>@date</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>訂單未出貨</td>
+                                                }
+
+                                            }
+                                            <td>@item.coupon.CouponName</td>
+                                            <td>@item.總價</td> @*todo coupon折扣要在這邊抓*@
+                                            <td>@item.ShippedTo</td>
+                                            <td>@item.paymethod.Method</td>
+                                            <td>
+                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="text-muted sr-only">Action</span>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                        修改
+                                                    </button>
+                                                    <input type="hidden" class="Pid" value="@item.ProductId" />
+                                                    <a class="dropdown-item" href="#">移除</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1000px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">產品修改</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form name="ProdEdit">
+                                        <div class="modal-body prodBody">
+                                            <!--內容-->
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- simple table -->
+        </div> <!-- end section -->
+    </div> <!-- .col-12 -->
+</div> <!-- .row -->
+@section Scripts{
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
+        $('#dataTable-1').DataTable(
+            {
+                autoWidth: true,
+                "lengthMenu": [
+                    [16, 32, 64, -1],
+                    [16, 32, 64, "All"]
+                ]
+            });
+
+        $(document).on("click", ".btnEdit", function () {
+            var pid = $(this).next(".Pid").val();
+            console.log(pid);
+            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid)
+        })
+
+        $(document).on("click", ".btnSave", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(document.ProdEdit)
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.tprodbody').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+                    alert("修改成功")
+                })
+            }
+        })
+
+        console.log($(".selectphoto"))
+        $(document).on("change",".selectphoto",async function () {
+            let value = $(this)[0].files
+            let pid = $("#ProductId").val()
+            @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
+
+            const formData = new FormData(document.ProdEdit)
+            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            if (data == 1) {
+                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                    alert("上傳圖片成功")
+                })
+            }
+        });
+
+        $(document).on("click", ".imgClear", async function (e) {
+            let pid = $("#ProductId").val()
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                    alert("上傳圖片成功")
+                })
+            }
+        })
+
+    </script>
+
+}

@@ -39,6 +39,10 @@ namespace 鮮蔬果季_前台.Controllers
                     return RedirectToAction("Index", "Home");
 
                 }
+                else if(user==null)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
             }
             else if(supplier!=null) {
                 if (supplier.SupplierAccount.Equals(LOGIN.username) && supplier.SupplierPassword.Equals(LOGIN.password))
@@ -49,6 +53,10 @@ namespace 鮮蔬果季_前台.Controllers
                     UserLogin.supplier = supplier;
                     return RedirectToAction("Index", "Home");
 
+                }
+                else if(supplier==null)
+                {
+                    return RedirectToAction("Login", "Login");
                 }
 
                 

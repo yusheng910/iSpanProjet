@@ -537,19 +537,20 @@ namespace 鮮蔬果季_前台.Controllers
                         ////單筆訂單細項總價 = 訂單細項總價
                     });
                 }
-                var qall = (from p in db.Coupons
-                            select p).ToList();
+                var couponsHad = (from p in db.Coupons
+                                  join cd in db.CouponDetails
+                                  on p.CouponId equals cd.CouponId
+                                  where cd.CouponQuantity >= 0 &&
+                                  cd.CouponId != 0 &&
+                                  cd.MemberId == UserLogin.member.MemberId
+                                  select new { p, cd }).ToList();
                 List<CouponsListViewModel> list = new List<CouponsListViewModel>();
-                foreach (var item in qall)
+                foreach (var item in couponsHad)
                 {
-                    var q = (from cd in db.CouponDetails
-                             where cd.CouponId == item.CouponId &&
-                             cd.MemberId == UserLogin.member.MemberId
-                             select cd).FirstOrDefault();
                     list.Add(new CouponsListViewModel()
                     {
-                        coupon = item,
-                        couponDetail = q
+                        coupon = item.p,
+                        couponDetail = item.cd
                     });
                 }
                 ViewBag.Coupons = list;
