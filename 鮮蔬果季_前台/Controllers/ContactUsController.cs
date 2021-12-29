@@ -31,6 +31,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
             }
             return View();
         }
