@@ -35,8 +35,8 @@
             position: absolute;
             top: 8px;
             font-weight: bold;
-            font-size: 16px;
-            margin-right: 60px;
+            font-size: 15px;
+            margin-right: 65px;
             line-height: 1.5
         }
 
@@ -340,7 +340,7 @@
             $(this).removeClass("setusebtn").addClass("usebtn");
             var grandTotal = $('div.grandTotal').html();
             grandTotal = grandTotal.replace(/[^0-9]/ig, "");
-            $('#disdisprice').html(0);
+            $('#disdisprice').html("-NT$ 0");
             $('.payTotal').html("NT$ " + (grandTotal - 0));
         })
 
