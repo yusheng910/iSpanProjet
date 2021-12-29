@@ -117,24 +117,29 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult PhotoLoad(ShoppingListViewModel ProdEdit)
         {
+            //如果該產品資料庫有無商品照片，會移除
+            var 移除noimage = db.ProductPhotoBanks.Where(p => p.ProductId == ProdEdit.ProductId && p.PhotoPath == "nprod.jpg").FirstOrDefault();
+            if (移除noimage != null)
+                db.Remove(移除noimage);
             if (ProdEdit.photo != null)
             {
-                string photoName = Guid.NewGuid().ToString() + ".jpg";
-                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/商品照/" + photoName); //取得路徑+要上傳的圖片檔案名稱
-                using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
-                {
-                    ProdEdit.photo.CopyTo(fileStream); //上傳指令
+                int count = 0;
+                foreach (var item in ProdEdit.photo) {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/商品照/" + photoName); //取得路徑+要上傳的圖片檔案名稱
+                    using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
+                    {
+                        ProdEdit.photo[count].CopyTo(fileStream); //上傳指令
+                    }
+                    count++;
+                    var q = new ProductPhotoBank()
+                    {
+                        ProductId = ProdEdit.ProductId,
+                        PhotoPath = photoName
+                    };
+                    db.Add(q);
+                    db.SaveChanges();
                 }
-                var 移除noimage = db.ProductPhotoBanks.Where(p => p.ProductId == ProdEdit.ProductId&&p.PhotoPath== "nprod.jpg").FirstOrDefault();
-                if(移除noimage!=null)
-                    db.Remove(移除noimage);
-                var q = new ProductPhotoBank()
-                {
-                    ProductId = ProdEdit.ProductId,
-                    PhotoPath = photoName
-                };
-                db.Add(q);
-                db.SaveChanges();
             }
             else {
                 return Content("0");
@@ -170,9 +175,10 @@ namespace 鮮蔬果季_前台.Controllers
                     }
                 }
                 else {
-                    db.Remove(圖片);
+                    db.Remove(圖片);//如果按下清空按鈕還有無商品的照片只清除資料庫的資料，但是專案底下的檔案還是要在。避免有多張無商品照片
                 }
             }
+            //最後清空完成後會留一張無商品的照片
             var q2 = new ProductPhotoBank()
             {
                 ProductId =id,
