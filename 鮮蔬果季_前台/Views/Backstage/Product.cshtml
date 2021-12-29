@@ -156,10 +156,9 @@
 
         console.log($(".selectphoto"))
         $(document).on("change",".selectphoto",async function () {
-            let value = $(this)[0].files
             let pid = $("#ProductId").val()
             @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
-
+            let obj = $(this);
             const formData = new FormData(document.ProdEdit)
             const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
                 method: "POST",
@@ -168,7 +167,8 @@
             const data = await response.text()
             if (data == 1) {
                 $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功")
+                    alert("上傳圖片成功");
+                    obj.val("")
                 })
             }
         });
@@ -180,7 +180,7 @@
             console.log(data)
             if (data == 1) {
                 $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功")
+                    alert("清空圖片成功")
                 })
             }
         })

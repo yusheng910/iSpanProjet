@@ -122,7 +122,7 @@
         function ToCart() {
             var prodCount = $(".ProductCount").val();
             var textCount = $(".textCount")
-            textCount.html("共 " + prodCount + " 比，")
+            textCount.html("共 " + prodCount + " 筆，")
         }
        //加入購物車(改用document來解決利用ajax加載partialView後，無法觸發jquery事件 )
         $(document).on("click", ".addCart", function (e) {
