@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
+
 namespace 鮮蔬果季_前台.Controllers
 {
     public class ContactUsController : Controller
@@ -20,7 +22,7 @@ namespace 鮮蔬果季_前台.Controllers
             _hostEnvironment = hostEnvironment;
             _context = context;
         }
-        public IActionResult ContactUs()
+        public IActionResult ContactUs(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
@@ -31,9 +33,9 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                //return RedirectToAction("Login", "Login");
+                //return RedirectToAction("Login", "Login");//修改完後解除
             }
-            return View();
+            return View(id);
         }
         //測試讀取回應項目是否成功
         public IActionResult FeedbackNames() {
@@ -56,27 +58,22 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Send(FeedbackResponse _respose)
         {
-            _context.FeedbackResponses.Add(_respose);
+            FeedbackResponse q = new FeedbackResponse()
+            {
+                OrderDetailId = _respose.OrderDetailId,
+                FeedbackComment = _respose.FeedbackComment,
+                FeedbackResponseId = _respose.FeedbackResponseId,
+                FeedbackId = _respose.FeedbackId
+            };
+
+            _context.FeedbackResponses.Add(q);
             _context.SaveChanges();
             //return View();
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult FeedbackCommentRegex(string FeedbackComment)
-        {
-            if (FeedbackComment != null)
-            {
-                if (FeedbackComment.Length < 2)
-                {
-                    return Content("意見不得少於2字");
-                }
-            }
-            return Content("");
-        }
-        //public IActionResult FatherFeedbackIdRegex(FeedbackId _feedbackId)
-        //{
-            
-        //}
+        
+
     }
     
 }

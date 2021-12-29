@@ -1,0 +1,6 @@
+﻿@model List<鮮蔬果季_前台.Models.ProductPhotoBank>
+@foreach (var item in Model)
+{
+    <img src="~/images/商品照/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
+    <input type="hidden" name="photoList" class="photoHid" value="@item.PhotoPath" />
+}
