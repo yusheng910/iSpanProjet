@@ -37,12 +37,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>商品</th>
+                                <th style="text-align:center;">商品</th>
                                 <th></th>
                                 <th>價格</th>
-                                <th>數量</th>
-                                <th>小計</th>
-                                <th>移除商品</th>
+                                <th style="text-align:center;">數量</th>
+                                <th style="text-align:center;">小計</th>
+                                <th style="text-align:center;">移除商品</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
                                                 <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="15" class="c-input-text qty text qtyChange">
                                                 <input type="hidden" class="cartid" value="@item.shopCart.ShoppingCartId"/>                                       
                                             </td>
-                                            <td class="total-pr">
+                                            <td class="total-pr" style="text-align:center;">
                                                 <p class="itemPrice">NT$ @商品價乘數量</p>
                                             </td>
                                             <td class="remove-pr">
@@ -164,7 +164,7 @@
                     <hr>
                     <div class="d-flex gr-total">
                         <h5>應付金額</h5>
-                        <div class="ml-auto h5"> NT$ @應付金額 </div>
+                        <div class="ml-auto h5 payTotal"> NT$ @應付金額 </div>
                     </div>
                     <hr>
                 </div>
@@ -239,11 +239,22 @@
                     console.log(obj.closest('.quantity-box'))
                     //pItemPrice.innerHTML = p;
 
+                    $('div.grandTotal').html(0);
+                    //console.log($('div.grandTotal').val());
+
+
                     var grandTotal = 0;
-                    $('.itemPrice').each(function () {
-                        grandTotal += p;
+                    $('.itemPrice').each(function (index, value) {
+                        console.log(value);
+                        var num = value.innerHTML;
+                        var num2 = num.replace(/[^0-9]/ig, "");
+                        console.log(num2);
+                        num3 = parseInt(num2);
+                        grandTotal += num3;
                         $('div.grandTotal').html("NT$ " + grandTotal);
                     });
+
+                    $('div.payTotal').html("NT$ " + (grandTotal+50));
                 }
             }
             ChangeQty();
