@@ -542,7 +542,7 @@ namespace 鮮蔬果季_前台.Controllers
                                   on p.CouponId equals cd.CouponId
                                   where cd.CouponQuantity >= 0 &&
                                   cd.CouponId != 0 &&
-                                  cd.MemberId == UserLogin.member.MemberId
+                                  cd.MemberId == UserLogin.member.MemberId 
                                   select new { p, cd }).ToList();
                 List<CouponsListViewModel> list = new List<CouponsListViewModel>();
                 foreach (var item in couponsHad)
@@ -787,6 +787,40 @@ namespace 鮮蔬果季_前台.Controllers
 
             return Content("1");
 
+        }
+        public IActionResult CartCpPartial(int ttcart)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                //=============================
+                var couponsHad = (from p in db.Coupons
+                                  join cd in db.CouponDetails
+                                  on p.CouponId equals cd.CouponId
+                                  where cd.CouponQuantity >= 0 &&
+                                  cd.CouponId != 0 &&
+                                  cd.MemberId == UserLogin.member.MemberId &&
+                                  p.DiscountCondition <= ttcart
+                                  select new { p, cd }).ToList();
+                List<CouponsListViewModel> list = new List<CouponsListViewModel>();
+                foreach (var item in couponsHad)
+                {
+                    list.Add(new CouponsListViewModel()
+                    {
+                        coupon = item.p,
+                        couponDetail = item.cd
+                    });
+                }
+                ViewBag.Coupons = list;
+                return PartialView();
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
         }
     }
 }
