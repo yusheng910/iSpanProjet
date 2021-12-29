@@ -1,0 +1,22 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
+
+@foreach (var item in ViewBag.Coupons)
+{
+    if (item.coupon.CouponEndDate > DateTime.Now)
+    {
+        <div class="include">
+            <span class="lead">@item.coupon.CouponName</span>
+            <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
+            <span class="badge badge-primary cpnum">@item.couponDetail.CouponQuantity 張</span>
+            <div class="discount">
+                <span class="discounttext">折NT$</span>
+                <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+            </div>
+            <a class="btn btn-sm btn-outline-danger usebtn ">
+                使用
+            </a>
+            <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
+            <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
+        </div>
+    }
+}

@@ -36,11 +36,16 @@
             top: 8px;
             font-weight: bold;
             font-size: 16px;
-            margin-right: 50px;
+            margin-right: 60px;
             line-height: 1.5
         }
 
         .usebtn {
+            right: 20px;
+            bottom: 15px;
+            position: absolute;
+        }
+        .setusebtn {
             right: 20px;
             bottom: 15px;
             position: absolute;
@@ -181,25 +186,28 @@
                         <h3>使用優惠券</h3>
                     </div>
                 </div>
-                <div class="row cpbox">
-                    @foreach (var item in ViewBag.Coupons)
+                @*酷碰券顯示開始*@
+            <div class="row cpbox">
+                @foreach (var item in ViewBag.Coupons)
+                {
+                    
+                    if (item.coupon.CouponEndDate > DateTime.Now && item.coupon.DiscountCondition <= 總價)
                     {
-                        if (item.coupon.CouponEndDate > DateTime.Now && 總價 > item.coupon.DiscountCondition)
-                        {
-                            <div class="include">
-                                <span class="lead">@item.coupon.CouponName</span>
-                                <span class="badge badge-primary cpnum">@item.couponDetail.CouponQuantity 張</span>
-                                <div class="discount">
-                                    <span class="discounttext">折NT$</span>
-                                    <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
-                                </div>
-                                <a class="btn btn-sm btn-outline-danger usebtn ">
-                                    使用
-                                </a>
+                        <div class="include">
+                            <span class="lead">@item.coupon.CouponName</span>
+                            <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
+                            <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
+                            <div class="discount">
+                                <span class="discounttext">折NT$</span>
+                                <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
                             </div>
-                        }
+                            <a class="btn btn-sm btn-outline-danger usebtn ">選取</a>
+                            <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
+                            <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
+                        </div>
                     }
-                </div>
+                }
+            </div>
                 @*酷碰券顯示結束*@
             </div>
             <div class="col-lg-5 col-sm-6">
@@ -213,7 +221,7 @@
                     </div>
                     <div class="d-flex">
                         <h4>酷碰折扣</h4>
-                        <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
+                        <div class="ml-auto font-weight-bold" id="disdisprice"> -NT$ 0 </div>
                     </div>
                     <hr>
                     <div class="d-flex gr-total">
@@ -275,22 +283,21 @@
 @section Scripts{
     <script>
         //document.getElementById('qtyChange').value
-        $(document).on("change", ".qtyChange", function (e) {
+        $(document).on("change", ".qtyChange", function () {
             var obj = $(this);
             var qty = $(this).val();
             var cid = $(this).next(".cartid").val();
-
-            console.log(obj);
-            console.log(value);
+            //console.log(obj);
+            //console.log(value);
             async function ChangeQty() {
                 var response = await fetch('@Url.Content("~/ShoppingApi/ChangeCartQty/")' + cid +"?qty="+qty)
                 var data = await response.text()
-                console.log(data);
+                //console.log(data);
                 if (data != 0) {
-                    console.log("success");
+                    //console.log("success");
                     var p = parseInt(data);
                     obj.closest('.quantity-box').next().find("p").html("NT$ " + p);
-                    console.log(obj.closest('.quantity-box'))
+                    //console.log(obj.closest('.quantity-box'))
                     //pItemPrice.innerHTML = p;
 
                     $('div.grandTotal').html(0);
@@ -299,19 +306,42 @@
 
                     var grandTotal = 0;
                     $('.itemPrice').each(function (index, value) {
-                        console.log(value);
+                        //console.log(value);
                         var num = value.innerHTML;
                         var num2 = num.replace(/[^0-9]/ig, "");
-                        console.log(num2);
+                        //console.log(num2);
                         num3 = parseInt(num2);
                         grandTotal += num3;
                         $('div.grandTotal').html("NT$ " + grandTotal);
                     });
-
-                    $('div.payTotal').html("NT$ " + (grandTotal-0)); // 振主 酷碰折扣金額的 int 變數寫在減號後面 --宇盛
+                    console.log("grandTotal="+grandTotal)
+                    $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal)
+                    $('.payTotal').html("NT$ " + (grandTotal-0)); // 振主 酷碰折扣金額的 int 變數寫在減號後面 --宇盛
                 }
             }
             ChangeQty();
+        })
+        $(document).on("click", ".usebtn", function () {
+            $(this).text("使用中");
+            $(".setusebtn").text("選取");
+            $(".setusebtn").removeClass("setusebtn").addClass("usebtn");
+            $(this).removeClass("usebtn").addClass("setusebtn");
+            //console.log($(this).text());
+            var disprice = $(this).next().next().val();
+            var grandTotal = $('div.grandTotal').html();
+            grandTotal = grandTotal.replace(/[^0-9]/ig, "");
+            console.log(grandTotal);
+            console.log(disprice);
+            $('#disdisprice').html("-NT$ " + disprice);
+            $('.payTotal').html("NT$ " + (grandTotal - disprice));
+        })
+        $(document).on("click", ".setusebtn", function () {
+            $(this).text("選取");
+            $(this).removeClass("setusebtn").addClass("usebtn");
+            var grandTotal = $('div.grandTotal').html();
+            grandTotal = grandTotal.replace(/[^0-9]/ig, "");
+            $('#disdisprice').html(0);
+            $('.payTotal').html("NT$ " + (grandTotal - 0));
         })
 
         function showAlert() {
@@ -324,7 +354,7 @@
             //let value = @Model.Count
             if (value == 0) {
                 showAlert();
-                return false;        
+                return false;
             }
         })
     </script>
