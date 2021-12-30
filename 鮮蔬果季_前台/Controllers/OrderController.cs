@@ -123,7 +123,7 @@ namespace 鮮蔬果季_前台.Controllers
                         });
                     }
                 }
-                return View(list);
+                return PartialView(list);
             }
             else //Seesion沒找到
             {
