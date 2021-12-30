@@ -57,20 +57,29 @@ namespace 鮮蔬果季_前台.Controllers
         [HttpPost]
         public IActionResult EventCreate(Event FormData)
         {
-            //var 活動資料 = (from E in db.Events
+            //var 活動及供應商資料 = (from E in db.Events
             //            join supp in db.Suppliers
             //            on E.SupplierId equals supp.SupplierId
             //            select new { E, supp }).FirstOrDefault();
 
             Event 活動新增資料 = new Event()
             {
-                EventId = FormData.EventId,
 
+                //EventId = FormData.EventId,
+                EventName = FormData.EventName,
+                SupplierId = FormData.SupplierId,
+                Lable = FormData.Lable,
+                EventParticipantCap = FormData.EventParticipantCap,
+                EventPrice = FormData.EventPrice,
+                EventLocation = FormData.EventLocation,
+                EventStartDate = FormData.EventStartDate,
+                EventEndDate = FormData.EventEndDate,
+                EventDescription = FormData.EventDescription,
             };
             db.Add(活動新增資料);
             db.SaveChanges();
 
-            return View();
+            return RedirectToAction("EventCreate");
         }
 
 

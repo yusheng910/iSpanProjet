@@ -96,26 +96,32 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" asp-area="" asp-controller="BackstageEvent" asp-action="EventList">
-                            <i class="fe fe-calendar fe-16"></i>
+                            <i class="fe fe-24 fe-sun"></i>
                             <span class="ml-3 item-text">活動管理</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#ui-elements" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                            <i class="fe fe-box fe-16"></i>
+
+                            <i class="fe fe-24 fe-bar-chart-2"></i>
                             <span class="ml-3 item-text" style="font-size:22px">報表管理</span>
                         </a>
                         <ul class="collapse list-unstyled pl-4 w-100" id="ui-elements">
-                            <li class="nav-item">
+
+                            <li class="fe fe-24 fe-bar-chart-2">
                                 <a class="nav-link pl-3" asp-area="" asp-controller="Backstage" asp-action="PowerBIReport_1">
-                                    <span class="ml-1 item-text" style="font-size:20px">業績銷售分析</span>
+                                    <span class="ml-1 item-text" style="font-size:20px">
+                                        業績銷售分析
+                                    </span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link pl-3" asp-area="" asp-controller="Backstage" asp-action="PowerBIReport_2">
                                     <span class="ml-1 item-text" style="font-size:20px">會員報表分析</span>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link pl-3" asp-area="" asp-controller="Backstage" asp-action="PowerBIReport_3">
                                     <span class="ml-1 item-text" style="font-size:20px">產品收購價分析</span>

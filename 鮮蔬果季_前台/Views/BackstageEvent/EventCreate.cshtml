@@ -1,4 +1,4 @@
-﻿@model  鮮蔬果季_前台.ViewModels.EventListViewModel
+﻿@model 鮮蔬果季_前台.ViewModels.EventListViewModel
 
 @{
     ViewData["Title"] = "EventCreate";
@@ -31,7 +31,9 @@
 
 }
 
-<form method="post" name="FormData" >
+
+
+<form method="post" name="FormData">
     <div class="row justify-content-center">
         <div class="col-12">
             <h2 class="page-title">新增活動</h2>
@@ -41,7 +43,7 @@
                         <div class="card-body">
                             <div class="form-group mb-3">
                                 <label for="simpleinput">活動ID</label>
-                                <input type="text" id="simpleinput" class="form-control" name="EventId">
+                                @*<input  type="hidden" name="EventId"  value=@Model.Event.EventId>*@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="simpleinput">活動名稱</label>
@@ -49,20 +51,41 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="simpleinput">供應商ID</label>
-                                <input type="text" id="simpleinput" class="form-control" name="SupplierName">
-                            </div>
-                            <div class="form-group mb-3" >
-                                <label for="simpleinput"  >供應商名稱</label>
-                                <input type="text" id="simpleinput" class="form-control" readonly="readonly" name="SupplierID">
+                                <input type="text" id="simpleinput" class="form-control" name="SupplierId">
                             </div>
                             <div class="form-group mb-3">
+                                <label for="simpleinput">供應商名稱</label>  @*透過供應商ID帶出對應,不可寫入*@
+                                <input type="text" id="simpleinput" class="form-control" readonly="readonly">
+                            </div>
+
+                            <div class="form-group mb-3">
                                 <label for="simpleinput">活動類別</label>
-                                <select class="form-control select2" id="simple-select2">
-                                    <optgroup label="活動類別選擇">
-                                        <option value="體驗類" name="Lable">體驗類</option>
-                                        <option value="參訪類" name="Lable">參訪類</option>
-                                    </optgroup>
-                                </select>
+                                <br />
+
+                                <input type="radio" value="體驗類" name="Lable " />
+                                <label>體驗類</label>
+
+                                <input type="radio" value="體驗類" name="Lable " />
+                                <label>活動類</label>
+
+                                @*<select class="form-control select2" id="simple-select2">
+                                        <optgroup label="活動類別選擇">
+
+                                            <input type="radio" value="體驗類" name="Lable" />
+                                            <option value="參訪類" name="Lable">參訪類</option>
+
+                                        </optgroup>
+                                    </select>*@
+
+
+                                @*<div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -96,7 +119,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="date-input1">開始日期</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control drgpicker" id="date-input1" value="04/24/2020" aria-describedby="button-addon2">
+                                        <input type="text" class="form-control drgpicker" id="date-input1" value="1/1/2021" aria-describedby="button-addon2" name="EventStartDate">
                                         <div class="input-group-append">
                                             <div class="input-group-text" id="button-addon-date">
                                                 <span class="fe fe-calendar fe-16"></span>
@@ -107,7 +130,7 @@
                                 <div class="form-group col-md-4">
                                     <label for="time-input2">開始時間</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2">
+                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2" name="EventStartDate">
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +139,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="date-input1">結束日期</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control drgpicker" id="date-input1" value="04/24/2020" aria-describedby="button-addon2">
+                                        <input type="text" class="form-control drgpicker" id="date-input1" value="1/1/2021" aria-describedby="button-addon2" name="EventEndDate">
                                         <div class="input-group-append">
                                             <div class="input-group-text" id="button-addon-date">
                                                 <span class="fe fe-calendar fe-16"></span>
@@ -127,7 +150,7 @@
                                 <div class="form-group col-md-4">
                                     <label for="time-input2">結束時間</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2">
+                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2" name="EventEndDate">
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +181,7 @@
                             <div class="card-body">
                                 <h3 class="card-title">活動內容編輯器</h3>
                                 <!-- Create the editor container -->
-                                <div id="editor" style="min-height:200px;">
+                                <div id="editor" style="min-height:200px;" name="EventDescription">
                                     <p></p>
                                 </div>
                             </div>
@@ -168,7 +191,14 @@
             </div>
         </div>
     </div>
+
+    <input type="submit" class="btn btn-primary btn-lg" style="margin-top:10px">
+    
+
+
 </form>
+
+
 
 
 @*上傳圖片範本程式碼(先保留)*@
