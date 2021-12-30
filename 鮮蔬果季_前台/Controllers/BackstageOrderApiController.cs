@@ -22,10 +22,16 @@ namespace 鮮蔬果季_前台.Controllers
                        select new { ord, stat }).FirstOrDefault();
             //傳入OrderID 更改送貨狀態 (status) 
             Order order = db.Orders.FirstOrDefault(i => i.OrderId == id);
-            order.StatusId = 5;
-            db.SaveChanges();
-            
-            return PartialView();
+            if(order.StatusId==4)
+            {
+                order.StatusId = 5;
+                db.SaveChanges();
+                return Content("1");
+            }
+            else
+            {
+                return Content("0");
+            }
         }
         public IActionResult ChangeToDelivered(int id)
         {
