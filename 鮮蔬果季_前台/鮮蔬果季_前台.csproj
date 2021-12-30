@@ -27,6 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\BackstageCoupons\" />
+    <Folder Include="Views\BackStageFeedBack\" />
     <Folder Include="wwwroot\assets\btn\" />
     <Folder Include="wwwroot\assets\img\合作農友\" />
   </ItemGroup>

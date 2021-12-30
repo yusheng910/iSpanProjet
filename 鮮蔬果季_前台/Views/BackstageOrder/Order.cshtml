@@ -32,7 +32,7 @@
                                     <th>更改配送狀態</th>
                                 </tr>
                             </thead>
-                            <tbody id="orderBody" class="tprodbody">
+                            <tbody id="orderBody" class="tprodbody orderBody">
                                 @{ int count = 0;
                                     foreach (var item in Model)
                                     {
@@ -78,7 +78,8 @@
                                             <td>@item.ShippedTo</td>
                                             <td>@item.paymethod.Method</td>
                                             <td>
-                                                <button type="button" id="btnStatus" class="btn btn-primary">商品出貨</button>
+                                                <button type="button" id="btnStatus" class="btn btn-primary btnStatus">商品出貨</button>
+                                                <input type="hidden" class="oid" id="oid" value="@item.OrderId"/>
                                             </td>
                                         </tr>
                                     }
@@ -104,6 +105,12 @@
                 ]
             });
 
+        $(document).on('click', '.btnStatus', function () {
+            var oid = $(this).next().val();
+            console.log(oid);
+            $('.orderBody').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid)
+        });
+
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
@@ -126,36 +133,6 @@
             }
         })
 
-        console.log($(".selectphoto"))
-        $(document).on("change",".selectphoto",async function () {
-            let value = $(this)[0].files
-            let pid = $("#ProductId").val()
-            @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
-
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
-                method: "POST",
-                body: formData
-            })
-            const data = await response.text()
-            if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功")
-                })
-            }
-        });
-
-        $(document).on("click", ".imgClear", async function (e) {
-            let pid = $("#ProductId").val()
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功")
-                })
-            }
-        })
 
     </script>
 

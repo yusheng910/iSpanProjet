@@ -185,6 +185,13 @@
             }
         })
 
+        @*Todo 分類連動*@
+        $(document).on("change", ".CategeoryFirst", async function (e) {
+            var catefirst = document.querySelector(".CategeoryFirst");
+            const value = catefirst.options[catefirst.selectedIndex].value
+            console.log(value);
+        })
+       
     </script>
 
 }

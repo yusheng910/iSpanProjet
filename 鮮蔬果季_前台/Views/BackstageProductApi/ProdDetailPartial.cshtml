@@ -44,7 +44,7 @@
         <div class="form-group">
             <label class="control-label" style="display:block">產品分類</label>
             <label class="control-label" style="">品項：</label>
-            <select class="form-control " style="width:10%;display:inline">
+            <select class="form-control  CategeoryFirst" style="width:10%;display:inline" name="CategeoryFirst">
                 @{
                     int id = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -70,7 +70,7 @@
                     }
                 }
             </select>
-            <select class="form-control " style="width:15%;display:inline">
+            <select class="form-control " style="width:15%;display:inline" name="CategeorySecond">
                 @{
                     int id2 = 0;
                     @foreach (var item2 in Model.categoryDetails2) {
@@ -97,7 +97,7 @@
                 }
             </select>
             <label class="control-label" style="">商品等級：</label>
-            <select class="form-control " style="width:10%;display:inline">
+            <select class="form-control " style="width:10%;display:inline" name="CategeoryLevel">
                 @{
                     int id3 = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -124,7 +124,7 @@
                 }
             </select>
             <label class="control-label" style="">溫層：</label>
-            <select class="form-control " style="width:10%;display:inline">
+            <select class="form-control " style="width:10%;display:inline" name="CategeoryTemp">
                 @{
                     int id4 = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -151,7 +151,7 @@
                 }
             </select>
             <label class="control-label" style="">產季：</label>
-            <select class="form-control " style="width:10%;display:inline">
+            <select class="form-control " style="width:10%;display:inline" name="CategeorySeason">
                 @{
                     int id5 = 0;
                     @foreach (var item2 in Model.categoryDetails2)

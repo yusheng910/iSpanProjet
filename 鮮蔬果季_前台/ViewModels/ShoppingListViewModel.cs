@@ -252,19 +252,12 @@ namespace 鮮蔬果季_前台.ViewModels
         public bool HotProduct { get { return this.product.HotProduct; } set { this.product.HotProduct = value; } }
         [DisplayName("供應商名稱")]
         public string SupplierName { get {return this.supplier.SupplierName; } set {this.supplier.SupplierName=value; } }
-        //public int ProductId { get; set; }
-        //public string ProductName { get; set; }
-        //public int SupplierId { get; set; }
-        //public int ProductUnitPrice { get; set; }
-        //public int ProductCostPrice { get; set; }
-        //public int ProductUnitsInStock { get; set; }
-        //public DateTime? ProduceDate { get; set; }
-        //public string ProductDescription { get; set; }
-        //public string ProductSize { get; set; }
-        //public bool DefectiveGood { get; set; }
-        //public bool InShop { get; set; }
-        //public byte[] ProductQrcode { get; set; }
-        //public bool HotProduct { get; set; }
+        public int CategeoryFirst { get; set; }
+        public int CategeorySecond { get; set; }
+        public int CategeoryLevel { get; set; }
+        public int CategeoryTemp { get; set; }
+        public int CategeorySeason { get; set; }
+
 
     }
 }

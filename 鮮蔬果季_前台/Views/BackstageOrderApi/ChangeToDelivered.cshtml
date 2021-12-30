@@ -1,0 +1,52 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.OrderListViewModel>
+
+@{ int count = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="@count">
+                    <label class="custom-control-label" for="@item.OrderId"></label>
+                </div>
+            </td>
+            <td>@item.OrderId</td>
+            <td>@item.member.MemberName</td>
+            <td>@item.OrderDate</td>
+            @{
+                string date = (item.ShippedDate).ToString();
+                date = date.Split(" ")[0];
+                if (item.ShippedDate != null)
+                {
+                    <td>@date</td>
+                }
+                else
+                {
+                    <td>訂單未出貨</td>
+                }
+            }
+            <td>@item.status.StatusName</td>
+            @{
+                if (item.coupon.CouponId == 0)
+                {
+                    <td>無使用酷碰券</td>
+                }
+                else
+                {
+                    <td>
+                        酷碰 ID: @item.coupon.CouponId
+                        <br />
+                        @item.coupon.CouponName
+                    </td>
+                }
+            }
+
+            <td>@item.總價</td> @*todo coupon折扣要在這邊抓*@
+            <td>@item.ShippedTo</td>
+            <td>@item.paymethod.Method</td>
+            <td>
+                <button type="button" id="btnStatus" class="btn btn-primary">商品出貨</button>
+            </td>
+        </tr>
+    }
+}
