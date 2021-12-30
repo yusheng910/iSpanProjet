@@ -52,21 +52,22 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult FeedbackEdit(int id)
         {
-            FeedbackResponse message = new 鮮蔬果季Context().FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
+            var message =_context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
             if (message == null)
                 return RedirectToAction("FeedbackList");
             return View(message);
         }
         [HttpPost]
-        public IActionResult FeedbackEdit(FeedbackResponse _feedback)
+        public IActionResult FeedbackEdit(FeedbackResponse editmessage)
         {
-            FeedbackResponse message = new 鮮蔬果季Context().FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == _feedback.FeedbackResponseId);
+            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
             if (message != null)
             {
-                message.FeedbackResponseId = _feedback.FeedbackResponseId;
-                message.FeedbackId = _feedback.FeedbackId;
-                message.OrderDetailId = _feedback.OrderDetailId;
-                message.FeedbackComment = _feedback.FeedbackComment;
+                
+                message.FeedbackId = editmessage.FeedbackId;
+                message.OrderDetailId = editmessage.OrderDetailId;
+                message.FeedbackComment = editmessage.FeedbackComment;
+                _context.SaveChanges();
             }
             return RedirectToAction("FeedbackList");
         }
