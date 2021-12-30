@@ -73,7 +73,8 @@
             <select class="form-control " style="width:15%;display:inline" name="CategeorySecond">
                 @{
                     int id2 = 0;
-                    @foreach (var item2 in Model.categoryDetails2) {
+                    @foreach (var item2 in Model.categoryDetails2)
+                    {
                         if (item2.CategoryId <= 5 && item2.CategoryId >= 2 || item2.CategoryId == 7)
                         {
                             id2 = item2.CategoryId;
@@ -102,7 +103,7 @@
                     int id3 = 0;
                     @foreach (var item2 in Model.categoryDetails2)
                     {
-                        if (item2.CategoryId == 20|| item2.CategoryId==21)
+                        if (item2.CategoryId == 20 || item2.CategoryId == 21)
                         {
                             id3 = item2.CategoryId;
                         }
@@ -197,8 +198,12 @@
 
         <div class="form-group">
             <label asp-for="ProductDescription" class="control-label"></label>
-            <input asp-for="ProductDescription" class="form-control" />
-            <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            @*<input asp-for="ProductDescription" class="form-control" />
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>*@
+            <div id="editor" class="descript" style="min-height:200px;" name="ProductDescription">
+               @Html.Raw(Model.ProductDescription)
+            </div>
+            <input type="hidden" class="prodDescription" name="ProductDescription">
         </div>
         <div class="form-group">
             <label asp-for="ProductSize" class="control-label"></label>
@@ -264,6 +269,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+            // editor
 
     </script>
 }

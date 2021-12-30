@@ -58,7 +58,7 @@
                                             <td>@item.ProductUnitPrice</td>
                                             <td>@item.ProductCostPrice</td>
                                             <td>@item.ProductUnitsInStock</td>
-                                            <td>@item.ProductDescription</td>
+                                            <td>詳見編輯@*@Html.Raw(Model.ProductDescription)*@</td>
                                             @{
                                                 string date = (item.ProduceDate).ToString();
                                                 date = date.Split(" ")[0];
@@ -135,11 +135,85 @@
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid)
+            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid, function () {
+                var editor = document.getElementById('editor');
+                if (editor) {
+                    console.log(editor)
+                    var toolbarOptions = [
+                        [
+                            {
+                                'font': []
+                            }],
+                        [
+                            {
+                                'header': [1, 2, 3, 4, 5, 6, false]
+                            }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [
+                            {
+                                'header': 1
+                            },
+                            {
+                                'header': 2
+                            }],
+                        [
+                            {
+                                'list': 'ordered'
+                            },
+                            {
+                                'list': 'bullet'
+                            }],
+                        [
+                            {
+                                'script': 'sub'
+                            },
+                            {
+                                'script': 'super'
+                            }],
+                        [
+                            {
+                                'indent': '-1'
+                            },
+                            {
+                                'indent': '+1'
+                            }], // outdent/indent
+                        [
+                            {
+                                'direction': 'rtl'
+                            }], // text direction
+                        [
+                            {
+                                'color': []
+                            },
+                            {
+                                'background': []
+                            }], // dropdown with defaults from theme
+                        [
+                            {
+                                'align': []
+                            }],
+                        ['clean'] // remove formatting button
+                    ];
+                    var quill = new Quill(editor,
+                        {
+                            modules:
+                            {
+                                toolbar: toolbarOptions
+                            },
+                            theme: 'snow'
+                        });
+                }
+            })
         })
 
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
+
+            //讀取文字編輯器
+            var discription = $(".ql-editor").html();            
+            $(".prodDescription").val(discription);
+
             const formData = new FormData(document.ProdEdit)
             const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
                 method: "POST",
