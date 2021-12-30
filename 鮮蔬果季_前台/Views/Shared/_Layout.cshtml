@@ -141,10 +141,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Event" asp-action="EventBlog">農友活動</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="ContactUs" asp-action="ContactUs">聯絡我們</a>
+                        </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Shopping" asp-action="List">購物專區</a>
                         </li>
-                        <li class="dropdown">
+                        @*<li class="dropdown">
                             <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
                                 購物專區 <i class="fas fa-chevron-down arrowcustomer"></i>
                             </a>
@@ -162,7 +165,7 @@
                                     <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">五穀雜糧</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>*@
                         <li class="dropdown">
                             @if (ViewBag.SUPP != null)
                             {
