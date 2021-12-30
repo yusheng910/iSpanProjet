@@ -60,11 +60,11 @@
                         {
                             if (item.CategoryId == id)
                             {
-                                <option selected>@item.CategoryName</option>
+                                <option selected value="@item.CategoryId">@item.CategoryName</option>
                             }
                             else
                             {
-                                <option>@item.CategoryName</option>
+                                <option value="@item.CategoryId">@item.CategoryName</option>
                             }
                         }
                     }
@@ -85,11 +85,12 @@
                         {
                             if (item.CategoryId == id2)
                             {
-                                <option selected>@item.CategoryName</option>
+                                <option selected value="@item.CategoryId">@item.CategoryName</option>
                             }
-                            else
+                            else if (id2 == 7) { }
+                            else if (item.CategoryId <= 5 && item.CategoryId >= 2)
                             {
-                                <option>@item.CategoryName</option>
+                                <option value="@item.CategoryId">@item.CategoryName</option>
                             }
                         }
                     }
@@ -97,15 +98,84 @@
             </select>
             <label class="control-label" style="">商品等級：</label>
             <select class="form-control " style="width:10%;display:inline">
-                <option>123</option>
+                @{
+                    int id3 = 0;
+                    @foreach (var item2 in Model.categoryDetails2)
+                    {
+                        if (item2.CategoryId == 20|| item2.CategoryId==21)
+                        {
+                            id3 = item2.CategoryId;
+                        }
+                    }
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId == 20 || item.CategoryId == 21)
+                        {
+                            if (item.CategoryId == id3)
+                            {
+                                <option selected value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                }
             </select>
             <label class="control-label" style="">溫層：</label>
             <select class="form-control " style="width:10%;display:inline">
-                <option>123</option>
+                @{
+                    int id4 = 0;
+                    @foreach (var item2 in Model.categoryDetails2)
+                    {
+                        if (item2.CategoryId == 17 || item2.CategoryId == 18)
+                        {
+                            id4 = item2.CategoryId;
+                        }
+                    }
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId == 17 || item.CategoryId == 18)
+                        {
+                            if (item.CategoryId == id4)
+                            {
+                                <option selected value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                }
             </select>
             <label class="control-label" style="">產季：</label>
             <select class="form-control " style="width:10%;display:inline">
-                <option>123</option>
+                @{
+                    int id5 = 0;
+                    @foreach (var item2 in Model.categoryDetails2)
+                    {
+                        if (item2.CategoryId <= 15 && item2.CategoryId >= 12 || item2.CategoryId == 23)
+                        {
+                            id5 = item2.CategoryId;
+                        }
+                    }
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId <= 15 && item.CategoryId >= 12 || item.CategoryId == 23)
+                        {
+                            if (item.CategoryId == id5)
+                            {
+                                <option selected value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                }
             </select>
             <span class="text-danger"></span>
         </div>
