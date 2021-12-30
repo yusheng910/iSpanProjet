@@ -39,7 +39,40 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
             return View(所有活動列表);
-
         }
+
+        public IActionResult EventEdit()
+        {
+            return View();
+        }
+        
+
+
+        
+        public IActionResult EventCreate()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EventCreate(Event FormData)
+        {
+            //var 活動資料 = (from E in db.Events
+            //            join supp in db.Suppliers
+            //            on E.SupplierId equals supp.SupplierId
+            //            select new { E, supp }).FirstOrDefault();
+
+            Event 活動新增資料 = new Event()
+            {
+                EventId = FormData.EventId,
+
+            };
+            db.Add(活動新增資料);
+            db.SaveChanges();
+
+            return View();
+        }
+
+
     }
 }
