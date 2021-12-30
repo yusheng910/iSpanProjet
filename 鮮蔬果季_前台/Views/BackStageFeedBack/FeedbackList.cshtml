@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
 }
 
-
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">回應項目管理</h2>
@@ -21,38 +20,26 @@
                         <table class="table datatables border-dark" id="dataTable-1">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th></th>
                                     <th style="width:65px;">訂單編號</th>
                                     <th>產品名稱</th>
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
                                     <th>回應敘述</th>
-
+                                    <th></th>
                                 </tr>
                             </thead>
+
                             <tbody id="orderBody" class="tprodbody">
                                 @{ int count = 0;
                                     foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="@count">
-                                                    <label class="custom-control-label" for=""></label>
-                                                </div>
-                                            </td>
-                                            <td>@count</td>
+                                            <td>@item.feedbackResponse.OrderDetailId</td>
                                             <td>1</td>
                                             <td>1</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
-
-                                            
-
-
-                                            <td></td> 
-                                            <td></td>
-                                            <td></td>
+                                       
                                             <td>
                                                 <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
@@ -99,8 +86,6 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
-
-<!-------------------------------------------------------------------------------------------------------------------------------------------------------------->
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
@@ -113,60 +98,6 @@
                     [16, 32, 64, "All"]
                 ]
             });
-
-        $(document).on("click", ".btnEdit", function () {
-            var pid = $(this).next(".Pid").val();
-            console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid)
-        })
-
-        $(document).on("click", ".btnSave", async function (e) {
-            e.preventDefault();
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
-                method: "POST",
-                body: formData
-            })
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.tprodbody').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
-                    alert("修改成功")
-                })
-            }
-        })
-
-        console.log($(".selectphoto"))
-        $(document).on("change",".selectphoto",async function () {
-            let value = $(this)[0].files
-            let pid = $("#ProductId").val()
-            @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
-
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
-                method: "POST",
-                body: formData
-            })
-            const data = await response.text()
-            if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功")
-                })
-            }
-        });
-
-        $(document).on("click", ".imgClear", async function (e) {
-            let pid = $("#ProductId").val()
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
-                    alert("上傳圖片成功")
-                })
-            }
-        })
-
     </script>
 
 }
