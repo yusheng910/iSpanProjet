@@ -47,7 +47,7 @@ namespace 鮮蔬果季_前台.Controllers
                         on prod.ProductId equals  cd.ProductId
                         join c in db.Categories
                         on cd.CategoryId equals c.CategoryId
-                        where cd.CategoryId>1 && cd.CategoryId<7
+                        where cd.CategoryId>1 && cd.CategoryId<6 || cd.CategoryId==7
                         select new { prod, supp,cd,c }).ToList();
             foreach (var item in 所有產品)
             {

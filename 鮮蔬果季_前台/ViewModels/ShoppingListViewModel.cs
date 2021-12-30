@@ -127,6 +127,20 @@ namespace 鮮蔬果季_前台.ViewModels
                 _favorite = value;
             }
         }
+        public List<CategoryDetail> _categoryDetail2 = null;
+        public List<CategoryDetail> categoryDetails2
+        {
+            get
+            {
+                if (_categoryDetail2 == null)
+                    _categoryDetail2 = new List<CategoryDetail>();
+                return _categoryDetail2;
+            }
+            set
+            {
+                _categoryDetail2 = value;
+            }
+        }
         public List<CCategoryDetailName> _categoryDetails = null;
         public List<CCategoryDetailName> categoryDetails
         {
