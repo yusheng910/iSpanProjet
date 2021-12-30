@@ -38,7 +38,7 @@ namespace 鮮蔬果季_前台.Controllers
             };
             _context.Add(feedback);
             _context.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("FeedbackList");
         }
         public IActionResult FeedbackDelete(int id)
         {
@@ -48,13 +48,13 @@ namespace 鮮蔬果季_前台.Controllers
                 _context.FeedbackResponses.Remove(message);
                 _context.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("FeedbackList");
         }
         public IActionResult FeedbackEdit(int id)
         {
             FeedbackResponse message = new 鮮蔬果季Context().FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
             if (message == null)
-                return RedirectToAction("List");
+                return RedirectToAction("FeedbackList");
             return View(message);
         }
         [HttpPost]
@@ -68,7 +68,7 @@ namespace 鮮蔬果季_前台.Controllers
                 message.OrderDetailId = _feedback.OrderDetailId;
                 message.FeedbackComment = _feedback.FeedbackComment;
             }
-            return RedirectToAction("List");
+            return RedirectToAction("FeedbackList");
         }
     }
 }
