@@ -327,7 +327,10 @@ namespace 鮮蔬果季_前台.Controllers
                               where od.OrderId == id
                               orderby od.ProductId
                               select new { od, p, sup }).ToList();
-                
+                var 訂單 = db.Orders.FirstOrDefault(a => a.OrderId == id);
+                ViewBag.cpd = (from cp in db.Coupons
+                               where cp.CouponId == 訂單.CouponId
+                               select cp.CouponDiscount).FirstOrDefault();
                 foreach (var o in 所有訂單細項)
                 {
                     var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
