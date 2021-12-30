@@ -685,7 +685,7 @@ namespace 鮮蔬果季_前台.Controllers
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId
-                              where p.ProductId == id
+                              where p.ProductId == id && c.StatusId == 1
                               select new { p, c }).FirstOrDefault();
 
                 if (購物車內商品 == null)
@@ -743,7 +743,7 @@ namespace 鮮蔬果季_前台.Controllers
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId
-                              where p.ProductId == id
+                              where p.ProductId == id && c.StatusId == 1
                               select new { p, c }).FirstOrDefault();
 
                 if (購物車內商品 == null)
@@ -784,12 +784,12 @@ namespace 鮮蔬果季_前台.Controllers
             var 購物車商品 = (from pro in db.Products
                          join item in db.ShoppingCarts
                          on pro.ProductId equals item.ProductId
-                         join stat in db.Statuses
-                         on item.StatusId equals stat.StatusId
+                         //join stat in db.Statuses
+                         //on item.StatusId equals stat.StatusId
                          join sup in db.Suppliers
                          on pro.SupplierId equals sup.SupplierId
-                         where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                         select new { item, pro, stat, sup }).ToList();
+                         where item.MemberId == UserLogin.member.MemberId && item.StatusId == 1
+                         select new { item, pro, /*stat,*/ sup }).ToList();
 
             foreach (var c in 購物車商品)
             {
@@ -799,7 +799,7 @@ namespace 鮮蔬果季_前台.Controllers
                     shopCart = c.item,
                     product = c.pro,
                     photoforCart = 封面相片,
-                    status = c.stat,
+                    //status = c.stat,
                     supplier = c.sup
                     ////單筆訂單細項總價 = 訂單細項總價
                 });
