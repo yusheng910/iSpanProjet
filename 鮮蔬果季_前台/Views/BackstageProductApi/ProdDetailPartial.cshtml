@@ -45,15 +45,55 @@
             <label class="control-label" style="display:block">產品分類</label>
             <label class="control-label" style="">品項：</label>
             <select class="form-control " style="width:10%;display:inline">
-                @foreach (var item in ViewBag.主類別)
-                {
-                    <option>123</option>
-
+                @{
+                    int id = 0;
+                    @foreach (var item2 in Model.categoryDetails2)
+                    {
+                        if (item2.CategoryId == 1 || item2.CategoryId == 6)
+                        {
+                            id = item2.CategoryId;
+                        }
+                    }
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId == 1 || item.CategoryId == 6)
+                        {
+                            if (item.CategoryId == id)
+                            {
+                                <option selected>@item.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option>@item.CategoryName</option>
+                            }
+                        }
+                    }
                 }
-
             </select>
-            <select class="form-control " style="width:10%;display:inline">
-                <option>123</option>
+            <select class="form-control " style="width:15%;display:inline">
+                @{
+                    int id2 = 0;
+                    @foreach (var item2 in Model.categoryDetails2) {
+                        if (item2.CategoryId <= 5 && item2.CategoryId >= 2 || item2.CategoryId == 7)
+                        {
+                            id2 = item2.CategoryId;
+                        }
+                    }
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId <= 5 && item.CategoryId >= 2 || item.CategoryId == 7)
+                        {
+                            if (item.CategoryId == id2)
+                            {
+                                <option selected>@item.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option>@item.CategoryName</option>
+                            }
+                        }
+                    }
+                }
             </select>
             <label class="control-label" style="">商品等級：</label>
             <select class="form-control " style="width:10%;display:inline">
