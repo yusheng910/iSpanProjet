@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace 鮮蔬果季_前台.Models
 {
-    public class DiscountNum
+    public class CPID
     {
-        public static int Discount { get; set; }
+        public static int couponid { get; set; }
     }
 }
