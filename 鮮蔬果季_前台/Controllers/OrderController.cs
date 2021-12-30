@@ -39,10 +39,30 @@ namespace 鮮蔬果季_前台.Controllers
                                 where od.OrderId == o.ord.OrderId
                                 group new { od, pro } by od.OrderId into g
                                 select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                    list.Add(new OrderListViewModel() { 
-                        order = o.ord, 
-                        status = o.stat, 
-                        總價 = 訂單總價 });
+
+                    if (o.ord.CouponId == null)
+                    {
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價,
+                            coupon = null
+                        });
+                    }
+                    else
+                    {
+                        var q = (from c in db.Coupons
+                                 where c.CouponId == o.ord.CouponId
+                                 select c).FirstOrDefault();
+
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價 - q.CouponDiscount,
+                        });
+                    }
                 }
                 return View(list);
             }
@@ -78,9 +98,32 @@ namespace 鮮蔬果季_前台.Controllers
                                 where od.OrderId == o.ord.OrderId
                                 group new { od, pro } by od.OrderId into g
                                 select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                    list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
+
+                    if (o.ord.CouponId == null)
+                    {
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價,
+                            coupon = null
+                        });
+                    }
+                    else
+                    {
+                        var q = (from c in db.Coupons
+                                 where c.CouponId == o.ord.CouponId
+                                 select c).FirstOrDefault();
+
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價 - q.CouponDiscount,
+                        });
+                    }
                 }
-                return PartialView(list);
+                return View(list);
             }
             else //Seesion沒找到
             {
@@ -106,18 +149,41 @@ namespace 鮮蔬果季_前台.Controllers
                           orderby ord.OrderId descending
                           select new { ord, stat }).ToList();
 
-            //db = new 鮮蔬果季Context();
-            foreach (var o in orders)
-            {
-                var 訂單總價 = (from od in db.OrderDetails
-                            join pro in db.Products
-                            on od.ProductId equals pro.ProductId
-                            where od.OrderId == o.ord.OrderId
-                            group new { od, pro } by od.OrderId into g
-                            select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
-            }
-            return PartialView(list);
+                //db = new 鮮蔬果季Context();
+                foreach (var o in orders)
+                {
+                    var 訂單總價 = (from od in db.OrderDetails
+                                join pro in db.Products
+                                on od.ProductId equals pro.ProductId
+                                where od.OrderId == o.ord.OrderId
+                                group new { od, pro } by od.OrderId into g
+                                select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
+
+                    if (o.ord.CouponId == null)
+                    {
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價,
+                            coupon = null
+                        });
+                    }
+                    else
+                    {
+                        var q = (from c in db.Coupons
+                                 where c.CouponId == o.ord.CouponId
+                                 select c).FirstOrDefault();
+
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價 - q.CouponDiscount,
+                        });
+                    }
+                }
+                return PartialView(list);
             }
             else //Seesion沒找到
             {
@@ -143,17 +209,40 @@ namespace 鮮蔬果季_前台.Controllers
                           orderby ord.OrderId descending
                           select new { ord, stat }).ToList();
 
-            foreach (var o in orders)
-            {
-                var 訂單總價 = (from od in db.OrderDetails
-                            join pro in db.Products
-                            on od.ProductId equals pro.ProductId
-                            where od.OrderId == o.ord.OrderId
-                            group new { od, pro } by od.OrderId into g
-                            select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
-            }
-            return PartialView(list);
+                foreach (var o in orders)
+                {
+                    var 訂單總價 = (from od in db.OrderDetails
+                                join pro in db.Products
+                                on od.ProductId equals pro.ProductId
+                                where od.OrderId == o.ord.OrderId
+                                group new { od, pro } by od.OrderId into g
+                                select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
+
+                    if (o.ord.CouponId == null)
+                    {
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價,
+                            coupon = null
+                        });
+                    }
+                    else
+                    {
+                        var q = (from c in db.Coupons
+                                 where c.CouponId == o.ord.CouponId
+                                 select c).FirstOrDefault();
+
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價 - q.CouponDiscount,
+                        });
+                    }
+                }
+                return PartialView(list);
             }
             else //Seesion沒找到
             {
@@ -187,9 +276,32 @@ namespace 鮮蔬果季_前台.Controllers
                                 where od.OrderId == o.ord.OrderId
                                 group new { od, pro } by od.OrderId into g
                                 select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                    list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
+
+                    if (o.ord.CouponId == null)
+                    {
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價,
+                            coupon = null
+                        });
+                    }
+                    else
+                    {
+                        var q = (from c in db.Coupons
+                                 where c.CouponId == o.ord.CouponId
+                                 select c).FirstOrDefault();
+
+                        list.Add(new OrderListViewModel()
+                        {
+                            order = o.ord,
+                            status = o.stat,
+                            總價 = 訂單總價 - q.CouponDiscount,
+                        });
+                    }
                 }
-            return PartialView(list);
+                return PartialView(list);
             }
             else //Seesion沒找到
             {
