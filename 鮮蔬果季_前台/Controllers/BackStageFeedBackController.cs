@@ -19,19 +19,26 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult FeedbackList(FeedbackResponseViewModel message)
         {
             List<FeedbackResponseViewModel> 所有意見回饋列表 = new List<FeedbackResponseViewModel>() ;
-            var 所有回應項目名稱 = (from fb in _context.Feedbacks
-                        join fbr in _context.FeedbackResponses
-                        on fb.FeedbackId equals fbr.FeedbackId
-                        where fbr.FeedbackId == fb.FeedbackId
-                        select new { fbr, fb }
+            var feedbackname = (
+                          from fb in _context.Feedbacks
+                          join fbr1 in _context.FeedbackResponses
+                          on fb.FeedbackId equals fbr1.FeedbackId                   
+                          join od2 in _context.OrderDetails
+                          on fbr1.OrderDetailId equals od2.OrderDetailId
+                          join prod in _context.Products
+                            on od2.ProductId equals prod.ProductId
+                          select new {fbr1,fb,od2,prod}
                       ).ToList();
-            foreach(var item in 所有回應項目名稱)
+            
+            
+
+            foreach (var item in feedbackname)
             {
                 所有意見回饋列表.Add(new FeedbackResponseViewModel()
                 {
-                    feedback=item.fb,
-                    feedbackResponse=item.fbr
-
+                    feedback = item.fb,
+                    feedbackResponse = item.fbr1
+                    
                 });
 
             }
@@ -55,17 +62,9 @@ namespace 鮮蔬果季_前台.Controllers
             _context.SaveChanges();
             return RedirectToAction("FeedbackList");
         }
-        public IActionResult FeedbackName()
-        {
-            var 所有回應項目 = (from f in _context.Feedbacks orderby f.FeedbackName select f.FeedbackName).Distinct().ToList();
-            return Json(所有回應項目);
-        }
+        
 
-        public IActionResult ProductName()
-        {
-            var 所有商品 = (from p in _context.Products orderby p.ProductName select p.ProductName).Distinct().ToList();
-            return Json(所有商品);
-        }
+        
         //public IActionResult FeedbackDelete(int id)
         //{
         //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);

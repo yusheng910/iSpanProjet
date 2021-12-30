@@ -51,19 +51,19 @@ namespace 鮮蔬果季_前台.ViewModels
                 _product = value;
             }
         }
-        public Order _order = null;
-        public Order order 
+        public OrderDetail _orderdetail = null;
+        public OrderDetail order 
         {
 
             get
             {
-                if (_order == null)
-                    _order = new Order();
-                return _order;
+                if (_orderdetail == null)
+                    _orderdetail = new OrderDetail();
+                return _orderdetail;
             }
             set
             {
-                _order = value;
+                _orderdetail = value;
             }
         }
         public Supplier _supplier = null;
