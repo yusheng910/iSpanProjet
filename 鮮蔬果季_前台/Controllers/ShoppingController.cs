@@ -524,9 +524,10 @@ namespace 鮮蔬果季_前台.Controllers
                              on item.StatusId equals stat.StatusId
                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
                              select new { item, pro, stat }).ToList();
-
+                var 總價 = 0;
                 foreach (var c in 購物車商品)
                 {
+                    總價 += c.pro.ProductUnitPrice * c.item.UnitsInCart;
                     var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == c.pro.ProductId).FirstOrDefault();
                     購物車商品列表.Add(new ShoppingListViewModel()
                     {
@@ -537,23 +538,7 @@ namespace 鮮蔬果季_前台.Controllers
                         ////單筆訂單細項總價 = 訂單細項總價
                     });
                 }
-                var produnit = (from pro in db.Products
-                                join item in db.ShoppingCarts
-                                on pro.ProductId equals item.ProductId
-                                join stat in db.Statuses
-                                on item.StatusId equals stat.StatusId
-                                where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                                select pro.ProductUnitPrice).Sum();
-                var unitscart = (from pro in db.Products
-                                 join item in db.ShoppingCarts
-                                 on pro.ProductId equals item.ProductId
-                                 join stat in db.Statuses
-                                 on item.StatusId equals stat.StatusId
-                                 where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                                 select item.UnitsInCart).Sum();
-
-                var 總價 = produnit * unitscart;
-
+                 
                 var couponsHad = (from p in db.Coupons
                                   join cd in db.CouponDetails
                                   on p.CouponId equals cd.CouponId
@@ -575,6 +560,67 @@ namespace 鮮蔬果季_前台.Controllers
                 }
                 ViewBag.Coupons = list;
                 return View(購物車商品列表);
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
+        public IActionResult CartPartial()
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                //=============================
+                List<ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
+
+                var 購物車商品 = (from pro in db.Products
+                             join item in db.ShoppingCarts
+                             on pro.ProductId equals item.ProductId
+                             join stat in db.Statuses
+                             on item.StatusId equals stat.StatusId
+                             where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             select new { item, pro, stat }).ToList();
+                var 總價 = 0;
+                foreach (var c in 購物車商品)
+                {
+                    總價 += c.pro.ProductUnitPrice * c.item.UnitsInCart;
+                    var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == c.pro.ProductId).FirstOrDefault();
+                    購物車商品列表.Add(new ShoppingListViewModel()
+                    {
+                        shopCart = c.item,
+                        product = c.pro,
+                        photoforCart = 封面相片,
+                        status = c.stat
+                        ////單筆訂單細項總價 = 訂單細項總價
+                    });
+                }
+
+                var couponsHad = (from p in db.Coupons
+                                  join cd in db.CouponDetails
+                                  on p.CouponId equals cd.CouponId
+                                  where cd.CouponQuantity >= 0 &&
+                                  cd.CouponId != 0 &&
+                                  cd.MemberId == UserLogin.member.MemberId &&
+                                  p.DiscountCondition <= 總價 &&
+                                  p.CouponEndDate > DateTime.Now
+                                  select new { p, cd }).ToList();
+
+                List<CouponsListViewModel> list = new List<CouponsListViewModel>();
+                foreach (var item in couponsHad)
+                {
+                    list.Add(new CouponsListViewModel()
+                    {
+                        coupon = item.p,
+                        couponDetail = item.cd,
+                    });
+                }
+                ViewBag.Coupons = list;
+                return PartialView(購物車商品列表);
             }
             else //Seesion沒找到
             {
@@ -625,8 +671,8 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
                 return Content("0");
             }
-            var 購物車品量 = (from c in db.ShoppingCarts
-                         where c.MemberId == UserLogin.member.MemberId
+            var 購物車品量 = (from c in db.ShoppingCarts        
+                         where c.StatusId ==1&& c.MemberId == UserLogin.member.MemberId
                          select c).Count();
             return Content(購物車品量.ToString());
         }
@@ -634,7 +680,9 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult CartNum()
         {
             var 購物車數量 = (from c in db.ShoppingCarts
-                         where c.MemberId == UserLogin.member.MemberId
+                         join stat in db.Statuses
+                         on c.StatusId equals stat.StatusId
+                         where c.StatusId ==1 &&  c.MemberId == UserLogin.member.MemberId
                          select c).Count();
             return Content(購物車數量.ToString());
         }

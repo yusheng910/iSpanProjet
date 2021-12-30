@@ -48,18 +48,22 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult RemoveCart(int id)
         {
-            //var q = (from cart in db.ShoppingCarts
-            //         join pro in db.Products
-            //         on cart.ProductId equals pro.ProductId
-            //         join stat in db.Statuses
-            //         on cart.StatusId equals stat.StatusId
-            //         where cart.ShoppingCartId == id
-            //         select new { cart, pro, stat }).FirstOrDefault();
+            var q = (from cart in db.ShoppingCarts
+                     join pro in db.Products
+                     on cart.ProductId equals pro.ProductId
+                     join stat in db.Statuses
+                     on cart.StatusId equals stat.StatusId
+                     where cart.ShoppingCartId == id
+                     select new { cart, pro, stat }).FirstOrDefault();
 
             ShoppingCart Cart = db.ShoppingCarts.FirstOrDefault(i => i.ShoppingCartId == id);
             Cart.StatusId = 2;
             db.SaveChanges();
-            return RedirectToAction("Cart", "Shopping");
+
+            var 購物車品量 = (from c in db.ShoppingCarts
+                         where c.StatusId==1 && c.MemberId == UserLogin.member.MemberId
+                         select c).Count();
+            return Content(購物車品量.ToString());
         }
     }
 }
