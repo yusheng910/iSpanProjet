@@ -52,7 +52,7 @@ namespace 鮮蔬果季_前台.Controllers
                 }
                 else {
                     var q = (from c in db.Coupons
-                            where c.CouponId == o.ord.CouponId
+                             where c.CouponId == o.ord.CouponId
                             select c).FirstOrDefault();
                     orderList.Add(new OrderListViewModel()
                     {
@@ -60,12 +60,10 @@ namespace 鮮蔬果季_前台.Controllers
                         status = o.stat,
                         member = o.mem,
                         paymethod = o.payby,
-                        總價 = 訂單總價,
+                        總價 = 訂單總價 - q.CouponDiscount,
                         coupon = q
                     });
                 }
-
-
             }
             return View(orderList);
         }
@@ -110,13 +108,14 @@ namespace 鮮蔬果季_前台.Controllers
                     var q = (from c in db.Coupons
                              where c.CouponId == o.ord.CouponId
                              select c).FirstOrDefault();
+                    
                     orderList.Add(new OrderListViewModel()
                     {
                         order = o.ord,
                         status = o.stat,
                         member = o.mem,
                         paymethod = o.payby,
-                        總價 = 訂單總價,
+                        總價 = 訂單總價 - q.CouponDiscount,
                         coupon = q
                     });
                 }
