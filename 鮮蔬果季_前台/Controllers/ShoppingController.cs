@@ -355,6 +355,53 @@ namespace 鮮蔬果季_前台.Controllers
                             orderby prod.ProductUnitPrice
                             select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
                 }
+            }            
+            if (id == 4)
+            {
+                var 銷售排行 = (from prod in db.Products
+                        join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                        join od in db.OrderDetails on prod.ProductId equals od.ProductId
+                       group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }  into g
+                       select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName, 銷售量=g.Sum(a=>a.od.UnitsPurchased)}).OrderByDescending(a=>a.銷售量).ToList();
+                if (categetoryId == 0)
+                {
+                    銷售排行 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            join od in db.OrderDetails on prod.ProductId equals od.ProductId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                            group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName } into g
+                            select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName, 銷售量 = g.Sum(a => a.od.UnitsPurchased) }).OrderByDescending(a => a.銷售量).ToList();
+                }
+                else
+                {
+                    銷售排行 = (from prod in db.Products
+                            join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
+                            join od in db.OrderDetails on prod.ProductId equals od.ProductId
+                            join c in db.CategoryDetails on prod.ProductId equals c.ProductId
+                            where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
+                            group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName } into g
+                            select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName, 銷售量 = g.Sum(a => a.od.UnitsPurchased) }).OrderByDescending(a => a.銷售量).ToList();
+                }
+                //=============================
+                foreach (var item in 銷售排行)
+                {
+                    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                    相片List.Add(封面相片);
+                    所有商品列表.Add(new ShoppingListViewModel()
+                    {
+                        ProductId = item.ProductId,
+                        ProductName = item.ProductName,
+                        ProductUnitPrice = item.ProductUnitPrice,
+                        ProductSize = item.ProductSize,
+                        SupplierName = item.SupplierName,
+                        myFavorite = 最愛商品,
+                        photoBank = 相片List
+                    });
+                }
+                return PartialView("ProductSearchPartial", 所有商品列表);
+               
             }
             //=============================
             foreach (var item in 所有商品)

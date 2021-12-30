@@ -272,6 +272,7 @@
                                     <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
+                                    <option value="4">最高銷售</option>
                                 </select>
                             </div>
                             <p id="textSel" style="text-align:left">
@@ -500,6 +501,12 @@
                                                             {
                                                                 if (detail.分類ID == 次分類.CategoryId)
                                                                 {
+                                                                    //之後改成多選
+                                                                    @*<label  class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
+                                                                            @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
+                                                                            <input type="checkbox" />
+                                                                        </label>*@
+
                                                                     <button class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
                                                                     </button>
