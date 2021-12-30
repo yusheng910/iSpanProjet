@@ -18,9 +18,9 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult FeedbackList()
         {
-            //List<FeedbackResponseViewModel> 所有意見回饋 = new List<FeedbackResponseViewModel>() ;
+            List<FeedbackResponseViewModel> 所有意見回饋 = new List<FeedbackResponseViewModel>() ;
             
-            return View(_context.FeedbackResponses);
+            return View(所有意見回饋);
         }
         public IActionResult FeedbackCreate()
         {
