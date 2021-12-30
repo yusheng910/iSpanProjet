@@ -16,11 +16,26 @@ namespace 鮮蔬果季_前台.Controllers
            
             _context = context;
         }
-        public IActionResult FeedbackList()
+        public IActionResult FeedbackList(FeedbackResponseViewModel message)
         {
-            List<FeedbackResponseViewModel> 所有意見回饋 = new List<FeedbackResponseViewModel>() ;
-            
-            return View(所有意見回饋);
+            List<FeedbackResponseViewModel> 所有意見回饋列表 = new List<FeedbackResponseViewModel>() ;
+            var 所有回應項目名稱 = (from fb in _context.Feedbacks
+                        join fbr in _context.FeedbackResponses
+                        on fb.FeedbackId equals fbr.FeedbackId
+                        where fbr.FeedbackId == fb.FeedbackId
+                        select new { fbr, fb }
+                      ).ToList();
+            foreach(var item in 所有回應項目名稱)
+            {
+                所有意見回饋列表.Add(new FeedbackResponseViewModel()
+                {
+                    feedback=item.fb,
+                    feedbackResponse=item.fbr
+
+                });
+
+            }
+            return View(所有意見回饋列表);
         }
         public IActionResult FeedbackCreate()
         {

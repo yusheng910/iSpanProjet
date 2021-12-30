@@ -205,7 +205,8 @@
                                     您確定要結帳購物車內的商品嗎?
                                 </div>
                                 <div class="modal-footer">
-                                    <button id="btnPay" type="button" class="btn btn-primary" @*onclick="window.location.href = '@Url.Content("~/Shopping/CheckAddOrder")' +'?address='+'仁愛路'+'&paymentMethod='+2"*@>確定</button>
+                                    <button id="btnPay" type="button" class="btn btn-primary" >確定</button>
+                                    <input type="hidden" id="cpq" value="" />
                                     <input class="toOrder" type="hidden" onclick="window.location.href = '@Url.Content("~/Order/Orders")'">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
                                 </div>
@@ -221,10 +222,15 @@
 <!-- End Cart -->
 @section Scripts{
     <script>
+        $(document).on("click", "#submit", function () {
+            var cpid = @ViewBag.cpid;
+            console.log("CPID=" + cpid)
+        })
+
         var btn = document.querySelector('#btnPay')
         var payRadio = $('input[name=paymentMethod]:checked').val()
         var btnCheck = document.querySelector('#submit')
-        
+
         function showAlert() {
             alert('寄送地址為必填欄位!');
         }
@@ -237,9 +243,13 @@
         btn.addEventListener('click', async function () {
             var payRadio = $('input[name=paymentMethod]:checked').val()
             var txtAddress = $('.address').val()
-            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio)
+            var cpid = @ViewBag.cpid;
+            @*var num = @ViewBag.cpq;
+            //console.log("NUM=" + num);
+            var CpQunt = num - 1;*@
+            //console.log("CpQunt=" + CpQunt);
+            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid='+ cpid)
             var data = await response.text();
-
             var txtAddress = $('#address').val()
             if (txtAddress != "") {
                 if (data == 1) {

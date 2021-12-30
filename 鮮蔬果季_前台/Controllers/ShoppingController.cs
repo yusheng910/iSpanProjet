@@ -807,7 +807,7 @@ namespace 鮮蔬果季_前台.Controllers
             return PartialView(購物車商品列表);
         }
 
-        public IActionResult Checkout()
+        public IActionResult Checkout(int id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
@@ -836,6 +836,12 @@ namespace 鮮蔬果季_前台.Controllers
                         supplier = i.sup
                     });
                 }
+                ViewBag.cpd = (from cp in db.Coupons
+                               where cp.CouponId == id
+                               select cp.CouponDiscount).FirstOrDefault();
+                ViewBag.cpid = id;
+                CPID.couponid = id;
+
                 return View(購物車商品列表);
             }
             else
@@ -859,37 +865,46 @@ namespace 鮮蔬果季_前台.Controllers
                         OrderDate = DateTime.Now,
                         ShippedTo = address,
                         StatusId = 4,
-                        PayMethodId = paymentMethod
+                        PayMethodId = paymentMethod,
+                        CouponId = CPID.couponid
                     };
                     db.Add(newOrder);
                     db.SaveChanges();
 
-                var latestOrder = (from i in db.Orders
-                                 orderby i.OrderId descending
-                                 select i.OrderId).FirstOrDefault();
-                OrderDetail OD = null;
-                foreach(var i in 結帳區商品商品)
-                {
-                    OD = new OrderDetail
+                    var latestOrder = (from i in db.Orders
+                                     orderby i.OrderId descending
+                                     select i.OrderId).FirstOrDefault();
+                    OrderDetail OD = null;
+                    foreach(var i in 結帳區商品商品)
                     {
-                        OrderId = latestOrder,
-                        ProductId = i.ProductId,
-                        UnitsPurchased = i.UnitsInCart,
-                        HaveReviews = false
-                    };
-                    db.OrderDetails.Add(OD);
-                    var units = (from p in db.Products
-                                 where p.ProductId == i.ProductId
-                                 select p).FirstOrDefault();
-                    units.ProductUnitsInStock -= i.UnitsInCart;
-                }
-                db.SaveChanges();
+                        OD = new OrderDetail
+                        {
+                            OrderId = latestOrder,
+                            ProductId = i.ProductId,
+                            UnitsPurchased = i.UnitsInCart,
+                            HaveReviews = false
+                        };
+                        db.OrderDetails.Add(OD);
+                        var units = (from p in db.Products
+                                     where p.ProductId == i.ProductId
+                                     select p).FirstOrDefault();
+                        units.ProductUnitsInStock -= i.UnitsInCart;
+                    }
+                    db.SaveChanges();
 
-                foreach(var j in 結帳區商品商品)
-                {
-                    j.StatusId = 3;
-                }
-                db.SaveChanges();
+                    foreach(var j in 結帳區商品商品)
+                    {
+                        j.StatusId = 3;
+                    }
+                    db.SaveChanges();
+
+                    CouponDetail couponDetail = (from cpd in db.CouponDetails
+                                                where cpd.MemberId == UserLogin.member.MemberId &&
+                                                cpd.CouponId == CPID.couponid
+                                                select cpd).FirstOrDefault();
+                    couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
+                    db.SaveChanges();
+
             }
 
             //var q = from sc in db.ShoppingCarts
