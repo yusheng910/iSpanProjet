@@ -94,12 +94,11 @@ namespace 鮮蔬果季_前台.ViewModels
 
         [DisplayName("回應項目")]
         public string FeedbackName { get { return this.feedback.FeedbackName; } set {this.feedback.FeedbackName=value; } }
-        public int FeedbackResponseId { get; set; }
-
-        public int OrderDetailId { get; set; }
-
-        public int FeedbackId { get; set; }
-
-        public string FeedbackComment { get; set; }
+        [DisplayName("產品名稱")]
+        public string ProductName { get { return this.product.ProductName; } set {this.product.ProductName=value; } }
+        [DisplayName("回應敘述")]
+        public string FeedbackComment { get {return this.feedbackResponse.FeedbackComment; } set {this.feedbackResponse.FeedbackComment=value; } }
+        [DisplayName("供應商名稱")]
+        public string SupplierName { get; set; }
     }
 }
