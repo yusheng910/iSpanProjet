@@ -45,16 +45,7 @@
             <td>@item.ShippedTo</td>
             <td>@item.paymethod.Method</td>
             <td>
-                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                        修改
-                    </button>
-                    <input type="hidden" class="Pid" value="@item.ProductId" />
-                    <a class="dropdown-item" href="#">移除</a>
-                </div>
+                <button type="button" id="btnStatus" class="btn btn-primary">商品出貨</button>
             </td>
         </tr>
     }
