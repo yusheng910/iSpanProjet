@@ -214,5 +214,10 @@ namespace 鮮蔬果季_前台.Controllers
             db.SaveChanges();
             return Content("1");
         }
+        public IActionResult categoryLoad()
+        {
+            return Json("");
+        }
+
     }
 }
