@@ -124,6 +124,16 @@
             var textCount = $(".textCount")
             textCount.html("共 " + prodCount + " 筆，")
         }
+        $(document).on("change", ".addCount", function (e) {
+            let count = $(".addCount").val();
+            if (count >@Model.ProductUnitsInStock) {
+                alert("數量不能大於庫存")
+                $(".addCount").val(@Model.ProductUnitsInStock);
+            }else if (count <=0) {
+                alert("數量最少1個")
+                $(".addCount").val(1);
+            }
+        })
        //加入購物車(改用document來解決利用ajax加載partialView後，無法觸發jquery事件 )
         $(document).on("click", ".addCart", function (e) {
             let value = $(this).find(".add").val();
@@ -309,7 +319,7 @@
                             <li>
                                 <div class="form-group quantity-box">
                                     <label class="control-label">數量</label>
-                                    <input class="form-control addCount" value="1" min="1" max="20" type="number">
+                                    <input class="form-control addCount" value="1" min="1" max="@Model.ProductUnitsInStock" type="number">
                                 </div>
                             </li>
                         </ul>
