@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -94,11 +95,11 @@ namespace 鮮蔬果季_前台.ViewModels
 
         [DisplayName("回應項目")]
         public string FeedbackName { get { return this.feedback.FeedbackName; } set {this.feedback.FeedbackName=value; } }
-        [DisplayName("產品名稱")]
-        public string ProductName { get { return this.product.ProductName; } set {this.product.ProductName=value; } }
+        //[DisplayName("產品名稱")]
+        //public string ProductName { get { return this.product.ProductName; } set {this.product.ProductName=value; } }
         [DisplayName("回應敘述")]
-        public string FeedbackComment { get {return this.feedbackResponse.FeedbackComment; } set {this.feedbackResponse.FeedbackComment=value; } }
-        [DisplayName("供應商名稱")]
-        public string SupplierName { get; set; }
+        public string FeedbackComment { get { return this.feedbackResponse.FeedbackComment; } set { this.feedbackResponse.FeedbackComment = value; } }
+        //[DisplayName("供應商名稱")]
+        //public string SupplierName { get; set; }
     }
 }
