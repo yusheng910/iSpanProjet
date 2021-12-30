@@ -55,36 +55,47 @@ namespace 鮮蔬果季_前台.Controllers
             _context.SaveChanges();
             return RedirectToAction("FeedbackList");
         }
-        public IActionResult FeedbackDelete(int id)
+        public IActionResult FeedbackName()
         {
-            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-            if (message != null)
-            {
-                _context.FeedbackResponses.Remove(message);
-                _context.SaveChanges();
-            }
-            return RedirectToAction("FeedbackList");
+            var 所有回應項目 = (from f in _context.Feedbacks orderby f.FeedbackName select f.FeedbackName).Distinct().ToList();
+            return Json(所有回應項目);
         }
-        public IActionResult FeedbackEdit(int id)
+
+        public IActionResult ProductName()
         {
-            var message =_context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-            if (message == null)
-                return RedirectToAction("FeedbackList");
-            return View(message);
+            var 所有商品 = (from p in _context.Products orderby p.ProductName select p.ProductName).Distinct().ToList();
+            return Json(所有商品);
         }
-        [HttpPost]
-        public IActionResult FeedbackEdit(FeedbackResponse editmessage)
-        {
-            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
-            if (message != null)
-            {
-                
-                message.FeedbackId = editmessage.FeedbackId;
-                message.OrderDetailId = editmessage.OrderDetailId;
-                message.FeedbackComment = editmessage.FeedbackComment;
-                _context.SaveChanges();
-            }
-            return RedirectToAction("FeedbackList");
-        }
+        //public IActionResult FeedbackDelete(int id)
+        //{
+        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
+        //    if (message != null)
+        //    {
+        //        _context.FeedbackResponses.Remove(message);
+        //        _context.SaveChanges();
+        //    }
+        //    return RedirectToAction("FeedbackList");
+        //}
+        //public IActionResult FeedbackEdit(int id)
+        //{
+        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
+        //    if (message == null)
+        //        return RedirectToAction("FeedbackList");
+        //    return View(message);
+        //}
+        //[HttpPost]
+        //public IActionResult FeedbackEdit(FeedbackResponse editmessage)
+        //{
+        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
+        //    if (message != null)
+        //    {
+
+        //        message.FeedbackId = editmessage.FeedbackId;
+        //        message.OrderDetailId = editmessage.OrderDetailId;
+        //        message.FeedbackComment = editmessage.FeedbackComment;
+        //        _context.SaveChanges();
+        //    }
+        //    return RedirectToAction("FeedbackList");
+        //}
     }
 }
