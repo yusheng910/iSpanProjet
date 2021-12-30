@@ -39,7 +39,10 @@ namespace 鮮蔬果季_前台.Controllers
                                 where od.OrderId == o.ord.OrderId
                                 group new { od, pro } by od.OrderId into g
                                 select g.Sum(p => p.od.UnitsPurchased * p.pro.ProductUnitPrice)).FirstOrDefault();
-                    list.Add(new OrderListViewModel() { order = o.ord, status = o.stat, 總價 = 訂單總價 });
+                    list.Add(new OrderListViewModel() { 
+                        order = o.ord, 
+                        status = o.stat, 
+                        總價 = 訂單總價 });
                 }
                 return View(list);
             }

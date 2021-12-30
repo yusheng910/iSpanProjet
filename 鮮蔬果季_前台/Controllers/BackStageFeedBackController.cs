@@ -18,9 +18,9 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult FeedbackList()
         {
-            //List<FeedbackResponseViewModel> 所有意見回饋 = new List<FeedbackResponseViewModel>() ;
+            List<FeedbackResponseViewModel> 所有意見回饋 = new List<FeedbackResponseViewModel>() ;
             
-            return View(_context.FeedbackResponses);
+            return View(所有意見回饋);
         }
         public IActionResult FeedbackCreate()
         {
@@ -38,7 +38,7 @@ namespace 鮮蔬果季_前台.Controllers
             };
             _context.Add(feedback);
             _context.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("FeedbackList");
         }
         public IActionResult FeedbackDelete(int id)
         {
@@ -48,27 +48,28 @@ namespace 鮮蔬果季_前台.Controllers
                 _context.FeedbackResponses.Remove(message);
                 _context.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("FeedbackList");
         }
         public IActionResult FeedbackEdit(int id)
         {
-            FeedbackResponse message = new 鮮蔬果季Context().FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
+            var message =_context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
             if (message == null)
-                return RedirectToAction("List");
+                return RedirectToAction("FeedbackList");
             return View(message);
         }
         [HttpPost]
-        public IActionResult FeedbackEdit(FeedbackResponse _feedback)
+        public IActionResult FeedbackEdit(FeedbackResponse editmessage)
         {
-            FeedbackResponse message = new 鮮蔬果季Context().FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == _feedback.FeedbackResponseId);
+            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
             if (message != null)
             {
-                message.FeedbackResponseId = _feedback.FeedbackResponseId;
-                message.FeedbackId = _feedback.FeedbackId;
-                message.OrderDetailId = _feedback.OrderDetailId;
-                message.FeedbackComment = _feedback.FeedbackComment;
+                
+                message.FeedbackId = editmessage.FeedbackId;
+                message.OrderDetailId = editmessage.OrderDetailId;
+                message.FeedbackComment = editmessage.FeedbackComment;
+                _context.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("FeedbackList");
         }
     }
 }
