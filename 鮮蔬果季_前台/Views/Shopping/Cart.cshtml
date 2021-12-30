@@ -94,9 +94,10 @@
             position: absolute;
             bottom: 5px;
         }
-        .nonecp h1{
-            font-size:20px;
-            font-style:italic;
+
+        .nonecp h1 {
+            font-size: 20px;
+            font-style: italic;
         }
     </style>
 }
@@ -129,7 +130,7 @@
                                 <th style="text-align:center;">移除商品</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="cartBody">
                             @{
                                 int 商品價乘數量 = 0;
                                 int 總價 = 0;
@@ -163,7 +164,7 @@
                                                 <p class="itemPrice">NT$ @商品價乘數量</p>
                                             </td>
                                             <td class="remove-pr">
-                                                <a href="#">
+                                                <a style="cursor:pointer;">
                                                     <i id="btnRemove" class="fas fa-times btnRemove"></i>
                                                 </a>
                                             </td>
@@ -227,16 +228,17 @@
                         }
 
                     }
-                        else
-                        {
+                    else
+                    {
                         <div class="nonecp">
                             <h1>*無酷碰券可使用*</h1>
                         </div>
-                            }
-                        }
+                    }
+
+                }
+            </div>
             </div>
                 @*酷碰券顯示結束*@
-            </div>
             <div class="col-lg-5 col-sm-6">
                 <div class="order-box">
                     <div class="title-left" style="padding-top:20px">
@@ -261,7 +263,7 @@
             <div class="col-12 d-flex shopping-box">
                 <a id="goCheck" asp-area="" asp-controller="Shopping" asp-action="Checkout"  class="ml-auto btn hvr-hover">前往結帳</a>
             </div>
-        </div>
+
 
         <div class="row my-5">
             <div class="col-lg-8 col-sm-12"></div>
@@ -316,6 +318,27 @@
             async function removeCart() {
                 var response = await fetch('@Url.Content("~/ShoppingApi/RemoveCart/")' + cid);
                 var data = await response.text();
+                var cartNum = document.querySelector('#cartNum')
+                if (data >= 0) {
+                    cartNum.innerHTML = data
+                    $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
+                    $('#cartBody').load('@Url.Content("~/Shopping/CartPartial")', function () {
+                        var grandTotal = 0;
+                        $('.itemPrice').each(function (index, value) {
+                            //console.log(value);
+                            var num = value.innerHTML;
+                            var num2 = num.replace(/[^0-9]/ig, "");
+                            //console.log(num2);
+                            num3 = parseInt(num2);
+                            grandTotal += num3;
+                            $('div.grandTotal').html("NT$ " + grandTotal);
+                            $('#disdisprice').html("-NT$ 0");
+                            $('.payTotal').html("NT$ " + (grandTotal - 0));
+                            $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal);
+                        });
+                    })
+
+                }
             }
             removeCart();
         });
