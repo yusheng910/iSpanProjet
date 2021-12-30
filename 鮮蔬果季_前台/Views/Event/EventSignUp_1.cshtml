@@ -218,7 +218,7 @@
 
 
                                         @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                        <form method="post" class="col-6" name="XXX">
+                                        <form method="post" class="col-6" name="FormData">   @*使用From將所有底下資料回傳*@
                                             <input type="hidden" placeholder="活動ID" name="EventId" value=@Model.Event.EventId>
                                             <p style="padding-bottom: 10px; ">
                                                 <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 title="ZZ" required>
