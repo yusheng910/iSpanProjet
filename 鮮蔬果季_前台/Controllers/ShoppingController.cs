@@ -685,7 +685,7 @@ namespace 鮮蔬果季_前台.Controllers
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
                               on p.ProductId equals c.ProductId
-                              where p.ProductId == id && c.StatusId == 1
+                              where p.ProductId == id && c.StatusId == 1 && c.MemberId==UserLogin.member.MemberId
                               select new { p, c }).FirstOrDefault();
 
                 if (購物車內商品 == null)
@@ -702,11 +702,11 @@ namespace 鮮蔬果季_前台.Controllers
                 }
                 else
                 {
-                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id);
-                    myCartitem.MemberId = UserLogin.member.MemberId;
-                    myCartitem.ProductId = id;
+                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id&& i.StatusId==1&& i.MemberId==UserLogin.member.MemberId);
+                    //myCartitem.MemberId = UserLogin.member.MemberId;
+                    //myCartitem.ProductId = id;
                     myCartitem.UnitsInCart = 購物車內商品.c.UnitsInCart + count;
-                    myCartitem.StatusId = 1;
+                    //myCartitem.StatusId = 1;
                     db.SaveChanges();
                 }
 
