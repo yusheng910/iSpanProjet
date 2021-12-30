@@ -42,6 +42,34 @@
             <span asp-validation-for="SupplierName" class="text-danger"></span>
         </div>
         <div class="form-group">
+            <label class="control-label" style="display:block">產品分類</label>
+            <label class="control-label" style="">品項：</label>
+            <select class="form-control " style="width:10%;display:inline">
+                @foreach (var item in ViewBag.主類別)
+                {
+                    <option>123</option>
+
+                }
+
+            </select>
+            <select class="form-control " style="width:10%;display:inline">
+                <option>123</option>
+            </select>
+            <label class="control-label" style="">商品等級：</label>
+            <select class="form-control " style="width:10%;display:inline">
+                <option>123</option>
+            </select>
+            <label class="control-label" style="">溫層：</label>
+            <select class="form-control " style="width:10%;display:inline">
+                <option>123</option>
+            </select>
+            <label class="control-label" style="">產季：</label>
+            <select class="form-control " style="width:10%;display:inline">
+                <option>123</option>
+            </select>
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-group">
             <label asp-for="ProductUnitPrice" class="control-label"></label>
             <input asp-for="ProductUnitPrice" class="form-control" />
             <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
@@ -81,13 +109,18 @@
                     @*<input type="file" class="selectphoto"/>*@
                     <div class="custom-file">
                         <input type="file" multiple class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
-                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02" >選擇圖片</label>
+                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
                     </div>
                     <div class="input-group-append">
-                        <a class="input-group-text imgClear" style="cursor:pointer" >清空</a>
+                        <a class="input-group-text imgClear" style="cursor:pointer">清空</a>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="InShop" /> @Html.DisplayNameFor(model => model.InShop)
+            </label>
         </div>
         <div class="form-group">
             <label asp-for="ProduceDate" class="control-label"></label>
@@ -102,11 +135,7 @@
 
             <span asp-validation-for="ProduceDate" class="text-danger"></span>
         </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="InShop" /> @Html.DisplayNameFor(model => model.InShop)
-            </label>
-        </div>
+
 
         <div class="form-group form-check">
             <label class="form-check-label">
@@ -124,7 +153,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
+    <script>
 
-</script>
+    </script>
 }
