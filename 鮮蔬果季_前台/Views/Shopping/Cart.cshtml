@@ -94,9 +94,10 @@
             position: absolute;
             bottom: 5px;
         }
-        .nonecp h1{
-            font-size:20px;
-            font-style:italic;
+
+        .nonecp h1 {
+            font-size: 20px;
+            font-style: italic;
         }
     </style>
 }
@@ -129,7 +130,7 @@
                                 <th style="text-align:center;">移除商品</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="cartBody">
                             @{
                                 int 商品價乘數量 = 0;
                                 int 總價 = 0;
@@ -163,7 +164,7 @@
                                                 <p class="itemPrice">NT$ @商品價乘數量</p>
                                             </td>
                                             <td class="remove-pr">
-                                                <a href="#">
+                                                <a style="cursor:pointer;">
                                                     <i id="btnRemove" class="fas fa-times btnRemove"></i>
                                                 </a>
                                             </td>
@@ -205,34 +206,34 @@
                     </div>
                 </div>
                 @*酷碰券顯示開始*@
-            <div class="row cpbox">
-                @{
-                    if (ViewBag.Coupons.Count != 0)
-                    {
-                        @foreach (var item in ViewBag.Coupons)
+                <div class="row cpbox">
+                    @{
+                        if (ViewBag.Coupons.Count != 0)
                         {
-                            <div class="include">
-                                <span class="lead">@item.coupon.CouponName</span>
-                                <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
-                                <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
-                                <div class="discount">
-                                    <span class="discounttext">折NT$</span>
-                                    <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+                            @foreach (var item in ViewBag.Coupons)
+                            {
+                                <div class="include">
+                                    <span class="lead">@item.coupon.CouponName</span>
+                                    <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
+                                    <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
+                                    <div class="discount">
+                                        <span class="discounttext">折NT$</span>
+                                        <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+                                    </div>
+                                    <a class="btn btn-sm btn-outline-warning usebtn ">選取</a>
+                                    <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
+                                    <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
                                 </div>
-                                <a class="btn btn-sm btn-outline-warning usebtn ">選取</a>
-                                <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
-                                <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
+                            }
+                        }
+                        else
+                        {
+                            <div class="nonecp">
+                                <h1>*無酷碰券可使用*</h1>
                             </div>
                         }
                     }
-                    else
-                    {
-                        <div class="nonecp">
-                            <h1>*無酷碰券可使用*</h1>
-                        </div>
-                    }
-                }
-            </div>
+                </div>
                 @*酷碰券顯示結束*@
             </div>
             <div class="col-lg-5 col-sm-6">
@@ -314,6 +315,27 @@
             async function removeCart() {
                 var response = await fetch('@Url.Content("~/ShoppingApi/RemoveCart/")' + cid);
                 var data = await response.text();
+                var cartNum = document.querySelector('#cartNum')
+                if (data >= 0) {
+                    cartNum.innerHTML = data
+                    $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
+                    $('#cartBody').load('@Url.Content("~/Shopping/CartPartial")', function () {
+                        var grandTotal = 0;
+                        $('.itemPrice').each(function (index, value) {
+                            //console.log(value);
+                            var num = value.innerHTML;
+                            var num2 = num.replace(/[^0-9]/ig, "");
+                            //console.log(num2);
+                            num3 = parseInt(num2);
+                            grandTotal += num3;
+                            $('div.grandTotal').html("NT$ " + grandTotal);
+                            $('#disdisprice').html("-NT$ 0");
+                            $('.payTotal').html("NT$ " + (grandTotal - 0));
+                            $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal);
+                        });
+                    })
+
+                }
             }
             removeCart();
         });
