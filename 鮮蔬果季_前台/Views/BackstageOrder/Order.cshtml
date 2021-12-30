@@ -36,46 +36,56 @@
                                     foreach (var item in Model)
                                     {
 
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="@count">
-                                                    <label class="custom-control-label" for="@item.OrderId"></label>
-                                                </div>
-                                            </td>
-                                            <td>@item.OrderId</td>
-                                            <td>@item.member.MemberName</td>
-                                            <td>@item.OrderDate</td>
-                                            @{
-                                                string date = (item.ShippedDate).ToString();
-                                                date = date.Split(" ")[0];
-                                                if (item.ShippedDate != null)
-                                                {
-                                                    <td>@date</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>訂單未出貨</td>
-                                                }
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" id="@count">
+                                                                            <label class="custom-control-label" for="@item.OrderId"></label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>@item.OrderId</td>
+                                                                    <td>@item.member.MemberName</td>
+                                                                    <td>@item.OrderDate</td>
+                                                                    @{
+                                                                        string date = (item.ShippedDate).ToString();
+                                                                        date = date.Split(" ")[0];
+                                                                        if (item.ShippedDate != null)
+                                                                        {
+                                                                            <td>@date</td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td>訂單未出貨</td>
+                                                                        }
 
-                                            }
-                                            <td>@item.coupon.CouponName</td>
-                                            <td>@item.總價</td> @*todo coupon折扣要在這邊抓*@
-                                            <td>@item.ShippedTo</td>
-                                            <td>@item.paymethod.Method</td>
-                                            <td>
-                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                        修改
-                                                    </button>
-                                                    <input type="hidden" class="Pid" value="@item.ProductId" />
-                                                    <a class="dropdown-item" href="#">移除</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                                    }
+                                                                    @{
+                                                                        if (item.coupon.CouponId == 0)
+                                                                        {
+                                                                            <td>無使用優惠券</td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td>@item.coupon.CouponId (@item.coupon.CouponName)</td>
+                                                                        }
+                                                                    }
+
+                                                                    <td>@item.總價</td> @*todo coupon折扣要在這邊抓*@
+                                                                    <td>@item.ShippedTo</td>
+                                                                    <td>@item.paymethod.Method</td>
+                                                                    <td>
+                                                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <span class="text-muted sr-only">Action</span>
+                                                                        </button>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                                                修改
+                                                                            </button>
+                                                                            <input type="hidden" class="Pid" value="@item.ProductId" />
+                                                                            <a class="dropdown-item" href="#">移除</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
                                     }
                                 }
                             </tbody>
