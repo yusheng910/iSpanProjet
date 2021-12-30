@@ -234,7 +234,7 @@
                 else
                 {
                     @*$('.addod').load("@Url.Content("~/Order/AddReviewPartial/")" + getodid + "?starrank=" + starnum + "&AddComments=" + comments)*@
-                    $('.addod').load("@Url.Content("~/Order/AddReviewPartial/")" + getodid + "?AddComments=" + comments + "&starrank=" + starnum)
+                    $('.addod').load(encodeURI("@Url.Content("~/Order/AddReviewPartial/")" + getodid + "?AddComments=" + comments + "&starrank=" + starnum));
                     $('.autoclosable-btn-warning').prop("disabled", true);
                     $('.alert-autocloseable-warning').show();
                     $('.alert-autocloseable-warning').delay(3000).fadeOut("slow", function () {

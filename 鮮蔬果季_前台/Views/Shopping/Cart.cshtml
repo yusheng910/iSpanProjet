@@ -222,16 +222,18 @@
                                 <a class="btn btn-sm btn-outline-warning usebtn ">選取</a>
                                 <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
                                 <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
+                                <input type="hidden" class="cpid" value="@item.couponDetail.CouponId" />
                             </div>
                         }
+
                     }
-                    else
-                    {
+                        else
+                        {
                         <div class="nonecp">
                             <h1>*無酷碰券可使用*</h1>
                         </div>
-                    }
-                }
+                            }
+                        }
             </div>
                 @*酷碰券顯示結束*@
             </div>
@@ -257,7 +259,7 @@
                 </div>
             </div>
             <div class="col-12 d-flex shopping-box">
-                <a id="goCheck" asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a>
+                <a id="goCheck" asp-area="" asp-controller="Shopping" asp-action="Checkout"  class="ml-auto btn hvr-hover">前往結帳</a>
             </div>
         </div>
 
@@ -369,12 +371,16 @@
             $(this).parent(".include").removeClass("include").addClass("setinclude");
             //console.log($(this).text());
             var disprice = $(this).next().next().val();
+            var cpid = $(this).next().next().next().val();
             var grandTotal = $('div.grandTotal').html();
             grandTotal = grandTotal.replace(/[^0-9]/ig, "");
-            console.log(grandTotal);
-            console.log(disprice);
+            //console.log(grandTotal);
+            //console.log(disprice);
+            console.log("cpid="+cpid);
             $('#disdisprice').html("-NT$ " + disprice);
             $('.payTotal').html("NT$ " + (grandTotal - disprice));
+            $('#goCheck').attr("href", '@Url.Content("~/Shopping/Checkout/")' + cpid)
+
         })
         $(document).on("click", ".setusebtn", function () {
             $(this).text("選取");
@@ -384,6 +390,7 @@
             grandTotal = grandTotal.replace(/[^0-9]/ig, "");
             $('#disdisprice').html("-NT$ 0");
             $('.payTotal').html("NT$ " + (grandTotal - 0));
+            $('#goCheck').attr("href", '@Url.Content("~/Shopping/Checkout/")');
         })
 
         function showAlert() {
