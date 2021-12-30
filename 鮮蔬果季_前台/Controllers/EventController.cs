@@ -172,7 +172,7 @@ namespace 鮮蔬果季_前台.Controllers
             EventListViewModel 單筆活動 = new EventListViewModel();   
             List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
              
-
+            //單筆資料的加入(屬性:物件)
             單筆活動.Event = 活動及供應商明細.E;
             單筆活動.Supplier = 活動及供應商明細.supp;
             var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == 單筆活動.Event.Supplier.CityId);
@@ -195,7 +195,7 @@ namespace 鮮蔬果季_前台.Controllers
         //    return View();
         //}
         [HttpPost]  //同名方法
-            public IActionResult EventSignUp_1(EventRegistration XXX)
+            public IActionResult EventSignUp_1(EventRegistration FormData)  //回傳前台form的資料(name為FormData)
         { 
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -207,12 +207,12 @@ namespace 鮮蔬果季_前台.Controllers
                 {
 
                     MemberId = UserLogin.member.MemberId,
-                    EventId = XXX.EventId,
-                    ParticipantNumber = XXX.ParticipantNumber,
-                    ContactName = XXX.ContactName,
-                    ContactEmail = XXX.ContactEmail,
-                    ContactMobile = XXX.ContactMobile,
-                    FoodPreference =XXX.FoodPreference,
+                    EventId = FormData.EventId,
+                    ParticipantNumber = FormData.ParticipantNumber,
+                    ContactName = FormData.ContactName,
+                    ContactEmail = FormData.ContactEmail,
+                    ContactMobile = FormData.ContactMobile,
+                    FoodPreference = FormData.FoodPreference,
                     SubmitDate = DateTime.Now,
 
                     //EventId = XXX.EventId,
