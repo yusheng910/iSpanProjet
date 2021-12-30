@@ -229,16 +229,10 @@
 
         var btn = document.querySelector('#btnPay')
         var payRadio = $('input[name=paymentMethod]:checked').val()
-        var btnCheck = document.querySelector('#submit')
 
         function showAlert() {
             alert('寄送地址為必填欄位!');
         }
-
-        btnCheck.addEventListener('click', function (e) {
-            e.preventDefault();
-            return false;
-        })
 
         btn.addEventListener('click', async function () {
             var payRadio = $('input[name=paymentMethod]:checked').val()
