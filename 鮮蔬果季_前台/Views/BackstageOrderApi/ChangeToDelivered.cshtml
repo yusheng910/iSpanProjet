@@ -48,12 +48,12 @@
                 @{
                     if (item.StatusId == 4)
                     {
-                        <button type="button" id="btnShipped" class="btn btn-primary btnStatus">確認出貨</button>
+                        <button type="button" id="btnShipped" class="btn btn-primary btnShipped">確認出貨</button>
                         <input type="hidden" class="oid" id="oid" value="@item.OrderId" />
                     }
                     else if (item.StatusId == 5)
                     {
-                        <button type="button" id="btnDelivered" class="btn btn-success btnStatus">確認送達</button>
+                        <button type="button" id="btnDelivered" class="btn btn-success btnDelivered">確認送達</button>
                         <input type="hidden" class="oid" id="oid" value="@item.OrderId" />
                     }
                     else
