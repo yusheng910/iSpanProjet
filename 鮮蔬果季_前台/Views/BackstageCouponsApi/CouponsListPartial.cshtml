@@ -20,13 +20,13 @@
             <td>@item.CouponDescription</td>
             <td>@strdate</td>
             <td>@enddate</td>
-            <td>@item.CouponQuantityIssued<span>張</span></td>
             <td>
-                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal"><span class="fe fe-16 fe-edit"></span></button>
-                <input type="hidden" class="Cid" value="@item.CouponId" />
+                @item.CouponQuantityIssued
+                <span>張</span>
             </td>
             <td>
-                <a class="dropdown-item btnDel" href="#"><span class="fe fe-16 fe-trash-2"></span></a>
+                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
+                <input type="hidden" class="Cid" value="@item.CouponId" />
             </td>
         </tr>
     }
