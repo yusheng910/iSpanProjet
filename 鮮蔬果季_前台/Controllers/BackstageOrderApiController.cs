@@ -27,7 +27,6 @@ namespace 鮮蔬果季_前台.Controllers
             var 後台表列訂單 = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
-                          where ord.StatusId > 2 && ord.StatusId < 7
                           join mem in db.Members
                           on ord.MemberId equals mem.MemberId
                           join payby in db.PayMethods
@@ -84,7 +83,6 @@ namespace 鮮蔬果季_前台.Controllers
             var 後台表列訂單 = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
-                          where ord.StatusId > 2 && ord.StatusId < 7
                           join mem in db.Members
                           on ord.MemberId equals mem.MemberId
                           join payby in db.PayMethods
