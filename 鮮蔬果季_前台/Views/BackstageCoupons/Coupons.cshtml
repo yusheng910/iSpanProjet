@@ -34,7 +34,7 @@
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">酷碰券管理</h2>
-        <button type="button" class="btn mb-2 btn-primary btnAdd">+新增酷碰券</button>
+        <button type="button" class="btn mb-2 btn-primary btnAdd" data-toggle="modal" data-target="#ModalAdd">+新增酷碰券</button>
         <p class="card-text"></p>
         <div class="row my-4">
             <!-- Small table -->
@@ -81,26 +81,26 @@
                                             <td>@enddate</td>
                                             <td>
                                                 @item.CouponQuantityIssued
-                                            <span>張</span>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
-                                            <input type="hidden" class="Cid" value="@item.CouponId" />
-                                        </td>
-                                        @*<td>
-                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                        修改
+                                                <span>張</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
+                                                <input type="hidden" class="Cid" value="@item.CouponId" />
+                                            </td>
+                                            @*<td>
+                                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="text-muted sr-only">Action</span>
                                                     </button>
-                                                    <input type="hidden" class="Cid" value="@item.CouponId" />
-                                                    <a class="dropdown-item btnDel" href="#">移除</a>
-                                                </div>
-                                            </td>*@
-                                    </tr>
-                                }
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                            修改
+                                                        </button>
+                                                        <input type="hidden" class="Cid" value="@item.CouponId" />
+                                                        <a class="dropdown-item btnDel" href="#">移除</a>
+                                                    </div>
+                                                </td>*@
+                                        </tr>
+                                    }
                                 }
                             </tbody>
                         </table>
@@ -142,12 +142,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" id="startDate" />
+                                                        <input class="form-control startDate" />
                                                         <span class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" id="endDate" />
+                                                        <input class="form-control endDate" />
                                                         <span class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
@@ -160,24 +160,24 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                            <input type="submit" value="儲存" class="btn btn-primary btnSave btnEditSave" data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal2 -->
-                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
                             <div class="modal-dialog" style="max-width: 1000px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">新增酷碰券</h5>
+                                        <h5 class="modal-title" id="ModalAddLabel">新增酷碰券</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form name="CouponsEdit2">
-                                        <div class="modal-body EditBody">
+                                    <form name="CouponsAdd">
+                                        <div class="modal-body CreateBody">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="text-danger"></div>
@@ -189,12 +189,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" min="1" />
+                                                        <input class="form-control" min="0" />
                                                         <span class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label"></label>
-                                                        <input class="form-control" min="0" />
+                                                        <input class="form-control" min="1" />
                                                         <span class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
@@ -222,7 +222,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                            <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
@@ -250,18 +250,10 @@
         $(document).on("click", ".btnEdit", function () {
             var Cid = $(this).next(".Cid").val();
             //console.log(Cid);
-            $('.EditBody').load("@Url.Content("~/BackstageCouponsApi/CouponsPartial")/" + Cid)
+            $('.EditBody').load("@Url.Content("~/BackstageCouponsApi/CouponsEditPartial")/" + Cid)
         })
-        $(document).on("click", ".btnSave", function () {
-            var strdate = $("#startDate").val();
-            var enddate = $("#endDate").val();
-            if (strdate > enddate) {
-                alert("日期格式錯誤!");
-                return;
-            }
-        });
 
-        $(document).on("click", ".btnSave", async function (e) {
+        $(document).on("click", ".btnEditSave", async function (e) {
             e.preventDefault();
             const formData = new FormData(document.CouponsEdit)
             const response = await fetch('@Url.Content("~/BackstageCouponsApi/CouponsEditPartial")', {
@@ -277,9 +269,32 @@
             }
         })
 
-        $(document).on("blur", "#startDate", function () {
-            var strdate = $("#startDate").val();
-            var enddate = $("#endDate").val();
+        $(document).on("click", ".btnAdd", function () {
+            $('.CreateBody').load("@Url.Content("~/BackstageCouponsApi/CouponsCreatePartial")")
+        })
+
+
+        $(document).on("click", ".btnAddSave", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(document.CouponsAdd)
+            const response = await fetch('@Url.Content("~/BackstageCouponsApi/CouponsCreatePartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.couponlist').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
+                    alert("新增成功")
+                })
+            }
+        })
+
+
+
+        $(document).on("change", ".startDate", function () {
+            var strdate = $(".startDate").val();
+            var enddate = $(".endDate").val();
             //console.log(strdate);
             //console.log(enddate);
             if (strdate > enddate) {
@@ -287,23 +302,50 @@
                 $(".btnSave").attr("disabled", true);
             }
             else{
-                $(".btnSave").removeAttr("disabled");
+                $(".btnEditSave").removeAttr("disabled");
             }
 
         });
-        $(document).on("blur", "#endDate", function () {
-            var strdate = $("#startDate").val();
-            var enddate = $("#endDate").val();
+        $(document).on("change", ".endDate", function () {
+            var strdate = $(".startDate").val();
+            var enddate = $(".endDate").val();
             //console.log(strdate);
             //console.log(enddate);
             if (enddate < strdate) {
                 alert("結束日期不能小於開始日期!");
-                $(".btnSave").attr("disabled", true);
+                $(".btnEditSave").attr("disabled", true);
             }
             else {
-                $(".btnSave").removeAttr("disabled");
+                $(".btnEditSave").removeAttr("disabled");
+            }
+        })
+
+        $(document).on("change", "#startDate", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            //console.log(strdate);
+            //console.log(enddate);
+            if (strdate > enddate && enddate!="") {
+                alert("開始日期不能大於結束日期!");
+                $(".btnAddSave").attr("disabled", true);
+            }
+            else {
+                $(".btnAddSave").removeAttr("disabled");
             }
 
+        });
+        $(document).on("change", "#endDate", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            //console.log(strdate);
+            //console.log(enddate);
+            if (enddate < strdate && strdate!="") {
+                alert("結束日期不能小於開始日期!");
+                $(".btnAddSave").attr("disabled", true);
+            }
+            else {
+                $(".btnAddSave").removeAttr("disabled");
+            }
         })
     </script>
 
