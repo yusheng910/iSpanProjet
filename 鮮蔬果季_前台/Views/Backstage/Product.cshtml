@@ -140,7 +140,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary " data-dismiss="modal" />
+                                            <input type="submit" value="儲存" class="btn btn-primary CreateSubmit " data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
@@ -164,7 +164,8 @@
                     [16, 32, 64, "All"]
                 ]
             });
-
+        //產品修改=========================================================================
+        //修改按鈕
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
@@ -239,7 +240,7 @@
                 }
             })
         })
-
+        //修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
 
@@ -260,7 +261,7 @@
                 })
             }
         })
-
+        //圖片上傳
         console.log($(".selectphoto"))
         $(document).on("change",".selectphoto",async function () {
             let pid = $("#ProductId").val()
@@ -279,7 +280,7 @@
                 })
             }
         });
-
+        //圖片清空
         $(document).on("click", ".imgClear", async function (e) {
             let pid = $("#ProductId").val()
             const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
@@ -295,12 +296,12 @@
         $(document).on("change", ".CategeoryFirst", async function (e) {
             var catefirst = document.querySelector(".CategeoryFirst");
             const value = catefirst.options[catefirst.selectedIndex].value
-            console.log(value);
+            //console.log(value);
             const response1 = await fetch('@Url.Content("~/BackstageProductApi/categoryLoad/")' + value)
             RenderCategeory(await response1.json())
         })
         function RenderCategeory(datas) {
-            console.log(datas)
+            //console.log(datas)
             var catesecond = document.querySelector(".CategeorySecond");
             catesecond.options.length = 0
             datas.forEach((item) => {
@@ -308,13 +309,139 @@
                 catesecond.options.add(opt)
             })
         }
-        $(document).on("click", ".btnCreate", function () {
-            $('.prodCreateBody').load("@Url.Content("~/BackstageProductApi/ProdCreatePartial")")
+        //新增產品=========================================================================
+
+        //新增的商品分類修改
+        $(document).on("change", ".CategeoryCreateFirst", async function (e) {
+            var catefirst = document.querySelector(".CategeoryCreateFirst");
+            const value = catefirst.options[catefirst.selectedIndex].value
+            //console.log(value);
+            const response1 = await fetch('@Url.Content("~/BackstageProductApi/categoryLoad/")' + value)
+            RenderCategeory2(await response1.json())
         })
-
-
-
-
+        function RenderCategeory2(datas) {
+            //console.log(datas)
+            var catesecond2 = document.querySelector(".CategeoryCreateSecond");
+            catesecond2.options.length = 0
+            datas.forEach((item) => {
+                const opt = new Option(item.categoryName, item.categoryId)
+                catesecond2.options.add(opt)
+            })
+        }
+        //產品新增按鈕
+        $(document).on("click", ".btnCreate", function () {
+            $('.prodCreateBody').load("@Url.Content("~/BackstageProductApi/ProdCreatePartial")", function () {
+                var editor = document.getElementById('editorcreate');
+                if (editor) {
+                    console.log(editor)
+                    var toolbarOptions = [
+                        [
+                            {
+                                'font': []
+                            }],
+                        [
+                            {
+                                'header': [1, 2, 3, 4, 5, 6, false]
+                            }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [
+                            {
+                                'header': 1
+                            },
+                            {
+                                'header': 2
+                            }],
+                        [
+                            {
+                                'list': 'ordered'
+                            },
+                            {
+                                'list': 'bullet'
+                            }],
+                        [
+                            {
+                                'script': 'sub'
+                            },
+                            {
+                                'script': 'super'
+                            }],
+                        [
+                            {
+                                'indent': '-1'
+                            },
+                            {
+                                'indent': '+1'
+                            }], // outdent/indent
+                        [
+                            {
+                                'direction': 'rtl'
+                            }], // text direction
+                        [
+                            {
+                                'color': []
+                            },
+                            {
+                                'background': []
+                            }], // dropdown with defaults from theme
+                        [
+                            {
+                                'align': []
+                            }],
+                        ['clean'] // remove formatting button
+                    ];
+                    var quill = new Quill(editor,
+                        {
+                            modules:
+                            {
+                                toolbar: toolbarOptions
+                            },
+                            theme: 'snow'
+                        });
+                }
+            })
+        })
+        //上傳圖片時預覽圖案
+        var imginput = document.querySelector(".createimg")
+        $(document).on("change", ".createimg", function (e) {
+            readURL(this);
+        })
+        function readURL(input) {
+            document.querySelector(".imgCreate").innerHTML=""
+            console.log(input.files.length)
+            for (i = 0; i < input.files.length; i++) {
+                if (input.files && input.files[i]) {
+                    var reader = new FileReader();
+                    console.log(reader)
+                    reader.onload = function (e) {
+                        var img = document.createElement("img")
+                        img.src = e.target.result;
+                        img.setAttribute("style", "width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;")
+                        document.querySelector(".imgCreate").appendChild(img)
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        }
+        //新增產品
+        $(document).on("click", ".CreateSubmit", async function (e) {
+            e.preventDefault();
+            //讀取文字編輯器
+            var discription = $(".ql-editor").html();
+            $(".prodDescription").val(discription);
+            const formData = new FormData(document.ProdCreate)
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdCreatePartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.tprodbody').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+                    alert("新增成功")
+                })
+            }
+        })
     </script>
 
 }

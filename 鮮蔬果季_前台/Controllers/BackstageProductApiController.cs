@@ -24,8 +24,14 @@ namespace 鮮蔬果季_前台.Controllers
         {
             var 共應商 = db.Suppliers.ToList();
             ViewBag.AllSupp = 共應商;
+            var 商品次類別 = db.Categories.Where(c => c.FatherCategoryId != 8).ToList();
+            ViewBag.次類別 = 商品次類別;
             return PartialView();
-            //return PartialView("ProdDetailPartial");
+        }
+        [HttpPost]
+        public IActionResult ProdCreatePartial(ShoppingListViewModel ProdCreate)
+        {
+            return Content("1");
         }
         public IActionResult ProdDetailPartial(int id)
         {
