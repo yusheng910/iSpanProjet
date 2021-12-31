@@ -1,0 +1,55 @@
+﻿@model 鮮蔬果季_前台.ViewModels.CouponsListViewModel
+
+@section Styles{
+    <style>
+        .custom-file-label::after {
+            content: "選擇";
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="CouponId" />
+        <div class="form-group">
+            <label asp-for="CouponName" class="control-label"></label>
+            <input asp-for="CouponName" class="form-control" />
+            <span asp-validation-for="CouponName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DiscountCondition" class="control-label"></label>
+            <input asp-for="DiscountCondition" class="form-control" min="0" />
+            <span asp-validation-for="DiscountCondition" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CouponDiscount" class="control-label"></label>
+            <input asp-for="CouponDiscount" class="form-control" min="1" />
+            <span asp-validation-for="CouponDiscount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CouponDescription" class="control-label"></label>
+            <input asp-for="CouponDescription" class="form-control" />
+            <span asp-validation-for="CouponDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CouponStartDate" class="control-label"></label>
+            <input asp-for="CouponStartDate" class="form-control startDate" min="@CalDate.strdate" />
+            <span asp-validation-for="CouponStartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CouponEndDate" class="control-label"></label>
+            <input asp-for="CouponEndDate" class="form-control endDate" min="@CalDate.strdate" />
+            <span asp-validation-for="CouponEndDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CouponQuantityIssued" class="control-label"></label>
+            <input asp-for="CouponQuantityIssued" class="form-control" />
+            <span asp-validation-for="CouponQuantityIssued" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
