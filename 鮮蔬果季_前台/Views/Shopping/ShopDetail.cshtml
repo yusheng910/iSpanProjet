@@ -326,17 +326,27 @@
 
                         <div class="price-box-bar">
                             <div class="cart-and-bay-btn">
-                                <a class="btn hvr-hover addCart" style="cursor:pointer;color:#ffffff" data-fancybox-close="">
-                                    馬上購買
-                                    <input class="add" type="hidden" value="@Model.product.ProductId" />
-                                    <input class="ToCart" value="1" type="hidden" onclick="window.location.href='@Url.Content("~/Shopping/Cart")'" />
-                                    <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
-                                </a>
-                                <a class="btn hvr-hover addCart" style="cursor:pointer;color:#ffffff" data-fancybox-close="">
-                                    加入購物車
-                                    <input class="add" type="hidden" value="@Model.product.ProductId" />
-                                    <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
-                                </a>
+                                @if (Model.ProductUnitsInStock == 0)
+                                {
+                                    <a class="btn hvr-hover" style="cursor:default; color:#ffffff" data-fancybox-close="">
+                                        已售完(待補貨)
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn hvr-hover addCart" style="cursor:pointer;color:#ffffff" data-fancybox-close="">
+                                        馬上購買
+                                        <input class="add" type="hidden" value="@Model.product.ProductId" />
+                                        <input class="ToCart" value="1" type="hidden" onclick="window.location.href='@Url.Content("~/Shopping/Cart")'" />
+                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                    </a>
+                                    <a class="btn hvr-hover addCart" style="cursor:pointer;color:#ffffff" data-fancybox-close="">
+                                        加入購物車
+                                        <input class="add" type="hidden" value="@Model.product.ProductId" />
+                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                    </a>
+                                }
+
                             </div>
                         </div>
 

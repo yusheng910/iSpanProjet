@@ -37,6 +37,7 @@ namespace 鮮蔬果季_前台.Controllers
             var 所有產品 = (from prod in db.Products
                        join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
+                       orderby prod.ProductId
                        select new { prod, supp }).ToList();
             foreach (var item in 所有產品)
             {            
@@ -85,13 +86,15 @@ namespace 鮮蔬果季_前台.Controllers
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
+                        orderby prod.ProductId
                         select new
                         {
                             prod.ProductId,
                             prod.ProductName,
                             prod.ProductUnitPrice,
                             prod.ProductSize,
-                            supp.SupplierName
+                            supp.SupplierName,
+                            prod.ProductUnitsInStock
                         }).ToList();
             foreach (var item in 所有商品)
             {
@@ -106,6 +109,7 @@ namespace 鮮蔬果季_前台.Controllers
                     ProductUnitPrice = item.ProductUnitPrice,
                     ProductSize = item.ProductSize,
                     SupplierName = item.SupplierName,
+                    ProductUnitsInStock=item.ProductUnitsInStock,
                     myFavorite = 最愛商品,
                     photoBank = 相片List
                 });
@@ -121,6 +125,7 @@ namespace 鮮蔬果季_前台.Controllers
                         join c in db.CategoryDetails
                         on prod.ProductId equals c.ProductId
                         where c.CategoryId == id && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                        orderby prod.ProductId
                         select new
                         {
                             c.CategoryId,
@@ -128,7 +133,8 @@ namespace 鮮蔬果季_前台.Controllers
                             prod.ProductName,
                             prod.ProductUnitPrice,
                             prod.ProductSize,
-                            supp.SupplierName
+                            supp.SupplierName,
+                            prod.ProductUnitsInStock
                         }).ToList();
             foreach (var item in 所有商品)
             {
@@ -143,6 +149,7 @@ namespace 鮮蔬果季_前台.Controllers
                     ProductUnitPrice = item.ProductUnitPrice,
                     ProductSize = item.ProductSize,
                     SupplierName = item.SupplierName,
+                    ProductUnitsInStock = item.ProductUnitsInStock,
                     myFavorite = 最愛商品,
                     photoBank = 相片List,
                     CategoryId=item.CategoryId
@@ -159,13 +166,15 @@ namespace 鮮蔬果季_前台.Controllers
                              join supp in db.Suppliers
                             on prod.SupplierId equals supp.SupplierId
                              where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                             orderby prod.ProductId
                              select new
                              {
                                  prod.ProductId,
                                  prod.ProductName,
                                  prod.ProductUnitPrice,
                                  prod.ProductSize,
-                                 supp.SupplierName
+                                 supp.SupplierName,
+                                 prod.ProductUnitsInStock
                              }).ToList();
                 foreach (var item in 所有商品2)
                 {
@@ -181,6 +190,7 @@ namespace 鮮蔬果季_前台.Controllers
                         ProductSize = item.ProductSize,
                         SupplierName = item.SupplierName,
                         myFavorite = 最愛商品,
+                        ProductUnitsInStock = item.ProductUnitsInStock,
                         photoBank = 相片List
                     });
                 }
@@ -194,6 +204,7 @@ namespace 鮮蔬果季_前台.Controllers
                         join c in db.CategoryDetails
                         on prod.ProductId equals c.ProductId
                         where c.CategoryId == categetoryId && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                        orderby prod.ProductId
                         select new
                         {
                             c.CategoryId,
@@ -201,7 +212,8 @@ namespace 鮮蔬果季_前台.Controllers
                             prod.ProductName,
                             prod.ProductUnitPrice,
                             prod.ProductSize,
-                            supp.SupplierName
+                            supp.SupplierName,
+                            prod.ProductUnitsInStock
                         }).ToList();
           
             foreach (var item in 所有商品)
@@ -217,6 +229,7 @@ namespace 鮮蔬果季_前台.Controllers
                     ProductUnitPrice = item.ProductUnitPrice,
                     ProductSize = item.ProductSize,
                     SupplierName = item.SupplierName,
+                    ProductUnitsInStock = item.ProductUnitsInStock,
                     myFavorite = 最愛商品,
                     photoBank = 相片List,
                     CategoryId = item.CategoryId
@@ -231,13 +244,15 @@ namespace 鮮蔬果季_前台.Controllers
                         join supp in db.Suppliers
                        on prod.SupplierId equals supp.SupplierId
                         where   prod.ProductName.Contains(prodName)
+                        orderby prod.ProductId
                         select new
                         {
                             prod.ProductId,
                             prod.ProductName,
                             prod.ProductUnitPrice,
                             prod.ProductSize,
-                            supp.SupplierName
+                            supp.SupplierName,
+                            prod.ProductUnitsInStock
                         }).ToList();
 
             foreach (var item in 所有商品)
@@ -254,6 +269,7 @@ namespace 鮮蔬果季_前台.Controllers
                     ProductSize = item.ProductSize,
                     SupplierName = item.SupplierName,
                     myFavorite = 最愛商品,
+                    ProductUnitsInStock = item.ProductUnitsInStock,
                     photoBank = 相片List
                 });
             }
@@ -265,14 +281,16 @@ namespace 鮮蔬果季_前台.Controllers
 
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
-                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                        orderby prod.ProductId
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName,prod.ProductUnitsInStock }).ToList();
             if (id == 0) {
                 if (categetoryId == 0)
                 {
                     所有商品 = (from prod in db.Products
                             join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            orderby prod.ProductId
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
                 else
                 {
@@ -280,7 +298,8 @@ namespace 鮮蔬果季_前台.Controllers
                             join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                             join c in db.CategoryDetails on prod.ProductId equals c.ProductId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            orderby prod.ProductId
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
             }
             //最新商品
@@ -288,14 +307,14 @@ namespace 鮮蔬果季_前台.Controllers
                 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                         orderby prod.ProduceDate descending
-                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 if (categetoryId == 0)
                 {
                     所有商品 = (from prod in db.Products
                             join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
                             orderby prod.ProduceDate descending
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
                 else {
                     所有商品 = (from prod in db.Products
@@ -303,7 +322,7 @@ namespace 鮮蔬果季_前台.Controllers
                             join c in db.CategoryDetails on prod.ProductId equals c.ProductId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
                             orderby prod.ProduceDate descending
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
             }
             //價格由高至低
@@ -312,14 +331,14 @@ namespace 鮮蔬果季_前台.Controllers
                 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                         orderby prod.ProductUnitPrice descending
-                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 if (categetoryId == 0)
                 {
                     所有商品 = (from prod in db.Products
                             join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
                             orderby prod.ProductUnitPrice descending
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
                 else
                 {
@@ -328,7 +347,7 @@ namespace 鮮蔬果季_前台.Controllers
                             join c in db.CategoryDetails on prod.ProductId equals c.ProductId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
                             orderby prod.ProductUnitPrice descending
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
             }
             //價格由低至高
@@ -337,14 +356,14 @@ namespace 鮮蔬果季_前台.Controllers
                 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                         orderby prod.ProductUnitPrice
-                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                        select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 if (categetoryId == 0)
                 {
                     所有商品 = (from prod in db.Products
                             join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
                             orderby prod.ProductUnitPrice
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
                 else
                 {
@@ -353,7 +372,7 @@ namespace 鮮蔬果季_前台.Controllers
                             join c in db.CategoryDetails on prod.ProductId equals c.ProductId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
                             orderby prod.ProductUnitPrice
-                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }).ToList();
+                            select new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }).ToList();
                 }
             }            
             if (id == 4)
@@ -361,16 +380,16 @@ namespace 鮮蔬果季_前台.Controllers
                 var 銷售排行 = (from prod in db.Products
                         join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                         join od in db.OrderDetails on prod.ProductId equals od.ProductId
-                       group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName }  into g
-                       select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName, 銷售量=g.Sum(a=>a.od.UnitsPurchased)}).OrderByDescending(a=>a.銷售量).ToList();
+                       group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock }  into g
+                       select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName,g.Key.ProductUnitsInStock, 銷售量=g.Sum(a=>a.od.UnitsPurchased)}).OrderByDescending(a=>a.銷售量).ToList();
                 if (categetoryId == 0)
                 {
                     銷售排行 = (from prod in db.Products
                             join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                             join od in db.OrderDetails on prod.ProductId equals od.ProductId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
-                            group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName } into g
-                            select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName, 銷售量 = g.Sum(a => a.od.UnitsPurchased) }).OrderByDescending(a => a.銷售量).ToList();
+                            group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock } into g
+                            select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName,g.Key.ProductUnitsInStock, 銷售量 = g.Sum(a => a.od.UnitsPurchased) }).OrderByDescending(a => a.銷售量).ToList();
                 }
                 else
                 {
@@ -379,8 +398,8 @@ namespace 鮮蔬果季_前台.Controllers
                             join od in db.OrderDetails on prod.ProductId equals od.ProductId
                             join c in db.CategoryDetails on prod.ProductId equals c.ProductId
                             where prod.ProductUnitPrice > min && prod.ProductUnitPrice < max && c.CategoryId == categetoryId
-                            group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName } into g
-                            select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName, 銷售量 = g.Sum(a => a.od.UnitsPurchased) }).OrderByDescending(a => a.銷售量).ToList();
+                            group new { prod, supp, od } by new { prod.ProductId, prod.ProductName, prod.ProductUnitPrice, prod.ProductSize, supp.SupplierName, prod.ProductUnitsInStock } into g
+                            select new { g.Key.ProductId, g.Key.ProductName, g.Key.ProductUnitPrice, g.Key.ProductSize, g.Key.SupplierName,g.Key.ProductUnitsInStock, 銷售量 = g.Sum(a => a.od.UnitsPurchased) }).OrderByDescending(a => a.銷售量).ToList();
                 }
                 //=============================
                 foreach (var item in 銷售排行)
@@ -396,6 +415,7 @@ namespace 鮮蔬果季_前台.Controllers
                         ProductUnitPrice = item.ProductUnitPrice,
                         ProductSize = item.ProductSize,
                         SupplierName = item.SupplierName,
+                        ProductUnitsInStock=item.ProductUnitsInStock,
                         myFavorite = 最愛商品,
                         photoBank = 相片List
                     });
@@ -418,6 +438,7 @@ namespace 鮮蔬果季_前台.Controllers
                     ProductSize = item.ProductSize,
                     SupplierName = item.SupplierName,
                     myFavorite = 最愛商品,
+                    ProductUnitsInStock=item.ProductUnitsInStock,
                     photoBank = 相片List
                 });
             }

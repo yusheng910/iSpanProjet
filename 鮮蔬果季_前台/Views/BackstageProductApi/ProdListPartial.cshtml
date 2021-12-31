@@ -22,7 +22,14 @@
         <td>@item.SupplierName</td>
         <td>@item.ProductUnitPrice</td>
         <td>@item.ProductCostPrice</td>
-        <td>@item.ProductUnitsInStock</td>
+        @if (@item.ProductUnitsInStock == 0)
+        {
+            <td style="color:red;font-weight:bolder">@item.ProductUnitsInStock</td>
+        }
+        else
+        {
+            <td>@item.ProductUnitsInStock</td>
+        }
         <td>詳見編輯@*@Html.Raw(item.ProductDescription)*@</td>
         @{
             string date = (item.ProduceDate).ToString();

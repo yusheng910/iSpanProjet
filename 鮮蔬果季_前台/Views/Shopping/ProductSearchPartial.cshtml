@@ -43,11 +43,20 @@
                                 }
                             }
                         </ul>
-                        <a class="cart addCart" style="cursor:pointer">
-                            加入購物車
-                            <input class="add" type="hidden" value="@item.product.ProductId" />
-                            <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
-                        </a>
+                        @if (item.ProductUnitsInStock == 0)
+                        {
+                            <a class="cart" style="cursor: default;">
+                                已售完(待補貨)
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="cart addCart" style="cursor:pointer">
+                                加入購物車
+                                <input class="add" type="hidden" value="@item.product.ProductId" />
+                                <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                            </a>
+                        }
                     </div>
                 </div>
                 <div class="why-text">
@@ -60,7 +69,14 @@
                         string 規格 = @item.ProductSize;
                         string[] 公克 = 規格.Split("/");
                     }
-                    <h5> @公克[0]/NT$@item.ProductUnitPrice</h5>
+                    @if (item.ProductUnitsInStock == 0)
+                    {
+                        <h5> @公克[0]/NT$@item.product.ProductUnitPrice/已售完</h5>
+                    }
+                    else
+                    {
+                        <h5> @公克[0]/NT$@item.product.ProductUnitPrice</h5>
+                    }
                 </div>
             </div>
         </div>
