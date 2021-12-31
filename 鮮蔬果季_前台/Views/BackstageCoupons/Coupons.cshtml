@@ -1,4 +1,4 @@
-﻿@model IEnumerable<鮮蔬果季_前台.Models.Coupon>
+﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
 
 @{
     ViewData["Title"] = "Coupons";
@@ -11,6 +11,7 @@
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">酷碰券管理</h2>
+        <button type="button" class="btn mb-2 btn-primary">+新增</button>
         <p class="card-text"></p>
         <div class="row my-4">
             <!-- Small table -->
@@ -23,13 +24,13 @@
                                 <tr>
                                     <th></th>
                                     <th>序</th>
-                                    <th>酷碰編號</th>
                                     <th>酷碰券名稱</th>
                                     <th>折扣條件</th>
                                     <th>折扣金額</th>
                                     <th>酷碰券描述</th>
                                     <th>開始日</th>
                                     <th>結束日</th>
+                                    <th>每人發放數量</th>
                                     <th>編輯</th>
                                 </tr>
                             </thead>
@@ -48,13 +49,13 @@
                                                 </div>
                                             </td>
                                             <td>@count</td>
-                                            <td>@item.CouponId</td>
                                             <td>@item.CouponName</td>
-                                            <td>@item.DiscountCondition</td>
-                                            <td>@item.CouponDiscount</td>
+                                            <td>消費滿NT$ @item.DiscountCondition</td>
+                                            <td>折NT$ @item.CouponDiscount</td>
                                             <td>@item.CouponDescription</td>
                                             <td>@strdate</td>
                                             <td>@enddate</td>
+                                            <td>@item.CouponQuantityIssued<span>張</span></td>
                                             <td>
                                                 <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
@@ -77,15 +78,116 @@
                             <div class="modal-dialog" style="max-width: 1000px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">產品修改</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">酷碰券修改</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <form name="CouponsEdit">
                                         <div class="modal-body EditBody">
-                                            <!--內容-->
-                                            ...
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="text-danger"></div>
+                                                    <input type="hidden" />
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" min="1" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" min="0" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" id="startDate" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" id="endDate" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal2 -->
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1000px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">酷碰券修改</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form name="CouponsEdit2">
+                                        <div class="modal-body EditBody">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="text-danger"></div>
+                                                    <input type="hidden" />
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" min="1" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" min="0" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" id="startDate" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" id="endDate" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label"></label>
+                                                        <input class="form-control" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
@@ -116,24 +218,60 @@
 
         $(document).on("click", ".btnEdit", function () {
             var Cid = $(this).next(".Cid").val();
-            console.log(Cid);
-            $('.EditBody').load("@Url.Content("~/ControllerApi/ActionName")/" + Cid)
+            //console.log(Cid);
+            $('.EditBody').load("@Url.Content("~/BackstageCouponsApi/CouponsPartial")/" + Cid)
         })
+        $(document).on("click", ".btnSave", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            if (strdate > enddate) {
+                alert("日期格式錯誤!");
+                return;
+            }
+        });
 
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
             const formData = new FormData(document.CouponsEdit)
-            const response = await fetch('@Url.Content("~/ControllerApi/ActionName")', {
+            const response = await fetch('@Url.Content("~/BackstageCouponsApi/CouponsEditPartial")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.couponlist').load("@Url.Content("~/ControllerApi/ActionName")", function () {
+                $('.couponlist').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
                     alert("修改成功")
                 })
             }
+        })
+        $(document).on("blur", "#startDate", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            //console.log(strdate);
+            //console.log(enddate);
+            if (strdate > enddate) {
+                alert("開始日期不能大於結束日期!");
+                $(".btnSave").attr("disabled", true);
+            }
+            else{
+                $(".btnSave").removeAttr("disabled");
+            }
+
+        });
+        $(document).on("blur", "#endDate", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            //console.log(strdate);
+            //console.log(enddate);
+            if (enddate < strdate) {
+                alert("結束日期不能小於開始日期!");
+                $(".btnSave").attr("disabled", true);
+            }
+            else {
+                $(".btnSave").removeAttr("disabled");
+            }
+
         })
     </script>
 

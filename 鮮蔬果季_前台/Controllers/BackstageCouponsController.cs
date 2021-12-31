@@ -21,9 +21,17 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Coupons()
         {
-            var 酷碰詳細 = from cp in db.Coupons
-                        select cp;
-            return View(酷碰詳細);
+            List<CouponsListViewModel> list = new List<CouponsListViewModel>();
+            var 酷碰詳細 = (from cp in db.Coupons
+                        select cp).ToList();
+            foreach(var item in 酷碰詳細) 
+            {
+                list.Add(new CouponsListViewModel()
+                {
+                    coupon = item,
+                });
+            }
+            return View(list);
         }
     }
 }
