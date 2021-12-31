@@ -834,56 +834,54 @@ namespace 鮮蔬果季_前台.Controllers
                           where items.MemberId == UserLogin.member.MemberId && items.StatusId == 1
                           select items).ToList();
 
-                if (結帳區商品商品 != null)
+            if (結帳區商品商品 != null)
+            {
+                Order newOrder = new Order()
                 {
-                    Order newOrder = new Order()
+                    MemberId = UserLogin.member.MemberId,
+                    OrderDate = DateTime.Now,
+                    ShippedTo = address,
+                    StatusId = 4,
+                    PayMethodId = paymentMethod,
+                    CouponId = CPID.couponid
+                };
+                db.Add(newOrder);
+                db.SaveChanges();
+
+                var latestOrder = (from i in db.Orders
+                                   orderby i.OrderId descending
+                                   select i.OrderId).FirstOrDefault();
+                OrderDetail OD = null;
+                foreach (var i in 結帳區商品商品)
+                {
+                    OD = new OrderDetail
                     {
-                        MemberId = UserLogin.member.MemberId,
-                        OrderDate = DateTime.Now,
-                        ShippedTo = address,
-                        StatusId = 4,
-                        PayMethodId = paymentMethod,
-                        CouponId = CPID.couponid
+                        OrderId = latestOrder,
+                        ProductId = i.ProductId,
+                        UnitsPurchased = i.UnitsInCart,
+                        HaveReviews = false
                     };
-                    db.Add(newOrder);
-                    db.SaveChanges();
+                    db.OrderDetails.Add(OD);
+                    var units = (from p in db.Products
+                                 where p.ProductId == i.ProductId
+                                 select p).FirstOrDefault();
+                    units.ProductUnitsInStock -= i.UnitsInCart;
+                }
+                db.SaveChanges();
 
-                    var latestOrder = (from i in db.Orders
-                                     orderby i.OrderId descending
-                                     select i.OrderId).FirstOrDefault();
-                    OrderDetail OD = null;
-                    foreach(var i in 結帳區商品商品)
-                    {
-                        OD = new OrderDetail
-                        {
-                            OrderId = latestOrder,
-                            ProductId = i.ProductId,
-                            UnitsPurchased = i.UnitsInCart,
-                            HaveReviews = false
-                        };
-                        db.OrderDetails.Add(OD);
-                        var units = (from p in db.Products
-                                     where p.ProductId == i.ProductId
-                                     select p).FirstOrDefault();
-                        units.ProductUnitsInStock -= i.UnitsInCart;
-                    }
-                    db.SaveChanges();
+                foreach (var j in 結帳區商品商品)
+                {
+                    j.StatusId = 3;
+                }
+                db.SaveChanges();
 
-                    foreach(var j in 結帳區商品商品)
-                    {
-                        j.StatusId = 3;
-                    }
-                    db.SaveChanges();
-
-                    CouponDetail couponDetail = (from cpd in db.CouponDetails
-                                                where cpd.MemberId == UserLogin.member.MemberId &&
-                                                cpd.CouponId == CPID.couponid
-                                                select cpd).FirstOrDefault();
-                    couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
-                    db.SaveChanges();
-
+                CouponDetail couponDetail = (from cpd in db.CouponDetails
+                                             where cpd.MemberId == UserLogin.member.MemberId &&
+                                             cpd.CouponId == CPID.couponid
+                                             select cpd).FirstOrDefault();
+                couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
+                db.SaveChanges();
             }
-
             //var q = from sc in db.ShoppingCarts
             //        where sc.MemberId == UserLogin.member.MemberId && sc.StatusId == 1
             //        select sc;
