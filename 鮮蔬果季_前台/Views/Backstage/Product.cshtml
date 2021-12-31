@@ -9,8 +9,8 @@
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">產品管理</h2>
-        <p class="card-text"></p>
-        <div class="row my-4">
+        <p class="card-text" style="padding-right:20px;text-align:right"><button class=" btn btn-primary btnCreate" data-toggle="modal" data-target="#prodCreateModal">產品新增</button></p>
+        <div class="row my-3" style="margin-top:0.5rem">
             <!-- Small table -->
             <div class="col-md-12">
                 <div class="card shadow">
@@ -98,7 +98,7 @@
                                 }
                             </tbody>
                         </table>
-                        <!-- Modal -->
+                        <!-- Modal 修改-->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" style="max-width: 1000px;">
                                 <div class="modal-content">
@@ -111,11 +111,32 @@
                                     <form name="ProdEdit">
                                         <div class="modal-body prodBody">
                                             <!--內容-->
-                                            ...
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                             <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal 新增 -->
+                        <div class="modal fade" id="prodCreateModal" tabindex="-1" aria-labelledby="prodCreateModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1000px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="prodCreateModalLabel">產品新增</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form name="ProdCreate">
+                                        <div class="modal-body prodCreateBody">
+                                            <!--內容-->123
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <input type="submit" value="儲存" class="btn btn-primary " data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
@@ -266,8 +287,7 @@
                 })
             }
         })
-
-        @*Todo 分類連動*@
+        //商品分類修改
         $(document).on("change", ".CategeoryFirst", async function (e) {
             var catefirst = document.querySelector(".CategeoryFirst");
             const value = catefirst.options[catefirst.selectedIndex].value
@@ -284,6 +304,10 @@
                 catesecond.options.add(opt)
             })
         }
+        $(document).on("click", ".btnCreate", function () {
+            $('.prodCreateBody').load("@Url.Content("~/BackstageProductApi/ProdCreatePartial")")
+        })
+
 
 
 

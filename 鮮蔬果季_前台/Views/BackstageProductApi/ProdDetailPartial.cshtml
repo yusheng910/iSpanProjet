@@ -18,10 +18,10 @@
             <span asp-validation-for="ProductName" class="text-danger"></span>
         </div>
         @*<div class="form-group">
-                <label asp-for="SupplierId" class="control-label"></label>
-                <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
-                <span asp-validation-for="SupplierId" class="text-danger"></span>
-            </div>*@
+            <label asp-for="SupplierId" class="control-label"></label>
+            <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
+            <span asp-validation-for="SupplierId" class="text-danger"></span>
+        </div>*@
         <div class="form-group">
             <label asp-for="SupplierName" class="control-label"></label>
             <select asp-for="SupplierName" class="form-control">
@@ -195,21 +195,21 @@
             <input asp-for="ProductUnitsInStock" class="form-control" />
             <span asp-validation-for="ProductUnitsInStock" class="text-danger"></span>
         </div>
-
-        <div class="form-group">
-            <label asp-for="ProductDescription" class="control-label"></label>
-            @*<input asp-for="ProductDescription" class="form-control" />
-                <span asp-validation-for="ProductDescription" class="text-danger"></span>*@
-            <div id="editor" class="descript" style="min-height:200px;" name="ProductDescription">
-               @Html.Raw(Model.ProductDescription)
-            </div>
-            <input type="hidden" class="prodDescription" name="ProductDescription">
-        </div>
         <div class="form-group">
             <label asp-for="ProductSize" class="control-label"></label>
             <input asp-for="ProductSize" class="form-control" />
             <span asp-validation-for="ProductSize" class="text-danger"></span>
         </div>
+        <div class="form-group">
+            <label asp-for="ProductDescription" class="control-label"></label>
+            @*<input asp-for="ProductDescription" class="form-control" />
+            <span asp-validation-for="ProductDescription" class="text-danger"></span>*@
+            <div id="editor" class="descript" style="min-height:200px;" name="ProductDescription">
+                @Html.Raw(Model.ProductDescription)
+            </div>
+            <input type="hidden" class="prodDescription" name="ProductDescription">
+        </div>
+
         <div class="form-group">
             <label class="control-label">產品相片(第一張圖片會為封面)</label>
             <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">

@@ -20,6 +20,13 @@ namespace 鮮蔬果季_前台.Controllers
             _hostingEnvironment = webHost; //取的wwwroot的路徑
             db = dbContext;
         }
+        public IActionResult ProdCreatePartial()
+        {
+            var 共應商 = db.Suppliers.ToList();
+            ViewBag.AllSupp = 共應商;
+            return PartialView();
+            //return PartialView("ProdDetailPartial");
+        }
         public IActionResult ProdDetailPartial(int id)
         {
             ShoppingListViewModel 單筆商品 = new ShoppingListViewModel();
@@ -234,6 +241,9 @@ namespace 鮮蔬果季_前台.Controllers
             var q = db.Categories.Where(a => a.FatherCategoryId == id).ToList();
             return Json(q);
         }
+
+
+
 
     }
 }
