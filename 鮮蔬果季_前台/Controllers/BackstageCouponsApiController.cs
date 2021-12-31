@@ -17,6 +17,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult CouponsPartial(int id)
         {
+            //SHOW編輯畫面
             var 酷碰詳細 = (from cp in db.Coupons
                        where cp.CouponId == id
                        select cp).FirstOrDefault();
@@ -24,8 +25,6 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 coupon = 酷碰詳細
             };
-
-
 
             string year = (DateTime.Now.Year).ToString();
             string month = (DateTime.Now.Month).ToString();
@@ -40,6 +39,7 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult CouponsEditPartial(CouponsListViewModel c)
         {
+            //編輯
             var 酷碰詳細 = (from cp in db.Coupons
                         where cp.CouponId == c.CouponId
                         select cp).FirstOrDefault();
@@ -56,6 +56,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult CouponsListPartial()
         {
+            //編輯後載入的partial表
             List<CouponsListViewModel> list = new List<CouponsListViewModel>();
             var 酷碰詳細 = (from cp in db.Coupons
                         select cp).ToList();
@@ -67,6 +68,36 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
             return PartialView(list);
+        }
+        public IActionResult CouponsDeletePartial(int id)
+        {
+            //刪除
+            var 先刪除酷碰明細 = (from cpd in db.CouponDetails
+                           where cpd.CouponId == id
+                           select cpd).FirstOrDefault();
+
+            var 再刪除單筆酷碰 = (from cp in db.Coupons
+                        join cpd in db.CouponDetails
+                        on cp.CouponId equals cpd.CouponId
+                        where cp.CouponId == id
+                        select cp).FirstOrDefault();
+            if(先刪除酷碰明細!=null)
+            {
+                db.CouponDetails.Remove(先刪除酷碰明細);
+            }
+            db.Coupons.Remove(再刪除單筆酷碰);
+
+            List<CouponsListViewModel> list = new List<CouponsListViewModel>();
+            var 酷碰詳細 = (from cp in db.Coupons
+                        select cp).ToList();
+            foreach (var item in 酷碰詳細)
+            {
+                list.Add(new CouponsListViewModel()
+                {
+                    coupon = item,
+                });
+            }
+            return PartialView("CouponsListPartial",list);
         }
     }
 }
