@@ -31,6 +31,75 @@ namespace 鮮蔬果季_前台.Controllers
         [HttpPost]
         public IActionResult ProdCreatePartial(ShoppingListViewModel ProdCreate)
         {
+            var 供應商id = db.Suppliers.FirstOrDefault(a => a.SupplierName == ProdCreate.SupplierName);
+            Product 新產品 = null;
+            if (ProdCreate.InShop)
+            {
+                新產品 = new Product()
+                {
+                    ProductName = ProdCreate.ProductName,
+                    SupplierId = 供應商id.SupplierId,
+                    ProductUnitPrice = ProdCreate.ProductUnitPrice,
+                    ProductCostPrice = ProdCreate.ProductCostPrice,
+                    ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
+                    ProductDescription = ProdCreate.ProductDescription,
+                    ProductSize = ProdCreate.ProductSize,
+                    InShop = ProdCreate.InShop,
+                    ProduceDate = DateTime.Now,
+                    DefectiveGood = ProdCreate.DefectiveGood
+                };
+            }
+            else {
+                新產品 = new Product()
+                {
+                    ProductName = ProdCreate.ProductName,
+                    SupplierId = 供應商id.SupplierId,
+                    ProductUnitPrice = ProdCreate.ProductUnitPrice,
+                    ProductCostPrice = ProdCreate.ProductCostPrice,
+                    ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
+                    ProductDescription = ProdCreate.ProductDescription,
+                    ProductSize = ProdCreate.ProductSize,
+                    InShop = ProdCreate.InShop,
+                    DefectiveGood = ProdCreate.DefectiveGood
+                };
+            }
+            db.Add(新產品);
+            db.SaveChanges();
+
+            var 新的產品 = db.Products.OrderByDescending(p => p.ProductId).FirstOrDefault(a => a.ProductName == ProdCreate.ProductName);
+            var cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeoryFirst };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeorySecond };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeoryLevel };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeoryTemp };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeorySeason };
+            db.Add(cateAdd);
+            db.SaveChanges();
+
+            if (ProdCreate.photo != null)
+            {
+                int count = 0;
+                foreach (var item in ProdCreate.photo)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/商品照/" + photoName); //取得路徑+要上傳的圖片檔案名稱
+                    using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
+                    {
+                        ProdCreate.photo[count].CopyTo(fileStream); //上傳指令
+                    }
+                    count++;
+                    var q = new ProductPhotoBank()
+                    {
+                        ProductId = 新的產品.ProductId,
+                        PhotoPath = photoName
+                    };
+                    db.Add(q);
+                }
+                db.SaveChanges();
+            }
             return Content("1");
         }
         public IActionResult ProdDetailPartial(int id)
@@ -87,7 +156,7 @@ namespace 鮮蔬果季_前台.Controllers
                         join c in db.Categories
                         on cd.CategoryId equals c.CategoryId
                         where cd.CategoryId > 1 && cd.CategoryId < 6 || cd.CategoryId == 7
-                        orderby prod.ProductId
+                        orderby prod.ProductId descending
                         select new { prod, supp, cd, c }).ToList();
             foreach (var item in 所有產品)
             {
@@ -150,7 +219,8 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 product.ProduceDate = DateTime.Now;
             }
-            product.InShop = ProdEdit.InShop;         
+            product.InShop = ProdEdit.InShop;
+            product.DefectiveGood = ProdEdit.DefectiveGood;
             db.SaveChanges();
 
             var cateDetail = db.CategoryDetails.Where(a => a.ProductId == ProdEdit.ProductId).ToList();
