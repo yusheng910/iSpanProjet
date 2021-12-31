@@ -22,16 +22,11 @@
             <td>@enddate</td>
             <td>@item.CouponQuantityIssued<span>張</span></td>
             <td>
-                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted sr-only">Action</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                        修改
-                    </button>
-                    <input type="hidden" class="Cid" value="@item.CouponId" />
-                    <a class="dropdown-item btnDel" href="#">移除</a>
-                </div>
+                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal"><span class="fe fe-16 fe-edit"></span></button>
+                <input type="hidden" class="Cid" value="@item.CouponId" />
+            </td>
+            <td>
+                <a class="dropdown-item btnDel" href="#"><span class="fe fe-16 fe-trash-2"></span></a>
             </td>
         </tr>
     }

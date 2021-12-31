@@ -6,6 +6,18 @@
 
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <style>
+        .dropdown-item{
+            padding-left:5px;
+        }
+        .dropdown-item:focus {
+            background-color: transparent;
+        }
+        .dropdown-item:hover {
+            background-color: transparent;
+            color: darkcyan;
+        }
+    </style>
 }
 
 <div class="row justify-content-center">
@@ -31,7 +43,9 @@
                                     <th>開始日</th>
                                     <th>結束日</th>
                                     <th>每人發放數量</th>
-                                    <th>編輯</th>
+                                    <th>修改</th>
+                                    <th>刪除</th>
+                                    @*<th>編輯</th>*@
                                 </tr>
                             </thead>
                             <tbody class="couponlist">
@@ -41,34 +55,41 @@
                                         count++;
                                         string strdate = (item.CouponStartDate).ToString("yyyy/MM/dd tt hh:mm");
                                         string enddate = (item.CouponEndDate).ToString("yyyy/MM/dd tt hh:mm");
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="@count">
-                                                    <label class="custom-control-label" for="@count"></label>
-                                                </div>
-                                            </td>
-                                            <td>@count</td>
-                                            <td>@item.CouponName</td>
-                                            <td>消費滿NT$ @item.DiscountCondition</td>
-                                            <td>折NT$ @item.CouponDiscount</td>
-                                            <td>@item.CouponDescription</td>
-                                            <td>@strdate</td>
-                                            <td>@enddate</td>
-                                            <td>@item.CouponQuantityIssued<span>張</span></td>
-                                            <td>
-                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                        修改
-                                                    </button>
-                                                    <input type="hidden" class="Cid" value="@item.CouponId" />
-                                                    <a class="dropdown-item btnDel" href="#">移除</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" id="@count">
+                                                                            <label class="custom-control-label" for="@count"></label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>@count</td>
+                                                                    <td>@item.CouponName</td>
+                                                                    <td>消費滿NT$ @item.DiscountCondition</td>
+                                                                    <td>折NT$ @item.CouponDiscount</td>
+                                                                    <td>@item.CouponDescription</td>
+                                                                    <td>@strdate</td>
+                                                                    <td>@enddate</td>
+                                                                    <td>@item.CouponQuantityIssued<span>張</span></td>
+                                                                    <td>
+                                                                        <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal"><span class="fe fe-16 fe-edit"></span></button>
+                                                                        <input type="hidden" class="Cid" value="@item.CouponId" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="dropdown-item btnDel" href="#"><span class="fe fe-16 fe-trash-2"></span></a>
+                                                                    </td>
+                                                                    @*<td>
+                                                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <span class="text-muted sr-only">Action</span>
+                                                                        </button>
+                                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                                            <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                                                修改
+                                                                            </button>
+                                                                            <input type="hidden" class="Cid" value="@item.CouponId" />
+                                                                            <a class="dropdown-item btnDel" href="#">移除</a>
+                                                                        </div>
+                                                                    </td>*@
+                                                                </tr>
                                     }
                                 }
                             </tbody>
