@@ -211,7 +211,7 @@
             e.preventDefault();
 
             //讀取文字編輯器
-            var discription = $(".ql-editor").html();            
+            var discription = $(".ql-editor").html();
             $(".prodDescription").val(discription);
 
             const formData = new FormData(document.ProdEdit)
@@ -264,8 +264,21 @@
             var catefirst = document.querySelector(".CategeoryFirst");
             const value = catefirst.options[catefirst.selectedIndex].value
             console.log(value);
+            const response1 = await fetch('@Url.Content("~/BackstageProductApi/categoryLoad/")' + value)
+            RenderCategeory(await response1.json())
         })
-       
+        function RenderCategeory(datas) {
+            console.log(datas)
+            var catesecond = document.querySelector(".CategeorySecond");
+            catesecond.options.length = 0
+            datas.forEach((item) => {
+                const opt = new Option(item.categoryName, item.categoryId)
+                catesecond.options.add(opt)
+            })
+        }
+
+
+
     </script>
 
 }

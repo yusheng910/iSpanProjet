@@ -74,6 +74,7 @@ namespace 鮮蔬果季_前台.Controllers
                         join c in db.Categories
                         on cd.CategoryId equals c.CategoryId
                         where cd.CategoryId > 1 && cd.CategoryId < 6 || cd.CategoryId == 7
+                        orderby prod.ProductId
                         select new { prod, supp, cd, c }).ToList();
             foreach (var item in 所有產品)
             {
@@ -136,9 +137,23 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 product.ProduceDate = DateTime.Now;
             }
-            product.InShop = ProdEdit.InShop;
-          
-            db.SaveChanges();          
+            product.InShop = ProdEdit.InShop;         
+            db.SaveChanges();
+
+            var cateDetail = db.CategoryDetails.Where(a => a.ProductId == ProdEdit.ProductId).ToList();
+            foreach(var item in cateDetail)
+                db.Remove(item);
+            var cateAdd = new CategoryDetail(){ProductId=ProdEdit.ProductId,CategoryId=ProdEdit.CategeoryFirst};
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = ProdEdit.CategeorySecond };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = ProdEdit.CategeoryLevel };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = ProdEdit.CategeoryTemp };
+            db.Add(cateAdd);
+            cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = ProdEdit.CategeorySeason };
+            db.Add(cateAdd);
+            db.SaveChanges();
             return Content("1");
         }
         public IActionResult PhotoLoad(ShoppingListViewModel ProdEdit)
@@ -214,9 +229,10 @@ namespace 鮮蔬果季_前台.Controllers
             db.SaveChanges();
             return Content("1");
         }
-        public IActionResult categoryLoad()
+        public IActionResult categoryLoad(int id)
         {
-            return Json("");
+            var q = db.Categories.Where(a => a.FatherCategoryId == id).ToList();
+            return Json(q);
         }
 
     }
