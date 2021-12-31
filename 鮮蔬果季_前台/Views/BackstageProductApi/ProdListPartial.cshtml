@@ -30,7 +30,6 @@
         {
             <td>@item.ProductUnitsInStock</td>
         }
-        <td>詳見編輯@*@Html.Raw(item.ProductDescription)*@</td>
         @{
             string date = (item.ProduceDate).ToString();
             date = date.Split(" ")[0];
@@ -46,16 +45,20 @@
         }
         <td>@item.category.CategoryName</td>
         <td>
-            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="text-muted sr-only">Action</span>
+            @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="text-muted sr-only">Action</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                修改
             </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                    修改
-                </button>
-                <input type="hidden" class="Pid" value="@item.ProductId" />
-                <a class="dropdown-item" href="#">移除</a>
-            </div>
+            <input type="hidden" class="Pid" value="@item.ProductId" />
+            <a class="dropdown-item" href="#">移除</a>
+        </div>*@
+            <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
+                修改
+            </button>
+            <input type="hidden" class="Pid" value="@item.ProductId" />
         </td>
     </tr>
     }
