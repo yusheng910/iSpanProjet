@@ -22,7 +22,7 @@
                 }
                 else
                 {
-                    <td>訂單未出貨</td>
+                    <td>尚未出貨</td>
                 }
             }
             <td>@item.status.StatusName</td>
@@ -45,7 +45,22 @@
             <td>@item.ShippedTo</td>
             <td>@item.paymethod.Method</td>
             <td>
-                <button type="button" id="btnStatus" class="btn btn-primary">商品出貨</button>
+                @{
+                    if (item.StatusId == 4)
+                    {
+                        <button type="button" id="btnShipped" class="btn btn-primary btnStatus">確認出貨</button>
+                        <input type="hidden" class="oid" id="oid" value="@item.OrderId" />
+                    }
+                    else if (item.StatusId == 5)
+                    {
+                        <button type="button" id="btnDelivered" class="btn btn-success btnStatus">確認送達</button>
+                        <input type="hidden" class="oid" id="oid" value="@item.OrderId" />
+                    }
+                    else
+                    {
+                        <label style="padding:7px; border-radius:5px; background-color:lightgray;">已完成訂單</label>
+                    }
+                }
             </td>
         </tr>
     }
