@@ -102,7 +102,16 @@
             $("#iddiv").load("@Url.Content("~/BackstageAdvertise/CateLoad/")" + value, function () {
                 $(".block").draggable({ helper: 'clone' })
             })
-
+        })
+        $(document).on("click", ".btnSave", function () {
+            let value = $(".drop").find(".block").find(".pid");
+            var prodID = [];
+            $.each(value, function (index, data) {              
+                console.log(data)
+                console.log($(this).val())
+                prodID.push($(this).val())
+            })
+            console.log(prodID)
         })
     </script>
 }
@@ -152,6 +161,7 @@
         @{ foreach (var item in Model)
             {
                 <div class="block" value="@item.product.ProductId">
+                    <input type="hidden" value="@item.product.ProductId" class="pid">
                     <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-setting">
                     <p></p>
                     <h6>供應商： <br> @item.supplier.SupplierName</h6>
@@ -166,5 +176,5 @@
     </div>
 </div>
 <p class="card-text" style="padding-right:10%;text-align:right;margin-top:20px">
-    <button class=" btn btn-primary btnCreate" data-toggle="modal" data-target="#prodCreateModal">儲存</button>
+    <button class=" btn btn-primary btnSave" data-toggle="modal" data-target="#prodCreateModal">儲存</button>
 </p>
