@@ -13,6 +13,7 @@ namespace 鮮蔬果季_前台.Models
             MyFavorites = new HashSet<MyFavorite>();
             OrderDetails = new HashSet<OrderDetail>();
             PhotoBanks = new HashSet<PhotoBank>();
+            ProductAdvertises = new HashSet<ProductAdvertise>();
             ProductOnSales = new HashSet<ProductOnSale>();
             ProductPhotoBanks = new HashSet<ProductPhotoBank>();
             ProductPriceChanges = new HashSet<ProductPriceChange>();
@@ -38,6 +39,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual ICollection<MyFavorite> MyFavorites { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<PhotoBank> PhotoBanks { get; set; }
+        public virtual ICollection<ProductAdvertise> ProductAdvertises { get; set; }
         public virtual ICollection<ProductOnSale> ProductOnSales { get; set; }
         public virtual ICollection<ProductPhotoBank> ProductPhotoBanks { get; set; }
         public virtual ICollection<ProductPriceChange> ProductPriceChanges { get; set; }

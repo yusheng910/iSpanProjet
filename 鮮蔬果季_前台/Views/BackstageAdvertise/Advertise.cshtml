@@ -1,0 +1,170 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.AdvertiseViewModel>
+@section Styles{
+    <style>
+        #iddiv {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+            width: 45%;
+            max-height: 600px;
+            overflow: auto;
+            border: 2px #ccc solid;
+        }
+
+        .block {
+            flex: 0 0 200px;
+            max-width: 22%;
+            height: 200px;
+            position: relative;
+            margin: 10px;
+            padding-right: 15px;
+            padding-left: 15px;
+            background-color: #FFF9E9;
+            border: 1px solid black;
+        }
+
+        .drop {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+            width: 45%;
+            height: 600px;
+            overflow: auto;
+            border: 2px #ccc dotted;
+            margin-left: 5%;
+        }
+
+        .myactive {
+            opacity: 0.4;
+        }
+
+        .myhover {
+            border: 5px solid #b0b435;
+        }
+
+        .img-setting {
+            width: 130px;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+
+}
+@section Scripts{
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script>
+        $(".block").draggable({ helper: 'clone' });
+
+        $(".drop").droppable({
+            accept: "*",
+            activeClass: 'myactive',
+            hoverClass: 'myhover',
+            tolerance: 'pointer',
+            out: function (ev, ui) {
+                var src = ui.draggable.attr('src');
+                /*                alert(src + ' 未置入已返回');*/
+            },
+            drop: function (ev, ui) {
+                ui.draggable.clone().fadeOut("fast",
+                    function () {
+                        $(this).fadeIn("fast");//<img>
+                    }).appendTo($(this));//<div></div>
+            }//drop:
+        });
+         //商品分類修改
+        $(document).on("change", ".CategeoryCreateFirst", async function (e) {
+            var catefirst = document.querySelector(".CategeoryCreateFirst");
+            const value = catefirst.options[catefirst.selectedIndex].value
+            //console.log(value);
+            const response1 = await fetch('@Url.Content("~/BackstageProductApi/categoryLoad/")' + value)
+            RenderCategeory2(await response1.json())
+        })
+        function RenderCategeory2(datas) {
+            //console.log(datas)
+            var catesecond2 = document.querySelector(".CategeoryCreateSecond");
+            catesecond2.options.length = 0
+            datas.forEach((item) => {
+                const opt = new Option(item.categoryName, item.categoryId)
+                catesecond2.options.add(opt)
+            })
+            const value = catesecond2.options[0].value
+            console.log(value);
+            $("#iddiv").load("@Url.Content("~/BackstageAdvertise/CateLoad/")" + value, function () {
+                $(".block").draggable({ helper: 'clone' })
+            })
+
+        }
+        $(document).on("change", ".CategeoryCreateSecond", async function (e) {
+            var catesecond = document.querySelector(".CategeoryCreateSecond");
+            const value = catesecond.options[catesecond.selectedIndex].value
+            $("#iddiv").load("@Url.Content("~/BackstageAdvertise/CateLoad/")" + value, function () {
+                $(".block").draggable({ helper: 'clone' })
+            })
+
+        })
+    </script>
+}
+<h2 class="mb-2 page-title">廣告管理</h2>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h4 class="mb-2 page-title">選擇廣告商品</h4>
+        <div class="form-group">
+            <label class="control-label" style="">品項：</label>
+            <select class="form-control CategeoryCreateFirst" style="width:10%;display:inline" name="CategeoryFirst">
+                @{
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId == 1 || item.CategoryId == 6)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                }
+            </select>
+            <select class="form-control CategeoryCreateSecond" style="width:15%;display:inline" name="CategeorySecond">
+                @{
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId <= 5 && item.CategoryId >= 2)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="col-6">
+        <h4 class="mb-2 page-title">廣告區域</h4>
+        <div class="form-group">
+            <label class="control-label" style="">區域：</label>
+            <select class="form-control CategeoryCreateFirst" style="width:15%;display:inline" name="CategeoryFirst">
+                <option>首頁輪播</option>
+                <option>果季精選</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div style="display:flex">
+    <div id="iddiv">
+        @{ foreach (var item in Model)
+            {
+                <div class="block" value="@item.product.ProductId">
+                    <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-setting">
+                    <p></p>
+                    <h6>供應商： <br> @item.supplier.SupplierName</h6>
+                    <h6>產品：@item.product.ProductName</h6>
+                </div>
+            }
+
+        }
+    </div>
+    <div class="drop">
+
+    </div>
+</div>
+<p class="card-text" style="padding-right:10%;text-align:right;margin-top:20px">
+    <button class=" btn btn-primary btnCreate" data-toggle="modal" data-target="#prodCreateModal">儲存</button>
+</p>

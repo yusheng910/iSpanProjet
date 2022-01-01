@@ -1,0 +1,12 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.AdvertiseViewModel>
+@{ foreach (var item in Model)
+    {
+        <div class="block " value="@item.product.ProductId">
+            <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-setting">
+            <p></p>
+            <h6>供應商： <br> @item.supplier.SupplierName</h6>
+            <h6>產品：@item.product.ProductName</h6>
+        </div>
+    }
+
+}

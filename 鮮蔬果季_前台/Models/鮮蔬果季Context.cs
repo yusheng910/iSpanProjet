@@ -37,6 +37,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual DbSet<PayMethod> PayMethods { get; set; }
         public virtual DbSet<PhotoBank> PhotoBanks { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductAdvertise> ProductAdvertises { get; set; }
         public virtual DbSet<ProductOnSale> ProductOnSales { get; set; }
         public virtual DbSet<ProductPhotoBank> ProductPhotoBanks { get; set; }
         public virtual DbSet<ProductPriceChange> ProductPriceChanges { get; set; }
@@ -531,9 +532,7 @@ namespace 鮮蔬果季_前台.Models
 
                 entity.Property(e => e.ProduceDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ProductDescription)
-                    .HasMaxLength(50)
-                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+                entity.Property(e => e.ProductDescription).UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
@@ -554,6 +553,26 @@ namespace 鮮蔬果季_前台.Models
                     .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Products_Suppliers");
+            });
+
+            modelBuilder.Entity<ProductAdvertise>(entity =>
+            {
+                entity.ToTable("ProductAdvertise");
+
+                entity.Property(e => e.ProductAdvertiseId).HasColumnName("ProductAdvertiseID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.Tag)
+                    .IsRequired()
+                    .HasColumnName("tag")
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductAdvertises)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductAdvertise_Products");
             });
 
             modelBuilder.Entity<ProductOnSale>(entity =>
