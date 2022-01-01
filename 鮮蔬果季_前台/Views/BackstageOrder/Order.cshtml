@@ -4,6 +4,13 @@
 }
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <style>
+        .img-fluid {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
+    </style>
 }
 
 <div class="row justify-content-center">
@@ -74,7 +81,11 @@
                                                 }
                                             }
 
-                                            <td>@item.總價</td> @*todo coupon折扣要在這邊抓*@
+                                            <td>
+                                                NT$ @item.總價
+                                                <button style="float:right;" type="button" class="btn btn-primary btnDetail" data-toggle="modal" data-target="#detailModal">明細</button>
+                                                <input type="hidden" class="oid" id="oid" value="@item.OrderId" />
+                                            </td>
                                             <td>@item.ShippedTo</td>
                                             <td>@item.paymethod.Method</td>
                                             <td>
@@ -100,6 +111,25 @@
                                 }
                             </tbody>
                         </table>
+                        <!-- Modal 訂單細節-->
+                        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1000px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel">訂單明細</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body odBody">
+                                        <!--內容-->
+                                    </div>
+                                    @*<div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> <!-- simple table -->
@@ -131,28 +161,11 @@
             $('.orderBody').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid)
         });
 
-        $(document).on("click", ".btnEdit", function () {
-            var pid = $(this).next(".Pid").val();
-            console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid)
+        $(document).on("click", ".btnDetail", function () {
+            var oid = $(this).next(".oid").val();
+            console.log(oid);
+            $('.odBody').load("@Url.Content("~/BackstageOrderApi/OrderDetailPartial")/" + oid)
         })
-
-        $(document).on("click", ".btnSave", async function (e) {
-            e.preventDefault();
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
-                method: "POST",
-                body: formData
-            })
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.tprodbody').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
-                    alert("修改成功")
-                })
-            }
-        })
-
 
     </script>
 

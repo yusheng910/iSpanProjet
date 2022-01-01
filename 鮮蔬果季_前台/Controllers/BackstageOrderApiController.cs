@@ -129,5 +129,37 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return PartialView(orderList);
         }
+
+        public IActionResult OrderDetailPartial(int id)
+        {
+            List<OrderListViewModel> 訂單細項列表 = new List<OrderListViewModel>();
+            var 所有訂單細項 = (from od in db.OrderDetails
+                          join p in db.Products
+                          on od.ProductId equals p.ProductId
+                          join sup in db.Suppliers
+                          on p.SupplierId equals sup.SupplierId
+                          where od.OrderId == id
+                          orderby od.ProductId
+                          select new { od, p, sup }).ToList();
+
+            var 訂單 = db.Orders.FirstOrDefault(a => a.OrderId == id);
+            ViewBag.cpd = (from cp in db.Coupons
+                           where cp.CouponId == 訂單.CouponId
+                           select cp.CouponDiscount).FirstOrDefault();
+
+            foreach (var o in 所有訂單細項)
+            {
+                var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
+                訂單細項列表.Add(new OrderListViewModel()
+                {
+                    odetail = o.od,
+                    product = o.p,
+                    supplier = o.sup,
+                    photoBank = 封面相片,
+                    //單筆訂單細項總價 = 訂單細項總價
+                });
+            }
+            return PartialView(訂單細項列表);
+        }
     }
 }
