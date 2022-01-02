@@ -265,6 +265,14 @@
             if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
                     alert("修改成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
                 })
             }
         })
@@ -286,6 +294,14 @@
             if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
                     alert("新增成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
                 })
             }
         })
