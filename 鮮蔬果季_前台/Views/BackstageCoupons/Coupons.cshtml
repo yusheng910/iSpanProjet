@@ -263,7 +263,7 @@
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.couponlist').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
                     alert("修改成功")
                 })
             }
@@ -284,7 +284,7 @@
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.couponlist').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
                     alert("新增成功")
                 })
             }
