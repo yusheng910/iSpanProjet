@@ -55,7 +55,7 @@
 @section Scripts{
     <script src="~/js/jquery-ui.min.js"></script>
     <script>
-        $(".block").draggable({ helper: 'clone' });
+        $("#iddiv .block").draggable({ helper: 'clone' });
 
         $(".drop").droppable({
             accept: "*",
@@ -91,27 +91,47 @@
             })
             const value = catesecond2.options[0].value
             console.log(value);
-            $("#iddiv").load("@Url.Content("~/BackstageAdvertise/CateLoad/")" + value, function () {
-                $(".block").draggable({ helper: 'clone' })
+            $("#iddiv").load("@Url.Content("~/BackstageAdvertiseApi/CateLoad/")" + value, function () {
+                $("#iddiv .block").draggable({ helper: 'clone' })
             })
 
         }
         $(document).on("change", ".CategeoryCreateSecond", async function (e) {
             var catesecond = document.querySelector(".CategeoryCreateSecond");
             const value = catesecond.options[catesecond.selectedIndex].value
-            $("#iddiv").load("@Url.Content("~/BackstageAdvertise/CateLoad/")" + value, function () {
-                $(".block").draggable({ helper: 'clone' })
+            $("#iddiv").load("@Url.Content("~/BackstageAdvertiseApi/CateLoad/")" + value, function () {
+                $("#iddiv .block").draggable({ helper: 'clone' })
+            })
+        })
+        $(document).on("change", ".AdvertiseSelect", async function (e) {
+            var AdvertiseSelect = document.querySelector(".AdvertiseSelect");
+            const value = AdvertiseSelect.options[AdvertiseSelect.selectedIndex].value
+            $(".drop").load("@Url.Content("~/BackstageAdvertiseApi/AdvertiseLoad?tag=")" + value, function () {
+                $("#iddiv .block").draggable({ helper: 'clone' })
             })
         })
         $(document).on("click", ".btnSave", function () {
             let value = $(".drop").find(".block").find(".pid");
+            let adverstisSel = $(".AdvertiseSelect").val();
             var prodID = [];
-            $.each(value, function (index, data) {              
-                console.log(data)
+            $.each(value, function (index, data) {
                 console.log($(this).val())
                 prodID.push($(this).val())
             })
             console.log(prodID)
+            if (prodID.length == 0) {
+                alert("商品不能為空")
+                return false;
+            }
+            console.log(adverstisSel)
+            $(".drop").load("@Url.Content("~/BackstageAdvertiseApi/AdvertiseAdd?pid=")" + prodID + "&AdvertisSel=" + adverstisSel, function () {
+                $("#iddiv .block").draggable({ helper: 'clone' })
+                alert("儲存成功")
+            })
+        })
+        $(document).on("click", ".drop .block", function () {
+            console.log($(this).find(".pid").val())
+            $(this).remove();
         })
     </script>
 }
@@ -149,9 +169,10 @@
         <h4 class="mb-2 page-title">廣告區域</h4>
         <div class="form-group">
             <label class="control-label" style="">區域：</label>
-            <select class="form-control CategeoryCreateFirst" style="width:15%;display:inline" name="CategeoryFirst">
-                <option>首頁輪播</option>
-                <option>果季精選</option>
+            <select class="form-control AdvertiseSelect" style="width:15%;display:inline" name="CategeoryFirst">
+                <option value="首頁輪播">首頁輪播</option>
+                <option value="果季精選">果季精選</option>
+                <option value="蔬菜推薦">蔬菜推薦</option>
             </select>
         </div>
     </div>
@@ -164,15 +185,32 @@
                     <input type="hidden" value="@item.product.ProductId" class="pid">
                     <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-setting">
                     <p></p>
-                    <h6>供應商： <br> @item.supplier.SupplierName</h6>
+                    <h6>
+                        供應商：
+                        <br> @item.supplier.SupplierName
+                    </h6>
                     <h6>產品：@item.product.ProductName</h6>
                 </div>
             }
 
         }
-    </div>
+    </div>  
     <div class="drop">
+        @{ foreach (var item in ViewBag.首頁輪播商品)
+            {
+                <div class="block" value="@item.product.ProductId">
+                    <input type="hidden" value="@item.product.ProductId" class="pid">
+                    <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-setting">
+                    <p></p>
+                    <h6>
+                        供應商：
+                        <br> @item.supplier.SupplierName
+                    </h6>
+                    <h6>產品：@item.product.ProductName</h6>
+                </div>
+            }
 
+        }
     </div>
 </div>
 <p class="card-text" style="padding-right:10%;text-align:right;margin-top:20px">

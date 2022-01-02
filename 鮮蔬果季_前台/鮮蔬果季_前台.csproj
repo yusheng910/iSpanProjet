@@ -57,4 +57,11 @@
     <None Include="wwwroot\assets\css\scss\sections\_testimonials.scss" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\BackstageAdvertiseApi\CateLoad.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
