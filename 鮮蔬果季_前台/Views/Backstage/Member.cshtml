@@ -38,6 +38,7 @@
                                     {
                                         count++;
                                         <tr>
+
                                             <td>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="@count">
@@ -45,33 +46,33 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="mb-0 text-muted" id="mid">
-                                                    @item.member.MemberId
+                                                <p class="mb-0 text-muted">
+                                                    @item.MemberId
                                                 </p>
                                             </td>
                                             <td>
                                                 <div class="avatar avatar-sm">
-                                                    <img src="~/images/MemberPhoto/@item.member.MemberPhotoPass" alt="..." class="avatar-img rounded-circle">
+                                                    <img src="~/images/MemberPhoto/@item.MemberPhotoPass" alt="..." class="avatar-img rounded-circle">
                                                 </div>
                                             </td>
                                             <td>
                                                 <p class="mb-0 text-muted mName">
-                                                    <strong>@item.member.MemberName</strong>
+                                                    <strong>@item.MemberName</strong>
                                                 </p>
                                             </td>
                                             <td>
                                                 <p class="mb-0 text-muted">
-                                                    <strong>@item.member.UserId</strong>
+                                                    <strong>@item.UserId</strong>
                                                 </p>
                                             </td>
                                             <td>
                                                 <p class="mb-0 text-muted">
-                                                    <strong>@item.member.Password</strong>
+                                                    <strong>@item.Password</strong>
                                                 </p>
                                             </td>
                                             <td>
                                                 <p class="mb-0 text-muted">
-                                                    <strong>@item.member.MemberAddress</strong>
+                                                    <strong>@item.MemberAddress</strong>
                                                 </p>
                                             </td>
                                             <td>
@@ -79,11 +80,11 @@
                                             </td>
                                             <td>
                                                 <p class="mb-0 text-muted">
-                                                    <a href="#" class="text-muted"><strong>@item.member.Mobile</strong></a>
+                                                    <a href="#" class="text-muted"><strong>@item.Mobile</strong></a>
                                                 </p>
                                             </td>
                                             @{
-                                                string date = (item.member.BirthDate).ToString();
+                                                string date = (item.BirthDate).ToString();
                                                 date = date.Split(" ")[0];
                                                 <td class="text-muted">
                                                     <strong>@date</strong>
@@ -95,8 +96,8 @@
                                                     <span class="text-muted sr-only">Action</span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" id="btnEdit">修改</a>
-                                                    <a class="dropdown-item" href="#">移除</a>
+                                                    <button type="button" class="dropdown-item BtnEdit"  data-toggle="modal" data-target="#EditModal">修改</button>
+                                                    <input type="hidden" class="Membid" value="@item.MemberId" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -104,27 +105,30 @@
                                 }
                             </tbody>
                         </table>
+                        <!-- Modal 會員修改-->
+                        <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 1000px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form name="MembEdit">
+                                        <div class="modal-body memberBody">
+                                            <!--內容-->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <input type="submit" value="儲存" class="btn btn-primary BtnSave" data-dismiss="modal" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <nav aria-label="Table Paging" class="my-3">
-                    <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item">
-                            <a class="page-link" href="#">上一頁</a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">下一頁</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div> <!-- .col-12 -->
@@ -141,11 +145,55 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        $(document).on("click", "#btnEdit", function () {
-            var mid = $(this).next("#mid").val();
+        $(document).on("click", ".BtnEdit", function () {
+            var mid = $(this).next(".Membid").val();
             console.log(mid);
-            $(".MemberBody").load("@Url.Content("~/BackstageMember/MemberDetailPartial")/" + mid)
+            $(".memberBody").load("@Url.Content("~/BackstageMember/MemberDetailPartial")/" + mid)
         })
-
+        $(document).on("change", ".PartialselectPhoto", async function () {
+            var mid = $(".Membid").val();
+            console.log(mid);
+            const fromData = new FormData(document.MembEdit)
+            const response = await fetch('@Url.Content("~/BackstageMember/uploadPhoto")', {
+                method: "POST",
+                body: fromData
+            })
+            const data = await response.text()
+            if (data == 1) {
+                $(".PartialPhotoLoad").load("@Url.Content("~/BackstageMember/Photoload/")" + mid, function () {
+                    alert("上傳圖片成功")
+                })
+            }
+        });
+        $(document).on("change", ".statechange", function () {
+            var city = $(".statechange").val();
+            console.log(city)
+            $(".cityLB").val(city)
+        })
+        $(document).on("change", ".Gender", function () {
+            var gender = $(".Gender").val();
+            $(".GenderLB").val(gender);
+        })
+        $(document).on("click", ".BtnSave", async function (e) {
+            e.preventDefault();
+            const fromData = new FormData(document.MembEdit)
+            const response = await fetch('@Url.Content("~/BackstageMember/submitMemberDetil")', {
+                method: "POST",
+                body: fromData
+            })
+            const data = await response.text()
+            if (data == 1) {
+                $(".card-body").load("@Url.Content("~/BackstageMember/showNewMemberDetil")",function () {
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        });
     </script>
 }

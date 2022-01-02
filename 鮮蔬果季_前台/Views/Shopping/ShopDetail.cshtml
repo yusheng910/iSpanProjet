@@ -305,7 +305,9 @@
                             {
                                 <label class="lbl lbl-success"><span>@分類項目.CategoryName</span></label>
                             }
-
+                            @if (Model.DefectiveGood) { 
+                                <label class="lbl lbl-success"><span>醜蔬果</span></label>
+                            }
                         </p>
                         <h4>商品描述:</h4>
                         <p>
@@ -315,6 +317,11 @@
                         <p>
                             @Model.product.ProductSize
                         </p>
+                        <h4>上架時間:</h4>
+                        <p>
+                            @Model.product.ProduceDate
+                        </p>
+                        <h4></h4>
                         <ul>
                             <li>
                                 <div class="form-group quantity-box">
