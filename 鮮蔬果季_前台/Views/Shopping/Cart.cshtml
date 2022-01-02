@@ -210,37 +210,37 @@
                     </div>
                 </div>
                 @*酷碰券顯示開始*@
-            <div class="row cpbox">
-                @{
-                    if (ViewBag.Coupons.Count != 0)
-                    {
-                        @foreach (var item in ViewBag.Coupons)
+                <div class="row cpbox">
+                    @{
+                        if (ViewBag.Coupons.Count != 0)
                         {
-                            <div class="include">
-                                <span class="lead">@item.coupon.CouponName</span>
-                                <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
-                                <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
-                                <div class="discount">
-                                    <span class="discounttext">折NT$</span>
-                                    <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+                            @foreach (var item in ViewBag.Coupons)
+                            {
+                                <div class="include">
+                                    <span class="lead">@item.coupon.CouponName</span>
+                                    <input class="showcpname" type="hidden" value="@item.coupon.CouponName" />
+                                    <span class="badge badge-primary cpnum">剩 @item.couponDetail.CouponQuantity 張</span>
+                                    <div class="discount">
+                                        <span class="discounttext">折NT$</span>
+                                        <span class="text-muted mb-0 discountnum">$@item.coupon.CouponDiscount</span>
+                                    </div>
+                                    <a class="btn btn-sm btn-outline-warning usebtn ">選取</a>
+                                    <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
+                                    <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
+                                    <input type="hidden" class="cpid" value="@item.couponDetail.CouponId" />
                                 </div>
-                                <a class="btn btn-sm btn-outline-warning usebtn ">選取</a>
-                                <input type="hidden" class="cpdisc" value="@item.coupon.DiscountCondition" />
-                                <input type="hidden" class="disprice" value="@item.coupon.CouponDiscount" />
-                                <input type="hidden" class="cpid" value="@item.couponDetail.CouponId" />
+                            }
+                        }
+                        else
+                        {
+                            <div class="nonecp">
+                                <h1>*無酷碰券可使用*</h1>
                             </div>
                         }
                     }
-                    else
-                    {
-                        <div class="nonecp">
-                            <h1>*無酷碰券可使用*</h1>
-                        </div>
-                    }
-                }
+                </div>
             </div>
-            </div>
-                @*酷碰券顯示結束*@
+            @*酷碰券顯示結束*@
             <div class="col-lg-5 col-sm-6">
                 <div class="order-box">
                     <div class="title-left" style="padding-top:20px">
@@ -263,51 +263,52 @@
                 </div>
             </div>
             <div class="col-12 d-flex shopping-box">
-                <a id="goCheck" asp-area="" asp-controller="Shopping" asp-action="Checkout"  class="ml-auto btn hvr-hover">前往結帳</a>
+                <a id="goCheck" asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a>
             </div>
 
 
-        <div class="row my-5">
-            <div class="col-lg-8 col-sm-12"></div>
-            <div class="col-lg-4 col-sm-12">
-                @*<div class="order-box">
-                        <div class="title-left" style="padding-top:20px">
-                            <h3>您的訂單</h3>
-                        </div>
-                        <hr class="my-1">
-                        <div class="d-flex">
-                            <h4>商品金額</h4>
-                            <div class="ml-auto font-weight-bold"> NT$ 342 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>消費稅</h4>
-                            <div class="ml-auto font-weight-bold"> NT$ 5 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>運費</h4>
-                            <div class="ml-auto font-weight-bold"> NT$ 50 </div>
-                        </div>
-                        <hr class="my-1">
-                        <div class="d-flex">
-                            <h4>商品折扣</h4>
-                            <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>酷碰折扣</h4>
-                            <div class="ml-auto font-weight-bold"> -NT$ 20 </div>
-                        </div>
-                        <hr>
-                        <div class="d-flex gr-total">
-                            <h5>應付金額</h5>
-                            <div class="ml-auto h5"> $ 377 </div>
-                        </div>
-                        <hr>
-                    </div>*@
-                <input type="hidden" value="@Model.Count" class="count" />
+            <div class="row my-5">
+                <div class="col-lg-8 col-sm-12"></div>
+                <div class="col-lg-4 col-sm-12">
+                    @*<div class="order-box">
+                            <div class="title-left" style="padding-top:20px">
+                                <h3>您的訂單</h3>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>商品金額</h4>
+                                <div class="ml-auto font-weight-bold"> NT$ 342 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>消費稅</h4>
+                                <div class="ml-auto font-weight-bold"> NT$ 5 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>運費</h4>
+                                <div class="ml-auto font-weight-bold"> NT$ 50 </div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>商品折扣</h4>
+                                <div class="ml-auto font-weight-bold"> -NT$ 0 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>酷碰折扣</h4>
+                                <div class="ml-auto font-weight-bold"> -NT$ 20 </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>應付金額</h5>
+                                <div class="ml-auto h5"> $ 377 </div>
+                            </div>
+                            <hr>
+                        </div>*@
+                    <input type="hidden" value="@Model.Count" class="count" />
+                </div>
+                @*<div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a> </div>*@
             </div>
-            @*<div class="col-12 d-flex shopping-box"><a asp-area="" asp-controller="Shopping" asp-action="Checkout" class="ml-auto btn hvr-hover">前往結帳</a> </div>*@
+
         </div>
-
     </div>
 </div>
 <!-- End Cart -->

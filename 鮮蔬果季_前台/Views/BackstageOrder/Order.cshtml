@@ -140,26 +140,47 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
-        $('#dataTable-1').DataTable(
-            {
-                autoWidth: true,
-                "lengthMenu": [
-                    [16, 32, 64, -1],
-                    [16, 32, 64, "All"]
-                ]
-            });
+
+        $('#dataTable-1').DataTable({
+            autoWidth: true,
+            "lengthMenu": [
+                [16, 32, 64, -1],
+                [16, 32, 64, "All"]
+            ]
+        });
 
         $(document).on('click', '.btnShipped', function () {
             var oid = $(this).next().val();
+            alert('請稍後，訂單狀態更新為已出貨');
             console.log(oid);
-            $('.orderBody').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid)
+            $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid, function () {
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
         });
 
         $(document).on('click', '.btnDelivered', function () {
             var oid = $(this).next().val();
+            alert('請稍後，訂單狀態將更新為已送達');
             console.log(oid);
-            $('.orderBody').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid)
+            $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid, function () {
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
         });
+
 
         $(document).on("click", ".btnDetail", function () {
             var oid = $(this).next(".oid").val();
