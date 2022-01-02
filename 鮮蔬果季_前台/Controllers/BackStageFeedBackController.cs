@@ -65,39 +65,38 @@ namespace 鮮蔬果季_前台.Controllers
             _context.SaveChanges();
             return RedirectToAction("FeedbackList");
         }
-        
 
-        
-        //public IActionResult FeedbackDelete(int id)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-        //    if (message != null)
-        //    {
-        //        _context.FeedbackResponses.Remove(message);
-        //        _context.SaveChanges();
-        //    }
-        //    return RedirectToAction("FeedbackList");
-        //}
-        //public IActionResult FeedbackEdit(int id)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-        //    if (message == null)
-        //        return RedirectToAction("FeedbackList");
-        //    return View(message);
-        //}
-        //[HttpPost]
-        //public IActionResult FeedbackEdit(FeedbackResponse editmessage)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
-        //    if (message != null)
-        //    {
 
-        //        message.FeedbackId = editmessage.FeedbackId;
-        //        message.OrderDetailId = editmessage.OrderDetailId;
-        //        message.FeedbackComment = editmessage.FeedbackComment;
-        //        _context.SaveChanges();
-        //    }
-        //    return RedirectToAction("FeedbackList");
-        //}
+
+        public IActionResult FeedbackDelete(int id)
+        {
+            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
+            if (message != null)
+            {
+                _context.FeedbackResponses.Remove(message);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("FeedbackList");
+        }
+        public IActionResult FeedbackEdit(int id)
+        {
+            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
+            if (message == null)
+                return RedirectToAction("FeedbackList");
+            return View(message);
+        }
+        [HttpPost]
+        public IActionResult FeedbackEdit(FeedbackResponse editmessage)
+        {
+            var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
+            if (message != null)
+            {
+                message.FeedbackId = editmessage.FeedbackId;
+                message.OrderDetailId = editmessage.OrderDetailId;
+                message.FeedbackComment = editmessage.FeedbackComment;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("FeedbackList");
+        }
     }
 }
