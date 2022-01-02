@@ -26,8 +26,10 @@ namespace 鮮蔬果季_前台.Controllers
                           join od2 in _context.OrderDetails
                           on fbr1.OrderDetailId equals od2.OrderDetailId
                           join prod in _context.Products
-                            on od2.ProductId equals prod.ProductId
-                          select new {fbr1,fb,od2,prod}
+                          on od2.ProductId equals prod.ProductId
+                          join sup in _context.Suppliers
+                          on prod.SupplierId equals sup.SupplierId
+                          select new {fbr1,fb,od2,prod,sup}
                       ).ToList();
             
             
@@ -37,8 +39,9 @@ namespace 鮮蔬果季_前台.Controllers
                 所有意見回饋列表.Add(new FeedbackResponseViewModel()
                 {
                     feedback = item.fb,
-                    feedbackResponse = item.fbr1
-                    
+                    feedbackResponse = item.fbr1,
+                    product=item.prod,
+                    supplier=item.sup
                 });
 
             }
