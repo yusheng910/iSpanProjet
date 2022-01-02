@@ -90,6 +90,32 @@ namespace 鮮蔬果季_前台.Controllers
                 });
             }
             ViewBag.廣告商品列表 = 廣告商品列表;
+
+
+            var datas = (from E in db.BlogDetails
+                         orderby E.PublishedDate descending
+                         select E).ToList();
+            List<BlogDetailListViewModel> 首頁部落格資料 = new List<BlogDetailListViewModel>();
+            foreach (var item in datas)
+            {
+                //db = new 鮮蔬果季Context();
+                var 供應商與城市 = (from Sl in db.Suppliers
+                              join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
+                              where Sl.SupplierId == item.SupplierId
+                              select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
+                首頁部落格資料.Add(new BlogDetailListViewModel()
+                {
+                    BlogDetail = item,
+                    Supplier = 供應商與城市.Sl,
+                    City = 供應商與城市.C
+                });
+            }
+
+
+            ViewBag.首頁部落格資料 = 首頁部落格資料;
+
+
+
             return View(所有商品列表);
         }
 
