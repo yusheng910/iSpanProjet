@@ -598,10 +598,12 @@ namespace 鮮蔬果季_前台.Controllers
                 var 購物車商品 = (from pro in db.Products
                              join item in db.ShoppingCarts
                              on pro.ProductId equals item.ProductId
+                             join sup in db.Suppliers
+                             on pro.SupplierId equals sup.SupplierId
                              join stat in db.Statuses
                              on item.StatusId equals stat.StatusId
                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                             select new { item, pro, stat }).ToList();
+                             select new { item, pro, stat, sup }).ToList();
                 var 總價 = 0;
                 foreach (var c in 購物車商品)
                 {
@@ -612,7 +614,8 @@ namespace 鮮蔬果季_前台.Controllers
                         shopCart = c.item,
                         product = c.pro,
                         photoforCart = 封面相片,
-                        status = c.stat
+                        status = c.stat,
+                        supplier = c.sup
                         ////單筆訂單細項總價 = 訂單細項總價
                     });
                 }
@@ -659,10 +662,12 @@ namespace 鮮蔬果季_前台.Controllers
                 var 購物車商品 = (from pro in db.Products
                              join item in db.ShoppingCarts
                              on pro.ProductId equals item.ProductId
+                             join sup in db.Suppliers
+                             on pro.SupplierId equals sup.SupplierId
                              join stat in db.Statuses
                              on item.StatusId equals stat.StatusId
                              where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
-                             select new { item, pro, stat }).ToList();
+                             select new { item, pro, stat, sup }).ToList();
                 var 總價 = 0;
                 foreach (var c in 購物車商品)
                 {
@@ -673,7 +678,8 @@ namespace 鮮蔬果季_前台.Controllers
                         shopCart = c.item,
                         product = c.pro,
                         photoforCart = 封面相片,
-                        status = c.stat
+                        status = c.stat,
+                        supplier = c.sup
                         ////單筆訂單細項總價 = 訂單細項總價
                     });
                 }
