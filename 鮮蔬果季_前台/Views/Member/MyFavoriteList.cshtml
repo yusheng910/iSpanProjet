@@ -1,4 +1,4 @@
-﻿
+﻿@model List<鮮蔬果季_前台.ViewModels.MyFavoriteViewModel>
 @{
     ViewData["Title"] = "List";
 }
@@ -25,7 +25,36 @@
         }
     </style>
 }
-
+@section Scripts{
+    <script>
+            //加入購物車(改用document來解決利用ajax加載partialView後，無法觸發jquery事件 )
+        $(document).on("click", ".addCart", function (e) {
+            let value = $(this).find(".add").val();
+            console.log(value)
+            async function AddtoCart() {
+                let response = await fetch("@Url.Content("~/Shopping/ListAddToCart/")" + value+"?count=1")
+                let data = await response.text() //如果沒登入會回傳0
+                console.log(data)
+                if (data != 0) {
+                    $("#cartNum").html(data)
+                    $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".CarttoLogin").dispatchEvent(evt)
+                }
+            }
+            AddtoCart();
+        })
+        $(document).on("click", ".btnRemove", function (e) {
+            let value = $(this).find(".remove").val();
+            console.log(value)
+            $('.FavoriteBody').load('@Url.Content("~/Member/RemoveFavorite/")'+value)
+        })
+    </script>
+}
 <!-- Start All Title Box -->
 <div class="all-title-box">
     <div class="container">
@@ -48,85 +77,71 @@
                             <tr>
                                 <th>商品圖</th>
                                 <th>商品名稱</th>
+                                <th>供應商</th>
                                 <th>售價</th>
                                 <th>現有庫存</th>
-                                <th><i class="fas fa-plus-circle"></i>加入</th>
-                                <th><i class="far fa-trash-alt"></i>移除</th>
+                                <th>
+                                    <i class="fas fa-plus-circle"></i>加入
+                                </th>
+                                <th>
+                                    <i class="far fa-trash-alt"></i>移除
+                                </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="thumbnail-img">
-                                    <a href="#">
-                                        <img class="img-fluid" src="~/images/商品照/紅蘿蔔.jpg" alt="" />
-                                    </a>
-                                </td>
-                                <td class="name-pr">
-                                    <a href="#">
-                                        紅蘿蔔
-                                    </a>
-                                </td>
-                                <td class="price-pr">
-                                    <p>NT$ 50</p>
-                                </td>
-                                <td class="quantity-box">211</td>
-                                <td class="add-pr">
-                                    <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="#">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="thumbnail-img">
-                                    <a href="#">
-                                        <img class="img-fluid" src="~/images/商品照/西瓜.jpg" alt="" />
-                                    </a>
-                                </td>
-                                <td class="name-pr">
-                                    <a href="#">
-                                        西瓜
-                                    </a>
-                                </td>
-                                <td class="price-pr">
-                                    <p>NT$ 100</p>
-                                </td>
-                                <td class="quantity-box">231</td>
-                                <td class="add-pr">
-                                    <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="#">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="thumbnail-img">
-                                    <a href="#">
-                                        <img class="img-fluid" src="~/images/商品照/牛番茄.jpg" alt="" />
-                                    </a>
-                                </td>
-                                <td class="name-pr">
-                                    <a href="#">
-                                        牛番茄
-                                    </a>
-                                </td>
-                                <td class="price-pr">
-                                    <p>NT$ 82</p>
-                                </td>
-                                <td class="quantity-box">77</td>
-                                <td class="add-pr">
-                                    <a class="btn hvr-hover" id="btnaddcart" href="#">加至購物車</a>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="#">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tbody class="FavoriteBody">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="thumbnail-img">
+                                            @{if (@item.photoBank[0] != null)
+                                                {
+                                                    <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId">
+                                                        <img class="img-fluid" src="~/images/商品照/@item.photoBank[0].PhotoPath" alt="" />
+                                                    </a>
+                                                }
+                                            }
+                                        </td>
+                                        <td class="name-pr">
+                                            <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId">
+                                                @item.product.ProductName
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @item.supplier.SupplierName
+                                        </td>
+                                        <td class="price-pr">
+                                            <p>NT$ @item.product.ProductUnitPrice</p>
+                                        </td>
+                                        <td class="quantity-box">@item.product.ProductUnitsInStock</td>
+                                        <td class="add-pr">
+                                            @if (item.product.ProductUnitsInStock == 0)
+                                            {
+                                                <a class="btn hvr-hover " style="cursor: default; color:white">
+                                                    已售完(待補貨)
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn hvr-hover addCart" id="btnaddcart" style="cursor:pointer">
+                                                    加入購物車
+                                                    <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                    <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                </a>
+                                            }
+
+                                        </td>
+                                        <td class="remove-pr">
+                                            <a style="cursor:pointer;">
+                                                <i id="btnRemove" class="fas fa-times btnRemove">
+                                                    <input class="remove" type="hidden" value="@item.myFavorite.MyFavoriteId" />
+                                                </i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
                         </tbody>
                     </table>
                 </div>

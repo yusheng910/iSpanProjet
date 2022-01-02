@@ -1,0 +1,53 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.MyFavoriteViewModel>
+@{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td class="thumbnail-img">
+                @{if (@item.photoBank[0] != null)
+                    {
+                        <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId">
+                            <img class="img-fluid" src="~/images/商品照/@item.photoBank[0].PhotoPath" alt="" />
+                        </a>
+                    }
+                }
+            </td>
+            <td class="name-pr">
+                <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId">
+                    @item.product.ProductName
+                </a>
+            </td>
+            <td>
+                @item.supplier.SupplierName
+            </td>
+            <td class="price-pr">
+                <p>NT$ @item.product.ProductUnitPrice</p>
+            </td>
+            <td class="quantity-box">@item.product.ProductUnitsInStock</td>
+            <td class="add-pr">
+                @if (item.product.ProductUnitsInStock == 0)
+                {
+                    <a class="btn hvr-hover " style="cursor: default; color:white">
+                        已售完(待補貨)
+                    </a>
+                }
+                else
+                {
+                    <a class="btn hvr-hover addCart" id="btnaddcart" style="cursor:pointer">
+                        加入購物車
+                        <input class="add" type="hidden" value="@item.product.ProductId" />
+                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                    </a>
+                }
+
+            </td>
+            <td class="remove-pr">
+                <a style="cursor:pointer;">
+                    <i id="btnRemove" class="fas fa-times btnRemove">
+                        <input class="remove" type="hidden" value="@item.myFavorite.MyFavoriteId" />
+                    </i>
+                </a>
+            </td>
+        </tr>
+    }
+}

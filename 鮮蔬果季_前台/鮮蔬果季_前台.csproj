@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Views\BackStageFeedBack\" />
+    <Folder Include="Views\BackStageProduct\" />
     <Folder Include="wwwroot\assets\btn\" />
     <Folder Include="wwwroot\assets\img\合作農友\" />
   </ItemGroup>
@@ -54,6 +55,13 @@
     <None Include="wwwroot\assets\css\scss\sections\_news.scss" />
     <None Include="wwwroot\assets\css\scss\sections\_shop-banner.scss" />
     <None Include="wwwroot\assets\css\scss\sections\_testimonials.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\BackstageAdvertiseApi\CateLoad.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -14,11 +14,11 @@
             <td>@item.member.MemberName</td>
             <td>@item.OrderDate</td>
             @{
-                string date = (item.ShippedDate).ToString();
-                date = date.Split(" ")[0];
+                //string date = (item.ShippedDate).ToString();
+                //date = date.Split(" ")[0];
                 if (item.ShippedDate != null)
                 {
-                    <td>@date</td>
+                    <td>@item.ShippedDate</td>
                 }
                 else
                 {

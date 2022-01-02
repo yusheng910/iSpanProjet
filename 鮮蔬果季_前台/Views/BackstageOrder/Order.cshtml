@@ -30,7 +30,7 @@
                                     <th style="width:65px;">訂單編號</th>
                                     <th>訂購會員</th>
                                     <th>下單時間</th>
-                                    <th>出貨日期</th>
+                                    <th>出貨時間</th>
                                     <th>狀態</th>
                                     <th>使用酷碰券</th>
                                     <th>訂單金額</th>
@@ -54,11 +54,11 @@
                                             <td>@item.member.MemberName</td>
                                             <td>@item.OrderDate</td>
                                             @{
-                                                string date = (item.ShippedDate).ToString();
-                                                date = date.Split(" ")[0];
+                                                //string date = (item.ShippedDate).ToString();
+                                                //date = date.Split(" ")[0];
                                                 if (item.ShippedDate != null)
                                                 {
-                                                    <td>@date</td>
+                                                    <td>@item.ShippedDate</td>
                                                 }
                                                 else
                                                 {
@@ -125,8 +125,8 @@
                                         <!--內容-->
                                     </div>
                                     @*<div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                                    </div>*@
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>

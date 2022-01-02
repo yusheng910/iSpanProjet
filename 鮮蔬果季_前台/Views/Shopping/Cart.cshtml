@@ -124,6 +124,7 @@
                             <tr>
                                 <th style="text-align:center;">商品</th>
                                 <th></th>
+                                <th>供應商</th>
                                 <th>價格</th>
                                 <th style="text-align:center;">數量</th>
                                 <th style="text-align:center;">小計</th>
@@ -152,6 +153,9 @@
                                                 <a href="#">
                                                     @item.product.ProductName
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <p>@item.supplier.SupplierName</p>
                                             </td>
                                             <td class="price-pr">
                                                 <p>NT$ @item.product.ProductUnitPrice</p>
