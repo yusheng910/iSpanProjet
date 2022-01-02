@@ -25,7 +25,7 @@
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
                                     <th>回應敘述</th>
-                                    <th></th>
+                                    <th>動作</th>
                                 </tr>
                             </thead>
 
@@ -35,8 +35,8 @@
                                     {
                                         <tr>
                                             <td>@item.feedbackResponse.OrderDetailId</td>
-                                            <td>1</td>
-                                            <td>1</td>
+                                            <td>@item.product.ProductName</td>
+                                            <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
                                        
@@ -48,7 +48,7 @@
                                                     <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
                                                         修改
                                                     </button>
-                                                    <input type="hidden" class="Pid" value="" />
+                                                    <input type="hidden" class="Pid" value="FeedbackEdit" />
                                                     <a class="dropdown-item" href="#">移除</a>
                                                 </div>
                                             </td>

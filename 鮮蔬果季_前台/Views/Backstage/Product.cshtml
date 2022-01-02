@@ -256,8 +256,16 @@
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.tprodbody').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
                     alert("修改成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
                 })
             }
         })

@@ -1,65 +1,129 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
-@{ int count = 0;
-    foreach (var item in Model)
-    {
-        count++;
-    <tr>
-        <td>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="@count">
-                <label class="custom-control-label" for="@count"></label>
-            </div>
-        </td>
-        <td>@count</td>
-        <td>@item.ProductName</td>
-        @{if (@item.photoBank[0] != null)
+<table class="table datatables border-dark" id="dataTable-1">
+    <thead class="thead-dark">
+        <tr>
+            <th></th>
+            <th>序號</th>
+            <th>產品名稱</th>
+            <th>照片</th>
+            <th>供應商名稱</th>
+            <th>售價</th>
+            <th>進價</th>
+            <th>庫存</th>
+            <th>上架時間</th>
+            <th>分類名稱</th>
+            <th>編輯</th>
+        </tr>
+    </thead>
+    <tbody class="tprodbody">
+        @{ int count = 0;
+            foreach (var item in Model)
             {
-                <td>
-                    <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="" alt="Image" style="width:100px;height:70px;object-fit:cover">
-                </td>
-            }
-        }
-        <td>@item.SupplierName</td>
-        <td>@item.ProductUnitPrice</td>
-        <td>@item.ProductCostPrice</td>
-        @if (@item.ProductUnitsInStock == 0)
-        {
-            <td style="color:red;font-weight:bolder">@item.ProductUnitsInStock</td>
-        }
-        else
-        {
-            <td>@item.ProductUnitsInStock</td>
-        }
-        @{
-            string date = (item.ProduceDate).ToString();
-            date = date.Split(" ")[0];
-            if (item.InShop)
-            {
-                <td>@date</td>
-            }
-            else
-            {
-                <td>尚未上架</td>
-            }
+                count++;
+                <tr>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="@count">
+                            <label class="custom-control-label" for="@count"></label>
+                        </div>
+                    </td>
+                    <td>@count</td>
+                    <td>@item.ProductName</td>
+                    @{if (@item.photoBank[0] != null)
+                        {
+                            <td>
+                                <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="" alt="Image" style="width:100px;height:70px;object-fit:cover">
+                            </td>
+                        }
+                    }
+                    <td>@item.SupplierName</td>
+                    <td>@item.ProductUnitPrice</td>
+                    <td>@item.ProductCostPrice</td>
+                    @if (@item.ProductUnitsInStock == 0)
+                    {
+                        <td style="color:red;font-weight:bolder">@item.ProductUnitsInStock</td>
+                    }
+                    else
+                    {
+                        <td>@item.ProductUnitsInStock</td>
+                    }
 
+                    @{
+                        string date = (item.ProduceDate).ToString();
+                        date = date.Split(" ")[0];
+                        if (item.InShop)
+                        {
+                            <td>@date</td>
+                        }
+                        else
+                        {
+                            <td>尚未上架</td>
+                        }
+
+                    }
+                    <td>@item.category.CategoryName</td>
+                    <td>
+                        @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                    修改
+                                </button>
+                                <input type="hidden" class="Pid" value="@item.ProductId" />
+                                <a class="dropdown-item" href="#">移除</a>
+                            </div>*@
+                        <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fe fe-edit fe-16"></i>
+                        </button>
+                        <input type="hidden" class="Pid" value="@item.ProductId" />
+                    </td>
+                </tr>
+            }
         }
-        <td>@item.category.CategoryName</td>
-        <td>
-            @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="text-muted sr-only">Action</span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                修改
-            </button>
-            <input type="hidden" class="Pid" value="@item.ProductId" />
-            <a class="dropdown-item" href="#">移除</a>
-        </div>*@
-            <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
-                修改
-            </button>
-            <input type="hidden" class="Pid" value="@item.ProductId" />
-        </td>
-    </tr>
-    }
-}
+    </tbody>
+</table>
+<!-- Modal 修改-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">產品修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="ProdEdit">
+                <div class="modal-body prodBody">
+                    <!--內容-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 新增 -->
+<div class="modal fade" id="prodCreateModal" tabindex="-1" aria-labelledby="prodCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="prodCreateModalLabel">產品新增</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="ProdCreate">
+                <div class="modal-body prodCreateBody">
+                    <!--內容-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="儲存" class="btn btn-primary CreateSubmit " data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
