@@ -65,8 +65,31 @@ namespace 鮮蔬果季_前台.Controllers
                     出售量=item.銷售量
                 });
             }
-
-
+            //廣告商品列表
+            List<AdvertiseViewModel> 廣告商品列表 = new List<AdvertiseViewModel>();
+            var 所有產品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                        on prod.SupplierId equals supp.SupplierId
+                        join c in db.ProductAdvertises
+                        on prod.ProductId equals c.ProductId
+                        orderby c.ProductAdvertiseId
+                        select new { prod, supp,c }).ToList();
+            foreach (var item in 所有產品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.prod.ProductId);
+                相片List.Add(封面相片);
+                廣告商品列表.Add(new AdvertiseViewModel()
+                {
+                    product = item.prod,
+                    supplier = item.supp,
+                    photoBank = 相片List,
+                    productAdvertise=item.c,
+                    myFavorite = 最愛商品
+                });
+            }
+            ViewBag.廣告商品列表 = 廣告商品列表;
             return View(所有商品列表);
         }
 
