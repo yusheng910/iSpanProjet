@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody id="orderBody" class="tprodbody">
+                            <tbody id="feedbackBody" class="tprodbody">
                                 @{ int count = 0;
                                     foreach (var item in Model)
                                     {
@@ -44,7 +44,7 @@
                                                 <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                                                     <i class="fe fe-edit fe-16"></i>
                                                 </button>
-                                                <input type="hidden" class="Pid" value="@item." />
+                                                <input type="hidden" class="Pid" value="@item.FeedbackResponseID" />
                                             </td>
                                         </tr>
                                     }
@@ -97,7 +97,7 @@
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageProductApi/ProdDetailPartial")/" + pid, function () {
+            $('.feedbackBody').load("@Url.Content("~/BackstageFeedback/")/" + pid, function () {
                 var editor = document.getElementById('editor');
                 if (editor) {
                     console.log(editor)
