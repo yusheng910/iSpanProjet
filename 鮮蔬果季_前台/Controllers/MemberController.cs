@@ -39,8 +39,61 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
             }
-            return View();
+            //廣告商品列表
+            List<MyFavoriteViewModel> 商品列表 = new List<MyFavoriteViewModel>();
+            var 所有產品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                        on prod.SupplierId equals supp.SupplierId
+                        join c in db.MyFavorites
+                        on prod.ProductId equals c.ProductId
+                        where c.MemberId == UserLogin.member.MemberId
+                        orderby c.MyFavoriteId
+                        select new { prod, supp, c }).ToList();
+            foreach (var item in 所有產品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
+                相片List.Add(封面相片);
+                商品列表.Add(new MyFavoriteViewModel()
+                {
+                    product = item.prod,
+                    supplier = item.supp,
+                    photoBank = 相片List,
+                    myFavorite = item.c,
+                });
+            }
+            return View(商品列表);
+        }        
+        public IActionResult RemoveFavorite(int id)
+        {
+            var q = db.MyFavorites.FirstOrDefault(a => a.MyFavoriteId == id);
+            db.MyFavorites.Remove(q);
+            db.SaveChanges();
+            List<MyFavoriteViewModel> 商品列表 = new List<MyFavoriteViewModel>();
+            var 所有產品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                        on prod.SupplierId equals supp.SupplierId
+                        join c in db.MyFavorites
+                        on prod.ProductId equals c.ProductId
+                        where c.MemberId == UserLogin.member.MemberId
+                        orderby c.MyFavoriteId
+                        select new { prod, supp, c }).ToList();
+            foreach (var item in 所有產品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
+                相片List.Add(封面相片);
+                商品列表.Add(new MyFavoriteViewModel()
+                {
+                    product = item.prod,
+                    supplier = item.supp,
+                    photoBank = 相片List,
+                    myFavorite = item.c,
+                });
+            }
+            return PartialView(商品列表);
         }
         public IActionResult MemberCenter()
         {
