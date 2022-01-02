@@ -1,4 +1,5 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.ShoppingListViewModel>
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -17,6 +18,14 @@
 
         .slides-navigation a {
             border-radius: 10px;
+        }
+
+        @*限制行數,並隱藏*@ .pp {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 }
@@ -92,7 +101,7 @@
             RemovetoCart();
         })
     </script>
- }
+}
 <!-- Start Slider -->
 <div id="slides-shop" class="cover-slides">
     <ul class="slides-container">
@@ -137,19 +146,19 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="~/images/categories_img_01.jpg" alt="" />
-                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List"  asp-route-id="2">能量根莖類</a>
+                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List" asp-route-id="2">能量根莖類</a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="~/images/categories_img_02.jpg" alt="" />
-                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List"  asp-route-id="7">鮮甜水果鋪</a>
+                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List" asp-route-id="7">鮮甜水果鋪</a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="~/images/categories_img_03.jpg" alt="" />
-                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List"  asp-route-id="1">營養蔬菜街</a>
+                    <a class="btn hvr-hover" asp-area="" asp-controller="Shopping" asp-action="List" asp-route-id="1">營養蔬菜街</a>
                 </div>
             </div>
         </div>
@@ -444,6 +453,7 @@
 </div>
 <!-- End Products  -->
 <!-- Start Blog  -->
+
 <div class="latest-blog">
     <div class="container">
         <div class="row">
@@ -454,76 +464,51 @@
                 </div>
             </div>
         </div>
+
+
         <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="blog-box">
-                    <div class="blog-img">
-                        <img class="img-fluid" src="~/images/blog-img.jpg" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="title-blog">
-                            <h3>【葉菜類】高麗菜</h3>
-                            <p>作者:江凱詳</p>
-                            <p>產地:鮮蔬果季</p>
+            @{
+                int 次數 = 0;
+                foreach (var item in ViewBag.首頁部落格資料)    @*把viewbag跑全部資料,因Model只允許有一個*@
+                {
+                    次數++;
+                    if (次數 == 4)  
+                    {
+                        break;
+                    }
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="blog-box" style="float:right">
+                            <div class="blog-img">
+                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.SupplierId">
+                                    <img class="img-fluid" src="~/images/農友部落格照/@item.BlogDetail.PhotoPath" />
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="news-text-box blogNewsSize" style="padding: 5px">
+                                    <h2 style="padding:5px ">
+                                        @item.BlogDetail.Title
+                                        @*@Html.DisplayFor(modelitem => item._City.CityName)*@
+                                        <a href="single-news.html"></a>
+                                    </h2>
+                                    <p class="blog-meta pp" style="padding: 1px  0px;  font-size:medium">
+                                        <span class="author"><i class="fas fa-user"></i> @item.City.CityName</span>
+                                        <span class="author"><i class="fas fa-user"></i> @item._Supplier.SupplierName</span>
+                                    </p>
+                                    <p class=" pp">@item.BlogDetail.Maintext</p>
+                                </div>
+                                @*<ul class="option-blog">
+                                    <li>
+                                        <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList"><i class="far fa-heart"></i></a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1"><i class="fas fa-eye"></i></a>
+                                    </li>
+                                </ul>*@
+                            </div>
                         </div>
-                        <ul class="option-blog">
-                            <li>
-                                <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList"><i class="far fa-heart"></i></a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1"><i class="fas fa-eye"></i></a>
-                            </li>
-                        </ul>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="blog-box">
-                    <div class="blog-img">
-                        <img class="img-fluid" src="~/images/blog-img-01.jpg" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="title-blog">
-                            <h3>【根莖瓜果豆類】紅蘿蔔</h3>
-                            <p>作者:江凱詳</p>
-                            <p>產地:鮮蔬果季</p>
-                        </div>
-                        <ul class="option-blog">
-                            <li>
-                                <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList"><i class="far fa-heart"></i></a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1"><i class="fas fa-eye"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="blog-box">
-                    <div class="blog-img">
-                        <img class="img-fluid" src="~/images/blog-img-02.jpg" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="title-blog">
-                            <h3>
-                                台中大甲檳榔心芋頭
-                            </h3>
-                            <p>作者:村長 </p>
-                            <p>日期:2021-12-03</p>
-                        </div>
-                        <ul class="option-blog">
-                            <li>
-                                <a asp-area="" asp-controller="Member" asp-action="MyFavoriteList"><i class="far fa-heart"></i></a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1"><i class="fas fa-eye"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                }}
         </div>
     </div>
-</div>
-<!-- End Blog  -->
+        </div>
+        <!-- End Blog  -->
