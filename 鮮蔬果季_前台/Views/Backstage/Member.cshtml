@@ -96,7 +96,7 @@
                                                     <span class="text-muted sr-only">Action</span>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <button type="button" class="dropdown-item BtnEdit"  data-toggle="modal" data-target="#EditModal">修改</button>
+                                                    <button type="button" class="dropdown-item BtnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
                                                     <input type="hidden" class="Membid" value="@item.MemberId" />
                                                 </div>
                                             </td>
@@ -105,26 +105,26 @@
                                 }
                             </tbody>
                         </table>
-                        <!-- Modal 會員修改-->
-                        <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" style="max-width: 1000px;">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form name="MembEdit">
-                                        <div class="modal-body memberBody">
-                                            <!--內容-->
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary BtnSave" data-dismiss="modal" />
-                                        </div>
-                                    </form>
+                    </div>
+                    <!-- Modal 會員修改-->
+                    <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="max-width: 1000px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+                                <form name="MembEdit">
+                                    <div class="modal-body memberBody">
+                                        <!--內容-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                        <input type="submit" value="儲存" class="btn btn-primary BtnSave" data-dismiss="modal" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,8 @@
             })
             const data = await response.text()
             if (data == 1) {
-                $(".card-body").load("@Url.Content("~/BackstageMember/showNewMemberDetil")",function () {
+                $(".card-body").load("@Url.Content("~/BackstageMember/showNewMemberDetil")", function () {
+                    alert("修改成功")
                     $('#dataTable-1').DataTable(
                         {
                             autoWidth: true,
