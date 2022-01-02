@@ -15,7 +15,7 @@ namespace 鮮蔬果季_前台.Controllers
         {
             db = dbContext;
         }
-        public IActionResult List(CSelectViewModel select)
+        public IActionResult List(int? id)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
@@ -39,6 +39,17 @@ namespace 鮮蔬果季_前台.Controllers
                        on prod.SupplierId equals supp.SupplierId
                        orderby prod.ProductId
                        select new { prod, supp }).ToList();
+            if (id != null)
+            {
+                所有產品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                        on prod.SupplierId equals supp.SupplierId
+                        join c in db.CategoryDetails
+                        on prod.ProductId equals c.ProductId
+                        where c.CategoryId == id
+                        orderby prod.ProductId
+                        select new { prod, supp }).ToList();
+            }
             foreach (var item in 所有產品)
             {            
                 List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
@@ -74,7 +85,6 @@ namespace 鮮蔬果季_前台.Controllers
             ViewBag.次類別 = 商品次類別;
             ViewBag.次類別2 = 商品次類別2;
             ViewBag.分類明細 = 分類list;
-
 
             return View(所有商品列表);
         }
