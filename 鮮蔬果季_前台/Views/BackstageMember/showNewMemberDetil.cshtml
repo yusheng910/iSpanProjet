@@ -1,0 +1,116 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.MemberViewModel>
+<table class="table datatables border-dark" id="dataTable-1">
+    <thead class="thead-dark">
+        <tr>
+            <th></th>
+            <th>編號</th>
+            <th>頭像</th>
+            <th>會員</th>
+            <th>帳號</th>
+            <th>密碼</th>
+            <th>地址</th>
+            <th>城市</th>
+            <th>電話</th>
+            <th>生日</th>
+            <th>動作</th>
+        </tr>
+    </thead>
+    <tbody class="tmemberbody MemberBody">
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="@count">
+                            <label class="custom-control-label" for="@count"></label>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="mb-0 text-muted">
+                            @item.MemberId
+                        </p>
+                    </td>
+                    <td>
+                        <div class="avatar avatar-sm">
+                            <img src="~/images/MemberPhoto/@item.MemberPhotoPass" alt="..." class="avatar-img rounded-circle">
+                        </div>
+                    </td>
+                    <td>
+                        <p class="mb-0 text-muted mName">
+                            <strong>@item.MemberName</strong>
+                        </p>
+                    </td>
+                    <td>
+                        <p class="mb-0 text-muted">
+                            <strong>@item.UserId</strong>
+                        </p>
+                    </td>
+                    <td>
+                        <p class="mb-0 text-muted">
+                            <strong>@item.Password</strong>
+                        </p>
+                    </td>
+                    <td>
+                        <p class="mb-0 text-muted">
+                            <strong>@item.MemberAddress</strong>
+                        </p>
+                    </td>
+                    <td>
+                        <small class="mb-0 text-muted"><strong>@item.city</strong></small>
+                    </td>
+                    <td>
+                        <p class="mb-0 text-muted">
+                            <a href="#" class="text-muted"><strong>@item.Mobile</strong></a>
+                        </p>
+                    </td>
+                    @{
+                        string date = (item.BirthDate).ToString();
+                        date = date.Split(" ")[0];
+                        <td class="text-muted">
+                            <strong>@date</strong>
+                        </td>
+                    }
+
+                    <td>
+                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button type="button" class="dropdown-item BtnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
+                            <input type="hidden" class="Membid" value="@item.MemberId" />
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<!-- Modal 會員修改-->
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="MembEdit">
+                <div class="modal-body memberBody">
+                    <!--內容-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="儲存" class="btn btn-primary BtnSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

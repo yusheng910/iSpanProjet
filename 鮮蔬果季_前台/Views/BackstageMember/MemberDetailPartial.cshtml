@@ -1,0 +1,88 @@
+﻿@model 鮮蔬果季_前台.ViewModels.MemberViewModel
+    <div class="row mt-5 align-items-center">
+        <div class="col-md-3 text-center mb-5">
+            <div id="photo" style=" margin-top: 0px; padding-bottom: 0px; height: 100px ">
+                <p style="position:relative;">
+                    <div class="PartialPhotoLoad">
+                        @{
+                            if (Model.MemberPhotoPass != null)
+                            {
+                                <img src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                            }
+                            else
+                            {
+                                <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:160px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                            }
+                        }
+                    </div>
+                    <input class="PartialselectPhoto" name="photo" type="file" style=" left:150px; top:60px; position:absolute; color:white; margin-top:20px; padding:10px;" />
+                </p>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="hidden" asp-for="MemberId" name="MemberId" />
+            <label for="name">姓名</label>
+            <input asp-for="MemberName" type="text" id="MemberName" name="MemberName" class="form-control" placeholder="您的大名" required data-error="請填寫您的欄位">
+            <div class="help-block with-errors">
+                @*錯誤訊息的ul要先自己建出來 並且li需要給個id(emailerr)*@
+                <ul class="list-unstyled">
+                    <li id="MemberNameerr"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            性別：
+            <input readonly="readonly" id="genderLB" asp-for="Gender" name="Gender" class="GenderLB" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
+            <select id="gender" class="form-control Gender">
+                <option></option>
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail4">電子郵件帳號</label>
+        <input readonly="readonly" asp-for="UserId" type="email" name="UserId" class="form-control" id="inputEmail4" placeholder="您的電子郵件" required data-error="請填寫您的欄位">
+    </div>
+    <div class="form-group">
+        <label for="inputAddress5">現居地址</label>
+        <input asp-for="MemberAddress" type="text" name="MemberAddress" class="form-control" id="inputAddress5" placeholder="您的現居地址" required data-error="請填寫您的欄位">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="phone">聯絡電話</label>
+            <input asp-for="Mobile" type="text" name="Mobile" id="Mobile" class="form-control" placeholder="您的電話" required data-error="請填寫您的欄位">
+            <div class="help-block with-errors">
+                @*錯誤訊息的ul要先自己建出來 並且li需要給個id(emailerr)*@
+                <ul class="list-unstyled">
+                    <li id="Mobileerr"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            現居縣市：
+            <input readonly="readonly" class="cityLB" asp-for="city" name="city" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
+            <select asp-for="city" class="form-control statechange">
+                @foreach (var item in ViewBag.AllCities)
+                {
+                    if (Model.city == item.CityName)
+                    {
+                        <option selected="selected">@item.CityName</option>
+                    }
+                    else
+                    {
+                        <option>@item.CityName</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="city" class="text-danger"></span>
+        </div>
+    </div>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

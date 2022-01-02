@@ -3,7 +3,7 @@
     ViewData["Title"] = "Login";
 
 }
-@section Styles{
+@section Scripts{
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
@@ -40,7 +40,14 @@
                     margin-top: -93px;
                 }
     </style>
-
+    <script>
+        $("#submit").click(function () {
+            if ($("#username").val() == "" || $("#password").val() == "") {
+                alert("尚未輸入帳號或密碼")
+                return false
+            }
+        })
+    </script>
 }
 
 
@@ -73,7 +80,7 @@
                         <div class="form-group" >
                             <label for="remember-me" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                             <div class="submit-button">
-                                <button type="submit" name="submit" class="btn hvr-hover ">登入</button>
+                                <button id="submit" type="submit" name="submit" class="btn hvr-hover ">登入</button>
                                 <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo">Demo</a>
                             </div>
                         </div>
