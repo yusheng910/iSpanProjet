@@ -147,11 +147,16 @@
     </style>
 }
 <!-- Start All Title Box -->
+<div class="clickmsgbox"></div>
 <div class="all-title-box">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h2>會員中心</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                    <li class="breadcrumb-item active">會員中心</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -186,15 +191,15 @@
                                                 @{
                                                     if (Model.MemberPhotoPass != null)
                                                     {
-                                                        <img src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:160px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                                                        <img src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
                                                     }
-                                                    @*else
-                                                    {
-                                                        <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:160px; position:absolute; object-fit:cover; border-radius: 50%;" />
-                                                    }*@
+                                                    else
+                                                        {
+                                                            <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                                                        }
                                                 }
                                             </div>
-                                            <input class="selectPhoto" name="photo" type="file" style=" left:250px; top:60px; position:absolute; color:white; margin-top:20px; padding:10px;" />
+                                            <input class="selectPhoto" name="photo" type="file" style=" left:150px; top:60px; position:absolute; color:white; margin-top:20px; padding:10px;" />
                                         </p>
                                     </div>
                                 </div>

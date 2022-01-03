@@ -83,6 +83,7 @@ namespace 鮮蔬果季_前台.Controllers
                     cust.CityId = cityid;
                     cust.Gender = p.Gender;
                     cust.MemberName = p.MemberName;
+                    cust.Password = p.Password;
                     db.SaveChanges();
                     return Content("1");
                 }
