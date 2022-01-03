@@ -1,0 +1,404 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.ReviewViewModel>
+
+@{
+    ViewData["Title"] = "Coupons";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <style>
+        .dropdown-item {
+            padding-left: 5px;
+        }
+
+            .dropdown-item:focus {
+                background-color: transparent;
+            }
+
+            .dropdown-item:hover {
+                background-color: transparent;
+                color: darkcyan;
+            }
+
+        .btnAdd {
+            font-size: 16px;
+            padding: 10px 20px 8px 16px;
+        }
+
+        .couponlist tr:hover {
+            background-color: aliceblue;
+        }
+
+        .control-label {
+            font-weight: bold;
+        }
+        /*        .cpcondition{
+            float:left;
+            width:45%;
+            padding-right:2.5%;
+        }
+        .cpdisc{
+            float:left;
+            width:45%;
+            padding-left:2.5%;
+        }*/
+    </style>
+}
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h2 class="mb-2 page-title">酷碰券管理</h2>
+        <button type="button" class="btn mb-2 btn-primary btnAdd" data-toggle="modal" data-target="#ModalAdd">+新增酷碰券</button>
+        <p class="card-text"></p>
+        <div class="row my-4">
+            <!-- Small table -->
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <!-- table -->
+                        <table class="table datatables border-dark" id="dataTable-1">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>序號</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().ProductName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().SupplierName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().OrderDetailId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().ReviewDate)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().Comments)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().StarRanking)</th>
+                                    <th>修改</th>
+                                    @*<th>編輯</th>*@
+                                </tr>
+                            </thead>
+                            <tbody class="couponlist">
+                                @{ int count = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        count++;
+                                        string 評論日期 = (item.ReviewDate).ToString("yyyy/MM/dd tt hh:mm");
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.ProductName</td>
+                                            <td>@item.SupplierName</td>
+                                            <td>@item.OrderDetailId</td>
+                                            <td>@item.ReviewDate</td>
+                                            @{
+                                                if (item.Comments == null)
+                                                {
+                                                    <td style="font-style:italic">*沒有留下評論*</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.Comments</td>
+                                                }
+                                            }
+                                            <td>
+                                                @item.StarRanking
+                                            </td>
+                                            <td>
+                                                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
+                                                <input type="hidden" class="Cid" value="@item.ReviewId" />
+                                            </td>
+                                            @*<td>
+                                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="text-muted sr-only">Action</span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                            修改
+                                                        </button>
+                                                        <input type="hidden" class="Cid" value="@item.CouponId" />
+                                                        <a class="dropdown-item btnDel" href="#">移除</a>
+                                                    </div>
+                                                </td>*@
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- simple table -->
+        </div> <!-- end section -->
+    </div> <!-- .col-12 -->
+</div> <!-- .row -->
+<!-- Modal -->
+<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalEditLabel">酷碰券修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="CouponsEdit">
+                <div class="modal-body EditBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-danger"></div>
+                            <input type="hidden" />
+                            <div class="form-group">
+                                <label class="control-label"></label> @*酷碰名稱*@
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group cpcondition">
+                                <label class="control-label"></label> @*折扣條件*@
+                                <input class="form-control" min="0" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group cpdisc">
+                                <label class="control-label"></label> @*折扣金額*@
+                                <input class="form-control" min="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label> @*描述*@
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label> @*開始日*@
+                                <input class="form-control startDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label> @*結束日*@
+                                <input class="form-control endDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label> @*發放數*@
+                                <input class="form-control" min="1" value="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btneditdemo">DEMO</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="儲存" class="btn btn-primary btnSave btnEditSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal2 -->
+<div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalAddLabel">新增酷碰券</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="CouponsAdd">
+                <div class="modal-body CreateBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-danger"></div>
+                            <input type="hidden" />
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="0" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" id="startDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" id="endDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="1" value="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btncredemo">DEMO</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
+        $('#dataTable-1').DataTable(
+            {
+                autoWidth: true,
+                "lengthMenu": [
+                    [16, 32, 64, -1],
+                    [16, 32, 64, "All"]
+                ]
+            });
+
+        $(document).on("click", ".btnEdit", function () {
+            var Cid = $(this).next(".Cid").val();
+            //console.log(Cid);
+            $('.EditBody').load("@Url.Content("~/BackstageCouponsApi/CouponsEditPartial")/" + Cid)
+        })
+
+        $(document).on("click", ".btnEditSave", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(document.CouponsEdit)
+            const response = await fetch('@Url.Content("~/BackstageCouponsApi/CouponsEditPartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.card-body').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
+                    alert("修改成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        })
+
+        $(document).on("click", ".btnAdd", function () {
+            $('.CreateBody').load("@Url.Content("~/BackstageCouponsApi/CouponsCreatePartial")")
+        })
+
+
+        $(document).on("click", ".btnAddSave", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(document.CouponsAdd)
+            const response = await fetch('@Url.Content("~/BackstageCouponsApi/CouponsCreatePartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.card-body').load("@Url.Content("~/BackstageCouponsApi/CouponsListPartial")", function () {
+                    alert("新增成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        })
+
+
+
+        $(document).on("change", ".startDate", function () {
+            var strdate = $(".startDate").val();
+            var enddate = $(".endDate").val();
+            console.log(strdate);
+            console.log(enddate);
+            if (strdate > enddate) {
+                alert("開始日期不能大於結束日期!");
+                $(".btnSave").attr("disabled", true);
+            }
+            else{
+                $(".btnEditSave").removeAttr("disabled");
+            }
+
+        });
+        $(document).on("change", ".endDate", function () {
+            var strdate = $(".startDate").val();
+            var enddate = $(".endDate").val();
+            console.log(strdate);
+            console.log(enddate);
+            if (enddate < strdate) {
+                alert("結束日期不能小於開始日期!");
+                $(".btnEditSave").attr("disabled", true);
+            }
+            else {
+                $(".btnEditSave").removeAttr("disabled");
+            }
+        })
+
+        $(document).on("change", "#startDate", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            console.log(strdate);
+            console.log(enddate);
+            if (strdate > enddate && enddate!="") {
+                alert("開始日期不能大於結束日期!");
+                $(".btnAddSave").attr("disabled", true);
+            }
+            else {
+                $(".btnAddSave").removeAttr("disabled");
+            }
+
+        });
+        $(document).on("change", "#endDate", function () {
+            var strdate = $("#startDate").val();
+            var enddate = $("#endDate").val();
+            console.log(strdate);
+            console.log(enddate);
+            if (enddate < strdate && strdate!="") {
+                alert("結束日期不能小於開始日期!");
+                $(".btnAddSave").attr("disabled", true);
+            }
+            else {
+                $(".btnAddSave").removeAttr("disabled");
+            }
+        })
+
+        $(document).on("click", ".btncredemo", function () {
+            $(".crename").val("感恩回饋-200");
+            $(".crecon").val(2000);
+            $(".credis").val(200);
+            $(".crecrib").val("單筆消費滿NT$ 2000 現抵NT$ 200");
+            $(".crestr").val("2022-01-25T00:00");
+            $(".creend").val("2022-02-25T00:00");
+            $(".crequn").val(10);
+        })
+
+        $(document).on("click", ".btneditdemo", function () {
+            $(".editname").val("快樂買菜金");
+            $(".editcon").val(1000);
+            $(".editdis").val(100);
+            $(".editcrib").val("單筆消費滿NT$ 1000 現抵NT$ 100");
+            $(".editstr").val("2022-01-10T00:00");
+            $(".editend").val("2022-02-10T00:00");
+            $(".editqun").val(10);
+        })
+
+
+    </script>
+
+}

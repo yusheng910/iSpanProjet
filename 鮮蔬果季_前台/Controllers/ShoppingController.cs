@@ -86,6 +86,36 @@ namespace 鮮蔬果季_前台.Controllers
             ViewBag.次類別2 = 商品次類別2;
             ViewBag.分類明細 = 分類list;
 
+            List<ShoppingListViewModel> 限時商品列表 = new List<ShoppingListViewModel>();
+            var 限時商品 = (from prod in db.Products
+                        join supp in db.Suppliers
+                        on prod.SupplierId equals supp.SupplierId
+                        join sa in db.ProductOnSales
+                        on prod.ProductId equals sa.ProductId
+                        orderby prod.ProductId
+                        select new { prod, supp, sa }).ToList();
+
+            foreach (var item in 限時商品)
+            {
+                List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.prod.ProductId);
+                相片List.Add(封面相片);
+                var 欲加購物車商品 = db.ShoppingCarts.FirstOrDefault(c => c.MemberId == UserLogin.member.MemberId && c.ProductId == item.prod.ProductId);
+                var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.prod.ProductId); /*TODO 目前會員ID寫死的*/
+                限時商品列表.Add(new ShoppingListViewModel()
+                {
+                    product = item.prod,
+                    supplier = item.supp,
+                    photoBank = 相片List,
+                    myFavorite = 最愛商品,
+                    shopCart = 欲加購物車商品,
+                    productOnSale= item.sa
+                });
+            }
+            ViewBag.限時特價 = 限時商品列表;
+
+
+
             return View(所有商品列表);
         }
         #region List的PartialView商業邏輯查詢
