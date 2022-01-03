@@ -178,6 +178,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-info btneditdemo">DEMO</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <input type="submit" value="儲存" class="btn btn-primary btnSave btnEditSave" data-dismiss="modal" />
                 </div>
@@ -240,6 +241,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-info btncredemo">DEMO</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
                 </div>
@@ -324,8 +326,8 @@
         $(document).on("change", ".startDate", function () {
             var strdate = $(".startDate").val();
             var enddate = $(".endDate").val();
-            //console.log(strdate);
-            //console.log(enddate);
+            console.log(strdate);
+            console.log(enddate);
             if (strdate > enddate) {
                 alert("開始日期不能大於結束日期!");
                 $(".btnSave").attr("disabled", true);
@@ -338,8 +340,8 @@
         $(document).on("change", ".endDate", function () {
             var strdate = $(".startDate").val();
             var enddate = $(".endDate").val();
-            //console.log(strdate);
-            //console.log(enddate);
+            console.log(strdate);
+            console.log(enddate);
             if (enddate < strdate) {
                 alert("結束日期不能小於開始日期!");
                 $(".btnEditSave").attr("disabled", true);
@@ -352,8 +354,8 @@
         $(document).on("change", "#startDate", function () {
             var strdate = $("#startDate").val();
             var enddate = $("#endDate").val();
-            //console.log(strdate);
-            //console.log(enddate);
+            console.log(strdate);
+            console.log(enddate);
             if (strdate > enddate && enddate!="") {
                 alert("開始日期不能大於結束日期!");
                 $(".btnAddSave").attr("disabled", true);
@@ -366,8 +368,8 @@
         $(document).on("change", "#endDate", function () {
             var strdate = $("#startDate").val();
             var enddate = $("#endDate").val();
-            //console.log(strdate);
-            //console.log(enddate);
+            console.log(strdate);
+            console.log(enddate);
             if (enddate < strdate && strdate!="") {
                 alert("結束日期不能小於開始日期!");
                 $(".btnAddSave").attr("disabled", true);
@@ -376,6 +378,28 @@
                 $(".btnAddSave").removeAttr("disabled");
             }
         })
+
+        $(document).on("click", ".btncredemo", function () {
+            $(".crename").val("感恩回饋-200");
+            $(".crecon").val(2000);
+            $(".credis").val(200);
+            $(".crecrib").val("單筆消費滿NT$ 2000 現抵NT$ 200");
+            $(".crestr").val("2022-01-25T00:00");
+            $(".creend").val("2022-02-25T00:00");
+            $(".crequn").val(10);
+        })
+
+        $(document).on("click", ".btneditdemo", function () {
+            $(".editname").val("快樂買菜金");
+            $(".editcon").val(1000);
+            $(".editdis").val(100);
+            $(".editcrib").val("單筆消費滿NT$ 1000 現抵NT$ 100");
+            $(".editstr").val("2022-01-10T00:00");
+            $(".editend").val("2022-02-10T00:00");
+            $(".editqun").val(10);
+        })
+
+
     </script>
 
 }

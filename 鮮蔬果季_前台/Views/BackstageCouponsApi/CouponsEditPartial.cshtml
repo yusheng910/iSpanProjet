@@ -14,37 +14,37 @@
         <input type="hidden" asp-for="CouponId" />
         <div class="form-group">
             <label asp-for="CouponName" class="control-label"></label>
-            <input asp-for="CouponName" class="form-control" placeholder="輸入酷碰券名稱" />
+            <input asp-for="CouponName" class="form-control editname" placeholder="輸入酷碰券名稱" />
             <span asp-validation-for="CouponName" class="text-danger"></span>
         </div>
         <div class="form-group cpcondition">
             <label asp-for="DiscountCondition" class="control-label"></label>
-            <input asp-for="DiscountCondition" class="form-control" placeholder="輸入折扣金額條件" min="0" />
+            <input asp-for="DiscountCondition" class="form-control editcon" placeholder="輸入折扣金額條件" min="0" />
             <span asp-validation-for="DiscountCondition" class="text-danger"></span>
         </div>
         <div class="form-group cpdisc">
             <label asp-for="CouponDiscount" class="control-label"></label>
-            <span>現折NT$</span><input asp-for="CouponDiscount" class="form-control" placeholder="輸入折扣金額" min="1" />
+            <span>現折NT$</span><input asp-for="CouponDiscount" class="form-control editdis" placeholder="輸入折扣金額" min="1" />
             <span asp-validation-for="CouponDiscount" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CouponDescription" class="control-label"></label>
-            <input asp-for="CouponDescription" class="form-control" placeholder="輸入酷碰券的描述" />
+            <input asp-for="CouponDescription" class="form-control editcrib" placeholder="輸入酷碰券的描述" />
             <span asp-validation-for="CouponDescription" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CouponStartDate" class="control-label"></label>
-            <input asp-for="CouponStartDate" class="form-control startDate" placeholder="輸入開始日期" min="@CalDate.strdate" />
+            <input asp-for="CouponStartDate" class="form-control startDate editstr" placeholder="輸入開始日期" min="@CalDate.strdate" />
             <span asp-validation-for="CouponStartDate" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CouponEndDate" class="control-label"></label>
-            <input asp-for="CouponEndDate" class="form-control endDate" placeholder="輸入結束日期" min="@CalDate.strdate" />
+            <input asp-for="CouponEndDate" class="form-control endDate editend" placeholder="輸入結束日期" min="@CalDate.strdate" />
             <span asp-validation-for="CouponEndDate" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CouponQuantityIssued" class="control-label"></label>
-            <input asp-for="CouponQuantityIssued" class="form-control" placeholder="發放的數量" />
+            <input asp-for="CouponQuantityIssued" class="form-control editqun" placeholder="發放的數量" />
             <span asp-validation-for="CouponQuantityIssued" class="text-danger"></span>
         </div>
     </div>
