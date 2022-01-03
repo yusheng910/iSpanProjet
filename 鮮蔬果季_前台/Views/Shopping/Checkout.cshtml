@@ -18,7 +18,6 @@
         .order-box h3 {
             font-size: 18px;
         }
-
     </style>
 }
 
@@ -244,17 +243,18 @@
             //console.log("NUM=" + num);
             var CpQunt = num - 1;*@
             //console.log("CpQunt=" + CpQunt);
-            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid='+ cpid)
-            var data = await response.text();
-            var txtAddress = $('#address').val()
+            var txtAddress = $('.address').val()
+            console.log(txtAddress)
             if (txtAddress != "") {
-                if (data == 1) {
-                    // 創建事件物件
-                    var evt = document.createEvent("HTMLEvents");
-                    // 初始化
-                    evt.initEvent("click", false, false);
-                    document.querySelector(".toOrder").dispatchEvent(evt)
-                }
+                var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid='+ cpid)
+                var data = await response.text();
+                    if (data == 1) {
+                        // 創建事件物件
+                        var evt = document.createEvent("HTMLEvents");
+                        // 初始化
+                        evt.initEvent("click", false, false);
+                        document.querySelector(".toOrder").dispatchEvent(evt)
+                    }
             } else {
                 alert('寄送地址為必填欄位!');
             }
