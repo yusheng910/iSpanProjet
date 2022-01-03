@@ -69,12 +69,11 @@
                                             <td>@item.Event.Lable</td>
                                             <td></td>
                                             <td>
-                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" asp-area="" asp-controller="BackstageEvent" asp-action="EventEdit"> 修改</a>
-                                                    <a class="dropdown-item" href="#">移除</a>
+                                                </button>*@
+                                                <div>
+                                                    <a class="fe fe-16 fe-edit" asp-area="" asp-controller="BackstageEvent" asp-action="EventEdit"> </a>
                                                 </div>
                                             </td>
                                         </tr>
