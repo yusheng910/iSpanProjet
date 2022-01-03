@@ -85,8 +85,8 @@
                 bool flag = true; @*首張預設*@
                 foreach (var 照片 in Model.EventPhoto)
                 {
-                    if (flag)           @*套版的首張照片有active,故使用IF+布林執行,來做判斷*@
-                    {                    @*首張預設有Activa,執行完後取消,後面其他張沒有active*@
+                    if (flag) @*套版的首張照片有active,故使用IF+布林執行,來做判斷*@
+                    { @*首張預設有Activa,執行完後取消,後面其他張沒有active*@
                     <div class="carousel-item active">
                         <img class="d-block w-100" src="~/images/活動照片/@照片.PhotoPath" alt="">
                     </div>
@@ -116,21 +116,21 @@
                 foreach (var 照片 in Model.EventPhoto)
                 {
                     if (flag2)
-                    {                                       @*原理同上面大圖,但這邊套版有數字,故加上count依照排列*@
-                        <li data-target="#carousel-example-1" data-slide-to="@count" class="active">
-                            <img class="d-block w-100 img-fluid" src="~/images/活動照片/@照片.PhotoPath" alt="" />
-                        </li>
-                        count++;
-                        flag2 = false;
-                    }
-                    else
-                    {
-                        <li data-target="#carousel-example-1" data-slide-to="@count">
-                            <img class="d-block w-100 img-fluid" src="~/images/活動照片/@照片.PhotoPath" alt="" />
-                        </li>
-                        count++;
-                    }
+                    { @*原理同上面大圖,但這邊套版有數字,故加上count依照排列*@
+                    <li data-target="#carousel-example-1" data-slide-to="@count" class="active">
+                        <img class="d-block w-100 img-fluid" src="~/images/活動照片/@照片.PhotoPath" alt="" />
+                    </li>
+                    count++;
+                    flag2 = false;
                 }
+                else
+                {
+                    <li data-target="#carousel-example-1" data-slide-to="@count">
+                        <img class="d-block w-100 img-fluid" src="~/images/活動照片/@照片.PhotoPath" alt="" />
+                    </li>
+                    count++;
+                }
+            }
             }
         </ol>
     </div>
@@ -165,7 +165,7 @@
                             <span class="dat" style="font-size: x-large; ">
                                 <i class="fas fas fa-user" style="padding-right: 15px ">
                                 </i>
-                                活動滿額人數 :  @Model.Event.EventParticipantCap 
+                                活動滿額人數 :  @Model.Event.EventParticipantCap
                             </span>
                         </div>
 
@@ -226,10 +226,11 @@
 
 
                                         @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                        <form method="post" class="col-6" name="FormData">   @*使用From將所有底下資料回傳*@
+                                        <form method="post" class="col-6" name="FormData">
+                                            @*使用From將所有底下資料回傳*@
                                             <input type="hidden" name="EventId" value=@Model.Event.EventId>
                                             <p style="padding-bottom: 10px; ">
-                                                <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 title="ZZ" required>
+                                                <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名  required>
                                             </p>
                                             <p style="padding-bottom: 10px">
                                                 <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
@@ -274,37 +275,27 @@
 <div style="padding-bottom:50px"></div> @*間格用*@
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
 
-
-<script>
-    @*執行起來怪怪的*@
-    $("#chickBT").click(function () {
+@section Scripts{
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
+        @*執行起來怪怪的*@
+        $("#chickBT").click(function (e) {
+            e.preventDefault();
         let 姓名 = $("#name").val();
         let 電話 = $("#phone").val();
         let 電郵 = $("#email").val();
         let 參與人數 = $("#person").val();
 
-        if (姓名 != "" || 電郵 != "" || 電話 != "" || 參與人數 != "")
-            $("#判讀輸入").text("尚有資料未輸入!").css('color', 'red').addClass("animate__animated animate__heartBeat")
+            console.log(姓名);
+            console.log(電話);
+            console.log(電郵);
+            console.log(參與人數);
 
-        else
-            $("#判讀輸入").text("報名成功").css('color', 'forestgreen').addClass("animate__animated animate__heartBeat");
+            alert("活動報名成功!")
+            return true;
     });
 
-    //$("#AAA").click(function () {
-    //    console.log("ok")
-    //    //$("#username").val("a001@gmail.com");
-    //    //$("#password").val("a12345");
-    //});
 
-
-    //$("#AAA").click(function () {
-    //    var AA = $("#PPP").get.length
-    //    console.log(AA)
-    //});
-
-
-</script>
+    </script>}
