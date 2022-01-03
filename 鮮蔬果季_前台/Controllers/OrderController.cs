@@ -333,15 +333,32 @@ namespace 鮮蔬果季_前台.Controllers
                                select cp.CouponDiscount).FirstOrDefault();
                 foreach (var o in 所有訂單細項)
                 {
+                    var 是否回饋 = db.FeedbackResponses.Where(p => p.OrderDetailId == o.od.OrderDetailId).FirstOrDefault();
                     var 封面相片 = db.ProductPhotoBanks.Where(p => p.ProductId == o.p.ProductId).FirstOrDefault();
-                    訂單細項列表.Add(new OrderListViewModel()
+                    if (是否回饋 != null)
                     {
-                        odetail = o.od,
-                        product = o.p,
-                        supplier = o.sup,
-                        photoBank = 封面相片,
-                        //單筆訂單細項總價 = 訂單細項總價
-                    });
+                        訂單細項列表.Add(new OrderListViewModel()
+                        {
+                            odetail = o.od,
+                            product = o.p,
+                            supplier = o.sup,
+                            photoBank = 封面相片,
+                            回饋 = true
+                            //單筆訂單細項總價 = 訂單細項總價
+                        });
+                    }
+                    else {
+                        訂單細項列表.Add(new OrderListViewModel()
+                        {
+                            odetail = o.od,
+                            product = o.p,
+                            supplier = o.sup,
+                            photoBank = 封面相片,
+                            回饋 = false
+                            //單筆訂單細項總價 = 訂單細項總價
+                        });
+                    }
+
                 }
                 return View(訂單細項列表);
             }
