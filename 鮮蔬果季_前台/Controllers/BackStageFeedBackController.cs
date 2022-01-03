@@ -47,7 +47,12 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(所有意見回饋列表);
         }
-
+        public IActionResult FeedbackPartail(int id)
+        {
+            FeedbackResponseViewModel 單筆回應 = new FeedbackResponseViewModel();
+            
+            return (null);
+        }
         //public IActionResult FeedbackCreate()
         //{
         //    return View();
