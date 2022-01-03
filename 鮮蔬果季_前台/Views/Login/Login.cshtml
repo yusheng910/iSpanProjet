@@ -96,6 +96,7 @@
                             <div class="submit-button">
                                 <button id="submit" type="submit" name="submit" class="btn hvr-hover ">登入</button>
                                 <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo">Demo</a>
+                                <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="admin">admin</a>
                             </div>
                         </div>
                         <div id="register-link" class="text-right" style="">
@@ -117,6 +118,11 @@
     $("#Demo").click(function () {
         console.log("ok")
         $("#username").val("a001@gmail.com");
+        $("#password").val("a12345");
+    });
+    $("#admin").click(function () {
+        console.log("ok")
+        $("#username").val("adminuser");
         $("#password").val("a12345");
     });
 </script>

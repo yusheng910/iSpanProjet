@@ -29,7 +29,16 @@ namespace 鮮蔬果季_前台.Controllers
             Supplier supplier = db.Suppliers.FirstOrDefault(t => t.SupplierAccount.Equals(LOGIN.username) && t.SupplierPassword.Equals(LOGIN.password));
             if (user != null)
             {
-                if (user.UserId.Equals(LOGIN.username) && user.Password.Equals(LOGIN.password))
+                  if (user.UserId.Equals("adminuser") && user.Password.Equals("a12345"))
+                {
+                    string json = "";
+
+                    json = JsonSerializer.Serialize(user);
+                    HttpContext.Session.SetString(CDictionary.SK_LOGINED_USER, json);
+                    UserLogin.member = user;
+                    return RedirectToAction("Home", "Backstage");
+                }
+                else if (user.UserId.Equals(LOGIN.username) && user.Password.Equals(LOGIN.password))
                 {
                     string json = "";
 
@@ -39,6 +48,7 @@ namespace 鮮蔬果季_前台.Controllers
                     return RedirectToAction("Index", "Home");
 
                 }
+               
                 else if(user==null)
                 {
                     return RedirectToAction("Login", "Login");
