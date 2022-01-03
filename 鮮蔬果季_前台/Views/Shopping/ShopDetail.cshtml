@@ -485,55 +485,44 @@
                                                     if (rankstar == 1)
                                                     {
                                                         <p>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <i class="far fa-star"></i>
+                                                            <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
                                                         </p>
                                                     }
                                                     else if (rankstar == 2)
                                                     {
                                                         <p>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <i class="far fa-star"></i>
+                                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
                                                         </p>
                                                     }
                                                     else if (rankstar == 3)
                                                     {
                                                         <p>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <i class="far fa-star"></i>
+                                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
                                                         </p>
                                                     }
                                                     else if (rankstar == 4)
                                                     {
                                                         <p>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="far fa-star"></i>
+                                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
                                                         </p>
                                                     }
                                                     else if (rankstar == 5)
                                                     {
                                                         <p>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                                         </p>
                                                     }
                                                 }
-                                                <p>@item.Comments</p>
+                                                @{
+                                                    if (item.Shield == true)
+                                                    {
+                                                        <p style="font-style:italic;font-weight:bold;">*因評論內容有敏感字眼，已被管理員屏蔽*</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>@item.Comments</p>
+                                                    }
+                                                }
                                                 @{
                                                     string ReviewDate = (item.ReviewDate).ToString("yyyy-MM-dd HH:mm");
                                                 }
