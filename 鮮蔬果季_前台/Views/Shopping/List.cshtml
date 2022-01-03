@@ -308,11 +308,21 @@
                                             if (item.InShop)
                                             {
                                                 count++;
+
+
                                                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                                     <div class="products-single fix">
                                                         <div class="box-img-hover">
                                                             <div class="type-lb">
-                                                                <p class="sale">Sale</p>
+                                                                @if (item.DefectiveGood)
+                                                                {
+                                                                    <p class="sale" style="background-color: #FF9224 ">福利</p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p class="sale">Sale</p>
+                                                                }
+
                                                             </div>
                                                             @{if (@item.photoBank[0] != null)
                                                                 {
@@ -408,7 +418,7 @@
                                                         <div class="products-single fix">
                                                             <div class="box-img-hover">
                                                                 <div class="type-lb">
-                                                                    <p class="sale">Sale</p>
+                                                                    <p class="sale" style="background-color: #FF9224 ">福利</p>
                                                                 </div>
                                                                 @{if (@item.photoBank[0] != null)
                                                                     {
