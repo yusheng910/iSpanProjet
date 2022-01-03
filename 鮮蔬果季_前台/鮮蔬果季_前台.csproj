@@ -54,6 +54,8 @@
     <None Include="wwwroot\assets\css\scss\sections\_news.scss" />
     <None Include="wwwroot\assets\css\scss\sections\_shop-banner.scss" />
     <None Include="wwwroot\assets\css\scss\sections\_testimonials.scss" />
+    <None Include="wwwroot\lib\jquery-ui-1.13.0.custom\jquery-ui.js" />
+    <None Include="wwwroot\lib\jquery-ui-1.13.0.custom\jquery-ui.min.js" />
   </ItemGroup>
 
   <ItemGroup>
