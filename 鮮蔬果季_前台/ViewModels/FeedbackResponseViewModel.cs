@@ -52,7 +52,7 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
         public OrderDetail _orderdetail = null;
-        public OrderDetail order 
+        public OrderDetail orderdetail
         {
 
             get
