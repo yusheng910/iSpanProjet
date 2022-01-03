@@ -4,8 +4,7 @@
 <table class="table datatables border-dark" id="dataTable-1">
     <thead class="thead-dark">
         <tr>
-            <th></th>
-            <th>序</th>
+            <th>序號</th>
             <th>@Html.DisplayNameFor(model => model.First().CouponName)</th>
             <th>@Html.DisplayNameFor(model => model.First().DiscountCondition)</th>
             <th>@Html.DisplayNameFor(model => model.First().CouponDiscount)</th>
@@ -25,17 +24,20 @@
                 string strdate = (item.CouponStartDate).ToString("yyyy/MM/dd tt hh:mm");
                 string enddate = (item.CouponEndDate).ToString("yyyy/MM/dd tt hh:mm");
                 <tr>
-                    <td>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="@count">
-                            <label class="custom-control-label" for="@count"></label>
-                        </div>
-                    </td>
                     <td>@count</td>
                     <td>@item.CouponName</td>
                     <td>消費滿NT$ @item.DiscountCondition</td>
                     <td>折NT$ @item.CouponDiscount</td>
-                    <td>@item.CouponDescription</td>
+                    @{
+                        if (item.CouponDescription == null)
+                        {
+                            <td style="font-style:italic">*暫無描述*</td>
+                        }
+                        else
+                        {
+                            <td>@item.CouponDescription</td>
+                        }
+                    }
                     <td>@strdate</td>
                     <td>@enddate</td>
                     <td>
@@ -47,17 +49,17 @@
                         <input type="hidden" class="Cid" value="@item.CouponId" />
                     </td>
                     @*<td>
-                            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="text-muted sr-only">Action</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                    修改
-                                </button>
-                                <input type="hidden" class="Cid" value="@item.CouponId" />
-                                <a class="dropdown-item btnDel" href="#">移除</a>
-                            </div>
-                        </td>*@
+            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-muted sr-only">Action</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                    修改
+                </button>
+                <input type="hidden" class="Cid" value="@item.CouponId" />
+                <a class="dropdown-item btnDel" href="#">移除</a>
+            </div>
+        </td>*@
                 </tr>
             }
         }
