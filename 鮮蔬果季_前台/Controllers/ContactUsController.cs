@@ -29,7 +29,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                return RedirectToAction("Login", "Login");//修改完後解除
+                //return RedirectToAction("Login", "Login");//修改完後解除
             }
             return View(id);
         }
@@ -77,7 +77,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             _context.FeedbackResponses.Add(q);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Orders", "Order");
         }
        
 
