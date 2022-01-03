@@ -176,14 +176,14 @@
             $(".prodDescription").val(discription);
 
             const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackStageFeedBack/ProdEditPartial")', {
+            const response = await fetch('@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackStageFeedBack/ProdListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")", function () {
                     alert("修改成功")
                     $('#dataTable-1').DataTable(
                         {
