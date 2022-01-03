@@ -27,7 +27,7 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
-                              where ord.MemberId == UserLogin.member.MemberId                           
+                              where ord.MemberId == UserLogin.member.MemberId                        
                               orderby ord.OrderId descending
                               select new { ord, stat }).ToList();
 
