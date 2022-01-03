@@ -21,6 +21,7 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="width:65px;">訂單編號</th>
+                                    <th>會員名</th>
                                     <th>產品名稱</th>
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
@@ -35,6 +36,7 @@
                                     {
                                         <tr>
                                             <td>@item.feedbackResponse.OrderDetailId</td>
+                                            <td>@item.member.MemberName</td>
                                             <td>@item.product.ProductName</td>
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
