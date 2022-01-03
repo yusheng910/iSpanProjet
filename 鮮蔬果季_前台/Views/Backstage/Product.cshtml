@@ -141,6 +141,7 @@
                                         <!--內容-->
                                     </div>
                                     <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary CreateDemo" >Demo</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                         <input type="submit" value="儲存" class="btn btn-primary CreateSubmit " data-dismiss="modal" />
                                     </div>
@@ -459,6 +460,15 @@
                         });
                 })
             }
+        })
+        //產品Demo
+        $(document).on("click", ".CreateDemo", async function (e) {
+            $("#ProductName").val("紅蘿蔔")
+            $("#ProductUnitPrice").val(55)
+            $("#ProductCostPrice").val(35)
+            $("#ProductUnitsInStock").val(100)
+            $("#ProductSize").val("600g/包")
+            $(".ql-editor").html("<h1><strong style='color: rgb(230, 0, 0);'>又大又甜的紅蘿蔔!!!</strong></h1><p>好吃又甜美的紅蘿蔔</p><p>歡迎採購!!</p>")
         })
     </script>
 
