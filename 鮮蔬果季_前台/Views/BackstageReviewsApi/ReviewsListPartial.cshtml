@@ -1,0 +1,100 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.ReviewViewModel>
+ <!-- table -->
+<table class="table datatables border-dark" id="dataTable-1">
+    <thead class="thead-dark">
+        <tr>
+            <th>序號</th>
+            <th>@Html.DisplayNameFor(model => model.First().SupplierName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().ProductName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().OrderDetailId)</th>
+            <th>@Html.DisplayNameFor(model => model.First().ReviewDate)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Comments)</th>
+            <th>@Html.DisplayNameFor(model => model.First().StarRanking)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Shield)</th>
+            <th>屏蔽功能</th>
+            @*<th>編輯</th>*@
+        </tr>
+    </thead>
+    <tbody class="reviewlist">
+        @{ int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                string 評論日期 = (item.ReviewDate).ToString("yyyy/MM/dd tt hh:mm");
+                <tr>
+                    <td>@count</td>
+                    <td>@item.SupplierName</td>
+                    <td>@item.ProductName</td>
+                    <td><span style="padding-left:15%">No. </span>@item.OrderDetailId</td>
+                    <td>@item.ReviewDate</td>
+                    @{
+                        if (item.Comments == null && item.Shield == false)
+                        {
+                            <td style="font-style:italic">*沒有留下評論*</td>
+                        }
+                        else if (item.Shield == true)
+                        {
+                            <td class="hideshield">*內容已屏蔽*</td>
+                        }
+                        else
+                        {
+                            <td class="showshield commval">@item.Comments</td>
+                        }
+                    }
+                    <td>
+                        @{
+                            if (item.StarRanking == 1)
+                            {
+                                <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                            }
+                            if (item.StarRanking == 2)
+                            {
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                            }
+                            if (item.StarRanking == 3)
+                            {
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                            }
+                            if (item.StarRanking == 4)
+                            {
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            }
+                            if (item.StarRanking == 5)
+                            {
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            }
+                            <p hidden>@item.StarRanking</p>
+                        }
+                    </td>
+                    @{
+                        if (item.Shield == true)
+                        {
+                            <td><span style="padding-left:15px" class="fe fe-24 fe-eye-off"></span></td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+
+                    }
+                    @*<td>
+            <button type="button" class="dropdown-item btnEdit"><span class="fe fe-16 fe-edit"></span></button>
+            <input type="hidden" class="Rid" value="@item.ReviewId" />
+        </td>*@
+                    <td>
+                        <button class="btn btn-sm dropdown-toggle more-horizontal rvopt" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button type="button" class="dropdown-item btnShield" data-toggle="modal" data-target="#exampleModal">
+                                屏蔽
+                            </button>
+                            <input type="hidden" class="Rid" value="@item.ReviewId" />
+                            <button class="dropdown-item btnUnshield">解除</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

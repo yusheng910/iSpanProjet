@@ -21,6 +21,7 @@ namespace 鮮蔬果季_前台.Models
         public virtual DbSet<BlogDetail> BlogDetails { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryDetail> CategoryDetails { get; set; }
+        public virtual DbSet<CategoryPowerBi> CategoryPowerBis { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<CouponDetail> CouponDetails { get; set; }
@@ -48,11 +49,11 @@ namespace 鮮蔬果季_前台.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=114.34.127.248\\DESKTOP-FBDIF9U,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
-//            }
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=114.34.127.248\\DESKTOP-FBDIF9U,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -144,6 +145,30 @@ namespace 鮮蔬果季_前台.Models
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CategoryDetails_Products");
+            });
+
+            modelBuilder.Entity<CategoryPowerBi>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("CategoryPowerBi");
+
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+
+                entity.Property(e => e.CategoryName)
+                    .HasMaxLength(50)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+                entity.Property(e => e.CategoryPowerBiId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("CategoryPowerBiID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_CategoryPowerBi_Products");
             });
 
             modelBuilder.Entity<City>(entity =>
@@ -652,6 +677,8 @@ namespace 鮮蔬果季_前台.Models
                 entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
 
                 entity.Property(e => e.ReviewDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Shield).HasColumnName("shield");
 
                 entity.HasOne(d => d.OrderDetail)
                     .WithMany(p => p.Reviews)
