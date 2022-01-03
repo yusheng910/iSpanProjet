@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using 鮮蔬果季_前台.Models;
+using 鮮蔬果季_前台.ViewModels;
 
 namespace 鮮蔬果季_前台.Controllers
 {
@@ -17,8 +19,33 @@ namespace 鮮蔬果季_前台.Controllers
             _hostEnvironment = hostEnvironment;
             _context = context;
         }
-        public IActionResult ContactUs(int id)
+        public IActionResult ContactUs(int id )
         {
+            FeedbackResponseViewModel 意見回饋列表 = new FeedbackResponseViewModel();
+            var feedbackname = (
+                          from od2 in _context.OrderDetails                      
+                          join prod in _context.Products
+                          on od2.ProductId equals prod.ProductId
+                          join sup in _context.Suppliers
+                          on prod.SupplierId equals sup.SupplierId
+                          join o in _context.Orders
+                          on od2.OrderId equals o.OrderId
+                          join m in _context.Members
+                          on o.MemberId equals m.MemberId
+                          where od2.OrderDetailId==id
+                          select new {  od2, prod, sup, o, m }
+                      ).FirstOrDefault();
+            意見回饋列表= new FeedbackResponseViewModel()
+            {
+                orderdetail=feedbackname.od2,
+                member = feedbackname.m,
+                product = feedbackname.prod,
+                supplier = feedbackname.sup
+
+            };
+            ViewBag.suppliername =意見回饋列表.SupplierName ;//供應商名稱
+            ViewBag.productname = 意見回饋列表.ProductName;//產品名
+            ViewBag.orderdetailname = id;//訂單編號
             //========================引用帳號登入屏蔽================================================//
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
@@ -29,9 +56,9 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                //return RedirectToAction("Login", "Login");//修改完後解除
+                return RedirectToAction("Login", "Login");//修改完後解除
             }
-            return View(id);
+            return View(意見回饋列表);
         }
         //==============================列出回報選項===============================================//
         public IActionResult FeedbackNames()

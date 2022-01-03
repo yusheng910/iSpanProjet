@@ -1,6 +1,6 @@
 ﻿@*加照片資料夾
 *@
-@model int
+@model 鮮蔬果季_前台.ViewModels.FeedbackResponseViewModel
 @{
     ViewData["Title"] = "ContactUs";
 }
@@ -87,10 +87,11 @@
             <div id="contact-column" class="col-md-6">
                 <div id="contact-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
                     <form id="contact-form" class="form" action="~/ContactUs/Send" method="post" role="form" data-toggle="validator">
-                        <input type="hidden" value="@Model" name="OrderDetailId" />
+                        <input type="hidden" value="@Model.orderdetail.OrderDetailId" name="OrderDetailId" />
                         <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡鮮蔬果季</h3>
                         <h3 class="text-center">請提供簡述您所面臨到的問題，鮮蔬果季很樂意為您服務</h3>
-                        <h3 class="text-center"></h3>
+                        <hr />
+                        <h3 class="text-center">產品名:@ViewBag.productname 訂單編號:@ViewBag.orderdetailname 供應商:@ViewBag.suppliername</h3>
                         <h3 class="text-center"></h3>
                         <h3 class="text-center"></h3>
                         <div class="form-group">
@@ -116,7 +117,7 @@
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea name="FeedbackComment" id="FeedbackCommet" class ="form-control" placeholder="請輸入內容" id="message" style="height: 450px"></textarea>
+                                <textarea name="FeedbackComment" id="FeedbackCommet" class ="form-control" placeholder="請輸入內容"  style="height: 450px"></textarea>
 
                             </div>
                         </div>
