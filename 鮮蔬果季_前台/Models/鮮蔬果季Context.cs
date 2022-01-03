@@ -161,7 +161,6 @@ namespace 鮮蔬果季_前台.Models
                 entity.Property(e => e.CouponId).HasColumnName("CouponID");
 
                 entity.Property(e => e.CouponDescription)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 

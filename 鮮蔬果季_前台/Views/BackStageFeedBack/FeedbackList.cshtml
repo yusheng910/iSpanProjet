@@ -21,6 +21,7 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="width:65px;">訂單編號</th>
+                                    <th>會員名</th>
                                     <th>產品名稱</th>
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
@@ -29,12 +30,13 @@
                                 </tr>
                             </thead>
 
-                            <tbody id="feedbackBody" class="tprodbody">
-                                @{ int count = 0;
+                            <tbody id="feedbackBody" class="feedbackbody">
+                                @{ 
                                     foreach (var item in Model)
                                     {
                                         <tr>
                                             <td>@item.feedbackResponse.OrderDetailId</td>
+                                            <td>@item.member.MemberName</td>
                                             <td>@item.product.ProductName</td>
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
@@ -56,13 +58,13 @@
                             <div class="modal-dialog" style="max-width: 1000px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">產品修改</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">回饋意見回復</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form name="ProdEdit">
-                                        <div class="modal-body prodBody">
+                                    <form name="FeedbackEdit">
+                                        <div class="modal-body feedbackBody">
                                             <!--內容-->
                                             ...
                                         </div>
@@ -92,12 +94,12 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        //產品修改=========================================================================
+        //回應修改=========================================================================
         //修改按鈕
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
-            $('.feedbackBody').load("@Url.Content("~/BackstageFeedback/")/" + pid, function () {
+            $('.feedbackBody').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")/" + pid, function () {
                 var editor = document.getElementById('editor');
                 if (editor) {
                     console.log(editor)
@@ -167,8 +169,7 @@
                         });
                 }
             })
-        })
-         //修改儲存
+        })//修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
 
@@ -177,14 +178,14 @@
             $(".prodDescription").val(discription);
 
             const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
+            const response = await fetch('@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")", function () {
                     alert("修改成功")
                     $('#dataTable-1').DataTable(
                         {
@@ -197,6 +198,7 @@
                 })
             }
         })
+         
     </script>
 
 }

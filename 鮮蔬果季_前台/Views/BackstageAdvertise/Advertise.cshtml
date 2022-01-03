@@ -7,7 +7,7 @@
             margin-right: -15px;
             margin-left: -15px;
             width: 47%;
-            max-height: 600px;
+            max-height: 500px;
             overflow: auto;
             border: 2px #ccc solid;
         }
@@ -15,14 +15,20 @@
         .block {
             flex: 0 0 200px;
             max-width: 160px;
-            height: 200px;
+            height: 215px;
             position: relative;
             margin: 10px;
             padding-right: 15px;
             padding-left: 15px;
+            padding-top: 15px;
             background-color: #FFF9E9;
             border: 1px solid black;
+            border-radius: 10px;
+            cursor: pointer
         }
+            .block:hover {
+                background-color: #FFBB77;
+            }
 
         .drop {
             display: flex;
@@ -30,7 +36,7 @@
             margin-right: -15px;
             margin-left: -15px;
             width: 47%;
-            height: 600px;
+            height: 500px;
             overflow: auto;
             border: 2px #ccc dotted;
             margin-left: 5%;
@@ -48,6 +54,7 @@
             width: 130px;
             height: 100px;
             object-fit: cover;
+            border-radius:10px;
         }
     </style>
 

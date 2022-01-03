@@ -1,6 +1,6 @@
 ﻿@*加照片資料夾
 *@
-@model int
+@model 鮮蔬果季_前台.ViewModels.FeedbackResponseViewModel
 @{
     ViewData["Title"] = "ContactUs";
 }
@@ -34,6 +34,7 @@
 
 
         select {
+            color: #fff;
             width: 225px;
             padding: 8px;
             border: 0 !important;
@@ -49,7 +50,9 @@
         .select::-ms-expand {
             display: none;
         }
-
+        button {
+            color:#fff;
+        }
         textarea {
             width: 450px;
             height: 850px;
@@ -61,27 +64,36 @@
 }
 
 <!-- Start All Title Box -->
+<div class="clickmsgbox"></div>
 <div class="all-title-box">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h2>聯絡我們</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                    <li class="breadcrumb-item active">聯絡我們</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 <!-- End All Title Box -->
 <!-- Contact Start -->
+ 
 <div id="contact">
     <div class="container">
         <div id="contact-row" class="row justify-content-center align-items-center">
             <div id="contact-column" class="col-md-6">
                 <div id="contact-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
                     <form id="contact-form" class="form" action="~/ContactUs/Send" method="post" role="form" data-toggle="validator">
-                        <input type="hidden" value="@Model" name="OrderDetailId" />
+                        <input type="hidden" value="@Model.orderdetail.OrderDetailId" name="OrderDetailId" />
                         <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡鮮蔬果季</h3>
                         <h3 class="text-center">請提供簡述您所面臨到的問題，鮮蔬果季很樂意為您服務</h3>
-
+                        <hr />
+                        <h3 class="text-center">產品名:@ViewBag.productname 訂單編號:@ViewBag.orderdetailname 供應商:@ViewBag.suppliername</h3>
+                        <h3 class="text-center"></h3>
+                        <h3 class="text-center"></h3>
                         <div class="form-group">
 
                             <select name="FatherFeedbackId" id="feedback1">
@@ -105,13 +117,13 @@
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea name="FeedbackComment" class="form-control" placeholder="請輸入內容" id="message" style="height: 450px"></textarea>
+                                <textarea name="FeedbackComment" id="FeedbackCommet" class ="form-control" placeholder="請輸入內容"  style="height: 450px"></textarea>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-12" style="background-color: #FFF9E9">
-                                <button type="submit" class="btn hvr-hover">傳送</button>
+                                <button type="submit"id="submit" class="btn hvr-hover">傳送</button>
                             </div>
                         </div>
                     </form>
@@ -132,11 +144,6 @@
             RenderFeedbackName(await response1.json())
 
         }
-
-
-
-
-
 
         Loadfeedback()
         function RenderFeedbackName(datas) {
@@ -160,6 +167,14 @@
             const response1 = await fetch('/ContactUs/FatherFeedbackIds/' + value)
             RenderfatherFeedbackName(await response1.json())
         })
+            
+            $("#submit").click(function () {
+                if ($("#feedback2").val() == "" || $("#FeedbackCommet").val() == "") {
+                    alert("尚未輸入回饋意見與回饋項目")
+                    return false
+                }
+            })
+
 
 
     </script>

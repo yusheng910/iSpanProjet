@@ -108,6 +108,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <h2>購物車</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Shopping" asp-action="List">購物專區</a></li>
+                    <li class="breadcrumb-item active">購物車</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -161,8 +165,9 @@
                                                 <p>NT$ @item.product.ProductUnitPrice</p>
                                             </td>
                                             <td class="quantity-box">
-                                                <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="15" class="c-input-text qty text qtyChange">
+                                                <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="@item.product.ProductUnitsInStock" class="c-input-text qty text qtyChange">
                                                 <input type="hidden" class="cartid" value="@item.shopCart.ShoppingCartId" />
+                                                <input type="hidden" class="stockUnit" value="@item.product.ProductUnitsInStock" />
                                             </td>
                                             <td class="total-pr" style="text-align:center;">
                                                 <p class="itemPrice">NT$ @商品價乘數量</p>
@@ -351,42 +356,55 @@
             var obj = $(this);
             var qty = $(this).val();
             var cid = $(this).next(".cartid").val();
-            //console.log(obj);
-            //console.log(value);
+            var stock = $(this).next().next(".stockUnit").val();
+            var qtyCount = parseInt(qty);
+            var stockCount = parseInt(stock);
             async function ChangeQty() {
-                var response = await fetch('@Url.Content("~/ShoppingApi/ChangeCartQty/")' + cid +"?qty="+qty)
-                var data = await response.text()
-                //console.log(data);
-                if (data != 0) {
-                    //console.log("success");
-                    var p = parseInt(data);
-                    obj.closest('.quantity-box').next().find("p").html("NT$ " + p);
-                    //console.log(obj.closest('.quantity-box'))
-                    //pItemPrice.innerHTML = p;
+                    var response = await fetch('@Url.Content("~/ShoppingApi/ChangeCartQty/")' + cid + "?qty=" + qty)
+                    var data = await response.text()
+                    //console.log(data);
+                    if (data != 0) {
+                        //console.log("success");
+                        var p = parseInt(data);
+                        obj.closest('.quantity-box').next().find("p").html("NT$ " + p);
+                        //console.log(obj.closest('.quantity-box'))
+                        //pItemPrice.innerHTML = p;
 
-                    $('div.grandTotal').html(0);
-                    //console.log($('div.grandTotal').val());
+                        $('div.grandTotal').html(0);
+                        //console.log($('div.grandTotal').val());
 
 
-                    var grandTotal = 0;
-                    $('.itemPrice').each(function (index, value) {
-                        //console.log(value);
-                        var num = value.innerHTML;
-                        var num2 = num.replace(/[^0-9]/ig, "");
-                        //console.log(num2);
-                        num3 = parseInt(num2);
-                        grandTotal += num3;
-                        $('div.grandTotal').html("NT$ " + grandTotal);
-                    });
-                    console.log("grandTotal="+grandTotal)
-                    $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal)
-                    $('#disdisprice').html("-NT$ 0");
-                    $('.payTotal').html("NT$ " + (grandTotal - 0));
-
+                        var grandTotal = 0;
+                        $('.itemPrice').each(function (index, value) {
+                            //console.log(value);
+                            var num = value.innerHTML;
+                            var num2 = num.replace(/[^0-9]/ig, "");
+                            //console.log(num2);
+                            num3 = parseInt(num2);
+                            grandTotal += num3;
+                            $('div.grandTotal').html("NT$ " + grandTotal);
+                        });
+                        console.log("grandTotal=" + grandTotal)
+                        $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal)
+                        $('#disdisprice').html("-NT$ 0");
+                        $('.payTotal').html("NT$ " + (grandTotal - 0));
+                    }
                 }
+            if (qtyCount > stockCount) {
+                alert('不好意思，該商品庫存量不足')
+                $(this).val(stock);
+                 qty = stock;
+                var evt = document.createEvent("HTMLEvents");
+                // 初始化
+                evt.initEvent("change", false, false);
+                document.querySelector(".qtyChange").dispatchEvent(evt)
+                ChangeQty();
             }
-            ChangeQty();
-        })
+            else {
+
+                ChangeQty();
+            }
+        });
         $(document).on("click", ".usebtn", function () {
             $(this).text("使用中");
             $(".setusebtn").text("選取");

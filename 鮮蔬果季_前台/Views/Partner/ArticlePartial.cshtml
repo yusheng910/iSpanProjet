@@ -1,0 +1,33 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.BlogDetailListViewModel>
+@{foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 blogSize">
+            <div class="single-latest-news">
+                <div>
+                    <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.SupplierId">
+                        <img class="imgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">  @*圖片超連結*@
+                    </a>
+                </div>
+                <div class="news-text-box blogNewsSize" style="padding: 5px">
+                    <h2 style="padding:5px ">
+                        @Html.DisplayFor(modelitem => item.BlogDetail.Title)
+                        @*@Html.DisplayFor(modelitem => item._City.CityName)*@
+                        <a href="single-news.html"></a>
+                    </h2>
+                    <p class="blog-meta pp" style="padding: 1px  0px;  font-size: large">
+                        <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
+                        <br />
+                        <span class="author"><i class="fas fa-user"></i> @item.City.CityName</span>
+                        <span class="author"><i class="fas fa-user"></i> @item._Supplier.SupplierName</span>
+                    </p>
+                    <p class="excerpt pp">@Html.DisplayFor(modelitem => item.BlogDetail.Maintext)</p>
+                    @*<a class="read-more-btn" asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1">read more <i class="fas fa-angle-right"></i></a>*@
+
+                    <h4 class="read-more-btn" style="padding: 8px 0px 6px 0px; font-weight: bold; ">
+                        @Html.ActionLink("閱讀更多>", "PartnerBlog_1", new { id = item.BlogDetail.SupplierId })         @*回傳SupplierId 成為controller中的接收*@
+                    </h4>
+                </div>
+            </div>
+        </div>
+    }
+}

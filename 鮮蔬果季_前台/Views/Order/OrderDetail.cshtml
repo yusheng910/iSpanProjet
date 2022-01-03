@@ -169,9 +169,11 @@
                         $(".result").text("分數為" + starnum + "分！");
                         $(".showRanking").val(starnum);
                         flag = true;
-                        console.log($(".showRanking").val())
+                        $(".saverv").attr('disabled', false); //開啟按鈕
+                        //console.log($(".showRanking").val())
                     }).dblclick(function () {
                         flag = false;
+                        $(".saverv").attr('disabled', true)  //關掉按鈕
                         $(".result").text("評分中...");
                         $(this).children().removeClass('fas fa-star').addClass('far fa-star');
                         $(".stargroup > i").mouseenter(function () {
@@ -219,17 +221,20 @@
             getodid = value;
         }
         rvwho()
-        });
-
+            });
+            if (flag == false)
+            {
+                $(".saverv").attr('disabled', true)
+            }
 
             $(document).on("click", ".addrvbtn", function () {
             var comments = $(".getcomments").val()
-            console.log(getodid)
+            //console.log(getodid)
             //console.log(starnum)
-                console.log(comments)
+                //console.log(comments)
                 if (flag==false)
                 {
-                    alert("請給予星星評分!")
+                    alert("請給予星星評分!");
                 }
                 else
                 {
@@ -245,6 +250,11 @@
         })
         });
 
+        $(document).on("click", ".rvdemo", function () {
+            $(".new-review").val("真的覺得品質很好!!一定會再來回購!");
+        })
+
+
     </script>
 }
 
@@ -254,6 +264,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <h2>訂單明細</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Order" asp-action="Orders">訂單紀錄</a></li>
+                    <li class="breadcrumb-item active">訂單明細</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -328,8 +342,17 @@
                                             @*<p>@item.單筆訂單細項總價</p>*@
                                         </td>
                                         <td class="add-pr">
+
                                             @*if 如果資料庫有查詢到評論過的資料，就是另外一個樣式*@
-                                            <a style="padding:8px 12px;" asp-area=""asp-controller="ContactUs"asp-action="ContactUs" asp-route-id="@item.odetail.OrderDetailId" class="btn hvr-hover">問題回報</a>@*controller/action/item.odetail.odetailid*@
+                                            @if (item.回饋)
+                                            {
+                                                <button class="btn findodid disabled" value="@item.odetail.OrderDetailId">已回報</button>
+                                            }
+                                            else
+                                            {
+                                                <a style="padding:8px 12px;" asp-area="" asp-controller="ContactUs" asp-action="ContactUs" asp-route-id="@item.odetail.OrderDetailId" class="btn hvr-hover">問題回報</a>@*controller/action/item.odetail.odetailid*@
+                                            }
+
                                         </td>
                                         <td style="padding-right:20px;" class="add-rv">
                                             <div class="aboveadd">
@@ -405,7 +428,8 @@
                                 <input type="hidden" class="showRanking" />
                                 <span class="glyphicon glyphicon-remove">取消</span>
                             </a>
-                            <input class="btn btn-success btn-lg addrvbtn close-review-box" value="儲存評價">
+                            <button type="button" class="btn btn-info btn-lg rvdemo">DEMO</button>
+                            <input class="btn btn-success btn-lg addrvbtn close-review-box saverv" value="儲存評價">
                         </div>
                     </form>
                 </div>
