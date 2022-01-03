@@ -115,30 +115,29 @@
 <div class="SelectBackGround ">
     <h2 class="SelectTag" id="動畫1">
         @*回傳id為空值,不然曾經查詢其他的id值還會殘存,導致無法查詢全部*@
-        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=>全部文章</a>
+        <a style="cursor:pointer;" id="allArticle">全部文章</a>
     </h2>
 
     <h2 class="SelectTag " id="動畫2">
-        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="1">青農返鄉</a>
+        <a style="cursor:pointer;" id="youthFarmer">青農返鄉</a>
     </h2>
 
     <h2 class="SelectTag " id="動畫3">
-        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="2">履歷無毒</a>
+        <a style="cursor:pointer;" id="healthyFood">履歷無毒</a>
     </h2>
 
     <h2 class="SelectTag " id="動畫4">
-        <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id="3">有機天地</a>
+        <a style="cursor:pointer;" id="organicFood">有機天地</a>
     </h2>
 
 </div>
-
 
 <div style="padding-bottom:20px"></div> @*間格用*@
 <!-- latest news -->
 <div>
     <div class="latest-news mt-150 mb-150">
         <div class="container">
-            <div class="row">
+            <div id="articleList" class="row">
                 @{foreach (var item in Model)
                     {
                         <div class="col-lg-4 col-md-6 blogSize">
@@ -208,10 +207,26 @@
 <div style="padding-bottom:50px"></div> @*間格用*@
 
 <script>
+    $('#allArticle').click(function () {
+        $('#articleList').load('@Url.Content("~/Partner/allArticle")')
+    })
+
+    $('#youthFarmer').click(function () {
+        $('#articleList').load('@Url.Content("~/Partner/youthFarmer")')
+    })
+
+    $('#healthyFood').click(function () {
+        $('#articleList').load('@Url.Content("~/Partner/healthyFood")')
+    })
+
+    $('#organicFood').click(function () {
+        $('#articleList').load('@Url.Content("~/Partner/organicFood")')
+    })
+
     $("#動畫1").mouseenter(function () {
         $("#動畫1").addClass("animate__animated animate__pulse")
     })
-    
+
     $("#動畫2").mouseenter(function () {
         $("#動畫2").addClass("animate__animated animate__pulse")
     })
