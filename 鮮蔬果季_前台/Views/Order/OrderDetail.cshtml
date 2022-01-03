@@ -332,7 +332,7 @@
                                             @*if 如果資料庫有查詢到評論過的資料，就是另外一個樣式*@
                                             @if (item.回饋)
                                             {
-                                                <a style="padding:8px 12px;" class="btn findodid disabled">已回報</a>
+                                                <button class="btn findodid disabled" value="@item.odetail.OrderDetailId">已回報</button>
                                             }
                                             else
                                             {
