@@ -21,7 +21,6 @@
                         <table class="table datatables border-dark" id="dataTable-1">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th></th>
                                     <th>序號</th>
                                     <th>產品名稱</th>
                                     <th>照片</th>
@@ -40,12 +39,6 @@
                                     {
                                         count++;
                                         <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="@count">
-                                                    <label class="custom-control-label" for="@count"></label>
-                                                </div>
-                                            </td>
                                             <td>@count</td>
                                             <td>@item.ProductName</td>
                                             @{if (@item.photoBank[0] != null)
@@ -463,12 +456,12 @@
         })
         //產品Demo
         $(document).on("click", ".CreateDemo", async function (e) {
-            $("#ProductName").val("紅蘿蔔")
-            $("#ProductUnitPrice").val(55)
-            $("#ProductCostPrice").val(35)
-            $("#ProductUnitsInStock").val(100)
+            $("#ProductName").val("蘿蔔")
+            $("#ProductUnitPrice").val(50)
+            $("#ProductCostPrice").val(28)
+            $("#ProductUnitsInStock").val(200)
             $("#ProductSize").val("600g/包")
-            $(".ql-editor").html("<h1><strong style='color: rgb(230, 0, 0);'>又大又甜的紅蘿蔔!!!</strong></h1><p>好吃又甜美的紅蘿蔔</p><p>歡迎採購!!</p>")
+            $(".ql-editor").html("<h1><span style='color: rgb(0, 138, 0);'>鮮甜肥美的大蘿蔔</span></h1><h3>值得您購買</h3>")
         })
     </script>
 

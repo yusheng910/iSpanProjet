@@ -9,6 +9,17 @@
             <td class="orderdate-p">
                 <p>@Html.DisplayFor(modelItem => item.OrderDate)</p>
             </td>
+            @{
+                if (item.ShippedDate != null)
+                {
+                    <td>@item.ShippedDate</td>
+                }
+                else
+                {
+                    <td>尚未出貨</td>
+                }
+            }
+            <td>@item.ShippedTo</td>
             <td class="price-pr">
                 <p>NT$ @item.總價</p>
             </td>
