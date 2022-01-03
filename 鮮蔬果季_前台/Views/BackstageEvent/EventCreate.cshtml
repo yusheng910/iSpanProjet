@@ -5,6 +5,7 @@
 }
 
 
+
 @section Styles{
     <style>
         .imgbox {
@@ -42,50 +43,52 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">活動ID</label>
-                                @*<input  type="hidden" name="EventId"  value=@Model.Event.EventId>*@
-                            </div>
-                            <div class="form-group mb-3">
                                 <label for="simpleinput">活動名稱</label>
-                                <input type="text" id="simpleinput" class="form-control" name="EventName">
+                                <input type="text" id="EventName" class="form-control" name="EventName" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="simpleinput">供應商ID</label>
-                                <input type="text" id="simpleinput" class="form-control" name="SupplierId">
+                                <input type="number" id="SupplierId" class="form-control" name="SupplierId" required>
                             </div>
+
+                            <!--<div class="form-group mb-3">
+                                <label for="simpleinput">供應商名稱</label>-->  @*透過供應商ID帶出對應,不可寫入*@
+                                <!--<input type="text" id="simpleinput" class="form-control" readonly="readonly" required>
+                            </div>-->
+
                             <div class="form-group mb-3">
-                                <label for="simpleinput">供應商名稱</label>  @*透過供應商ID帶出對應,不可寫入*@
-                                <input type="text" id="simpleinput" class="form-control" readonly="readonly">
+                                <label for="simpleinput">人數上限</label>
+                                <input type="number" id="EventParticipantCap" class="form-control" name="EventParticipantCap" required>
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="simpleinput">活動類別</label>
                                 <br />
 
-                                <input type="radio" value="體驗類" name="Lable " />
-                                <label>體驗類</label>
+                                <input type="radio" value="體驗類" name="Lable " required />
+                                <label style="padding-right:15px">體驗類</label>
 
-                                <input type="radio" value="體驗類" name="Lable " />
+                                <input type="radio" value="體驗類" name="Lable " required />
                                 <label>活動類</label>
 
                                 @*<select class="form-control select2" id="simple-select2">
-                                        <optgroup label="活動類別選擇">
+                <optgroup label="活動類別選擇">
 
-                                            <input type="radio" value="體驗類" name="Lable" />
-                                            <option value="參訪類" name="Lable">參訪類</option>
+                    <input type="radio" value="體驗類" name="Lable" />
+                    <option value="參訪類" name="Lable">參訪類</option>
 
-                                        </optgroup>
-                                    </select>*@
+                </optgroup>
+            </select>*@
 
 
                                 @*<div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
-                                    </div>*@
+                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
+                <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+            </div>*@
                             </div>
                         </div>
                     </div>
@@ -100,26 +103,23 @@
                                 <strong></strong>
                             </p> @*標題*@
 
-                            <div class="form-group mb-3">
-                                <label for="simpleinput">人數上限</label>
-                                <input type="text" id="simpleinput" class="form-control" name="EventParticipantCap">
-                            </div>
+
 
                             <div class="form-group mb-3">
                                 <label for="simpleinput">活動費用</label>
-                                <input type="text" id="simpleinput" class="form-control" name="EventPrice">
+                                <input type="number" id="EventPrice" class="form-control" name="EventPrice" required>
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="simpleinput">活動地點</label>
-                                <input type="text" id="simpleinput" class="form-control" name="EventLocation">
+                                <input type="text" id="EventLocation" class="form-control" name="EventLocation" required>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="date-input1">開始日期</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control drgpicker" id="date-input1" value="1/1/2021" aria-describedby="button-addon2" name="EventStartDate">
+                                        <input type="datetime" class="form-control" id="StartDate" placeholder="YYYY/MM/DD hh:mm" value="2021/1/1 08:30" aria-describedby="button-addon2" name="EventStartDate" required>
                                         <div class="input-group-append">
                                             <div class="input-group-text" id="button-addon-date">
                                                 <span class="fe fe-calendar fe-16"></span>
@@ -127,19 +127,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+                                @*<div class="form-group col-md-4">
                                     <label for="time-input2">開始時間</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2" name="EventStartDate">
+                                        <input type="datetime" class="form-control " id="StartTime" placeholder="YYYY/MM/DD hh:mm" aria-describedby="button-addon2" name="EventStartDate" required>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="date-input1">結束日期</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control drgpicker" id="date-input1" value="1/1/2021" aria-describedby="button-addon2" name="EventEndDate">
+                                        @*<input type="text" class="form-control drgpicker" id="date-input1" value="1/1/2021" aria-describedby="button-addon2" name="EventEndDate" required>*@
+                                        <input type="datetime" class="form-control" id="EndDate"  placeholder="YYYY/MM/DD hh:mm"  value="2021/1/1 12:00" aria-describedby="button-addon2" name="EventEndDate" required>
                                         <div class="input-group-append">
                                             <div class="input-group-text" id="button-addon-date">
                                                 <span class="fe fe-calendar fe-16"></span>
@@ -147,12 +148,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+                                @*<div class="form-group col-md-4">
                                     <label for="time-input2">結束時間</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2" name="EventEndDate">
+                                        <input type="text" class="form-control time-input" id="time-input2" placeholder="" aria-describedby="button-addon2" name="EventEndDate" required>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div> <!-- /.card-body -->
                     </div> <!-- /.card -->
@@ -168,6 +169,7 @@
                                 <h3 class="page-title">活動圖片上傳</h3>
                                 <div class="col-md-12">
                                     <div class="card-body">
+                                        <br />
                                         <div id="drag-drop-area"></div>
                                     </div> <!-- .card-body -->
                                 </div> <!-- .col -->
@@ -181,7 +183,7 @@
                             <div class="card-body">
                                 <h3 class="card-title">活動內容編輯器</h3>
                                 <!-- Create the editor container -->
-                                <div id="editor" style="min-height:200px;" name="EventDescription">
+                                <div id="editor" class="EventDescription" style="min-height:200px;"  name="EventDescription">
                                     <p></p>
                                 </div>
                             </div>
@@ -192,212 +194,307 @@
         </div>
     </div>
 
-    <input type="submit" class="btn btn-primary btn-lg" style="margin-top:10px">
-    
-
-
+    <input type="submit" class="btn btn-primary btn-lg btn-lg " id="chickBT"  style="float:left; margin-right:40px">
 </form>
 
+<span>
+    <button class="btn btn-success btn-lg" style="float:left; color:white" id="DemoBtn">Demo</button>
+</span>
+@*彈跳視窗
+    <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" value="送出新增">*@
+
+<!--<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- Modal -->
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>-->
 
 
+@section Scripts{
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
 
-@*上傳圖片範本程式碼(先保留)*@
-<script>
-    $('.select2').select2(
-        {
-            theme: 'bootstrap4',
-        });
-    $('.select2-multi').select2(
-        {
-            multiple: true,
-            theme: 'bootstrap4',
-        });
-    $('.drgpicker').daterangepicker(
-        {
-            singleDatePicker: true,
-            timePicker: false,
-            showDropdowns: true,
-            locale:
-            {
-                format: 'MM/DD/YYYY'
+   /* 卡關,如何合併日期和時間後,回傳DB*/
+    //var 開始日期 =  $("input[ id='StatDate']").val();
+    //var 開始時間 = $("input[ id='StatTime']").val();
+    //var 開始日期時間 = 開始日期.val + 開始時間.val;
+
+    //$("#testbtn").click(function (event) {
+    //console.log(開始日期.val);
+    //})
+
+
+        $("#chickBT").click(function () {
+            let 活動名稱 = $("#EventName").val();
+            if (活動名稱 != "A") {
+                console.log("A")
+            }
+            else {
+                alert("報名成功");
             }
         });
-    $('.time-input').timepicker(
-        {
-            'scrollDefault': 'now',
-            'zindex': '9999' /* fix modal open */
+
+
+        $("#DemoBtn").click(function () {
+            console.log("AA");
+            $("#EventName").val("蔥寶寶 三星蔥手作體驗");
+            $("#SupplierId").val("1");
+            $("#EventParticipantCap").val("60");
+            $("#EventPrice").val("300");
+            $("#EventLocation").val("宜蘭縣三星鄉大德路三段79號");
+            $("#StartDate").val("2022/2/15 09:00");
+            $("#EndDate").val("2022/2/15 16:30");
+            $(".EventDescription").val("現在預訂星寶蔥體驗農場 | 親子手作蔥油餅DIY，讓遊客親自體驗做「蔥仔餅」及農村生活的樂趣，透過自己的雙手拔蔥、洗蔥，到揉麵、加蔥並捲製成型後，現場由服務人員為您煎至金黃熟透，讓您品嚐手作新鮮生產的「蔥仔餅」，更達到寓教於樂的推廣效果。");
         });
-    /** date range picker */
-    if ($('.datetimes').length) {
-        $('.datetimes').daterangepicker(
+
+
+    </script>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 上傳圖片範本程式碼(先保留) *@
+@*<!--<!--<!--<!--$('.select2').select2(
             {
-                timePicker: true,
-                startDate: moment().startOf('hour'),
-                endDate: moment().startOf('hour').add(32, 'hour'),
+                theme: 'bootstrap4',
+            });
+        $('.select2-multi').select2(
+            {
+                multiple: true,
+                theme: 'bootstrap4',
+            });
+        $('.drgpicker').daterangepicker(
+            {
+                singleDatePicker: true,
+                timePicker: false,
+                showDropdowns: true,
                 locale:
                 {
-                    format: 'M/DD hh:mm A'
+                    format: 'MM/DD/YYYY'
                 }
             });
-    }
-    var start = moment().subtract(29, 'days');
-    var end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-    $('#reportrange').daterangepicker(
-        {
-            startDate: start,
-            endDate: end,
-            ranges:
+        $('.time-input').timepicker(
             {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
-        }, cb);
-    cb(start, end);
-    $('.input-placeholder').mask("00/00/0000",
-        {
-            placeholder: "__/__/____"
-        });
-    $('.input-zip').mask('00000-000',
-        {
-            placeholder: "____-___"
-        });
-    $('.input-money').mask("#.##0,00",
-        {
-            reverse: true
-        });
-    $('.input-phoneus').mask('(000) 000-0000');
-    $('.input-mixed').mask('AAA 000-S0S');
-    $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
-        {
-            translation:
-            {
-                'Z':
-                {
-                    pattern: /[0-9]/,
-                    optional: true
-                }
-            },
-            placeholder: "___.___.___.___"
-        });
-    // editor
-    var editor = document.getElementById('editor');
-    if (editor) {
-        var toolbarOptions = [
-            [
-                {
-                    'font': []
-                }],
-            [
-                {
-                    'header': [1, 2, 3, 4, 5, 6, false]
-                }],
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [
-                {
-                    'header': 1
-                },
-                {
-                    'header': 2
-                }],
-            [
-                {
-                    'list': 'ordered'
-                },
-                {
-                    'list': 'bullet'
-                }],
-            [
-                {
-                    'script': 'sub'
-                },
-                {
-                    'script': 'super'
-                }],
-            [
-                {
-                    'indent': '-1'
-                },
-                {
-                    'indent': '+1'
-                }], // outdent/indent
-            [
-                {
-                    'direction': 'rtl'
-                }], // text direction
-            [
-                {
-                    'color': []
-                },
-                {
-                    'background': []
-                }], // dropdown with defaults from theme
-            [
-                {
-                    'align': []
-                }],
-            ['clean'] // remove formatting button
-        ];
-        var quill = new Quill(editor,
-            {
-                modules:
-                {
-                    toolbar: toolbarOptions
-                },
-                theme: 'snow'
+                'scrollDefault': 'now',
+                'zindex': '9999' /* fix modal open */
             });
-    }
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
+        /** date range picker */
+        if ($('.datetimes').length) {
+            $('.datetimes').daterangepicker(
+                {
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale:
+                    {
+                        format: 'M/DD hh:mm A'
                     }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-</script>
-<script>
-    var uptarg = document.getElementById('drag-drop-area');
-    if (uptarg) {
-        var uppy = Uppy.Core().use(Uppy.Dashboard,
-            {
-                inline: true,
-                target: uptarg,
-                proudlyDisplayPoweredByUppy: false,
-                theme: 'dark',
-                width: 770,
-                height: 210,
-                plugins: ['Webcam']
-            }).use(Uppy.Tus,
-                {
-                    endpoint: 'https://master.tus.io/files/'
                 });
-        uppy.on('complete', (result) => {
-            console.log('Upload complete! We’ve uploaded these files:', result.successful)
-        });
-    }
-</script>
-<script src="js/apps.js"></script>
+        }
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        $('#reportrange').daterangepicker(
+            {
+                startDate: start,
+                endDate: end,
+                ranges:
+                {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+        cb(start, end);
+        $('.input-placeholder').mask("00/00/0000",
+            {
+                placeholder: "__/__/____"
+            });
+        $('.input-zip').mask('00000-000',
+            {
+                placeholder: "____-___"
+            });
+        $('.input-money').mask("#.##0,00",
+            {
+                reverse: true
+            });
+        $('.input-phoneus').mask('(000) 000-0000');
+        $('.input-mixed').mask('AAA 000-S0S');
+        $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
+            {
+                translation:
+                {
+                    'Z':
+                    {
+                        pattern: /[0-9]/,
+                        optional: true
+                    }
+                },
+                placeholder: "___.___.___.___"
+            });
+        // editor
+        var editor = document.getElementById('editor');
+        if (editor) {
+            var toolbarOptions = [
+                [
+                    {
+                        'font': []
+                    }],
+                [
+                    {
+                        'header': [1, 2, 3, 4, 5, 6, false]
+                    }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [
+                    {
+                        'header': 1
+                    },
+                    {
+                        'header': 2
+                    }],
+                [
+                    {
+                        'list': 'ordered'
+                    },
+                    {
+                        'list': 'bullet'
+                    }],
+                [
+                    {
+                        'script': 'sub'
+                    },
+                    {
+                        'script': 'super'
+                    }],
+                [
+                    {
+                        'indent': '-1'
+                    },
+                    {
+                        'indent': '+1'
+                    }], // outdent/indent
+                [
+                    {
+                        'direction': 'rtl'
+                    }], // text direction
+                [
+                    {
+                        'color': []
+                    },
+                    {
+                        'background': []
+                    }], // dropdown with defaults from theme
+                [
+                    {
+                        'align': []
+                    }],
+                ['clean'] // remove formatting button
+            ];
+            var quill = new Quill(editor,
+                {
+                    modules:
+                    {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+        }
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script>
+        var uptarg = document.getElementById('drag-drop-area');
+        if (uptarg) {
+            var uppy = Uppy.Core().use(Uppy.Dashboard,
+                {
+                    inline: true,
+                    target: uptarg,
+                    proudlyDisplayPoweredByUppy: false,
+                    theme: 'dark',
+                    width: 770,
+                    height: 210,
+                    plugins: ['Webcam']
+                }).use(Uppy.Tus,
+                    {
+                        endpoint: 'https://master.tus.io/files/'
+                    });
+            uppy.on('complete', (result) => {
+                console.log('Upload complete! We’ve uploaded these files:', result.successful)
+            });
+        }*@
+
+
+@*<script src="js/apps.js"></script>-->-->-->-->*@
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -406,5 +503,4 @@
     }
     gtag('js', new Date());
     gtag('config', 'UA-56159088-1');
-</script>
-
+</script>-->
