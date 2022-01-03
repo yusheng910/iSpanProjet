@@ -33,9 +33,10 @@
             height: 60px;
             object-fit: cover;
         }
+
         .main-header.fixed-menu {
-             -webkit-animation-duration: 0ms; 
-             animation-duration: 0ms;
+            -webkit-animation-duration: 0ms;
+            animation-duration: 0ms;
         }
     </style>
 
@@ -80,6 +81,15 @@
                             @{
                                 if (ViewBag.USER != null)
                                 {
+                                    @*<li id="member" class="nav-link dropdown-toggle transition" data-toggle="dropdown" style="cursor:pointer">
+                                            <i class="fa fa-user s_color "></i> @ViewBag.USER
+                                            <input type="hidden" class="userId" value="@ViewBag.userID">
+                                        </li>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a>
+                                            </li>
+                                        </ul>*@
                                     <li id="member">
                                         <i class="fa fa-user s_color"></i> @ViewBag.USER
                                         <input type="hidden" class="userId" value="@ViewBag.userID">
@@ -101,8 +111,8 @@
                             }
 
                             @*<li id="member">
-                                <a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a>
-                            </li>*@
+                                    <a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a>
+                                </li>*@
                         </ul>
                     </div>
 
@@ -142,30 +152,30 @@
                             <a class="nav-link" asp-area="" asp-controller="Event" asp-action="EventBlog">農友活動</a>
                         </li>
                         @*<li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ContactUs" asp-action="ContactUs">聯絡我們</a>
-                        </li>*@
+                                <a class="nav-link" asp-area="" asp-controller="ContactUs" asp-action="ContactUs">聯絡我們</a>
+                            </li>*@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Shopping" asp-action="List">購物專區</a>
                         </li>
                         @*<li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
-                                購物專區 <i class="fas fa-chevron-down arrowcustomer"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">蔬菜</a>
-                                </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">水果</a>
-                                </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">台灣茶</a>
-                                </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">五穀雜糧</a>
-                                </li>
-                            </ul>
-                        </li>*@
+                                <a href="#" class="nav-link dropdown-toggle transition" data-toggle="dropdown">
+                                    購物專區 <i class="fas fa-chevron-down arrowcustomer"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">蔬菜</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">水果</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">台灣茶</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Shopping" asp-action="List" class="transition">五穀雜糧</a>
+                                    </li>
+                                </ul>
+                            </li>*@
                         <li class="dropdown">
                             @if (ViewBag.SUPP != null)
                             {

@@ -71,6 +71,30 @@
                 background-color: #0abb87;
                 color: #fff;
             }
+        #addmsgbox {
+            background-color: #FFE6FF;
+            z-index: 100;
+            height: 70px;
+            width: 150px;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            margin-top: -35px;
+            margin-left: -75px;
+            align-items: center;
+            display: flex;
+            padding-top: 70px;
+            border-radius: 30px;
+            font-weight: bolder;
+        }
+
+        #addmsgText {
+            height: 100px;
+            width: 200px;
+            text-align: center;
+            color: forestgreen;
+            font-weight: bold;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,6 +159,7 @@
             }
         })
        //加入購物車(改用document來解決利用ajax加載partialView後，無法觸發jquery事件 )
+        $('.alert-autocloseable-warning').hide();
         $(document).on("click", ".addCart", function (e) {
             let value = $(this).find(".add").val();
             let count = $(".addCount").val();
@@ -156,6 +181,12 @@
                             document.querySelector(".ToCart").dispatchEvent(evt)
                         }
                     })
+                    $('.autoclosable-btn-warning').prop("disabled", true);
+                    $('.alert-autocloseable-warning').show();
+                    $('.alert-autocloseable-warning').delay(3000).fadeOut("slow", function () {
+                        // Animation complete.
+                        $('.autoclosable-btn-warning').prop("disabled", false);
+                    });
                 } else {
                     // 創建事件物件
                     var evt = document.createEvent("HTMLEvents");
@@ -231,6 +262,11 @@
     </div>
 </div>
 <!-- End All Title Box -->
+<div class="alert-autocloseable-warning" id="addmsgbox">
+    <div class="alert-autocloseable-warning" id="addmsgText">
+        新增商品成功！
+    </div>
+</div>
 <!-- Start Shop Detail  -->
 @{
     <div class="shop-detail-box-main">
