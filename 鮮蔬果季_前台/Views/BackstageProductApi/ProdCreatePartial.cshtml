@@ -83,17 +83,17 @@
         </div>
         <div class="form-group">
             <label asp-for="ProductUnitPrice" class="control-label"></label>
-            <input asp-for="ProductUnitPrice" class="form-control" />
+            <input asp-for="ProductUnitPrice" oninput = "if(value<0)value=0" class="form-control" />
             <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ProductCostPrice" class="control-label"></label>
-            <input asp-for="ProductCostPrice" class="form-control" />
+            <input asp-for="ProductCostPrice" oninput = "if(value<0)value=0" class="form-control" />
             <span asp-validation-for="ProductCostPrice" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ProductUnitsInStock" class="control-label"></label>
-            <input asp-for="ProductUnitsInStock" class="form-control" />
+            <input asp-for="ProductUnitsInStock" oninput = "if(value<0)value=0" class="form-control" />
             <span asp-validation-for="ProductUnitsInStock" class="text-danger"></span>
         </div>
         <div class="form-group">

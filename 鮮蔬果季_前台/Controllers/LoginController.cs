@@ -44,23 +44,24 @@ namespace 鮮蔬果季_前台.Controllers
                     return RedirectToAction("Login", "Login");
                 }
             }
-            else if(supplier!=null) {
-                if (supplier.SupplierAccount.Equals(LOGIN.username) && supplier.SupplierPassword.Equals(LOGIN.password))
-                {
-                    string json = "";
-                    json = JsonSerializer.Serialize(user);
-                    HttpContext.Session.SetString(CDictionary.SK_LOGINED_SUPPLIER, json);
-                    UserLogin.supplier = supplier;
-                    return RedirectToAction("Index", "Home");
+            //else if (supplier != null)
+            //{
+            //    if (supplier.SupplierAccount.Equals(LOGIN.username) && supplier.SupplierPassword.Equals(LOGIN.password))
+            //    {
+            //        string json = "";
+            //        json = JsonSerializer.Serialize(user);
+            //        HttpContext.Session.SetString(CDictionary.SK_LOGINED_SUPPLIER, json);
+            //        UserLogin.supplier = supplier;
+            //        return RedirectToAction("Index", "Home");
 
-                }
-                else if(supplier==null)
-                {
-                    return RedirectToAction("Login", "Login");
-                }
+            //    }
+            //    else if (supplier == null)
+            //    {
+            //        return RedirectToAction("Login", "Login");
+            //    }
 
-                
-            }
+
+            //}
             return View();
         }
         
@@ -169,6 +170,21 @@ namespace 鮮蔬果季_前台.Controllers
                 a.CityName
             }).Distinct().OrderBy(a => a.CityName);
             return Json(cities);
+        }
+        public IActionResult ExistPassword(string ExistuserName, string ExistuserPassword)
+        {
+            var cust = (from p in db.Members
+                            where p.UserId == ExistuserName
+                            select new {p.UserId ,p.Password }).FirstOrDefault();
+            if (ExistuserName != null && ExistuserPassword!=null )
+            {
+                if (cust.Password != ExistuserPassword)
+                {
+                    return Content("1");
+                }
+                return Content("2");
+            }
+            return Content("0");
         }
     }
 }
