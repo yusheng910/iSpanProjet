@@ -28,6 +28,19 @@
         .couponlist tr:hover {
             background-color: aliceblue;
         }
+        .control-label{
+            font-weight:bold;
+        }
+/*        .cpcondition{
+            float:left;
+            width:45%;
+            padding-right:2.5%;
+        }
+        .cpdisc{
+            float:left;
+            width:45%;
+            padding-left:2.5%;
+        }*/
     </style>
 }
 
@@ -112,7 +125,7 @@
 </div> <!-- .row -->
 <!-- Modal -->
 <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 1000px;">
+    <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalEditLabel">酷碰券修改</h5>
@@ -127,37 +140,37 @@
                             <div class="text-danger"></div>
                             <input type="hidden" />
                             <div class="form-group">
-                                <label class="control-label"></label>
+                                <label class="control-label"></label> @*酷碰名稱*@
                                 <input class="form-control" />
                                 <span class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
+                            <div class="form-group cpcondition">
+                                <label class="control-label"></label> @*折扣條件*@
                                 <input class="form-control" min="1" />
                                 <span class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
+                            <div class="form-group cpdisc">
+                                <label class="control-label"></label> @*折扣金額*@
                                 <input class="form-control" min="0" />
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label"></label>
+                                <label class="control-label"></label> @*描述*@
                                 <input class="form-control" />
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label"></label>
+                                <label class="control-label"></label> @*開始日*@
                                 <input class="form-control startDate" />
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label"></label>
+                                <label class="control-label"></label> @*結束日*@
                                 <input class="form-control endDate" />
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label"></label>
+                                <label class="control-label"></label> @*發放數*@
                                 <input class="form-control" />
                                 <span class="text-danger"></span>
                             </div>
@@ -174,7 +187,7 @@
 </div>
 <!-- Modal2 -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 1000px;">
+    <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAddLabel">新增酷碰券</h5>

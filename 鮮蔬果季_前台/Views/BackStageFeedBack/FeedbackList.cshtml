@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody id="feedbackBody" class="tprodbody">
+                            <tbody id="feedbackBody" class="feedbackbody">
                                 @{ int count = 0;
                                     foreach (var item in Model)
                                     {
@@ -61,8 +61,8 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form name="ProdEdit">
-                                        <div class="modal-body prodBody">
+                                    <form name="FeedbackEdit">
+                                        <div class="modal-body feedbackBody">
                                             <!--內容-->
                                             ...
                                         </div>
@@ -92,12 +92,12 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        //產品修改=========================================================================
+        //回應修改=========================================================================
         //修改按鈕
         $(document).on("click", ".btnEdit", function () {
             var pid = $(this).next(".Pid").val();
             console.log(pid);
-            $('.feedbackBody').load("@Url.Content("~/BackstageFeedback/")/" + pid, function () {
+            $('.feedbackBody').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")/" + pid, function () {
                 var editor = document.getElementById('editor');
                 if (editor) {
                     console.log(editor)
@@ -167,8 +167,7 @@
                         });
                 }
             })
-        })
-         //修改儲存
+        })//修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
 
@@ -177,14 +176,14 @@
             $(".prodDescription").val(discription);
 
             const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
+            const response = await fetch('@Url.Content("~/BackStageFeedBack/ProdEditPartial")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackStageFeedBack/ProdListPartial")", function () {
                     alert("修改成功")
                     $('#dataTable-1').DataTable(
                         {
@@ -197,6 +196,7 @@
                 })
             }
         })
+         
     </script>
 
 }
