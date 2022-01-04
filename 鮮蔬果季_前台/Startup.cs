@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
+using 鮮蔬果季_前台.SignalRChat.Hubs;
 
 namespace 鮮蔬果季_前台
 {
@@ -31,6 +32,7 @@ namespace 鮮蔬果季_前台
             });
             services.AddControllersWithViews();
             services.AddSession();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +60,7 @@ namespace 鮮蔬果季_前台
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
