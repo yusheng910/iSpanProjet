@@ -162,6 +162,15 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
                 return RedirectToAction("Login", "Login");   //返回登入頁面
             }
+            //計算該活動已報名人數
+            var 已報名人數 = from ER in db.EventRegistrations
+                         where id == ER.EventId
+                         select new { ER.ParticipantNumber,ER.Event.EventParticipantCap };
+            foreach (var item in 已報名人數) { 
+            ViewBag.已報名人數 = item.ParticipantNumber;
+            ViewBag.活動人數 =  item.EventParticipantCap;
+            ViewBag.剩餘名額 = item.EventParticipantCap - item.ParticipantNumber;
+            }
 
             var 活動及供應商明細 = (from E in db.Events
                       join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
@@ -175,13 +184,17 @@ namespace 鮮蔬果季_前台.Controllers
             //單筆資料的加入(屬性:物件)
             單筆活動.Event = 活動及供應商明細.E;
             單筆活動.Supplier = 活動及供應商明細.supp;
+
             var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == 單筆活動.Event.Supplier.CityId);
             //因為是多張照片,故使用Where(找全部),型態List
             var 照片資料 = db.EventPhotoBanks.Where(EP => EP.EventId == id).ToList();
             //把上面找到的照片加入到 單筆活動(物件),因EventPhoto ViewModel型態為list,故可以用以下list加法
             foreach (var 照片 in 照片資料)    單筆活動.EventPhoto.Add(照片);
 
-            return View(單筆活動);
+
+             return View(單筆活動);
+
+
         }
 
 
