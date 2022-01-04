@@ -96,10 +96,11 @@
                                                 else if (item.Shield == true)
                                                 {
                                                     <td class="hideshield">*內容已屏蔽*</td>
+                                                    <td class="showshield" hidden>@item.Comments</td>
                                                 }
                                                 else
                                                 {
-                                                    <td class="showshield commval">@item.Comments</td>
+                                                    <td class="commval">@item.Comments</td>
                                                 }
                                             }
                                             <td>
@@ -131,7 +132,8 @@
                                                 if (item.Shield == true)
                                                 {
                                                     <td>
-                                                        <span style="padding-left:15px;" class="fe fe-24 fe-eye-off"></span>
+                                                        <span style="padding-left:15px;" class="fe fe-24 fe-eye-off eyeclose"></span>
+                                                        <span style="padding-left:15px;" hidden class="fe fe-24 fe-eye eyeopen"></span>
                                                     </td>
                                                 }
                                                 else
@@ -140,14 +142,6 @@
                                                 }
 
                                             }
-
-
-
-
-                                            @*<td>
-                                                    <button type="button" class="dropdown-item btnEdit"><span class="fe fe-16 fe-edit"></span></button>
-                                                    <input type="hidden" class="Rid" value="@item.ReviewId" />
-                                                </td>*@
                                             <td>
                                                 <button class="btn btn-sm dropdown-toggle more-horizontal rvopt" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
@@ -229,6 +223,19 @@
             changeunshield();
         });
 
+        $(document).on("mousedown", ".eyeclose", function () {
+            $(".eyeclose").attr("hidden", true);
+            $(".eyeopen").removeAttr("hidden");
+            $(".hideshield").attr("hidden", true);
+            $(".showshield").removeAttr("hidden");
+
+        })
+        $(document).on("mouseup", ".eyeopen", function () {
+            $(".eyeopen").attr("hidden", true);
+            $(".eyeclose").removeAttr("hidden");
+            $(".showshield").attr("hidden", true);
+            $(".hideshield").removeAttr("hidden");
+        })
 
 
 

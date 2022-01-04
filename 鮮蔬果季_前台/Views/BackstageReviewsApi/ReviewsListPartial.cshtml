@@ -1,5 +1,5 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.ReviewViewModel>
- <!-- table -->
+<!-- table -->
 <table class="table datatables border-dark" id="dataTable-1">
     <thead class="thead-dark">
         <tr>
@@ -25,7 +25,9 @@
                     <td>@count</td>
                     <td>@item.SupplierName</td>
                     <td>@item.ProductName</td>
-                    <td><span style="padding-left:15%">No. </span>@item.OrderDetailId</td>
+                    <td>
+                        <span style="padding-left:15%">No. </span>@item.OrderDetailId
+                    </td>
                     <td>@item.ReviewDate</td>
                     @{
                         if (item.Comments == null && item.Shield == false)
@@ -35,10 +37,11 @@
                         else if (item.Shield == true)
                         {
                             <td class="hideshield">*內容已屏蔽*</td>
+                            <td class="showshield" hidden>@item.Comments</td>
                         }
                         else
                         {
-                            <td class="showshield commval">@item.Comments</td>
+                            <td class="commval">@item.Comments</td>
                         }
                     }
                     <td>
@@ -69,7 +72,10 @@
                     @{
                         if (item.Shield == true)
                         {
-                            <td><span style="padding-left:15px" class="fe fe-24 fe-eye-off"></span></td>
+                            <td>
+                                <span style="padding-left:15px;" class="fe fe-24 fe-eye-off eyeclose"></span>
+                                <span style="padding-left:15px;" hidden class="fe fe-24 fe-eye eyeopen"></span>
+                            </td>
                         }
                         else
                         {
@@ -77,10 +83,6 @@
                         }
 
                     }
-                    @*<td>
-            <button type="button" class="dropdown-item btnEdit"><span class="fe fe-16 fe-edit"></span></button>
-            <input type="hidden" class="Rid" value="@item.ReviewId" />
-        </td>*@
                     <td>
                         <button class="btn btn-sm dropdown-toggle more-horizontal rvopt" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="text-muted sr-only">Action</span>
