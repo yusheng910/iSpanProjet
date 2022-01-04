@@ -188,11 +188,16 @@ namespace 鮮蔬果季_前台.Controllers
                             select new {p.UserId ,p.Password }).FirstOrDefault();
             if (ExistuserName != null && ExistuserPassword!=null )
             {
-                if (cust.Password != ExistuserPassword)
+                if (cust != null)
                 {
-                    return Content("1");
+                    if (cust.Password != ExistuserPassword)
+                    {
+                        return Content("1");
+                    }
+                    return Content("2");
                 }
-                return Content("2");
+                return Content("3");
+                
             }
             return Content("0");
         }
