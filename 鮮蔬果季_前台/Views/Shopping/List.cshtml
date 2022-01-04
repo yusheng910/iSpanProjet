@@ -74,7 +74,9 @@
 }
 @section Scripts{
 
-    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+
+    <script src="~/lib/jquery-ui-1.13.0.custom/jquery-ui.min.js"></script>
 
     <script>
         //排序
@@ -254,7 +256,9 @@
             <div class="col-lg-12">
                 <h2>購物專區</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                    <li class="breadcrumb-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
+                    </li>
                     <li class="breadcrumb-item active">購物專區</li>
                 </ul>
             </div>
@@ -496,85 +500,85 @@
                                     }
 
                                     @*foreach (var item in ViewBag.限時特價)
-                                    {
+                                        {
 
-                                            <div class="list-view-box">
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                        <div class="products-single fix">
-                                                            <div class="box-img-hover">
-                                                                <div class="type-lb">
-                                                                    <p class="sale" style="background-color: #FF9224 ">福利</p>
-                                                                </div>
-                                                                @{if (@item.photoBank[0] != null)
-                                                                    {
-                                                                        <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-fluid" alt="Image">
-                                                                    }
-                                                                }
-                                                                <div class="mask-icon">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
-                                                                        </li>
-                                                                        @{
-                                                                            if (item.myFavorite.MyFavoriteId != 0)
-                                                                            {
-                                                                                <li>
-                                                                                    <a class="RemoveFavorite" style="cursor: pointer; color: #FF2D2D;" data-toggle="tooltip" data-placement="right" title="移除我的最愛">
-                                                                                        <i class="fas fa-heart"></i>
-                                                                                        <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
-                                                                                    </a>
-                                                                                </li>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <li>
-                                                                                    <a class="addFavorite" style="cursor: pointer; color: #ffffff;" data-toggle="tooltip" data-placement="right" title="加入我的最愛">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                        <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
-                                                                                        <input class="FavoritetoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
-                                                                                    </a>
-                                                                                </li>
-                                                                            }
+                                                <div class="list-view-box">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                            <div class="products-single fix">
+                                                                <div class="box-img-hover">
+                                                                    <div class="type-lb">
+                                                                        <p class="sale" style="background-color: #FF9224 ">福利</p>
+                                                                    </div>
+                                                                    @{if (@item.photoBank[0] != null)
+                                                                        {
+                                                                            <img src="~/images/商品照/@item.photoBank[0].PhotoPath" class="img-fluid" alt="Image">
                                                                         }
-                                                                    </ul>
+                                                                    }
+                                                                    <div class="mask-icon">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a asp-area="" asp-controller="Shopping" asp-action="ShopDetail" asp-route-id="@item.product.ProductId" data-toggle="tooltip" data-placement="right" title="查看"><i class="fas fa-eye"></i></a>
+                                                                            </li>
+                                                                            @{
+                                                                                if (item.myFavorite.MyFavoriteId != 0)
+                                                                                {
+                                                                                    <li>
+                                                                                        <a class="RemoveFavorite" style="cursor: pointer; color: #FF2D2D;" data-toggle="tooltip" data-placement="right" title="移除我的最愛">
+                                                                                            <i class="fas fa-heart"></i>
+                                                                                            <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                                                                        </a>
+                                                                                    </li>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <li>
+                                                                                        <a class="addFavorite" style="cursor: pointer; color: #ffffff;" data-toggle="tooltip" data-placement="right" title="加入我的最愛">
+                                                                                            <i class="far fa-heart"></i>
+                                                                                            <input class="FavoritePId" type="hidden" value="@item.product.ProductId" />
+                                                                                            <input class="FavoritetoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                                                        </a>
+                                                                                    </li>
+                                                                                }
+                                                                            }
+                                                                        </ul>
 
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                                        <div class="why-text full-width">
-                                                            <h4>
-                                                                醜蔬果
-                                                                <span style="color:darkgreen;font-size:28px">@item.ProductName</span> 福利品限定價
-                                                            </h4>
-                                                            <h4>【@item.supplier.SupplierName】</h4>
-                                                            <h5 style=" margin-bottom: 15px">
-                                                                @{
-                                                                    string 規格 = @item.product.ProductSize;
-                                                                    string[] 公克 = 規格.Split("/");
-                                                                    decimal price = Convert.ToDecimal(@item.ProductUnitPrice * 1.25);
-                                                                    int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
-                                                                }
-                                                                @公克[0]/NT$ @item.ProductUnitPrice
-                                                            </h5>
+                                                        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                            <div class="why-text full-width">
+                                                                <h4>
+                                                                    醜蔬果
+                                                                    <span style="color:darkgreen;font-size:28px">@item.ProductName</span> 福利品限定價
+                                                                </h4>
+                                                                <h4>【@item.supplier.SupplierName】</h4>
+                                                                <h5 style=" margin-bottom: 15px">
+                                                                    @{
+                                                                        string 規格 = @item.product.ProductSize;
+                                                                        string[] 公克 = 規格.Split("/");
+                                                                        decimal price = Convert.ToDecimal(@item.ProductUnitPrice * 1.25);
+                                                                        int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                                                                    }
+                                                                    @公克[0]/NT$ @item.ProductUnitPrice
+                                                                </h5>
 
-                                                            <p style="padding-bottom:0px;">
-                                                                <a class="btn hvr-hover addCart" style="cursor:pointer">
-                                                                    加入購物車
-                                                                    <input class="add" type="hidden" value="@item.product.ProductId" />
-                                                                    <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
-                                                                </a>
-                                                            </p>
+                                                                <p style="padding-bottom:0px;">
+                                                                    <a class="btn hvr-hover addCart" style="cursor:pointer">
+                                                                        加入購物車
+                                                                        <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                                    </a>
+                                                                </p>
 
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        }*@
-                                    }
+                                            }*@
+                                }
                             </div>
                         </div>
                     </div>
