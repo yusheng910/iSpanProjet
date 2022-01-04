@@ -201,5 +201,11 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return Content("0");
         }
+        public IActionResult forgetPassword(string acount)
+        {
+
+            return PartialView();
+        }
+
     }
 }
