@@ -139,9 +139,17 @@
             let starnum = 0;
             let flag = false;
             $(document).on("click", ".open-review-box", function (e) {
+                $(".getcomments").val("")
+                $(".result").text("評分中...");
+                $(".stargroup > i").removeClass('fas fa-star').removeClass('far fa-star').addClass('far fa-star');
+                starnum = 0
+                flag = false;
                 $('.post-review-box').slideDown(400, function () {
                     $('.new-review').trigger('autosize.resize');
                     $('.new-review').focus();
+                    if (flag == false) {
+                        $(".saverv").attr('disabled', true)
+                    }
                 });
                 $(".open-review-box").fadeIn(200);
                 $(this).fadeOut(100);
@@ -222,10 +230,10 @@
         }
         rvwho()
             });
-            if (flag == false)
-            {
-                $(".saverv").attr('disabled', true)
-            }
+            //if (flag == false)
+            //{
+            //    $(".saverv").attr('disabled', true)
+            //}
 
             $(document).on("click", ".addrvbtn", function () {
             var comments = $(".getcomments").val()
