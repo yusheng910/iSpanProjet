@@ -210,12 +210,8 @@
                 if (data != 0) {
                     $("#cartNum").html(data)
                     $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")')
-                    $('.autoclosable-btn-warning').prop("disabled", true);
                     $('.alert-autocloseable-warning').show();
-                    $('.alert-autocloseable-warning').delay(3000).fadeOut("slow", function () {
-                        // Animation complete.
-                        $('.autoclosable-btn-warning').prop("disabled", false);
-                    });
+                    $('.alert-autocloseable-warning').delay(3000).fadeOut("slow");
                 } else {
                     // 創建事件物件
                     var evt = document.createEvent("HTMLEvents");
