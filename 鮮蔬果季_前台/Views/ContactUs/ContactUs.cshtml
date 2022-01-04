@@ -6,7 +6,9 @@
 }
 @section Styles{
     <style>
-
+        h3 {
+            font-weight: 100;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -78,8 +80,8 @@
         </div>
     </div>
 </div>
-<!-- End All Title Box -->
-<!-- Contact Start -->
+ End All Title Box 
+ Contact Start 
  
 <div id="contact">
     <div class="container">
@@ -91,9 +93,8 @@
                         <h3 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡鮮蔬果季</h3>
                         <h3 class="text-center">請提供簡述您所面臨到的問題，鮮蔬果季很樂意為您服務</h3>
                         <hr />
-                        <h3 class="text-center">產品名:@ViewBag.productname 訂單編號:@ViewBag.orderdetailname 供應商:@ViewBag.suppliername</h3>
-                        <h3 class="text-center"></h3>
-                        <h3 class="text-center"></h3>
+                        <h3 class="text-center">供應商:@ViewBag.suppliername</h3>
+                        <h3 class="text-center">產品名:@ViewBag.productname 訂單編號:@ViewBag.orderdetailname</h3>
                         <div class="form-group">
 
                             <select name="FatherFeedbackId" id="feedback1">
@@ -117,13 +118,13 @@
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea name="FeedbackComment" id="FeedbackCommet" class ="form-control" placeholder="請輸入內容"  style="height: 450px"></textarea>
+                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 450px"></textarea>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-12" style="background-color: #FFF9E9">
-                                <button type="submit"id="submit" class="btn hvr-hover">傳送</button>
+                                <button type="submit" id="submit" class="btn hvr-hover">傳送</button>
                             </div>
                         </div>
                     </form>
@@ -154,7 +155,7 @@
         }
 
         function RenderfatherFeedbackName(datas) {
-            selFatherFeedbackId.options.length = 0//用 selFatherFeedbackId.options.length = 0可行;selFeedbackName出問題???
+            selFatherFeedbackId.options.length = 0
             datas.forEach((item) => {
                 const opt = new Option(item.feedbackName, item.feedbackId) //name value
                 selFatherFeedbackId.options.add(opt)

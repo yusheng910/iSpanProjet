@@ -167,8 +167,21 @@
                                 </i>
                                 活動滿額人數 :  @Model.Event.EventParticipantCap
                             </span>
-                        </div>
 
+
+                            <div style="margin:15px 0px">
+                                <span class="dat" style="font-size: x-large; ">
+                                    <i class="fas fas fa-user" style="padding-right: 15px ">
+                                    </i>
+                                    已報名人數 : @ViewBag.已報名人數
+                                </span>
+
+                                <span class="dat" style="font-size: x-large; ">
+                                    <i style="padding-right: 15px ">
+                                    </i>
+                                    剩餘名額 :   @ViewBag.剩餘名額
+                                </span>
+                            </div>
 
                         <div style="margin:15px 0px">
                             <span class="dat" style="font-size: x-large; ">
@@ -187,7 +200,7 @@
                         </div>
 
 
-                        <p style="font-size:x-large">@Model.Event.EventDescription)</p>
+                        <p style="font-size:x-large">@Model.Event.EventDescription</p>
                         <br />
                     </div>
                 </div>

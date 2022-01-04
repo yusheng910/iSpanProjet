@@ -145,12 +145,12 @@
                             </li>
                             <li>
                                 <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=12>
-                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.AddMonths(-1).Month.ToString()
+                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.AddMonths(+1).Month.ToString()
                                 </a>
                             </li>
                             <li>
                                 <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog" asp-route-id=13>
-                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.AddMonths(-2).Month.ToString()
+                                    @DateTime.Now.Year.ToString() /  @DateTime.Now.AddMonths(+2).Month.ToString()
                                 </a>
                             </li>
                         </ul>
