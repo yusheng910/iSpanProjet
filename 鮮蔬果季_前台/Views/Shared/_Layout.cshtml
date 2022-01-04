@@ -38,6 +38,10 @@
             -webkit-animation-duration: 0ms;
             animation-duration: 0ms;
         }
+        .memberitem:hover {
+            color: sienna;
+            transition: .5s;
+        }
     </style>
 
     @await RenderSectionAsync("Styles", required: false)
@@ -81,19 +85,29 @@
                             @{
                                 if (ViewBag.USER != null)
                                 {
-                                    @*<li id="member" class="nav-link dropdown-toggle transition" data-toggle="dropdown" style="cursor:pointer">
+                                    @*<li id="member">
+                                        <i class="fa fa-user s_color"></i> @ViewBag.USER
+                                        <input type="hidden" class="userId" value="@ViewBag.userID">
+                                    </li>*@
+                                    if (ViewBag.userID ==97)
+                                    {
+                                        <li id="member" class="nav-link dropdown-toggle transition" data-toggle="dropdown" style="cursor:pointer">
                                             <i class="fa fa-user s_color "></i> @ViewBag.USER
                                             <input type="hidden" class="userId" value="@ViewBag.userID">
                                         </li>
                                         <ul class="dropdown-menu">
-                                            <li>
-                                                <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a>
+                                            <li class="">
+                                                <a asp-area="" asp-controller="Backstage" asp-action="Home" class="memberitem">前往後台</a>
                                             </li>
-                                        </ul>*@
-                                    <li id="member">
-                                        <i class="fa fa-user s_color"></i> @ViewBag.USER
-                                        <input type="hidden" class="userId" value="@ViewBag.userID">
-                                    </li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <li id="member">
+                                            <i class="fa fa-user s_color"></i> @ViewBag.USER
+                                            <input type="hidden" class="userId" value="@ViewBag.userID">
+                                        </li>
+                                    }
                                 }
                                 else if (ViewBag.SUPP != null)
                                 {
@@ -111,8 +125,8 @@
                             }
 
                             @*<li id="member">
-                                    <a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a>
-                                </li>*@
+            <a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a>
+        </li>*@
                         </ul>
                     </div>
 
