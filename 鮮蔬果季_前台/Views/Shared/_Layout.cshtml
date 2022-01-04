@@ -361,7 +361,8 @@
     <span id="bot-close" class="contact-bot action" style="cursor:pointer;"><i class="fas fa-comments"></i> 線上客服</span>
     <div id="bot-open" class="div-bot ">
         <span style=""><i class="far fa-times-circle"></i></span>
-        <iframe src='https://webchat.botframework.com/embed/msit132siangqna-bot?s=o-jd3mt_SHY.Cr7wCanCvakK4Oq4AGZkXbZhUvENa72PZYJ8jhX6PNM' style=''></iframe>
+        @*<iframe src='https://webchat.botframework.com/embed/msit132siangqna-bot?s=o-jd3mt_SHY.Cr7wCanCvakK4Oq4AGZkXbZhUvENa72PZYJ8jhX6PNM' style=''></iframe>*@
+        @*<iframe src="https://webchat.botframework.com/embed/msit132-qnaservice-bot?s=9wEb4gaG9DA.AkXH3WBxMrTscteB_bg-w3D7neD1NwD7et_4CiKju5I"></iframe>*@
     </div>
 
     <!-- End Footer  -->
@@ -387,12 +388,22 @@
     <script src="~/js/custom.js"></script>
     <script>
         $("#bot-close").click(function () {
-            $("#bot-close").removeClass("action");
-            $("#bot-open").addClass("action");
+            $("#bot-open").append("<iframe id='botadd' src='https://webchat.botframework.com/embed/msit132-qnaservice-bot?s=9wEb4gaG9DA.AkXH3WBxMrTscteB_bg-w3D7neD1NwD7et_4CiKju5I'></iframe>")
+            setTimeout(function () {
+                $("#bot-close").removeClass("action");
+                $("#bot-open").addClass("action");
+            }, 200);
+
+            
         })
         $("#bot-open span").click(function () {
             $("#bot-open").removeClass("action");
             $("#bot-close").addClass("action");
+            setTimeout(function () {
+                $("#botadd").remove();
+            }, 2000);
+
+
         })
 
         $('#cartIcon').click(function () {
