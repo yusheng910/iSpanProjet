@@ -242,6 +242,15 @@
             $(this).parent().prev().prev().prev().removeAttr("hidden");
         })
 
+        $(document).on("mouseout", ".eyeopen", function () {
+            $(this).attr("hidden", true);
+            $(this).prev().removeAttr("hidden");
+            /*            $(".showshield").attr("hidden", true);*/
+            $(this).parent().prev().prev().attr("hidden", true);
+            /*            $(".hideshield").removeAttr("hidden");*/
+            $(this).parent().prev().prev().prev().removeAttr("hidden");
+        })
+
 
 
         //$(document).on("mousedown", ".hideshield", function () {
