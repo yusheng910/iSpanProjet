@@ -59,12 +59,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="AllPay.Payment.Integration">
-      <HintPath>..\..\Payment_Net-master\AioSDK\AllPay.Payment.Integration.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\BackstageAdvertiseApi\CateLoad.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
