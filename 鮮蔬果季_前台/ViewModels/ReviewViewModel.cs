@@ -79,6 +79,8 @@ namespace 鮮蔬果季_前台.ViewModels
         public DateTime ReviewDate { get { return this.review.ReviewDate; } set { this.review.ReviewDate = value; } }
         [DisplayName("評論分數")]
         public int StarRanking { get { return this.review.StarRanking; } set { this.review.StarRanking = value; } }
+        [DisplayName("屏蔽狀態")]
+        public bool Shield { get { return this.review.Shield; } set { this.review.Shield = value; } }
 
         //產品
         [DisplayName("產品名稱")]
