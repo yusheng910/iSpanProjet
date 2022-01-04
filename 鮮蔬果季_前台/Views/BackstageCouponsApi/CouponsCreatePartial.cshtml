@@ -10,12 +10,12 @@
         </div>
         <div class="form-group">
             <label asp-for="DiscountCondition" class="control-label"></label>
-            <input asp-for="DiscountCondition" oninput = "value = value.replace(/[^\d]/g, '');if(value<0)value=0" class="form-control crecon" placeholder="輸入折扣金額條件" min="0" />
+            <input asp-for="DiscountCondition" oninput = "if(value<0)value=0" class="form-control crecon" placeholder="輸入折扣金額條件" min="0" />
             <span asp-validation-for="DiscountCondition" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="CouponDiscount" class="control-label"></label>
-            <input asp-for="CouponDiscount" oninput = "value = value.replace(/[^\d]/g, '');if(value<1)value=1" class="form-control credis" placeholder="輸入折扣金額" min="1" />
+            <input asp-for="CouponDiscount" oninput = "if(value<1)value=1" class="form-control credis" placeholder="輸入折扣金額" min="1" />
             <span asp-validation-for="CouponDiscount" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <label asp-for="CouponQuantityIssued" class="control-label"></label>
-            <input asp-for="CouponQuantityIssued" oninput = "value=value.replace(/[^\d]/g,'')" class="form-control crequn" placeholder="發放的數量" value="1" min="1" />
+            <input asp-for="CouponQuantityIssued" oninput = "if(value<1)value=1" class="form-control crequn" placeholder="發放的數量" value="1" min="1" />
             <span asp-validation-for="CouponQuantityIssued" class="text-danger"></span>
         </div>
     </div>

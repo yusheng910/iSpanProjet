@@ -10,6 +10,20 @@ namespace 鮮蔬果季_前台.ViewModels
 {
     public class ShoppingListViewModel
     {
+        public ProductOnSale _productOnSale = null;
+        public ProductOnSale productOnSale
+        {
+            get
+            {
+                if (_productOnSale == null)
+                    _productOnSale = new ProductOnSale();
+                return _productOnSale;
+            }
+            set
+            {
+                _productOnSale = value;
+            }
+        }
         public Coupon _coupon = null;
         public Coupon coupon
         {
