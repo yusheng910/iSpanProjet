@@ -39,7 +39,6 @@
                                     <th>活動費用</th>
                                     <th>活動開始時間</th>
                                     <th>活動結束時間</th>
-                                    <th>活動類別ID</th>
                                     <th>活動類別</th>
                                     <th></th>
                                     <th>編輯</th>
@@ -51,10 +50,10 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <label class="custom-control-label"></label>
-                                                </div>
+                                                <!--<div class="custom-control custom-checkbox">-->
+                                                    @*<input type="checkbox" class="custom-control-input">*@
+                                                    @*<label class="custom-control-label"></label>*@
+                                                <!--</div>-->
                                             </td>
                                             <td>@item.Event.EventId</td>
                                             <td>@item.Event.EventName</td>
@@ -65,7 +64,6 @@
                                             <td>@item.Event.EventPrice</td>
                                             <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
                                             <td>@item.Event.EventEndDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
-                                            <td>@item.Event.LableId</td>
                                             <td>@item.Event.Lable</td>
                                             <td></td>
                                             <td>
