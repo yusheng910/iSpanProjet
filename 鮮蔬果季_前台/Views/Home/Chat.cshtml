@@ -1,23 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<select id="group">
-    <option>貓派</option>
-    <option>狗派</option>
-</select>
-<button type="button" id="addGroupBtn">加入群組</button>
-<br>
-姓名：
-<input id="name" type="text">
-<br>
-訊息
-<input id="msg" type="text">
-<br>
-<button type="Button" id="submitGroupBtn">送出給群組</button>
-<button type="Button" id="submitAllBtn">送出給所有人</button>
-<br>
-<div id="msgDiv"></div>
-@section Scripts{
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+    <title>廣場聊天室</title>
+</head>
+<body>
+
+    <select id="group">
+        <option>農友活動</option>
+        <option>農友產品</option>
+    </select>
+    <input id="oldgroup" type="hidden" value="">
+    <button type="button" id="addGroupBtn">加入群組</button>
+    <br>
+    姓名：
+    <input id="name" type="text" value="@UserLogin.member.MemberName">
+    <br>
+    訊息
+    <input id="msg" type="text">
+    <br>
+    <button type="Button" id="submitGroupBtn">送出給群組</button>
+    <button type="Button" id="submitAllBtn">送出給所有人</button>
+    <br>
+    <div id="msgDiv"></div>
 
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <script>
@@ -34,12 +38,14 @@
         document.getElementById("addGroupBtn").addEventListener("click", function (event) {
             var user = document.getElementById("name").value;
             var group = document.getElementById("group").value;
+            var oldgroup = document.getElementById("oldgroup").value;
             console.log(user)
             console.log(group)
             console.log(connection)
-            connection.invoke("AddGroup", group, user).catch(function (err) {
+            connection.invoke("AddGroup", group, user, oldgroup).catch(function (err) {
                 return console.error(err.toString());
             });
+            document.getElementById("oldgroup").value = group;
             event.preventDefault();
         });
         connection.on("RecAddGroupMsg", function (message) {
@@ -69,10 +75,12 @@
 
         // 全頻道訊息訊息事件
         connection.on("ReceiveMessage", function (user, message) {
-            var msg = `[全頻道訊息(${groupName})]${user}：${msg}`;
+            var msg = `[全頻道訊息(${groupName})]${user}：${message}`;
             var li = document.createElement("li");
             li.textContent = msg;
             document.getElementById("msgDiv").appendChild(li);
         });
     </script>
-}
+
+</body>
+</html>

@@ -126,8 +126,34 @@ namespace 鮮蔬果季_前台.Controllers
        public IActionResult ChatTest()
         {
             return View();
+        }       
+        public IActionResult Chat()
+        {
+            return PartialView();
         }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult LoginCheck()
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+                return Content("1");
+            }
+            else if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_SUPPLIER)) //Seesion有找到
+            {
+                ViewBag.SUPP = UserLogin.supplier.SupplierName;
+                ViewBag.userID = UserLogin.supplier.SupplierAccount;
+                return Content("1");
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            return Content("1");
+        }
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

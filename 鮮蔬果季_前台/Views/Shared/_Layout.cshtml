@@ -89,10 +89,10 @@
                                 if (ViewBag.USER != null)
                                 {
                                     @*<li id="member">
-                                        <i class="fa fa-user s_color"></i> @ViewBag.USER
-                                        <input type="hidden" class="userId" value="@ViewBag.userID">
-                                    </li>*@
-                                    if (ViewBag.userID ==97)
+                                            <i class="fa fa-user s_color"></i> @ViewBag.USER
+                                            <input type="hidden" class="userId" value="@ViewBag.userID">
+                                        </li>*@
+                                    if (ViewBag.userID == 97)
                                     {
                                         <li id="member" class="nav-link dropdown-toggle transition" data-toggle="dropdown" style="cursor:pointer">
                                             <i class="fa fa-user s_color "></i> @ViewBag.USER
@@ -128,8 +128,8 @@
                             }
 
                             @*<li id="member">
-            <a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a>
-        </li>*@
+                                    <a asp-area="" asp-controller="Backstage" asp-action="Home"><i class="fa fa-user s_color"></i> 後台登入</a>
+                                </li>*@
                         </ul>
                     </div>
 
@@ -357,8 +357,14 @@
             </div>
         </div>
     </footer>
+    <div id="chat-img-click" style="position: fixed; bottom: 100px; right: 50px; width: 75px; border-radius: 50%; cursor: pointer; z-index: 997;">
+        <img src="~/images/chat.png" style="width:100%;border-radius:50%;border:2px solid green" />
+        <p>廣場聊天室</p>
+        <input class="toLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+    </div>
+
     @*<a href="#" id="back-to-top" title="Back to top" style="display: none;width:40px;height:40px;bottom:100px;right:50px;"><i class="fas fa-caret-up" style="font-size: 40px; letter-spacing: 0px "></i></a>*@
-    <span id="bot-close" class="contact-bot action" style="cursor:pointer;"><i class="fas fa-comments"></i> 線上客服</span>
+    <span id="bot-close" class="contact-bot action" style="cursor:pointer;"><i class="fas fa-comments"></i> 數位客服</span>
     <div id="bot-open" class="div-bot ">
         <span style=""><i class="far fa-times-circle"></i></span>
         @*<iframe src='https://webchat.botframework.com/embed/msit132siangqna-bot?s=o-jd3mt_SHY.Cr7wCanCvakK4Oq4AGZkXbZhUvENa72PZYJ8jhX6PNM' style=''></iframe>*@
@@ -394,14 +400,14 @@
                 $("#bot-open").addClass("action");
             }, 200);
 
-            
+
         })
         $("#bot-open span").click(function () {
             $("#bot-open").removeClass("action");
             $("#bot-close").addClass("action");
             setTimeout(function () {
                 $("#botadd").remove();
-            }, 2000);
+            }, 1500);
 
 
         })
@@ -420,7 +426,22 @@
             if(data!=0)
             cartNum.innerHTML = data
         })
+        $("#chat-img-click").click(async function () {
+            let response = await fetch('@Url.Content("~/Home/LoginCheck")');
+            let userCheck = await response.text();
+            console.log(userCheck)
+            if (userCheck == 1) {
+                window.open('@Url.Content("~/Home/Chat")', "廣場聊天室", config = "height=700, width=500, toolbar=none, menubar=none, scrollbars=none, resizable=none, location=none, status=none")
+            }
+            else if (userCheck == 0) {
+                // 創建事件物件
+                var evt = document.createEvent("HTMLEvents");
+                // 初始化
+                evt.initEvent("click", false, false);
+                document.querySelector(".toLogin").dispatchEvent(evt)
+            }
 
+        });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
