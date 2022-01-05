@@ -23,7 +23,7 @@ namespace 鮮蔬果季_前台.Controllers
     }
 
 
-        public IActionResult EventBlog(int id)
+        public IActionResult EventBlog()
         {
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
@@ -45,50 +45,51 @@ namespace 鮮蔬果季_前台.Controllers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
 
-            if (id == 1)
-            { 
-                所有活動 = (from E in db.Events
-                join supp in db.Suppliers
-                on E.SupplierId equals supp.SupplierId
-                where E.LableId == 1
-                select  new {E,supp }).ToList();
-            }
+            //原本是使用id回傳,來顯示對應標籤頁面,改成使用PartialView(用id傳)
+            //if (id == 1)
+            //{ 
+            //    所有活動 = (from E in db.Events
+            //    join supp in db.Suppliers
+            //    on E.SupplierId equals supp.SupplierId
+            //    where E.LableId == 1
+            //    select  new {E,supp }).ToList();
+            //}
 
-            if (id == 2)
-            {
-                所有活動 = (from E in db.Events
-                        join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                        where E.LableId == 2
-                        select new { E, supp }).ToList();
-            }
+            //if (id == 2)
+            //{
+            //    所有活動 = (from E in db.Events
+            //            join supp in db.Suppliers
+            //            on E.SupplierId equals supp.SupplierId
+            //            where E.LableId == 2
+            //            select new { E, supp }).ToList();
+            //}
 
-            if (id == 3)
-            {
-                所有活動 = (from E in db.Events
-                        join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                        where E.LableId == 3
-                        select new { E, supp }).ToList();
-            }
+            //if (id == 3)
+            //{
+            //    所有活動 = (from E in db.Events
+            //            join supp in db.Suppliers
+            //            on E.SupplierId equals supp.SupplierId
+            //            where E.LableId == 3
+            //            select new { E, supp }).ToList();
+            //}
 
-            if (id == 4)
-            {
-                所有活動 = (from E in db.Events
-                        join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                        where E.LableId == 4
-                        select new { E, supp }).ToList();
-            }
+            //if (id == 4)
+            //{
+            //    所有活動 = (from E in db.Events
+            //            join supp in db.Suppliers
+            //            on E.SupplierId equals supp.SupplierId
+            //            where E.LableId == 4
+            //            select new { E, supp }).ToList();
+            //}
 
-            if (id == 5)
-            {
-                所有活動 = (from E in db.Events
-                        join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                        where E.LableId == 5
-                        select new { E, supp }).ToList();
-            }
+            //if (id == 5)
+            //{
+            //    所有活動 = (from E in db.Events
+            //            join supp in db.Suppliers
+            //            on E.SupplierId equals supp.SupplierId
+            //            where E.LableId == 5
+            //            select new { E, supp }).ToList();
+            //}
 
 
 
@@ -118,32 +119,270 @@ namespace 鮮蔬果季_前台.Controllers
             return View(所有活動列表);
         }
 
-        //舊的留存
-        ////鮮蔬果季Context db = new 鮮蔬果季Context();          //引用注入就不用new db Context
-        //var datas = (from E in db.Events
-        //                 //join 照片 in db.EventPhotoBanks on E.EventId equals 照片.EventId
-        //             select E).ToList();
 
-        //List<EventListViewModel> list = new List<EventListViewModel>();
-        //    foreach (var item in datas)
-        //    {
-        //        //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
-        //        var 活動供應商與城市 = (from SI in db.Suppliers
-        //                        join C in db.Cities on SI.CityId equals C.CityId
-        //                        where SI.SupplierId == item.SupplierId
-        //                        select new { SI, C }).FirstOrDefault();                            //.FirstOrDefault跟ToList相同有斷點效果
-        //list.Add(new EventListViewModel()
-        //{
-        //    Event = item,
-        //            Supplier = 活動供應商與城市.SI,
-        //            City = 活動供應商與城市.C
-        //        });
-        //    }
-        //    return View(list);
+        //活動首頁標籤的Partialview 所有活動
+        public IActionResult AllBlog()
+        {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                       on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+          
+            foreach (var item in 所有活動)
+            {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                所有活動列表.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
+                });
+            }
+            return PartialView("BlogPartial",所有活動列表);
+        }
 
 
 
-    public IActionResult EventSignUp_1(int id)
+
+
+        //活動首頁標籤的Partialview DIY標籤
+        public IActionResult BlogTag_DIY()
+        {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        where E.LableId == 1
+                        join supp in db.Suppliers
+                       on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+
+            foreach (var item in 所有活動)
+            {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                所有活動列表.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
+                });
+            }
+            return PartialView("BlogPartial", 所有活動列表);
+        }
+
+
+        //活動首頁標籤的Partialview 可愛動物
+        public IActionResult BlogTag_CuteAnimal()
+        {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        where E.LableId == 2
+                        join supp in db.Suppliers
+                       on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+
+            foreach (var item in 所有活動)
+            {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                所有活動列表.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
+                });
+            }
+            return PartialView("BlogPartial", 所有活動列表);
+        }
+
+
+
+
+        //活動首頁標籤的Partialview 絕美風景
+        public IActionResult BlogTag_Landscape()
+        {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        where E.LableId == 3
+                        join supp in db.Suppliers
+                       on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+
+            foreach (var item in 所有活動)
+            {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                所有活動列表.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
+                });
+            }
+            return PartialView("BlogPartial", 所有活動列表);
+        }
+
+        //活動首頁標籤的Partialview 戶外露營
+        public IActionResult BlogTag_Camping()
+        {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        where E.LableId == 4
+                        join supp in db.Suppliers
+                       on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+            foreach (var item in 所有活動)
+            {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                所有活動列表.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
+                });
+            }
+            return PartialView("BlogPartial", 所有活動列表);
+        }
+
+
+
+        //活動首頁標籤的Partialview 專業課程
+        public IActionResult BlogTag_ProfessionalClass()
+        {
+            // 判斷會員是否登入
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        where E.LableId == 5
+                        join supp in db.Suppliers
+                       on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+            foreach (var item in 所有活動)
+            {
+
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+                所有活動列表.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list,
+                });
+            }
+            return PartialView("BlogPartial", 所有活動列表);
+        }
+
+
+
+
+        public IActionResult EventSignUp_1(int id)
         {
 
             // 判斷會員是否登入
@@ -191,11 +430,17 @@ namespace 鮮蔬果季_前台.Controllers
             //把上面找到的照片加入到 單筆活動(物件),因EventPhoto ViewModel型態為list,故可以用以下list加法
             foreach (var 照片 in 照片資料)    單筆活動.EventPhoto.Add(照片);
 
-
              return View(單筆活動);
-
-
         }
+
+
+
+
+
+
+
+
+
 
 
         //public IActionResult EventRegistration()

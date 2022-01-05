@@ -6,7 +6,8 @@
 
 <link rel="stylesheet" href="~/assets/css/main.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="external nofollow" rel="stylesheet"> @*ican的CDN*@
-
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 @section Styles{
     <style>
@@ -144,35 +145,36 @@
             <div class="col-lg-12">
 
                 <div class="分類圖片含標題大小">
-                    <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="1">
+                    @*原本版(改成以下用PartialView) <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="1">*@
+                    <a style="cursor:pointer" id="BlogTagDIY">
                         <p class="分類BOX標題">DIY體驗</p>
                         <img class="分類圖片大小" src="~/assets/img/活動分類/diy.jpg" alt="">
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
-                    <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="2">
+                    <a style="cursor:pointer" id="BlogTagCuteAnimal">
                         <p class="分類BOX標題">可愛動物</p>
                         <img class="分類圖片大小" src="~/assets/img/活動分類/可愛動物.jpg" alt="">
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
-                    <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="3">
+                    <a style="cursor:pointer" id="BlogTagLandscape">
                         <p class="分類BOX標題">絕美風景</p>
                         <img class="分類圖片大小" src="~/assets/img/活動分類/風景.jpg" alt="">
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
-                    <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="4">
+                    <a style="cursor:pointer" id="BlogTagCamping">
                         <p class="分類BOX標題">戶外露營</p>
                         <img class="分類圖片大小" src="~/assets/img/活動分類/露營.jpg" alt="">
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
-                    <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="5">
+                    <a style="cursor:pointer" id="BlogTagProfessionalClass">
                         <p class="分類BOX標題">專業課程</p>
                         <img class="分類圖片大小" src="~/assets/img/活動分類/課程.jpg" alt="">
                     </a>
@@ -181,7 +183,7 @@
 
             </div>
         </div>
-        <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="">
+        <a style="cursor:pointer" id="AllBlog">
             <h1 style="margin-top:20px; padding-left:950px"> 全部精彩活動... </h1>
         </a>
     </div>
@@ -194,7 +196,7 @@
 @*================================================活動========================================*@
 @*<P class="文字標題 container"> 熱門活動</P>*@
 <div id="eventbox">
-    <div class="container">
+    <div class="container" id="BlogList">
         @{
             foreach (var item in Model)
             {
@@ -262,3 +264,35 @@
         }
     </div>
 </div>
+
+<script>
+
+    @*點擊分類,觸發產生連接(Content),對象為BlogList這個ID*@
+    $('#BlogTagDIY').click(function () {
+        $('#BlogList').load('@Url.Content("~/Event/BlogTag_DIY")')
+    })
+
+    $('#BlogTagCuteAnimal').click(function () {
+        $('#BlogList').load('@Url.Content("~/Event/BlogTag_CuteAnimal")')
+     })
+
+    $('#BlogTagLandscape').click(function () {
+        $('#BlogList').load('@Url.Content("~/Event/BlogTag_Landscape")')
+     })
+
+    $('#BlogTagCamping').click(function () {
+        $('#BlogList').load('@Url.Content("~/Event/BlogTag_Camping")')
+      })
+
+    $('#BlogTagProfessionalClass').click(function () {
+        $('#BlogList').load('@Url.Content("~/Event/BlogTag_ProfessionalClass")')
+     })
+
+
+    $('#AllBlog').click(function () {
+        $('#BlogList').load('@Url.Content("~/Event/AllBlog")')
+     })
+
+
+
+</script>
