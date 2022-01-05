@@ -10,8 +10,54 @@
             height: 80px;
             object-fit: cover;
         }
+
+        #loader { /*   這是整個會蓋住畫面的底色色塊  */
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            top: 25%;
+            background-color: transparent;
+            z-index: 9999;
+        }
+
+        #shippingmsgbox {
+            background-color: #E0E0E0;
+            z-index: 100;
+            height: 70px;
+            width: 150px;
+            position: fixed;
+            top: 30%;
+            left: 53%;
+            margin-top: -35px;
+            margin-left: -75px;
+            align-items: center;
+            display: flex;
+            padding-top: 75px;
+            border-radius: 15px;
+            font-weight: bolder;
+            font-size: 15px;
+            box-shadow: 1.5px 1.5px 7px 1px #5b5b5b;
+        }
+
+        #shippingmsgText {
+            height: 100px;
+            width: 200px;
+            text-align: center;
+            color: #4D0000;
+            font-weight: bold;
+        }
     </style>
 }
+<div id="loader" hidden>
+<img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+</div>
+
+<div class="alert-autocloseable-warning" id="shippingmsgbox" hidden>
+    <div class="alert-autocloseable-warning" id="shippingmsgText">
+        配送狀態變更成功
+    </div>
+</div>
 
 <div class="row justify-content-center">
     <div class="col-12">
@@ -21,6 +67,7 @@
             <!-- Small table -->
             <div class="col-md-12">
                 <div class="card shadow">
+                    @*<img id="imgLoad" src="~/images/loading.gif" style="display:normal" />*@
                     <div class="card-body">
                         <!-- table -->
                         <table class="table datatables border-dark" id="dataTable-1">
@@ -45,7 +92,7 @@
                                     {
                                         <tr>
                                             <td>
-                                                    <input type="hidden" class="custom-control-input" id="@count">
+                                                <input type="hidden" class="custom-control-input" id="@count">
                                             </td>
                                             <td>@item.OrderId</td>
                                             <td>@item.member.MemberName</td>
@@ -137,6 +184,7 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
+        var imgLoad = document.querySelector('#imgLoad')
 
         $('#dataTable-1').DataTable({
             autoWidth: true,
@@ -148,9 +196,12 @@
 
         $(document).on('click', '.btnShipped', function () {
             var oid = $(this).next().val();
-            alert('請稍後，訂單狀態將更新為已出貨');
+            $('#loader').attr("hidden",false);
             console.log(oid);
             $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid, function () {
+                $('#loader').attr("hidden", true);
+                $('.alert-autocloseable-warning').attr("hidden", false);
+                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
                 $('#dataTable-1').DataTable(
                     {
                         autoWidth: true,
@@ -164,9 +215,12 @@
 
         $(document).on('click', '.btnDelivered', function () {
             var oid = $(this).next().val();
-            alert('請稍後，訂單狀態將更新為已送達');
+            $('#loader').attr("hidden", false);
             console.log(oid);
             $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid, function () {
+                $('#loader').attr("hidden", true);
+                $('.alert-autocloseable-warning').attr("hidden", false);
+                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
                 $('#dataTable-1').DataTable(
                     {
                         autoWidth: true,
