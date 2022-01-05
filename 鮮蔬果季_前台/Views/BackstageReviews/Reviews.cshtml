@@ -95,7 +95,7 @@
                                                 }
                                                 else if (item.Shield == true)
                                                 {
-                                                    <td class="hideshield">*內容已屏蔽*</td>
+                                                    <td class="hideshield" style="font-weight:bold">*內容已屏蔽*</td>
                                                     <td class="showshield" hidden>@item.Comments</td>
                                                 }
                                                 else
@@ -224,17 +224,31 @@
         });
 
         $(document).on("mousedown", ".eyeclose", function () {
-            $(".eyeclose").attr("hidden", true);
-            $(".eyeopen").removeAttr("hidden");
-            $(".hideshield").attr("hidden", true);
-            $(".showshield").removeAttr("hidden");
+            $(this).attr("hidden", true);
+            $(this).next().removeAttr("hidden");
+            /*            $(".hideshield").attr("hidden", true);*/
+            $(this).parent().prev().prev().prev().attr("hidden", true);
+
+            /*            $(".showshield").removeAttr("hidden");*/
+            $(this).parent().prev().prev().removeAttr("hidden");
 
         })
         $(document).on("mouseup", ".eyeopen", function () {
-            $(".eyeopen").attr("hidden", true);
-            $(".eyeclose").removeAttr("hidden");
-            $(".showshield").attr("hidden", true);
-            $(".hideshield").removeAttr("hidden");
+            $(this).attr("hidden", true);
+            $(this).prev().removeAttr("hidden");
+            /*            $(".showshield").attr("hidden", true);*/
+            $(this).parent().prev().prev().attr("hidden", true);
+            /*            $(".hideshield").removeAttr("hidden");*/
+            $(this).parent().prev().prev().prev().removeAttr("hidden");
+        })
+
+        $(document).on("mouseout", ".eyeopen", function () {
+            $(this).attr("hidden", true);
+            $(this).prev().removeAttr("hidden");
+            /*            $(".showshield").attr("hidden", true);*/
+            $(this).parent().prev().prev().attr("hidden", true);
+            /*            $(".hideshield").removeAttr("hidden");*/
+            $(this).parent().prev().prev().prev().removeAttr("hidden");
         })
 
 

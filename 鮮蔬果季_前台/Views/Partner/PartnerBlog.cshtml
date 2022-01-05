@@ -7,7 +7,7 @@
 }
 
 <link rel="stylesheet" href="~/assets/css/main.css">
-<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -94,21 +94,22 @@
 </style>
 
 <!-- Start All Title Box===================================================== -->
+<!-- Start All Title Box -->
+<div class="clickmsgbox"></div>
 <div class="all-title-box">
-    @*class="all-title-box_Partner"  查詢後會跳掉,找不到原因*@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h2>合作農友</h2>
-                @*<ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">ABOUT US</li>
-                    </ul>*@
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                    <li class="breadcrumb-item active">合作農友</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
-<div style="padding-bottom:40px"></div>   @*間格用*@
+<!-- End All Title Box -->
 
 
 <div class="SelectBackGround ">
@@ -175,32 +176,32 @@
 </div>
 
 @*<div class="row">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="pagination-wrap">
-                    <ul>
-                        <li>
-                            <a href="#">Prev</a>
-                        </li>
-                        <li>
-                            <a class="active" href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">Next</a>
-                        </li>
-                    </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="pagination-wrap">
+                        <ul>
+                            <li>
+                                <a href="#">Prev</a>
+                            </li>
+                            <li>
+                                <a class="active" href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">Next</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 <div style="padding-bottom:50px"></div> @*間格用*@
 

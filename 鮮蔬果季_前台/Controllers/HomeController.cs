@@ -123,7 +123,10 @@ namespace 鮮蔬果季_前台.Controllers
         {
             return View();
         }
-
+       public IActionResult ChatTest()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
