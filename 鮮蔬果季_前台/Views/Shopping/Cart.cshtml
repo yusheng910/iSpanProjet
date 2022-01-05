@@ -167,6 +167,7 @@
                                             <td class="quantity-box">
                                                 <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="@item.product.ProductUnitsInStock" class="c-input-text qty text qtyChange">
                                                 <input type="hidden" class="cartid" value="@item.shopCart.ShoppingCartId" />
+                                                <input class="add" type="hidden" value="@item.product.ProductId" />
                                                 <input type="hidden" class="stockUnit" value="@item.product.ProductUnitsInStock" />
                                             </td>
                                             <td class="total-pr" style="text-align:center;">
@@ -356,9 +357,40 @@
             var obj = $(this);
             var qty = $(this).val();
             var cid = $(this).next(".cartid").val();
-            var stock = $(this).next().next(".stockUnit").val();
+            var stock = $(this).next().next().next(".stockUnit").val();
             var qtyCount = parseInt(qty);
             var stockCount = parseInt(stock);
+            var value = $(this).next().next(".add").val();
+
+            async function AddtoNavCart() {
+                let response = await fetch("@Url.Content("~/Shopping/CartAddToNavCart/")" + value + "?count=" + qty)
+                let data = await response.text() //如果沒登入會回傳0
+                console.log(data)
+                if (data != 0) {
+                    $("#cartNum").html(data)
+                    $('#cart-ul').load('@Url.Content("~/Shopping/NavCart")', function () {
+                        if (tocart == 1) {
+                            console.log("succ")
+                            var evt = document.createEvent("HTMLEvents");
+                            evt.initEvent("click", false, false);
+                            document.querySelector(".ToCart").dispatchEvent(evt)
+                        }
+                    })
+                    $('.autoclosable-btn-warning').prop("disabled", true);
+                    $('.alert-autocloseable-warning').show();
+                    $('.alert-autocloseable-warning').delay(3000).fadeOut("slow", function () {
+                        // Animation complete.
+                        $('.autoclosable-btn-warning').prop("disabled", false);
+                    });
+                } else {
+                    // 創建事件物件
+                    var evt = document.createEvent("HTMLEvents");
+                    // 初始化
+                    evt.initEvent("click", false, false);
+                    document.querySelector(".CarttoLogin").dispatchEvent(evt)
+                }
+            }
+            AddtoNavCart();
             async function ChangeQty() {
                     var response = await fetch('@Url.Content("~/ShoppingApi/ChangeCartQty/")' + cid + "?qty=" + qty)
                     var data = await response.text()

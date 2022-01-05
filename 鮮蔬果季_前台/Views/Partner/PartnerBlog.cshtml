@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="~/assets/css/main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 @section Styles{
@@ -115,7 +114,6 @@
 
 <div class="SelectBackGround ">
     <h2 class="SelectTag" id="動畫1">
-        @*回傳id為空值,不然曾經查詢其他的id值還會殘存,導致無法查詢全部*@
         <a style="cursor:pointer;" id="allArticle">全部文章</a>
     </h2>
 
@@ -239,14 +237,6 @@
     $("#動畫4").mouseenter(function () {
         $("#動畫4").addClass("animate__animated animate__pulse")
     })
-
-
-    //$(function () {
-    //    $("#TEST").mouseenter(function () {
-    //        /*            $("#TEST").addClass("animate__animated animate__backInLeft")*/
-    //        console.log("AAA")
-    //    })
-    //})
 
 
 </script>

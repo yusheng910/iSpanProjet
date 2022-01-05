@@ -845,8 +845,6 @@ namespace 鮮蔬果季_前台.Controllers
                     //myCartitem.StatusId = 1;
                     db.SaveChanges();
                 }
-
-           
             }
             else //Seesion沒找到
             {
@@ -859,6 +857,52 @@ namespace 鮮蔬果季_前台.Controllers
                          select c).Count();
             return Content(購物車品量.ToString());
         }
+
+        public IActionResult CartAddToNavCart(int id, int count)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                var 購物車內商品 = (from p in db.Products
+                              join c in db.ShoppingCarts
+                              on p.ProductId equals c.ProductId
+                              where p.ProductId == id && c.StatusId == 1 && c.MemberId == UserLogin.member.MemberId
+                              select new { p, c }).FirstOrDefault();
+
+                if (購物車內商品 == null)
+                {
+                    ShoppingCart myCartitem = new ShoppingCart()
+                    {
+                        MemberId = UserLogin.member.MemberId,
+                        ProductId = id,
+                        UnitsInCart = count,
+                        StatusId = 1
+                    };
+                    db.Add(myCartitem);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ShoppingCart myCartitem = db.ShoppingCarts.FirstOrDefault(i => i.ProductId == id && i.StatusId == 1 && i.MemberId == UserLogin.member.MemberId);
+                    //myCartitem.MemberId = UserLogin.member.MemberId;
+                    //myCartitem.ProductId = id;
+                    myCartitem.UnitsInCart = count;
+                    //myCartitem.StatusId = 1;
+                    db.SaveChanges();
+                }
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return Content("0");
+            }
+            var 購物車品量 = (from c in db.ShoppingCarts
+                         where c.StatusId == 1 && c.MemberId == UserLogin.member.MemberId
+                         select c).Count();
+            return Content(購物車品量.ToString());
+        }
+
 
         public IActionResult CartNum()
         {
