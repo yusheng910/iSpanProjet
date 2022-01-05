@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
 
 
-
-
 @section Styles{
 
     <style>
@@ -70,7 +68,9 @@
             <div class="col-lg-12">
                 <h2>農友活動</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-action="EventBlog" asp-controller="Event">農友活動</a></li>
+                    <li class="breadcrumb-item">
+                        <a asp-action="EventBlog" asp-controller="Event">農友活動</a>
+                    </li>
                     <li class="breadcrumb-item active">報名活動</li>
                 </ul>
             </div>
@@ -152,7 +152,7 @@
                         <br />
 
                         <div style="margin:15px 0px">
-                            <p style="font-size: xx-large; font-weight:700 " class="字體">
+                            <p style="font-size: xx-large; font-weight:700 " class="字體" id="活動名稱">
                                 @Model.Event.EventName
                             </p>
                         </div>
@@ -187,36 +187,33 @@
                                 </span>
                             </div>
 
-                        <div style="margin:15px 0px">
-                            <span class="dat" style="font-size: x-large; ">
-                                <i class="fas fa-map-marker-alt" style="padding-right: 20px ">
-                                </i>
-                                @Model.Event.EventLocation
-                            </span>
+                            <div style="margin:15px 0px">
+                                <span class="dat" style="font-size: x-large; " id="eventlocation">
+                                    <i class="fas fa-map-marker-alt" style="padding-right: 20px ">
+                                    </i>
+                                    @Model.Event.EventLocation
+                                </span>
+                            </div>
+
+                            <div style="margin:15px 0px">
+                                <span class="dat" style="font-size: x-large; ">
+                                    <i class="fas fa-calendar-alt" style="padding-right: 20px ">
+                                    </i>
+                                    @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                </span>
+                            </div>
+
+
+                            <p style="font-size:x-large">@Model.Event.EventDescription</p>
+                            <br />
                         </div>
-
-                        <div style="margin:15px 0px">
-                            <span class="dat" style="font-size: x-large; ">
-                                <i class="fas fa-calendar-alt" style="padding-right: 20px ">
-                                </i>
-                                @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")
-                            </span>
-                        </div>
-
-
-                        <p style="font-size:x-large">@Model.Event.EventDescription</p>
-                        <br />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    } }
 <div style="padding-bottom:50px"></div> @*間格用*@
-
-
-
 
 
 <div class="checkout-section mt-150 mb-150">
@@ -247,7 +244,7 @@
                                             @*使用From將所有底下資料回傳*@
                                             <input type="hidden" name="EventId" value=@Model.Event.EventId>
                                             <p style="padding-bottom: 10px; ">
-                                                <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名  required>
+                                                <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 required>
                                             </p>
                                             <p style="padding-bottom: 10px">
                                                 <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
@@ -291,28 +288,55 @@
 </div>
 <div style="padding-bottom:50px"></div> @*間格用*@
 
+<input type="button" value="寄信" onclick="sendEmail()" />
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script src="~/assets/smtp.js"></script>
     <script>
-        @*執行起來怪怪的*@
+
+        //執行起來怪怪的
         //$("#chickBT").click(function (e) {
         //    e.preventDefault();
-        //let 姓名 = $("#name").val();
-        //let 電話 = $("#phone").val();
-        //let 電郵 = $("#email").val();
-        //let 參與人數 = $("#person").val();
+        //    let 姓名 = $("#name").val();
+        //    let 電話 = $("#phone").val();
+        //    let 電郵 = $("#email").val();
+        //    let 參與人數 = $("#person").val();
 
-            //console.log(姓名);
-            //console.log(電話);
-            //console.log(電郵);
-            //console.log(參與人數);
+        //    console.log(姓名);
+        //    console.log(電話);
+        //    console.log(電郵);
+        //    console.log(參與人數);
 
-            //alert("活動報名成功!")
-            //return true;
-    });
+        //    alert("活動報名成功!")
+        //    return true;
+        //});
 
 
-    </script>}
+            $("#chickBT").click(function () {
+
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                   SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                    Username: "dryadl978188@gmail.com",
+                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                    To: 'freshveg132@gmail.com',
+                    From: "dryadl978188@gmail.com",
+                    Subject: "鮮蔬果季 活動報名成功通知",
+                    Body: <p style="font- size: large"> "親愛的會員 @ViewBag.姓名 <br /> 恭喜您已經成功報名  @Model.Event.EventName,期待您的到來! <br /> 活動地點 : @Model.Event.EventLocation <br /> 活動時間為 : @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")"</p>
+                })
+                    .then(
+                        message => alert(message)
+                    );
+            });
+
+    </script>
+}
+
