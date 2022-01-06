@@ -46,10 +46,10 @@ namespace 鮮蔬果季_前台.Controllers
                     feedback = item.fb,
                     feedbackResponse = item.fbr1,
                     product=item.prod,
-                    supplier=item.sup
+                    supplier=item.sup,
                     
                 });
-
+              
             }
             return View(所有意見回饋列表);
         }
@@ -59,56 +59,6 @@ namespace 鮮蔬果季_前台.Controllers
             
             return PartialView(單筆回應);
         }
-        //public IActionResult FeedbackCreate()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult FeedbackCreate(FeedbackResponse _response)
-        //{
-        //    FeedbackResponse feedback = new FeedbackResponse()
-        //    {
-        //        OrderDetailId = _response.OrderDetailId,
-        //        FeedbackResponseId = _response.FeedbackResponseId,
-        //        FeedbackId = _response.FeedbackId,
-        //        FeedbackComment = _response.FeedbackComment
-        //    };
-        //    _context.Add(feedback);
-        //    _context.SaveChanges();
-        //    return RedirectToAction("FeedbackList");
-        //}
-
-
-
-        //public IActionResult FeedbackDelete(int id)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-        //    if (message != null)
-        //    {
-        //        _context.FeedbackResponses.Remove(message);
-        //        _context.SaveChanges();
-        //    }
-        //    return RedirectToAction("FeedbackList");
-        //}
-        //public IActionResult FeedbackEdit(int id)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-        //    if (message == null)
-        //        return RedirectToAction("FeedbackList");
-        //    return View(message);
-        //}
-        //[HttpPost]
-        //public IActionResult FeedbackEdit(FeedbackResponse editmessage)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
-        //    if (message != null)
-        //    {
-        //        message.FeedbackId = editmessage.FeedbackId;
-        //        message.OrderDetailId = editmessage.OrderDetailId;
-        //        message.FeedbackComment = editmessage.FeedbackComment;
-        //        _context.SaveChanges();
-        //    }
-        //    return RedirectToAction("FeedbackList");
-        //}
+       
     }
 }

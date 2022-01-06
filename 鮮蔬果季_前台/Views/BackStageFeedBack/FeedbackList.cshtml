@@ -22,6 +22,7 @@
                                 <tr>
                                     <th style="width:65px;">訂單編號</th>
                                     <th>會員名</th>
+                                    <th>會員信箱</th>
                                     <th>產品名稱</th>
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
@@ -31,17 +32,20 @@
                             </thead>
 
                             <tbody id="feedbackBody" class="feedbackbody">
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
+
+
                                         <tr>
                                             <td>@item.feedbackResponse.OrderDetailId</td>
                                             <td>@item.member.MemberName</td>
+                                            <td>@item.member.UserId</td>
                                             <td>@item.product.ProductName</td>
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
-                                       
+
                                             <td>
                                                 <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                                                     <i class="fe fe-edit fe-16"></i>
@@ -63,15 +67,31 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form name="FeedbackEdit">
-                                        <div class="modal-body feedbackBody">
-                                            <!--內容-->
-                                            ...
-                                        </div>
+                                    <form method="post" class="col-6" name="FormData">
+                                        @*使用From將所有底下資料回傳*@
+                                        
+                                        <p style="padding-bottom: 10px; ">
+                                            <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value="" required>
+                                        </p>
+
+                                        <p style="padding-bottom: 10px">
+                                            <input type="email" placeholder="電子信箱" class="SignUpText" name="ContactEmail" id="email" value="" required>
+                                        </p>
+                                              @*可以透過input內的type達到初階的輸入控制功能*@                                    @*required代表該輸入為必填*@
+
+                                        <p>
+                                            <textarea class="SignUpText" name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
+                                        </p>
+                                        <div style="padding-top:15px"> </div>
+                                        @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
+                                        <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
+
+
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
-                                        </div>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                                <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                            </div>
+                                           
                                     </form>
                                 </div>
                             </div>
@@ -200,22 +220,7 @@
             }
         })
         //傳送郵件
-        @*$("#chickBT").click(function () {
-
-                Email.send({
-                    Host: "smtp.elasticemail.com",
-                   SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
-                    Username: "dryadl978188@gmail.com",
-                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
-                    To: 'freshveg132@gmail.com',
-                    From: "dryadl978188@gmail.com",
-                    Subject: "This is the subject",
-                    Body: "恭喜您已經成功報名  @Model.Event.EventName,期待您的到來!"
-                })
-                    .then(
-                        message => alert(message)
-                    );
-            });*@
+       
 
     </script>
 
