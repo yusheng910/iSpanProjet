@@ -201,11 +201,43 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return Content("0");
         }
-        public IActionResult forgetPassword(string acount)
+        public IActionResult forgetPassword()
         {
-
-            return PartialView();
+            return View();
         }
 
+        public IActionResult CheckUserId(string UserId)
+        {
+            //    try
+            //    {
+            //        System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("freshveg132@gmail.com", "鮮蔬果季客服");
+            //        System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(UserId, "客戶");
+            //        System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            //        mail.From = from;
+            //        mail.To.Add(to);
+            //        mail.Subject = "忘記密碼測試郵件";
+            //        mail.Body = "測試郵件";
+            //        mail.IsBodyHtml = true;
+            //        System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+            //        client.Host = "smtp.elasticemail.com";
+            //        client.Credentials = new System.Net.NetworkCredential("freshveg132@gmail.com", "@Xyz1234@");
+            //        client.Send(mail);
+            //        return Content("1");
+            //    }
+            //    catch
+            //    {
+            //        return Content("0");
+            //    }
+            var cust = (from i in db.Members
+                       where i.UserId == UserId
+                       select new { i.Password} ).FirstOrDefault();
+            
+            if (cust != null)
+            {
+                ViewBag.Password = cust.Password;
+                return Content((cust.Password).ToString());
+            }
+            return Content("0");
+        }
     }
 }
