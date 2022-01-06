@@ -93,6 +93,8 @@ namespace 鮮蔬果季_前台.ViewModels
                 _member = value;
             }
         }
+
+       
         
 
 
@@ -100,8 +102,6 @@ namespace 鮮蔬果季_前台.ViewModels
 
 
 
-
-        
         public int FeedbackResponseID { get; set; }
 
         [DisplayName("回應項目")]
@@ -114,5 +114,8 @@ namespace 鮮蔬果季_前台.ViewModels
         public string SupplierName { get { return this.supplier.SupplierName; } set { this.supplier.SupplierName = value; } }
         [DisplayName("會員名稱")]
         public string MemberName { get {return this.member.MemberName; } set {this.member.MemberName=value; } }
+
+        public string UserId { get { return this.member.UserId; }set { this.member.UserId = value; } }
+        
     }
 }

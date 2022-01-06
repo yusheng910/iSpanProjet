@@ -108,30 +108,9 @@
                             </div>
                         </div>
                         <div id="register-link" class="text-right" style="">
-                            <button type="button" data-toggle="modal" data-target="#forgetPasswordModal" for="forgetPassword" name="forgetPassword"class="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</button>
+                            <a asp-area=""  asp-controller="Login" asp-action="forgetPassword" name="forgetPassword"class="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a>
                             <br />
                             <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="margin-top:4.5px ;color:white; padding:10px;">尚未註冊?</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="forgetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 1000px;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">忘記密碼</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form name="MembEdit">
-                        <div class="modal-body forgetPasswordBody">
-                            <!--內容-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <input type="submit" value="儲存" class="btn btn-primary BtnSave" data-dismiss="modal" />
                         </div>
                     </form>
                 </div>
@@ -153,9 +132,6 @@
         $("#username").val("adminuser");
         $("#password").val("a12345");
     });
-    $(document).on("click", ".forgetPassword", function () {
-        $(".forgetPasswordBody").load("@Url.Content("~/Login/forgetPassword")")
-        })
 </script>
 
 
