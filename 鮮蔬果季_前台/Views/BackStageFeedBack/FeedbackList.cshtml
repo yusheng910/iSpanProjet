@@ -170,7 +170,8 @@
                 }
             })
         })//修改儲存
-        $(document).on("click", ".btnSave", async function (e) {
+        $(document).on("click", ".btnSave", async function (e)
+        {
             e.preventDefault();
 
             //讀取文字編輯器
@@ -198,7 +199,24 @@
                 })
             }
         })
-         
+        //傳送郵件
+        $("#chickBT").click(function () {
+
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                   SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                    Username: "dryadl978188@gmail.com",
+                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                    To: 'freshveg132@gmail.com',
+                    From: "dryadl978188@gmail.com",
+                    Subject: "This is the subject",
+                    Body: "恭喜您已經成功報名  @Model.Event.EventName,期待您的到來!"
+                })
+                    .then(
+                        message => alert(message)
+                    );
+            });
+
     </script>
 
 }
