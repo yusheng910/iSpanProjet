@@ -109,7 +109,7 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu.transition {
 
 #chat-img-click {
     position: fixed;
-    bottom: 100px;
+    bottom: 80px;
     right: 50px;
     width: 65px;
     border-radius: 50%;
