@@ -78,7 +78,7 @@
 
                                             <td>
 
-                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
+                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#replyModal">回覆</button>
                                                 <input type="hidden" class="UserId" value="@item.UserId" />
 
                                             </td>
@@ -88,7 +88,7 @@
                             </tbody>
                         </table>
                         <!-- Modal 會員修改-->
-                        <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" >
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -106,7 +106,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                            <input type="submit" value ="儲存"id="sendto" class="btn btn-primary btnSave" data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
@@ -132,11 +132,23 @@
                     [16, 32, 64, "All"]
                 ]
             });
-          $(document).on("click", ".BtnEdit", function () {
-            var mid = $(this).next(".UserId").val();
-            console.log(mid);
-              $(".feedbackbodyresponse").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailResponsesPartail")" + mid)
-        })
+         $("#send").click(function () {
+
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                    SecureToken:"3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                    Username: "dryadl978188@gmail.com",
+                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                    To: 'freshveg132@gmail.com',
+                    From: "dryadl978188@gmail.com",
+                    Subject: "鮮蔬果季 意見回覆",
+                    Body: <p style="font- size: large"> "親愛的會員  <br /> 恭喜您已經成功報名,期待您的到來! <br /> "</p>
+                })
+                    .then(
+                        message => alert(message)
+                    );
+            });
+
 
 
 
