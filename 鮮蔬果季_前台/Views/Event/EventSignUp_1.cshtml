@@ -66,10 +66,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>農友活動</h2>
+                <h2>活動專區</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a asp-action="EventBlog" asp-controller="Event">農友活動</a>
+                        <a asp-action="EventBlog" asp-controller="Event">活動專區</a>
                     </li>
                     <li class="breadcrumb-item active">報名活動</li>
                 </ul>
@@ -240,7 +240,8 @@
 
 
                                         @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                        <form method="post" class="col-6" name="FormData">
+                                        <form  method="post"  class="col-6"  name="FormData">
+                                              
                                             @*使用From將所有底下資料回傳*@
                                             <input type="hidden" name="EventId" value=@Model.Event.EventId>
                                             <p style="padding-bottom: 10px; ">
@@ -301,6 +302,22 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script src="~/assets/smtp.js"></script>
     <script>
+
+
+        $(document).on("click", "#chickBT", async function (e) {
+            const  formData = new FormData(document.FormData)     //最右邊的FormData,代表報名表的form name
+            const  response = await  fetch('@Url.Content("~/EventAPI/EventSignUpAPI")', {
+                    method: "POST" ,
+                    body: formData
+                 }
+        })
+        if (data == AA) {
+            console.log("嗨")
+            alert("嗨")
+        }
+
+
+
 
         //執行起來怪怪的
         //$("#chickBT").click(function (e) {
