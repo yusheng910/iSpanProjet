@@ -23,9 +23,9 @@ namespace 鮮蔬果季_前台.SignalRChat.Hubs
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             await Clients.Group(groupName).SendAsync("RecAddGroupMsg", $"{username} 加入了 {groupName} 群組。");
         }
-        public Task SendMessageToGroup(string groupName, string username, string message)
+        public Task SendMessageToGroup(string groupName, string username, string message,string memId)
         {
-            return Clients.Group(groupName).SendAsync("ReceiveGroupMessage", groupName, username, message);
+            return Clients.Group(groupName).SendAsync("ReceiveGroupMessage", groupName, username, message, memId);
         }
         // 連線事件
         public override async Task OnConnectedAsync()
