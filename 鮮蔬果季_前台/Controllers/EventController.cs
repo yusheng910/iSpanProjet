@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 using 鮮蔬果季_前台.ViewModels;
@@ -419,7 +423,7 @@ namespace 鮮蔬果季_前台.Controllers
             //進到指定的活動頁(單筆活動),故不使用list,透過回傳的ID僅只一筆對應資料
             EventListViewModel 單筆活動 = new EventListViewModel();   
             List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
-             
+
             //單筆資料的加入(屬性:物件)
             單筆活動.Event = 活動及供應商明細.E;
             單筆活動.Supplier = 活動及供應商明細.supp;
@@ -432,29 +436,9 @@ namespace 鮮蔬果季_前台.Controllers
 
              return View(單筆活動);
         }
-
-
-
-
-
-
-
-
-
-
-
-        //public IActionResult EventRegistration()
-        //{ 
-        //    //var 活動報名資料 = (from ER in db.EventRegistrations
-        //    //              join M in db.Members
-        //    //              on ER.MemberId equals M.MemberId
-        //    //              where ER.EventId == id
-        //    //              select new { M, ER }).FirstOrDefault();
-        //    return View();
-        //}
         [HttpPost]  //同名方法
-            public IActionResult EventSignUp_1(EventRegistration FormData)  //回傳前台form的資料(name為FormData)
-        { 
+        public IActionResult EventSignUp_1(EventRegistration FormData)  //回傳前台form的資料(name為FormData)
+        {
             // 判斷會員是否登入
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
@@ -463,7 +447,6 @@ namespace 鮮蔬果季_前台.Controllers
 
                 EventRegistration 送出報名資料 = new EventRegistration()
                 {
-
                     MemberId = UserLogin.member.MemberId,
                     EventId = FormData.EventId,
                     ParticipantNumber = FormData.ParticipantNumber,
@@ -472,18 +455,10 @@ namespace 鮮蔬果季_前台.Controllers
                     ContactMobile = FormData.ContactMobile,
                     FoodPreference = FormData.FoodPreference,
                     SubmitDate = DateTime.Now,
-
-                    //EventId = XXX.EventId,
-                    //ParticipantNumber = XXX.ParticipantNumber,
-                    //ContactName = XXX.ContactName,
-                    //ContactEmail = XXX.ContactEmail,
-                    //ContactMobile = XXX.ContactMobile,
-                    //FoodPreference = XXX.FoodPreference,
-
                 };
-                    db.Add(送出報名資料);
-                   db.SaveChanges();
-               return   RedirectToAction("EventSignUp_1"/* new { XXX.EventId }*/);
+                db.Add(送出報名資料);
+                db.SaveChanges();
+                return RedirectToAction("EventSignUp_1");
             }
 
             else  //Seesion沒找到
@@ -493,5 +468,52 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");   //返回登入頁面
             }
         }
+        
+
+        public IActionResult MyEventList()
+            { 
+                    if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+            }
+            else //Seesion沒找到
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+                return RedirectToAction("Login", "Login");
+            }
+
+            List<EventListViewModel> 活動報名資料 = new List<EventListViewModel>();
+            var 登入會員報名資料 = (from ER in db.EventRegistrations
+                            join E in db.Events
+                            on ER.EventId  equals E.EventId
+                            where ER.MemberId == UserLogin.member.MemberId
+                            select new { ER,E }).ToList();
+
+            foreach (var item in 登入會員報名資料)
+            { 
+                活動報名資料.Add(new EventListViewModel()
+                {
+                    Event = item.E,
+                    _EventRegistration = item.ER,
+                });
+            }
+                return View(活動報名資料);
+        }
+
+        public IActionResult RemoveMyEvent(int id) 
+        {
+            var 取消的報名資料 = db.EventRegistrations.FirstOrDefault(ERI => ERI.EventRegistrationId == id);
+            if (取消的報名資料 != null)
+            {
+                db.Remove(取消的報名資料);
+                db.SaveChanges();
+            }
+            return RedirectToAction("MyEventList");   //目前怪怪的
+        }
+
+
+
     }
 }

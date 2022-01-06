@@ -1,0 +1,118 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
+
+@{
+    ViewData["Title"] = "MyEventList";
+}
+
+
+@section Styles{
+    <style>
+        #btnaddcart {
+            color: white;
+        }
+
+        th i {
+            padding-right: 10px;
+        }
+
+        .all-title-box {
+            background: url("../images/test1.jpg") no-repeat center center;
+            background-size: cover;
+        }
+
+        a .img-fluid {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+        }
+    </style>
+}
+@section Scripts{
+    <script>
+
+    </script>
+}
+<!-- Start All Title Box -->
+<div class="clickmsgbox"></div>
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>我的活動</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
+                    </li>
+                    <li class="breadcrumb-item active">我的活動</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start Wishlist  -->
+<div class="wishlist-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>活動名稱</th>
+                                <th>活動開始時間</th>
+                                <th>主要聯絡人</th>
+                                <th>連絡電話</th>
+                                <th>報名人數</th>
+                                <th>報名時間</th>
+                                <th>
+                                    <i class="far fa-trash-alt"></i>取消報名
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="EventTBody">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                                        <tr>
+
+                                                            <td @*style="cursor:pointer"*@>
+                                                                <a asp-area="" asp-controller="Event" asp-action="EventSignUp_1" asp-route-id="@item.EventRegistration.EventId">
+                                                                    @item.Event.EventName
+                                                                </a>
+                                                            </td>
+
+                                                            <td>
+                                                                @item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                                            </td>
+
+                                                            <td>
+                                                                @item.EventRegistration.ContactName
+                                                            </td>
+
+
+                                                            <td>
+                                                                @item.EventRegistration.ContactMobile
+                                                            </td>
+                                                            <td>
+                                                                @item.EventRegistration.ParticipantNumber
+                                                            </td>
+                                                            <td>
+                                                                @item.EventRegistration.SubmitDate
+                                                            </td>
+                                                            <td style="cursor:pointer">
+                                                                @Html.ActionLink("取消報名", "RemoveMyEvent", "Event", new { id = item.EventRegistration.EventRegistrationId }, new { onclick = "return confirm('確定要取消嗎?')" })
+                                                            </td>
+
+                                                        </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Wishlist -->
