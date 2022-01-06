@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
     <link href="~/css/ChatRoom.css" rel="stylesheet" />
     <style>
-
     </style>
 </head>
 <body>
@@ -18,8 +17,8 @@
             <div class="msger-header-title">
                 <i class="fas fa-comment-alt"></i>    群組：
                 <select id="group" class="show-tick form-control">
-                    <option>農友活動</option>
                     <option>農友產品</option>
+                    <option>農友活動</option>
                 </select>
                 @*<button type="button" id="addGroupBtn">進入群組</button>*@
                 <input id="oldgroup" type="hidden" value="尚未進入">
@@ -109,10 +108,11 @@
                 var group = document.getElementById("group").value;
                 var message = document.getElementById("msg").value;
                 var memId = document.getElementById("mamberID").value;
+                var path = document.getElementById("mamberphoto").value;
                 if (message == "") {
                     return false;
                 }
-                connection.invoke("SendMessageToGroup", group, user, message, memId).catch(function (err) {
+                connection.invoke("SendMessageToGroup", group, user, message, memId, path).catch(function (err) {
                     return console.error(err.toString());
                 });
                 document.getElementById("msg").value = "";
@@ -124,28 +124,29 @@
             var user = document.getElementById("name").value;
             var group = document.getElementById("group").value;
             var message = document.getElementById("msg").value;
+            var memId = document.getElementById("mamberID").value;
+            var path = document.getElementById("mamberphoto").value;
             if (message == "") {
                 return false;
             }
-            connection.invoke("SendMessageToGroup", group, user, message).catch(function (err) {
+            connection.invoke("SendMessageToGroup", group, user, message, memId, path).catch(function (err) {
                 return console.error(err.toString());
             });
             document.getElementById("msg").value = "";
         });
 
         // 群組訊息接收事件
-        connection.on("ReceiveGroupMessage", function (groupName, user, message, memId) {
+        connection.on("ReceiveGroupMessage", function (groupName, user, message, memId, path) {
             var myDate = new Date();
             var hour = ('0'+(myDate.getHours())).slice(-2);       //獲取當前小時數(0-23)
             var min = ('0' + (myDate.getMinutes())).slice(-2);     //獲取當前分鐘數(0-59)
             var sec = ('0' + (myDate.getSeconds())).slice(-2);     //獲取當前秒數(0-59)
-            var path = document.getElementById("mamberphoto").value;
             var userId = document.getElementById("mamberID").value;
             if (userId == memId) {
                                             $("#msgDiv").append(`
                 <div class="message-holder-me">
                     <div class="message-icon-me">
-                            <img src='@Url.Content("~/images/MemberPhoto/")${path}' style="object-fit: cover;width: 100%;border-radius:50%;"/>
+                            <img src='@Url.Content("~/images/MemberPhoto/")${path}' style="object-fit: cover;width: 38px;height:38px;border-radius:50%;"/>
                     </div>
                     <div class="message-log-me">
                         <div class="message-log__header-me group-me">
@@ -161,7 +162,7 @@
                             $("#msgDiv").append(`
                 <div class="message-holder">
                     <div class="message-icon">
-                            <img src='@Url.Content("~/images/MemberPhoto/")${path}' style="object-fit: cover;width: 100%;border-radius:50%;"/>
+                            <img src='@Url.Content("~/images/MemberPhoto/")${path}' style="object-fit: cover;width: 38px;height:38px;border-radius:50%;"/>
                     </div>
                     <div class="message-log">
                         <div class="message-log__header group">
