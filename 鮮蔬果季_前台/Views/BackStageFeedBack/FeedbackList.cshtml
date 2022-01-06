@@ -75,10 +75,10 @@
                                             <td>@item.HaveResponses</td>
 
                                             <td>
-                                                
-                                                    <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
-                                                    <input type="hidden" class="UserId" value="@item.UserId" />
-                                                
+
+                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
+                                                <input type="hidden" class="UserId" value="@item.UserId" />
+
                                             </td>
                                         </tr>
                                     }
@@ -116,6 +116,7 @@
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script src="~/assets/smtp.js"></script>
     <script>
         $('#dataTable-1').DataTable(
             {
@@ -130,7 +131,7 @@
             console.log(mid);
               $(".feedbackbodyresponse").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailResponsesPartail")" + mid)
         })
-        
+
 
 
 

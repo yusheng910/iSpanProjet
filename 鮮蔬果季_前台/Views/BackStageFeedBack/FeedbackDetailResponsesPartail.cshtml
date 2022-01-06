@@ -12,7 +12,7 @@
     <button onclick="sendMail" id="sendEmail">Send</button>
 </form>
 
-@section Styles{ 
+ 
     <style>
         form {
             display: flex;
@@ -39,12 +39,27 @@
             text-align: center;
         }
     </style>
-}
-@section Scripts{
+    <script src="~/assets/smtp.js"></script>
     <script>
 
+        $("#sendMail").click(function () {
+
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                   SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                    Username: "dryadl978188@gmail.com",
+                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                    To: 'freshveg132@gmail.com',
+                    From: "dryadl978188@gmail.com",
+                    Subject: "This is the subject",
+                    Body: "恭喜您已經成功報名  @Model.feedback.FeedbackName,期待您的到來!"
+                })
+                    .then(
+                        message => alert(message)
+                    );
+            });
 
     </script>
-}
+
 
 
