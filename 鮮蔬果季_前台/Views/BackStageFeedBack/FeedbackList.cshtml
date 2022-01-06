@@ -14,13 +14,15 @@
         }
 
             form input, form textarea, form button {
-                padding: 20px;
-                margin-bottom: 20px;
+                padding: 40px;
+                margin-bottom: 40px;
                 outline: none;
                 border: none;
                 background-color: #ddd;
             }
-
+            form textarea {
+                height:200px;
+            }
             form button {
                 background-color: #333;
                 cursor: pointer;
@@ -87,10 +89,10 @@
                         </table>
                         <!-- Modal 會員修改-->
                         <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" style="max-width: 1000px;">
+                            <div class="modal-dialog" >
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">信件回覆</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -98,6 +100,9 @@
                                     <form name="MembEdit">
                                         <div class="modal-body feedbackbodyresponse">
                                             <!--內容-->
+                                            <div><input type="text" id="MemberName" name="MemberName" placeholder="MemberName" /></div>
+                                            <div><input type="text" id="UserId" name="UserId" placeholder="Email" /></div>
+                                            <div><textarea  id="msg" placeholder="Your message.."></textarea></div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
@@ -113,6 +118,7 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
+
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
