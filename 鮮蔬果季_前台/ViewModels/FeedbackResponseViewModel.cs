@@ -116,5 +116,6 @@ namespace 鮮蔬果季_前台.ViewModels
         public string MemberName { get {return this.member.MemberName; } set {this.member.MemberName=value; } }
 
         public string UserId { get { return this.member.UserId; }set { this.member.UserId = value; } }
+        
     }
 }
