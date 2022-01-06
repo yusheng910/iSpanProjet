@@ -60,12 +60,13 @@
                         <thead>
                             <tr>
                                 <th>活動名稱</th>
+                                <th>活動開始時間</th>
                                 <th>主要聯絡人</th>
-                                <th>參與人數</th>
                                 <th>連絡電話</th>
+                                <th>報名人數</th>
                                 <th>報名時間</th>
                                 <th>
-                                    <i class="far fa-trash-alt"></i>刪除活動
+                                    <i class="far fa-trash-alt"></i>取消報名
                                 </th>
                             </tr>
                         </thead>
@@ -73,28 +74,37 @@
                             @{
                                 foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            @item.Event.EventName
-                                        </td>
+                                                        <tr>
 
-                                        <td>
-                                            @item.EventRegistration.ContactName
-                                        </td>
-                                        <td>
-                                            @item.EventRegistration.ContactMobile
-                                        </td>
-                                        <td>
-                                            @item.EventRegistration.ParticipantNumber
-                                        </td>
-                                        <td>
-                                            @item.EventRegistration.SubmitDate
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("取消報名", "RemoveMyEvent", "Event", new { id = item.EventRegistration.EventRegistrationId }, new { onclick = "return confirm('確定要取消嗎?')" })
-                                        </td>
+                                                            <td @*style="cursor:pointer"*@>
+                                                                <a asp-area="" asp-controller="Event" asp-action="EventSignUp_1" asp-route-id="@item.EventRegistration.EventId">
+                                                                    @item.Event.EventName
+                                                                </a>
+                                                            </td>
 
-                                    </tr>
+                                                            <td>
+                                                                @item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                                            </td>
+
+                                                            <td>
+                                                                @item.EventRegistration.ContactName
+                                                            </td>
+
+
+                                                            <td>
+                                                                @item.EventRegistration.ContactMobile
+                                                            </td>
+                                                            <td>
+                                                                @item.EventRegistration.ParticipantNumber
+                                                            </td>
+                                                            <td>
+                                                                @item.EventRegistration.SubmitDate
+                                                            </td>
+                                                            <td style="cursor:pointer">
+                                                                @Html.ActionLink("取消報名", "RemoveMyEvent", "Event", new { id = item.EventRegistration.EventRegistrationId }, new { onclick = "return confirm('確定要取消嗎?')" })
+                                                            </td>
+
+                                                        </tr>
                                 }
                             }
 
