@@ -5,6 +5,32 @@
 
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            margin: auto;
+        }
+
+            form input, form textarea, form button {
+                padding: 20px;
+                margin-bottom: 20px;
+                outline: none;
+                border: none;
+                background-color: #ddd;
+            }
+
+            form button {
+                background-color: #333;
+                cursor: pointer;
+                color: #fff;
+            }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
 }
 
 <div class="row justify-content-center">
@@ -27,6 +53,7 @@
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
                                     <th>回應敘述</th>
+                                    <th>是否回信</th>
                                     <th>動作</th>
                                 </tr>
                             </thead>
@@ -45,54 +72,37 @@
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
-                                            <td></td>
+                                            <td>@item.HaveResponses</td>
 
                                             <td>
-                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="fe fe-edit fe-16"></i>
-                                                </button>
-                                                <input type="hidden" class="Pid" value="@item.FeedbackResponseID" />
+                                                
+                                                    <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
+                                                    <input type="hidden" class="UserId" value="@item.UserId" />
+                                                
                                             </td>
                                         </tr>
                                     }
                                 }
                             </tbody>
                         </table>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal 會員修改-->
+                        <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" style="max-width: 1000px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">回饋意見回復</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form method="post" class="col-6" name="FormData">
-                                        @*使用From將所有底下資料回傳*@
-                                        
-                                        <p style="padding-bottom: 10px; ">
-                                            <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value="" required>
-                                        </p>
-
-                                        <p style="padding-bottom: 10px">
-                                            <input type="email" placeholder="電子信箱" class="SignUpText" name="ContactEmail" id="email" value="" required>
-                                        </p>
-                                              @*可以透過input內的type達到初階的輸入控制功能*@                                    @*required代表該輸入為必填*@
-
-                                        <p>
-                                            <textarea class="SignUpText" name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
-                                        </p>
-                                        <div style="padding-top:15px"> </div>
-                                        @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
-                                        <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
-
-
+                                    <form name="MembEdit">
+                                        <div class="modal-body feedbackbodyresponse">
+                                            <!--內容-->
+                                        </div>
                                         <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                                <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
-                                            </div>
-                                           
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -115,114 +125,18 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        //回應修改=========================================================================
-        //修改按鈕
-        $(document).on("click", ".btnEdit", function () {
-            var pid = $(this).next(".Pid").val();
-            console.log(pid);
-            $('.feedbackBody').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")/" + pid, function () {
-                var editor = document.getElementById('editor');
-                if (editor) {
-                    console.log(editor)
-                    var toolbarOptions = [
-                        [
-                            {
-                                'font': []
-                            }],
-                        [
-                            {
-                                'header': [1, 2, 3, 4, 5, 6, false]
-                            }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote', 'code-block'],
-                        [
-                            {
-                                'header': 1
-                            },
-                            {
-                                'header': 2
-                            }],
-                        [
-                            {
-                                'list': 'ordered'
-                            },
-                            {
-                                'list': 'bullet'
-                            }],
-                        [
-                            {
-                                'script': 'sub'
-                            },
-                            {
-                                'script': 'super'
-                            }],
-                        [
-                            {
-                                'indent': '-1'
-                            },
-                            {
-                                'indent': '+1'
-                            }], // outdent/indent
-                        [
-                            {
-                                'direction': 'rtl'
-                            }], // text direction
-                        [
-                            {
-                                'color': []
-                            },
-                            {
-                                'background': []
-                            }], // dropdown with defaults from theme
-                        [
-                            {
-                                'align': []
-                            }],
-                        ['clean'] // remove formatting button
-                    ];
-                    var quill = new Quill(editor,
-                        {
-                            modules:
-                            {
-                                toolbar: toolbarOptions
-                            },
-                            theme: 'snow'
-                        });
-                }
-            })
-        })//修改儲存
-        $(document).on("click", ".btnSave", async function (e)
-        {
-            e.preventDefault();
-
-            //讀取文字編輯器
-            var discription = $(".ql-editor").html();
-            $(".prodDescription").val(discription);
-
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")', {
-                method: "POST",
-                body: formData
-            })
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")", function () {
-                    alert("修改成功")
-                    $('#dataTable-1').DataTable(
-                        {
-                            autoWidth: true,
-                            "lengthMenu": [
-                                [16, 32, 64, -1],
-                                [16, 32, 64, "All"]
-                            ]
-                        });
-                })
-            }
+          $(document).on("click", ".BtnEdit", function () {
+            var mid = $(this).next(".UserId").val();
+            console.log(mid);
+              $(".feedbackbodyresponse").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailResponsesPartail")" + mid)
         })
-        //傳送郵件
-       
+        
+
+
 
     </script>
+
+
+
 
 }

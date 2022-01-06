@@ -116,6 +116,7 @@ namespace 鮮蔬果季_前台.ViewModels
         public string MemberName { get {return this.member.MemberName; } set {this.member.MemberName=value; } }
 
         public string UserId { get { return this.member.UserId; }set { this.member.UserId = value; } }
-        
+        [DisplayName("是否回信")]
+        public bool HaveResponses { get {return this.feedbackResponse.HaveResponses; } set {this.feedbackResponse.HaveResponses=value; } }
     }
 }

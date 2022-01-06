@@ -1,0 +1,50 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model 鮮蔬果季_前台.ViewModels.FeedbackResponseViewModel
+<h1>回覆會員</h1>
+
+<form>
+    <input type="text"asp-for="MemberName" id="MemberName"name="MemberName" placeholder="MemberName" />
+    <input type="text"asp-for="UserId" id="UserId"name="UserId" placeholder="Email" />
+    <textarea cols="5" rows="5" id="msg" placeholder="Your message.."></textarea>
+    <button onclick="sendMail" id="sendEmail">Send</button>
+</form>
+
+@section Styles{ 
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin: auto;
+        }
+
+            form input, form textarea, form button {
+                padding: 20px;
+                margin-bottom: 20px;
+                outline: none;
+                border: none;
+                background-color: #ddd;
+            }
+
+            form button {
+                background-color: #333;
+                cursor: pointer;
+                color: #fff;
+            }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+}
+@section Scripts{
+    <script>
+
+
+    </script>
+}
+
+
