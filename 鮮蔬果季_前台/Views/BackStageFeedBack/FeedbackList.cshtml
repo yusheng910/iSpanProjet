@@ -101,11 +101,11 @@
                                             <td>@item.FeedbackComment</td>
                                             @if (@item.HaveResponses)
                                             {
-                                                <td>以回覆</td>
+                                                <td style="color:forestgreen">已回覆</td>
                                             }
                                             else
                                             {
-                                                <td>尚未回覆</td>
+                                                <td style="color:red">尚未回覆</td>
                                             }
 
 
@@ -117,8 +117,6 @@
                                                 <input type="hidden" class="FeedbackResponseID" value="@item.feedbackResponse.FeedbackResponseId" />
                                                 </div>
                                             </button>
-                                            
-
                                         </td>
                                         </tr>
                                     }
@@ -190,11 +188,13 @@
                 SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
                 Username: "dryadl978188@gmail.com",
                 Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
-                To:$("#UserId").val(),
+                To: $("#UserId").val(),
                 From: "dryadl978188@gmail.com",
                 Subject: "鮮蔬果季 意見回覆",
                 Body: $("#FeedbackCommet").val()
-            })
+            }).then(
+                alert("已傳送信件")
+            );
                 
         });
         $(document).on("click", ".btnEdit", function () {
