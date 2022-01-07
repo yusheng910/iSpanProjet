@@ -436,40 +436,74 @@ namespace 鮮蔬果季_前台.Controllers
 
              return View(單筆活動);
         }
-        [HttpPost]  //同名方法
-        public IActionResult EventSignUp_1(EventRegistration FormData)  //回傳前台form的資料(name為FormData)
-        {
-            // 判斷會員是否登入
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
-            {
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
+        //[HttpPost]  //同名方法
+        //public IActionResult EventSignUp_1(EventRegistration FormData)  //回傳前台form的資料(name為FormData)
+        //{
+        //    // 判斷會員是否登入
+        //    if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+        //    {
+        //        ViewBag.USER = UserLogin.member.MemberName;
+        //        ViewBag.userID = UserLogin.member.MemberId;
 
-                EventRegistration 送出報名資料 = new EventRegistration()
-                {
-                    MemberId = UserLogin.member.MemberId,
-                    EventId = FormData.EventId,
-                    ParticipantNumber = FormData.ParticipantNumber,
-                    ContactName = FormData.ContactName,
-                    ContactEmail = FormData.ContactEmail,
-                    ContactMobile = FormData.ContactMobile,
-                    FoodPreference = FormData.FoodPreference,
-                    SubmitDate = DateTime.Now,
-                };
-                db.Add(送出報名資料);
-                db.SaveChanges();
-                return RedirectToAction("EventSignUp_1");
-            }
+        //        EventRegistration 送出報名資料 = new EventRegistration()
+        //        {
+        //            MemberId = UserLogin.member.MemberId,
+        //            EventId = FormData.EventId,
+        //            ParticipantNumber = FormData.ParticipantNumber,
+        //            ContactName = FormData.ContactName,
+        //            ContactEmail = FormData.ContactEmail,
+        //            ContactMobile = FormData.ContactMobile,
+        //            FoodPreference = FormData.FoodPreference,
+        //            SubmitDate = DateTime.Now,
+        //        };
+        //        db.Add(送出報名資料);
+        //        db.SaveChanges();
+        //        return RedirectToAction("EventSignUp_1");
+        //    }
 
-            else  //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return RedirectToAction("Login", "Login");   //返回登入頁面
-            }
-        }
-        
+        //    else  //Seesion沒找到
+        //    {
+        //        ViewBag.USER = null;
+        //        UserLogin.member = null;
+        //        return RedirectToAction("Login", "Login");   //返回登入頁面
+        //    }
+        //}
 
+        //[HttpPost]  //同名方法
+        //public IActionResult EventSignUp_1(EventRegistration SignUpForm)  //回傳前台form的資料(name為FormData)
+        //{
+        //    // 判斷會員是否登入
+        //    if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+        //    {
+        //        ViewBag.USER = UserLogin.member.MemberName;
+        //        ViewBag.userID = UserLogin.member.MemberId;
+
+        //        EventRegistration 送出報名資料 = new EventRegistration()
+        //        {
+        //            MemberId = UserLogin.member.MemberId,
+        //            EventId = SignUpForm.EventId,
+        //            ParticipantNumber = SignUpForm.ParticipantNumber,
+        //            ContactName = SignUpForm.ContactName,
+        //            ContactEmail = SignUpForm.ContactEmail,
+        //            ContactMobile = SignUpForm.ContactMobile,
+        //            FoodPreference = SignUpForm.FoodPreference,
+        //            SubmitDate = DateTime.Now,
+        //        };
+        //        db.Add(送出報名資料);
+        //        db.SaveChanges();
+        //        return Content("AA");
+        //    }
+
+        //    else  //Seesion沒找到
+        //    {
+        //        ViewBag.USER = null;
+        //        UserLogin.member = null;
+        //        return RedirectToAction("Login", "Login");   //返回登入頁面
+        //    }
+        //}
+
+
+        //我的活動
         public IActionResult MyEventList()
             { 
                     if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
