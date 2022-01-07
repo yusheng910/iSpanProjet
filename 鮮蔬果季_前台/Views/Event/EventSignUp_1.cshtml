@@ -4,8 +4,9 @@
 @{
     ViewData["Title"] = "EventSignUp_1";
 }
-@*該頁使用獨立的css樣式*@
+
 <link rel="stylesheet" href="~/assets/css/main.css">
+@*該頁使用獨立的css樣式*@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="external nofollow" rel="stylesheet"> @*ican的CDN*@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> @*動畫CDN*@
 
@@ -240,8 +241,8 @@
 
 
                                         @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                        <form  method="post"  class="col-6"  name="FormData">
-                                              
+                                        <form class="col-6" name="SignUpForm">
+
                                             @*使用From將所有底下資料回傳*@
                                             <input type="hidden" name="EventId" value=@Model.Event.EventId>
                                             <p style="padding-bottom: 10px; ">
@@ -300,59 +301,51 @@
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
-    <script src="~/assets/smtp.js"></script>
+    <!--<script src="~/assets/smtp.js"></script>-->      @*第三方電郵寄送的程式引用*@
     <script>
 
 
-        $(document).on("click", "#chickBT", async function (e) {
-            const  formData = new FormData(document.FormData)     //最右邊的FormData,代表報名表的form name
-            const  response = await  fetch('@Url.Content("~/EventAPI/EventSignUpAPI")', {
-                    method: "POST" ,
-                    body: formData
-                 }
-        })
-        if (data == AA) {
-            console.log("嗨")
-            alert("嗨")
-        }
-
-
-
-
-        //執行起來怪怪的
-        //$("#chickBT").click(function (e) {
-        //    e.preventDefault();
-        //    let 姓名 = $("#name").val();
-        //    let 電話 = $("#phone").val();
-        //    let 電郵 = $("#email").val();
-        //    let 參與人數 = $("#person").val();
-
-        //    console.log(姓名);
-        //    console.log(電話);
-        //    console.log(電郵);
-        //    console.log(參與人數);
-
-        //    alert("活動報名成功!")
-        //    return true;
-        //});
-
-
-            $("#chickBT").click(function () {
+        // 寄送電郵通知  會跟AJAX衝到
+            @*$("#chickBT").click(function () {
 
                 Email.send({
                     Host: "smtp.elasticemail.com",
-                   SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                    SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
                     Username: "dryadl978188@gmail.com",
-                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                    Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
                     To: 'freshveg132@gmail.com',
                     From: "dryadl978188@gmail.com",
                     Subject: "鮮蔬果季 活動報名成功通知",
-                    Body: <p style="font- size: large"> "親愛的會員 @ViewBag.姓名 <br /> 恭喜您已經成功報名  @Model.Event.EventName,期待您的到來! <br /> 活動地點 : @Model.Event.EventLocation <br /> 活動時間為 : @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")"</p>
+                    Body:  "親愛的會員 @ViewBag.姓名 <br /> 恭喜您已經成功報名  @Model.Event.EventName,期待您的到來! <br /> 活動地點 : @Model.Event.EventLocation <br /> 活動時間為 : @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @Model.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm")"
                 })
                     .then(
                         message => alert(message)
                     );
-            });
+            });*@
+
+
+
+        $(document).on("click", "#chickBT", async function (e) {
+            e.preventDefault();
+            console.log("測試")
+            const SignUpdata = new FormData(document.SignUpForm)     //最右邊的FormData,代表報名表的form name
+
+            const response = await fetch('@Url.Content("~/EventAPI/EventSignUpAPI")', {
+                method: "POST",
+                body: SignUpdata
+            })
+
+            const data = await response.text()
+
+            if (data == "AA") {
+                alert("嗨")
+            }
+        })
+
+
+
+
+
 
     </script>
 }
