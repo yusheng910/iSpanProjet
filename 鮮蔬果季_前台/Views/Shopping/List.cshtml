@@ -70,6 +70,7 @@
             #trash:hover {
                 color: #b0b435
             }
+
         #addmsgbox {
             background-color: #009100;
             z-index: 100;
@@ -125,21 +126,57 @@
         }
         //分類查詢
         var categoryselect = $(".categoryselect");
-        categoryselect.click( function () {
-            let categorySelId = $(this).val();
-            if ($(this).val() == 1 || $(this).val() == 6) { }
-            else {
-                $(".categorySel").val(categorySelId) //設定有塞選過的編號
-                let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10 / 2
-                let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10 / 2
-                var str = $(this).text()
-                $("#textName").html($.trim(str).split(" ")[0] + "    ")
-                $("#textPrice").html("價錢 $" + min + " ~ $" + max)
-                $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
-                let value = $(this).val()
-                $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + value + "?min=" + min + "&max=" + max, countfind)
-                selcted.selectedIndex = 0;
+        categoryselect.change(function () {
+            let categorySelId = $(this).next().val();
+
+            //選擇蔬菜類
+            if (categorySelId == 1) {
+                if ($(this).prop('checked')) {
+                    $(this).parent().next().find(".categoryselect").each(function () {
+                        $(this).prop("checked", "checked")
+                    })
+                } else {
+                    $(this).parent().next().find(".categoryselect").each(function () {
+                        $(this).prop("checked", false)
+                    })
+                }
             }
+            //選擇水果類
+            if (categorySelId == 6) {
+                if ($(this).prop('checked')) {
+                    $(this).parent().next().find(".categoryselect").each(function () {
+                        $(this).prop("checked", "checked")
+                    })
+                } else {
+                    $(this).parent().next().find(".categoryselect").each(function () {
+                        $(this).prop("checked", false)
+                    })
+                }
+            }
+
+            var cbxVehicle = new Array();
+            $('input:checkbox:checked[name="vehicle"]').each(function (i) { cbxVehicle[i] = $(this).next().val(); });
+            console.log("allcategory=" + cbxVehicle)
+            console.log(categorySelId)
+
+
+            if ($(this).prop('checked')) {
+
+                 if (categorySelId == 1 || categorySelId== 6) { }
+                else {
+                    $(".categorySel").val(categorySelId) //設定有塞選過的編號
+                    let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10 / 2
+                    let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10 / 2
+                    var str = $(this).text()
+                    $("#textName").html($.trim(str).split(" ")[0] + "    ")
+                    $("#textPrice").html("價錢 $" + min + " ~ $" + max)
+                    $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
+                    let value = $(this).find(".cateid").val()
+                    $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + categorySelId + "?min=" + min + "&max=" + max, countfind)
+                    selcted.selectedIndex = 0;
+                }
+            }
+
         })
         //價錢查詢
         var priceSelect = $("#PriceSelect");
@@ -358,7 +395,15 @@
                                                             <div class="type-lb">
                                                                 @if (item.DefectiveGood)
                                                                 {
-                                                                    <p class="sale" style="background-color: #FF9224 ">福利</p>
+                                                                    <p class="sale" style="background-color: #FFD306 ">福利</p>
+                                                                }
+                                                                else if (item.ProductUnitsInStock == 0)
+                                                                {
+                                                                    <p class="sale" style="background-color: #FF2D2D ">已售完</p>
+                                                                }
+                                                                else if (item.ProductUnitsInStock <= 20)
+                                                                {
+                                                                    <p class="sale" style="background-color: #FF9224 ">即將售完</p>
                                                                 }
                                                                 else
                                                                 {
@@ -430,7 +475,10 @@
                                                             }
                                                             @if (item.ProductUnitsInStock == 0)
                                                             {
-                                                                <h5> @公克[0]/NT$@item.product.ProductUnitPrice/已售完</h5>
+                                                                <h5>
+                                                                    @公克[0]/NT$@item.product.ProductUnitPrice/
+                                                                    <span style="color: #FF2D2D">已售完</span>
+                                                                </h5>
                                                             }
                                                             else
                                                             {
@@ -639,7 +687,7 @@
 
                                     count1++;
                                     string men = "sub-men" + count1;
-                                    string groupmen = "list-group-men";
+                                    string groupmen = "list-group-men"+count1;
                                     if (分類.FatherCategoryId == null)
                                     {
                                         <div class="list-group-collapse sub-men">
@@ -661,14 +709,15 @@
                                                                 if (detail.分類ID == 次分類.CategoryId)
                                                                 {
                                                                     //之後改成多選
-                                                                    @*<label  class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
-                                                                            @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                            <input type="checkbox" />
-                                                                        </label>*@
-
-                                                                    <button class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
+                                                                    <label class="list-group-item list-group-item-action " href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                    </button>
+                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 6px;" class="categoryselect" name="vehicle"/>
+                                                                        <input type="hidden" class="cateid" value="@次分類.CategoryId" />
+                                                                    </label>
+
+                                                                    @*<button class="list-group-item list-group-item-action categoryselect" href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
+                                                                            @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
+                                                                        </button>*@
                                                                 }
                                                             }
 
@@ -685,9 +734,14 @@
                                                                             {
                                                                                 if (detail.分類ID == 次分類2.CategoryId)
                                                                                 {
-                                                                                    <button class="list-group-item list-group-item-action categoryselect" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
+                                                                                    <label class="list-group-item list-group-item-action " href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                                         @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                                    </button>
+                                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 6px;" class="categoryselect" name="vehicle" />
+                                                                                        <input type="hidden" class="cateid" value="@次分類2.CategoryId" />
+                                                                                    </label>
+                                                                                    @*<button class="list-group-item list-group-item-action categoryselect" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
+                                                                                            @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
+                                                                                        </button>*@
                                                                                 }
                                                                             }
                                                                         }

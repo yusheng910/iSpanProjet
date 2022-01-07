@@ -164,6 +164,42 @@
             color:forestgreen;
             font-weight:bold;
         }
+        .spldis {
+            width: 130px;
+            position: absolute;
+            right: -18px;
+            top: -65px;
+        }
+        .disdis {
+            padding-bottom: 30px;
+        }
+        .last {
+            position: absolute;
+            right: 24px;
+            top: -25px;
+        }
+        .lastdate {
+            color: red;
+            font-weight: bold;
+            font-size: 22px;
+            text-shadow: 0 0 10px #FFFFFF, 0 0 10px #FFFFFF;
+        }
+        .last .lastfont {
+            font-weight:bold;
+            color:dimgrey;
+            text-shadow: 0 0 0.2em #FFFFFF, 0 0 0.2em #FFFFFF;
+        }
+        .last2 {
+            position: absolute;
+            right: 14px;
+            top: -15px;
+        }
+        .last2 .lastfont2 {
+            font-size: 1.1em;
+            font-weight: bold;
+            color:darkred;
+            text-shadow: 0 0 0.2em #FFFFFF, 0 0 0.2em #FFFFFF;
+        }
     </style>
 }
 @section Scripts{
@@ -288,8 +324,33 @@
                         <div class="row" id="addcparea">
                             @foreach (var item in Model)
                             {
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 disdis">
                                     <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                                        @{
+                                            string dd = (item.CouponEndDate).ToString("dd");
+                                            string ndd = (DateTime.Now).ToString("dd");
+                                            string HH = (item.CouponEndDate).ToString("HH");
+                                            string nHH = (item.CouponEndDate).ToString("HH");
+                                            string mm = (item.CouponEndDate).ToString("mm");
+                                            string nmm = (item.CouponEndDate).ToString("mm");
+                                            int ddd = int.Parse(dd);
+                                            int nddd = int.Parse(ndd);
+                                            int lastdate = ddd - nddd;
+                                            if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
+                                            {
+                                                <img class="spldis" src="~/images/explode.png" />
+                                                <div class="last">
+                                                    <span class="lastfont">剩</span><span class="lastdate">@lastdate</span><span class="lastfont">天</span>
+                                                </div>
+                                            }
+                                            else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0)
+                                            {
+                                                <img class="spldis" src="~/images/explode.png" />
+                                                <div class="last2">
+                                                    <span class="lastfont2">今日到期</span>
+                                                </div>
+                                            }
+                                        }
                                         <div class="kiri p-3">
                                             <div class="icon-container ">
                                                 <div class="icon-container_box">
