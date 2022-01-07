@@ -23,17 +23,17 @@ namespace 鮮蔬果季_前台.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(LoginViewModel LOGIN,string email,int id)
+        public IActionResult Login(LoginViewModel LOGIN,string email,string id)
         {
             string trdemail = "";
-            int trdid = 0;
+            string trdid = "";
             trdemail = email;
             trdid = id;
             Member user = db.Members.FirstOrDefault(t => t.UserId.Equals(LOGIN.username) && t.Password.Equals(LOGIN.password));
             Supplier supplier = db.Suppliers.FirstOrDefault(t => t.SupplierAccount.Equals(LOGIN.username) && t.SupplierPassword.Equals(LOGIN.password));
             if (user != null)
             {
-                  if (user.UserId.Equals("adminuser") && user.Password.Equals("a12345"))
+                if (user.UserId.Equals("adminuser") && user.Password.Equals("a12345"))
                 {
                     string json = "";
 
@@ -242,6 +242,23 @@ namespace 鮮蔬果季_前台.Controllers
                 return Content((cust.Password).ToString());
             }
             return Content("0");
+        }
+
+        public IActionResult check3rd(string trdid, string email)
+        {
+            if (email == "freshveg132@gmail.com" && trdid == "116692524681793487909")
+            {
+                string json = "";
+                var q = db.Members.FirstOrDefault(a => a.UserId == "freshveg132@gmail.com");
+                json = JsonSerializer.Serialize(q);
+                HttpContext.Session.SetString(CDictionary.SK_LOGINED_USER, json);
+                UserLogin.member = q;
+                return Content("1");
+            }
+            else
+            {
+                return Content("0");
+            }
         }
     }
 }
