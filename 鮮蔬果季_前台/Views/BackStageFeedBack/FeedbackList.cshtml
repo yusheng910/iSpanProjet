@@ -20,9 +20,11 @@
                 border: none;
                 background-color: #ddd;
             }
+
             form textarea {
-                height:200px;
+                height: 200px;
             }
+
             form button {
                 background-color: #333;
                 cursor: pointer;
@@ -74,7 +76,15 @@
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
-                                            <td>@item.HaveResponses</td>
+                                            @if (@item.HaveResponses)
+                                            {
+                                                <td>以回覆</td>
+                                            }
+                                            else
+                                            {
+                                                <td>尚未回覆</td>
+                                            }
+
 
                                             <td>
 
@@ -89,7 +99,7 @@
                         </table>
                         <!-- Modal 會員修改-->
                         <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" >
+                            <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">信件回覆</h5>
@@ -100,13 +110,19 @@
                                     <form name="MembEdit">
                                         <div class="modal-body feedbackbodyresponse">
                                             <!--內容-->
-                                            <div><input type="text" id="MemberName" name="MemberName" placeholder="MemberName" /></div>
-                                            <div><input type="text" id="UserId" name="UserId" placeholder="Email" /></div>
-                                            <div><textarea  id="msg" placeholder="Your message.."></textarea></div>
+                                            <div>
+                                                <input type="text" id="MemberName" name="MemberName" placeholder="MemberName" />
+                                            </div>
+                                            <div>
+                                                <input type="text" id="UserId" name="UserId" placeholder="Email" />
+                                            </div>
+                                            <div>
+<textarea id="msg" placeholder="Your message.."></textarea>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value ="儲存"id="sendto" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                            <input type="submit" value="儲存" id="sendto" class="btn btn-primary btnSave" data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
@@ -132,22 +148,22 @@
                     [16, 32, 64, "All"]
                 ]
             });
-         $("#send").click(function () {
+        $("#send").click(function () {
 
-                Email.send({
-                    Host: "smtp.elasticemail.com",
-                    SecureToken:"3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
-                    Username: "dryadl978188@gmail.com",
-                    Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
-                    To: 'freshveg132@gmail.com',
-                    From: "dryadl978188@gmail.com",
-                    Subject: "鮮蔬果季 意見回覆",
-                    Body: <p style="font- size: large"> "親愛的會員  <br /> 恭喜您已經成功報名,期待您的到來! <br /> "</p>
-                })
-                    .then(
-                        message => alert(message)
-                    );
-            });
+            Email.send({
+                Host: "smtp.elasticemail.com",
+                SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                Username: "dryadl978188@gmail.com",
+                Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                To: 'freshveg132@gmail.com',
+                From: "dryadl978188@gmail.com",
+                Subject: "鮮蔬果季 意見回覆",
+                Body: <p style="font- size: large"> "親愛的會員  <br /> 恭喜您已經成功報名,期待您的到來! <br /> "</p>
+            })
+                .then(
+                    message => alert(message)
+                );
+        });
 
 
 
