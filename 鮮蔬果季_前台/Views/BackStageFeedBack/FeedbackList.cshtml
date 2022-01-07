@@ -20,21 +20,22 @@
                 outline: none;
                 border: none;
                 background-color: #ddd;
-                
             }
-        .modal-body feedbackbodyresponse button{
+
+        .modal-body feedbackbodyresponse button {
             width: 300px;
         }
-                form textarea {
-                    height: 300px;
-                    resize: none;
-                }
 
-            form button {
-                background-color: #333;
-                cursor: pointer;
-                color: #fff;
-            }
+        form textarea {
+            height: 300px;
+            resize: none;
+        }
+
+        form button {
+            background-color: #333;
+            cursor: pointer;
+            color: #fff;
+        }
 
         h1 {
             text-align: center;
@@ -112,45 +113,11 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-
-                                    @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                    <form method="post" class="col-6" name="FormData">
-
-                                        @*使用From將所有底下資料回傳*@
-                                        <input type="hidden" name="EventId" value=@Model.>
-                                        <p style="padding-bottom: 10px; ">
-                                            <input type="text" placeholder="姓名" class="SignUpText" name="ContactName" id="name" value=@ViewBag.姓名 required>
-                                        </p>
-                                        <p style="padding-bottom: 10px">
-                                            <input type="text" placeholder="聯絡電話" class=" SignUpText" name="ContactMobile" id="phone" value=@ViewBag.電話 required>
-                                        </p>
-                                        <p style="padding-bottom: 10px">
-                                            <input type="email" placeholder="電子信箱" class="SignUpText" name="ContactEmail" id="email" value=@ViewBag.電郵 required>
-                                        </p>
-                                        <p style="padding-bottom: 10px">
-                                            <input type="number" placeholder="預計報名人數" class="SignUpText" name="ParticipantNumber" id="person" required>
-                                        </p>      @*可以透過input內的type達到初階的輸入控制功能*@                                    @*required代表該輸入為必填*@
-
-
-                                        <p style="float:left; padding-right:15px " class="SignUpText"> 餐點葷素 : </p>
-                                        <div class="form-check form-check-inline">
-                                            @*透過Value寫死回傳值*@                                                                                         @* checked為預設*@
-                                            <input class="form-check-input" type="radio" name="FoodPreference" value="葷食" checked>
-                                            <label class="form-check-label SignUpText" for="inlineRadio1">葷食</label>
+                                    <form>
+                                        <div class="submit-button">
+                                            <button class="btn hvr-hover BtnSend" id="submit"type="submit" style="color:aqua">傳送</button>
                                         </div>
-                                        <div class="form-check form-check-inline" style="padding-bottom:10px">
-                                            <input class="form-check-input" type="radio" name="FoodPreference" value="素食">
-                                            <label class="form-check-label  SignUpText " for="inlineRadio2">素食</label>
-                                        </div>
-
-                                        <p>
-                                            <textarea class="SignUpText" name="Remark" cols="30" rows="10" placeholder="其他"></textarea>
-                                        </p>
-                                        <div style="padding-top:15px"> </div>
-                                        @*偷雞摸狗法: type必須使用Submit, 會將對應Ctroller的同名from內所有的input,一起回傳*@
-                                        <button type="submit" class="btn btn-success " id="chickBT">送出報名</button>
-                                        <div id="判讀輸入" style="float:right;  padding-right:160px; font-size:x-large; font-weight:700;"></div>
-                                    </form>                                                                                   @*透過onclick引用Javascript跳出Alert*@
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +131,7 @@
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
-    <script src="~/assets/smtp.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"  ></script>
     <script>
         $('#dataTable-1').DataTable(
             {
@@ -180,14 +147,14 @@
                 Host: "smtp.elasticemail.com",
                 SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
                 Username: "dryadl978188@gmail.com",
-                Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
-                To:"freshveg132@gmail.com",
+                Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
+                To: "freshveg132@gmail.com",
                 From: "dryadl978188@gmail.com",
                 Subject: "鮮蔬果季 意見回覆",
                 Body: "很高興為您服務"
             })
                 .then(
-                     alert("已回覆")
+                   message=> alert("已回覆")
                 );
         });
 
