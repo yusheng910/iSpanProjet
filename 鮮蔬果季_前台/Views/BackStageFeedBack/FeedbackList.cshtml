@@ -5,6 +5,36 @@
 
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            margin: auto;
+        }
+
+            form input, form textarea, form button {
+                padding: 40px;
+                margin-bottom: 40px;
+                outline: none;
+                border: none;
+                background-color: #ddd;
+            }
+
+            form textarea {
+                height: 200px;
+            }
+
+            form button {
+                background-color: #333;
+                cursor: pointer;
+                color: #fff;
+            }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
 }
 
 <div class="row justify-content-center">
@@ -22,55 +52,77 @@
                                 <tr>
                                     <th style="width:65px;">訂單編號</th>
                                     <th>會員名</th>
+                                    <th>會員信箱</th>
                                     <th>產品名稱</th>
                                     <th>供應商名稱</th>
                                     <th>回應項目</th>
                                     <th>回應敘述</th>
+                                    <th>是否回信</th>
                                     <th>動作</th>
                                 </tr>
                             </thead>
 
                             <tbody id="feedbackBody" class="feedbackbody">
-                                @{ 
+                                @{
                                     foreach (var item in Model)
                                     {
+
+
                                         <tr>
                                             <td>@item.feedbackResponse.OrderDetailId</td>
                                             <td>@item.member.MemberName</td>
+                                            <td>@item.member.UserId</td>
                                             <td>@item.product.ProductName</td>
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
-                                       
+                                            @if (@item.HaveResponses)
+                                            {
+                                                <td>以回覆</td>
+                                            }
+                                            else
+                                            {
+                                                <td>尚未回覆</td>
+                                            }
+
+
                                             <td>
-                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="fe fe-edit fe-16"></i>
-                                                </button>
-                                                <input type="hidden" class="Pid" value="@item.FeedbackResponseID" />
+
+                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#replyModal">回覆</button>
+                                                <input type="hidden" class="UserId" value="@item.UserId" />
+
                                             </td>
                                         </tr>
                                     }
                                 }
                             </tbody>
                         </table>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" style="max-width: 1000px;">
+                        <!-- Modal 會員修改-->
+                        <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">回饋意見回復</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">信件回覆</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form name="FeedbackEdit">
-                                        <div class="modal-body feedbackBody">
+                                    <form name="MembEdit">
+                                        <div class="modal-body feedbackbodyresponse">
                                             <!--內容-->
-                                            ...
+                                            <div>
+                                                <input type="text" id="MemberName" name="MemberName" placeholder="MemberName" />
+                                            </div>
+                                            <div>
+                                                <input type="text" id="UserId" name="UserId" placeholder="Email" />
+                                            </div>
+                                            <div>
+<textarea id="msg" placeholder="Your message.."></textarea>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                            <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                                            <input type="submit" value="儲存" id="sendto" class="btn btn-primary btnSave" data-dismiss="modal" />
                                         </div>
                                     </form>
                                 </div>
@@ -82,9 +134,11 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
+
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script src="~/assets/smtp.js"></script>
     <script>
         $('#dataTable-1').DataTable(
             {
@@ -94,111 +148,30 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        //回應修改=========================================================================
-        //修改按鈕
-        $(document).on("click", ".btnEdit", function () {
-            var pid = $(this).next(".Pid").val();
-            console.log(pid);
-            $('.feedbackBody').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")/" + pid, function () {
-                var editor = document.getElementById('editor');
-                if (editor) {
-                    console.log(editor)
-                    var toolbarOptions = [
-                        [
-                            {
-                                'font': []
-                            }],
-                        [
-                            {
-                                'header': [1, 2, 3, 4, 5, 6, false]
-                            }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote', 'code-block'],
-                        [
-                            {
-                                'header': 1
-                            },
-                            {
-                                'header': 2
-                            }],
-                        [
-                            {
-                                'list': 'ordered'
-                            },
-                            {
-                                'list': 'bullet'
-                            }],
-                        [
-                            {
-                                'script': 'sub'
-                            },
-                            {
-                                'script': 'super'
-                            }],
-                        [
-                            {
-                                'indent': '-1'
-                            },
-                            {
-                                'indent': '+1'
-                            }], // outdent/indent
-                        [
-                            {
-                                'direction': 'rtl'
-                            }], // text direction
-                        [
-                            {
-                                'color': []
-                            },
-                            {
-                                'background': []
-                            }], // dropdown with defaults from theme
-                        [
-                            {
-                                'align': []
-                            }],
-                        ['clean'] // remove formatting button
-                    ];
-                    var quill = new Quill(editor,
-                        {
-                            modules:
-                            {
-                                toolbar: toolbarOptions
-                            },
-                            theme: 'snow'
-                        });
-                }
-            })
-        })//修改儲存
-        $(document).on("click", ".btnSave", async function (e) {
-            e.preventDefault();
+        $("#send").click(function () {
 
-            //讀取文字編輯器
-            var discription = $(".ql-editor").html();
-            $(".prodDescription").val(discription);
-
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")', {
-                method: "POST",
-                body: formData
+            Email.send({
+                Host: "smtp.elasticemail.com",
+                SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                Username: "dryadl978188@gmail.com",
+                Password: "5D96CC748B0329536EDA6565DA0DC375DC2C",
+                To: 'freshveg132@gmail.com',
+                From: "dryadl978188@gmail.com",
+                Subject: "鮮蔬果季 意見回覆",
+                Body: <p style="font- size: large"> "親愛的會員  <br /> 恭喜您已經成功報名,期待您的到來! <br /> "</p>
             })
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail")", function () {
-                    alert("修改成功")
-                    $('#dataTable-1').DataTable(
-                        {
-                            autoWidth: true,
-                            "lengthMenu": [
-                                [16, 32, 64, -1],
-                                [16, 32, 64, "All"]
-                            ]
-                        });
-                })
-            }
-        })
-         
+                .then(
+                    message => alert(message)
+                );
+        });
+
+
+
+
+
     </script>
+
+
+
 
 }

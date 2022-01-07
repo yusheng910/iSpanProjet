@@ -9,21 +9,22 @@
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
     <link href="~/css/ChatRoom.css" rel="stylesheet" />
     <style>
-
     </style>
 </head>
 <body>
     <section class="msger">
         <header class="msger-header">
             <div class="msger-header-title">
-                <i class="fas fa-comment-alt"></i>
+                <i class="fas fa-comment-alt"></i>    群組：
                 <select id="group" class="show-tick form-control">
-                    <option>農友活動</option>
                     <option>農友產品</option>
+                    <option>農友活動</option>
                 </select>
-                <button type="button" id="addGroupBtn">進入群組</button>
+                @*<button type="button" id="addGroupBtn">進入群組</button>*@
                 <input id="oldgroup" type="hidden" value="尚未進入">
                 <input id="name" type="hidden" value="@UserLogin.member.MemberName">
+                <input id="mamberphoto" type="hidden" value="@UserLogin.member.MemberPhotoPass">
+                <input id="mamberID" type="hidden" value="@UserLogin.member.MemberId">
             </div>
             <div class="msger-header-options">
 
@@ -31,7 +32,6 @@
         </header>
         <!--聊天 block-->
         <div id="msgDiv" class="msger-chat">
-
         </div>
         <!--聊天 block-->
 
@@ -57,55 +57,126 @@
         <button type="Button" id="submitAllBtn">送出給所有人</button>
         <br>
         <div id="msgDiv"></div>*@
-
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+
     <script>
         "use strict";
-        var connection = new signalR.HubConnectionBuilder().withUrl("/ChatHub").build(); //建立連接
+        //建立連接
+        var connection = new signalR.HubConnectionBuilder().withUrl("/ChatHub").build();
 
+        //初始化
         connection.start().then(function () {
-            document.getElementById("addGroupBtn").disabled = false; //初始化
-            document.getElementById("submitGroupBtn").disabled = false; //初始化
+            //document.getElementById("addGroupBtn").disabled = false;
+            //document.getElementById("submitGroupBtn").disabled = false;
         }).catch(function (err) {
             return console.error(err.toString());
         });
-
-        document.getElementById("addGroupBtn").addEventListener("click", function (event) {
+        //連線
+       function ConnectionGroup() {
             var user = document.getElementById("name").value;
             var group = document.getElementById("group").value;
             var oldgroup = document.getElementById("oldgroup").value;
-            console.log(user)
-            console.log(group)
-            console.log(connection)
+            document.getElementById("msgDiv").innerHTML = "";
             connection.invoke("AddGroup", group, user, oldgroup).catch(function (err) {
                 return console.error(err.toString());
             });
             document.getElementById("oldgroup").value = group;
-            event.preventDefault();
-        });
+        }
+        //頁面讀取成功時加入群組
+        window.onload = function () {
+            setTimeout(ConnectionGroup, 500);
+        }
+        //加入群組
+        document.getElementById("group").addEventListener("change", ConnectionGroup);
         connection.on("RecAddGroupMsg", function (message) {
             var msg = message;
             var li = document.createElement("li");
             li.textContent = msg;
+            li.style.textAlign = "center"
+            li.style.marginBottom="10px"
             document.getElementById("msgDiv").appendChild(li);
+        });
+
+
+        $("#msg").keypress(function (e) {
+
+            let code = (e.keyCode ? e.keyCode : e.which);
+
+            if (code == 13) {
+                var user = document.getElementById("name").value;
+                var group = document.getElementById("group").value;
+                var message = document.getElementById("msg").value;
+                var memId = document.getElementById("mamberID").value;
+                var path = document.getElementById("mamberphoto").value;
+                if (message == "") {
+                    return false;
+                }
+                connection.invoke("SendMessageToGroup", group, user, message, memId, path).catch(function (err) {
+                    return console.error(err.toString());
+                });
+                document.getElementById("msg").value = "";
+            }
+
         });
         // 群組訊息Button事件
         document.getElementById("submitGroupBtn").addEventListener("click", function (e) {
             var user = document.getElementById("name").value;
             var group = document.getElementById("group").value;
             var message = document.getElementById("msg").value;
-
-            connection.invoke("SendMessageToGroup", group, user, message).catch(function (err) {
+            var memId = document.getElementById("mamberID").value;
+            var path = document.getElementById("mamberphoto").value;
+            if (message == "") {
+                return false;
+            }
+            connection.invoke("SendMessageToGroup", group, user, message, memId, path).catch(function (err) {
                 return console.error(err.toString());
             });
+            document.getElementById("msg").value = "";
         });
 
         // 群組訊息接收事件
-        connection.on("ReceiveGroupMessage", function (groupName, user, message) {
-            var msg = `[群組訊息(${groupName})]${user}：${message}`;
-            var li = document.createElement("li");
-            li.textContent = msg;
-            document.getElementById("msgDiv").appendChild(li);
+        connection.on("ReceiveGroupMessage", function (groupName, user, message, memId, path) {
+            var myDate = new Date();
+            var hour = ('0'+(myDate.getHours())).slice(-2);       //獲取當前小時數(0-23)
+            var min = ('0' + (myDate.getMinutes())).slice(-2);     //獲取當前分鐘數(0-59)
+            var sec = ('0' + (myDate.getSeconds())).slice(-2);     //獲取當前秒數(0-59)
+            var userId = document.getElementById("mamberID").value;
+            if (userId == memId) {
+                                            $("#msgDiv").append(`
+                <div class="message-holder-me">
+                    <div class="message-icon-me">
+                            <img src='@Url.Content("~/images/MemberPhoto/")${path}' style="object-fit: cover;width: 38px;height:38px;border-radius:50%;"/>
+                    </div>
+                    <div class="message-log-me">
+                        <div class="message-log__header-me group-me">
+                            <h4 class="msg-log-title-me">${user} -</h4>
+                            <div class="msg-log-time-me">${hour}:${min}:${sec}</div>
+                        </div>
+                        <div class="message-log__item-me group-me">
+                            <div class="msg-log-me">${message}</div>
+                        </div>
+                    </div>
+                </div>`)
+            } else {
+                            $("#msgDiv").append(`
+                <div class="message-holder">
+                    <div class="message-icon">
+                            <img src='@Url.Content("~/images/MemberPhoto/")${path}' style="object-fit: cover;width: 38px;height:38px;border-radius:50%;"/>
+                    </div>
+                    <div class="message-log">
+                        <div class="message-log__header group">
+                            <h4 class="msg-log-title">${user} -</h4>
+                            <div class="msg-log-time">${hour}:${min}:${sec}</div>
+                        </div>
+                        <div class="message-log__item group">
+                            <div class="msg-log">${message}</div>
+                        </div>
+                    </div>
+                </div>`)
+            }
+
+
         });
 
         // 全頻道訊息訊息事件

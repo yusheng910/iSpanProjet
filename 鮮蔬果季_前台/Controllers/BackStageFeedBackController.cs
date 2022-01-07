@@ -46,10 +46,10 @@ namespace 鮮蔬果季_前台.Controllers
                     feedback = item.fb,
                     feedbackResponse = item.fbr1,
                     product=item.prod,
-                    supplier=item.sup
+                    supplier=item.sup,
                     
                 });
-
+              
             }
             return View(所有意見回饋列表);
         }
@@ -59,56 +59,29 @@ namespace 鮮蔬果季_前台.Controllers
             
             return PartialView(單筆回應);
         }
-        //public IActionResult FeedbackCreate()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult FeedbackCreate(FeedbackResponse _response)
-        //{
-        //    FeedbackResponse feedback = new FeedbackResponse()
-        //    {
-        //        OrderDetailId = _response.OrderDetailId,
-        //        FeedbackResponseId = _response.FeedbackResponseId,
-        //        FeedbackId = _response.FeedbackId,
-        //        FeedbackComment = _response.FeedbackComment
-        //    };
-        //    _context.Add(feedback);
-        //    _context.SaveChanges();
-        //    return RedirectToAction("FeedbackList");
-        //}
+        public IActionResult FeedbackDetailResponsesPartail(int id)
+        {
+            FeedbackResponseViewModel 單筆會員 = new FeedbackResponseViewModel();
+            var 會員資料 = (
+                        from fb in _context.Feedbacks
+                        join fbr1 in _context.FeedbackResponses
+                        on fb.FeedbackId equals fbr1.FeedbackId
+                        join od2 in _context.OrderDetails
+                        on fbr1.OrderDetailId equals od2.OrderDetailId
+                        join prod in _context.Products
+                        on od2.ProductId equals prod.ProductId
+                        join sup in _context.Suppliers
+                        on prod.SupplierId equals sup.SupplierId
+                        join o in _context.Orders
+                        on od2.OrderId equals o.OrderId
+                        join m in _context.Members
+                        on o.MemberId equals m.MemberId
+                        where od2.OrderDetailId==id
+                        select new { fbr1, fb, od2, prod, sup, o, m }
+                      ).FirstOrDefault();
 
-
-
-        //public IActionResult FeedbackDelete(int id)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-        //    if (message != null)
-        //    {
-        //        _context.FeedbackResponses.Remove(message);
-        //        _context.SaveChanges();
-        //    }
-        //    return RedirectToAction("FeedbackList");
-        //}
-        //public IActionResult FeedbackEdit(int id)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == id);
-        //    if (message == null)
-        //        return RedirectToAction("FeedbackList");
-        //    return View(message);
-        //}
-        //[HttpPost]
-        //public IActionResult FeedbackEdit(FeedbackResponse editmessage)
-        //{
-        //    var message = _context.FeedbackResponses.FirstOrDefault(m => m.FeedbackResponseId == editmessage.FeedbackResponseId);
-        //    if (message != null)
-        //    {
-        //        message.FeedbackId = editmessage.FeedbackId;
-        //        message.OrderDetailId = editmessage.OrderDetailId;
-        //        message.FeedbackComment = editmessage.FeedbackComment;
-        //        _context.SaveChanges();
-        //    }
-        //    return RedirectToAction("FeedbackList");
-        //}
+            return PartialView(單筆會員);
+        }
+       
     }
 }
