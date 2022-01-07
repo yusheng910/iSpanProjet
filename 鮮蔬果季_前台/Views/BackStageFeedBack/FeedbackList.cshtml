@@ -40,10 +40,26 @@
         h1 {
             text-align: center;
         }
+
         .form-group {
-            width:300px;
+            width: 300px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin: auto;
+        }
+
+        
+
+        h1 {
+            text-align: center;
         }
     </style>
+
+
 }
 
 <div class="row justify-content-center">
@@ -97,9 +113,12 @@
 
                                             <td>
 
-                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#replyModal">回覆</button>
-                                                <input type="hidden" class="UserId" value="@item.UserId" name="UserId"/>
-                                                <input type="hidden" class="feedback"value="@item.FeedbackName"name="FeedbackName" />
+                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#replyModal">
+                                                    回覆
+                                                    <input type="hidden" class="FeedbackResponseID" value="@item.feedbackResponse.FeedbackResponseId"  />
+                                                </button>
+
+                                                <input type="hidden" class="feedback" value="@item.FeedbackName" name="FeedbackName" />
 
                                             </td>
                                         </tr>
@@ -121,15 +140,18 @@
                                         <h2 class="h3 mb-4 page-title" style="margin-top:50px; ">內容回覆</h2>
                                         <div class="row mb-4">
                                             <div class="col-md-5" style="padding-left:-15px;padding-right:0px">
-                                                <div class="modal-body feedbackresponsebody">
-                                                    <!---->
-                                                </div>
+                                                <form>
+                                                    <div class="modal-body feedbackresponsebody">
+                                                        <!---->
+                                                    </div>
+                                                </form>
                                                 <!--<div class="form-group">
-                                                    <label>登入帳號</label>
-                                                    <input type="hidden"/>
-                                                    <input type="hidden" class="form-control" id="UserId"name="UserId" required data-error="欄位不可空白">
-                                                    <input />-->@*Subject*@
-                                                    <!--<textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" ></textarea>
+                                                <label>登入帳號</label>
+                                                <input type="hidden"/>
+                                                <input type="hidden" class="form-control" id="UserId"name="UserId" required data-error="欄位不可空白">
+                                                <input />-->
+                                                @*Subject*@
+                                                <!--<textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" ></textarea>
                                                     <div class="help-block with-errors">
                                                         <ul class="list-unstyled">
                                                             <li id="UserIderr"></li>
@@ -157,9 +179,9 @@
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
-    <script src="https://smtpjs.com/v3/smtp.js"  ></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
-        
+
         $('#dataTable-1').DataTable(
             {
                 autoWidth: true,
@@ -178,13 +200,12 @@
                 From: "dryadl978188@gmail.com",
                 Subject: "鮮蔬果季 意見回覆",
                 Body: $("#FeedbackCommet").val()
-            })       
+            })
         });
         $(document).on("click", ".btnEdit", function () {
-            var userid = $(this).next(".UserId").val();
-            var feedbackname = $(this).next(".feedback").val();
-            console.log(userid);
-            $(".feedbackresponsebody").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail/")" + userid + feedbackname)
+            var FeedbackResponseID = $(this).find(".FeedbackResponseID").val();
+            console.log(FeedbackResponseID);
+            $(".feedbackresponsebody").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail/")" + FeedbackResponseID)
         })
 
 
