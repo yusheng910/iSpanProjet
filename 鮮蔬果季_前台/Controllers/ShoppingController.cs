@@ -71,6 +71,9 @@ namespace 鮮蔬果季_前台.Controllers
             var 商品次類別 = db.Categories.Where(c => c.FatherCategoryId != 8).ToList();
             var 商品次類別2 = db.Categories.Where(c => c.FatherCategoryId != 8).ToList();
             var 商品分類明細 = (from p in db.CategoryDetails
+                          join a in db.Products
+                          on p.ProductId equals a.ProductId
+                          where a.InShop==true
                           group p by p.CategoryId into g
                           select new { CategoryId=g.Key, Total = g.Count(p => p.CategoryId == g.Key) }).ToList();
             List<C商品各類別總數> 分類list = new List<C商品各類別總數>();
