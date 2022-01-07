@@ -175,7 +175,7 @@
         }
         .last {
             position: absolute;
-            right: 24px;
+            right: 25px;
             top: -25px;
         }
         .lastdate {
@@ -184,21 +184,20 @@
             font-size: 22px;
             text-shadow: 0 0 10px #FFFFFF, 0 0 10px #FFFFFF;
         }
-        .last .lastfont {
+        .lastfont {
             font-weight:bold;
             color:dimgrey;
             text-shadow: 0 0 0.2em #FFFFFF, 0 0 0.2em #FFFFFF;
         }
         .last2 {
             position: absolute;
-            right: 14px;
-            top: -15px;
+            right: 17px;
+            top: -24px;
         }
-        .last2 .lastfont2 {
-            font-size: 1.1em;
-            font-weight: bold;
-            color:darkred;
-            text-shadow: 0 0 0.2em #FFFFFF, 0 0 0.2em #FFFFFF;
+        .last3 {
+            position: absolute;
+            right: 12px;
+            top: -24px;
         }
     </style>
 }
@@ -329,13 +328,19 @@
                                         @{
                                             string dd = (item.CouponEndDate).ToString("dd");
                                             string ndd = (DateTime.Now).ToString("dd");
-                                            string HH = (item.CouponEndDate).ToString("HH");
-                                            string nHH = (item.CouponEndDate).ToString("HH");
-                                            string mm = (item.CouponEndDate).ToString("mm");
-                                            string nmm = (item.CouponEndDate).ToString("mm");
                                             int ddd = int.Parse(dd);
                                             int nddd = int.Parse(ndd);
                                             int lastdate = ddd - nddd;
+                                            string HH = (item.CouponEndDate).ToString("HH");
+                                            string nHH = (DateTime.Now).ToString("HH");
+                                            int HHH = int.Parse(HH);
+                                            int nHHH = int.Parse(nHH);
+                                            int lasthour = HHH - nHHH;
+                                            string mm = (item.CouponEndDate).ToString("mm");
+                                            string nmm = (DateTime.Now).ToString("mm");
+                                            int mmm = int.Parse(mm);
+                                            int nmmm = int.Parse(nmm);
+                                            int lastmin = mmm - nmmm;
                                             if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
                                             {
                                                 <img class="spldis" src="~/images/explode.png" />
@@ -343,11 +348,18 @@
                                                     <span class="lastfont">剩</span><span class="lastdate">@lastdate</span><span class="lastfont">天</span>
                                                 </div>
                                             }
-                                            else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0)
+                                            else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
                                             {
                                                 <img class="spldis" src="~/images/explode.png" />
                                                 <div class="last2">
-                                                    <span class="lastfont2">今日到期</span>
+                                                    <span class="lastfont">剩</span><span class="lastdate">@lasthour</span><span class="lastfont">小時</span>
+                                                </div>
+                                            }
+                                            else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour == 0 && lastmin!=0)
+                                            {
+                                                <img class="spldis" src="~/images/explode.png" />
+                                                <div class="last3">
+                                                    <span class="lastfont">剩</span><span class="lastdate">@lastmin</span><span class="lastfont">分鐘</span>
                                                 </div>
                                             }
                                         }

@@ -5,8 +5,52 @@
 {
     if (item.coupon.CouponEndDate > DateTime.Now)
     {
-        <div class="col-sm-6">
+        <div class="col-sm-6 disdis">
             <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                @{
+                    string dd = (item.CouponEndDate).ToString("dd");
+                    string ndd = (DateTime.Now).ToString("dd");
+                    int ddd = int.Parse(dd);
+                    int nddd = int.Parse(ndd);
+                    int lastdate = ddd - nddd;
+                    string HH = (item.CouponEndDate).ToString("HH");
+                    string nHH = (DateTime.Now).ToString("HH");
+                    int HHH = int.Parse(HH);
+                    int nHHH = int.Parse(nHH);
+                    int lasthour = HHH - nHHH;
+                    string mm = (item.CouponEndDate).ToString("mm");
+                    string nmm = (DateTime.Now).ToString("mm");
+                    int mmm = int.Parse(mm);
+                    int nmmm = int.Parse(nmm);
+                    int lastmin = mmm - nmmm;
+                    if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
+                    {
+                        <img class="spldis" src="~/images/explode.png" />
+                        <div class="last">
+                            <span class="lastfont">剩</span>
+                            <span class="lastdate">@lastdate</span>
+                            <span class="lastfont">天</span>
+                        </div>
+                    }
+                    else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
+                    {
+                        <img class="spldis" src="~/images/explode.png" />
+                        <div class="last2">
+                            <span class="lastfont">剩</span>
+                            <span class="lastdate">@lasthour</span>
+                            <span class="lastfont">小時</span>
+                        </div>
+                    }
+                    else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour == 0 && lastmin != 0)
+                    {
+                        <img class="spldis" src="~/images/explode.png" />
+                        <div class="last3">
+                            <span class="lastfont">剩</span>
+                            <span class="lastdate">@lastmin</span>
+                            <span class="lastfont">分鐘</span>
+                        </div>
+                    }
+                }
                 <div class="kiri p-3">
                     <div class="icon-container ">
                         <div class="icon-container_box">
@@ -86,7 +130,9 @@
                                 }
                                 else
                                 {
-                                    <a asp-area="" asp-controller="Coupons" asp-action="AddCoupons" asp-route-id="@item.coupon.CouponId" class="btn btn-sm btn-outline-danger btn-block">
+
+                                    <a class="btn btn-sm btn-outline-danger btn-block addcpbtn autoclosable-btn-warning">
+                                        <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
                                         領取
                                     </a>
                                 }
