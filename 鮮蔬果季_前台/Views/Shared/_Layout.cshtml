@@ -213,7 +213,7 @@
                                         <a asp-area="" asp-controller="Order" asp-action="Orders" class="transition">活動管理</a>
                                     </li>
                                     <li>
-                                        <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a>
+                                        <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition" onclick="signOut()">登出</a>
                                     </li>
                                 </ul>
                             }
@@ -242,7 +242,7 @@
                                     @if (ViewBag.USER != null)
                                     {
                                         <li>
-                                            <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition">登出</a>
+                                            <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition" onclick="signOut()">登出</a>
                                         </li>
                                     }
                                 </ul>
@@ -394,6 +394,8 @@
     <script src="~/js/form-validator.min.js"></script>
     <script type="text/javascript" src="~/js/contact-form-script.js" charset="big5"></script>
     <script src="~/js/custom.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+
     <script>
         $("#bot-close").click(function () {
             $("#bot-open").append("<iframe id='botadd' src='https://webchat.botframework.com/embed/msit132-qnaservice-bot?s=9wEb4gaG9DA.AkXH3WBxMrTscteB_bg-w3D7neD1NwD7et_4CiKju5I'></iframe>")
@@ -445,6 +447,71 @@
 
         });
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <script>
+        /*登入抓取資訊*/
+        var id = null;
+        var email = null;
+
+         function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+
+            var profile = googleUser.getBasicProfile()
+            //    target = document.getElementById("GOOGLE_STATUS_1"),
+            //    html = "";
+
+            //html += "ID: " + profile.getId() + "<br/>";
+            //html += "會員暱稱： " + profile.getName() + "<br/>";
+            //html += "會員頭像：" + profile.getImageUrl() + "<br/>";
+            //html += "會員 email：" + profile.getEmail() + "<br/>";
+            //target.innerHTML = html;
+
+            id = profile.getId();
+            email = profile.getEmail()
+                    /*跳轉畫面*/
+             test(id,email)
+
+         }
+
+                    async function test(id,email) {
+                        let response = await fetch('@Url.Content("~/Login/check3rd?trdid=")'+ id +"&email="+email);
+                    let userCheck = await response.text();
+                    console.log(userCheck)
+                    if (userCheck == 1) {
+                        var evt = document.createEvent("HTMLEvents");
+                        // 初始化
+                        evt.initEvent("click", false, false);
+                        document.querySelector(".tobs").dispatchEvent(evt)
+                    }
+                    else if (userCheck == 0) {
+                        return false;
+                    }
+    }
+    $(document).on("click", ".g-signin2", function () {
+
+    })
+
+
+
+
+        /*登出*/
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="436348574559-4s2b3mvom0gnfno3007rgda1qiveegkv.apps.googleusercontent.com" />
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
