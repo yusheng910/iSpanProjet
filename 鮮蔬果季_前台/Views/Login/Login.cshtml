@@ -62,6 +62,54 @@
             })
          })
     </script>
+
+    @*第三方登入測試區開始*@
+    <script>
+        /*登入抓取資訊*/
+        var id = null;
+        var email = null;
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+
+            var profile = googleUser.getBasicProfile(),
+                target = document.getElementById("GOOGLE_STATUS_1"),
+                html = "";
+
+            html += "ID: " + profile.getId() + "<br/>";
+            html += "會員暱稱： " + profile.getName() + "<br/>";
+            html += "會員頭像：" + profile.getImageUrl() + "<br/>";
+            html += "會員 email：" + profile.getEmail() + "<br/>";
+            target.innerHTML = html;
+
+            id = profile.getId();
+            email = profile.getEmail()
+        }
+        /*登出*/
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+        /*跳轉畫面*/
+
+        $(document).on("click", ".g-signin2", function () {
+            var url = '@Url.Action("Login","POST")';
+            url += '?id=' + id + '&email=' + email;
+            window.location.href = url;
+
+        })
+
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="436348574559-4s2b3mvom0gnfno3007rgda1qiveegkv.apps.googleusercontent.com" />
+    @*第三方登入測試區結束*@
 }
 
 
@@ -84,6 +132,10 @@
 <div id="login">
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
+            @*第三方登入狀態開始*@
+            目前狀態
+            <span id="GOOGLE_STATUS_1"></span>
+            @*第三方登入狀態結束*@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
                     <form id="login-form" class="form" action="" method="post">
@@ -107,8 +159,12 @@
                                 <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="admin">admin</a>
                             </div>
                         </div>
+                        @*GOOGLE第三方登入測試開始*@
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        <a href="#" onclick="signOut();">Sign out</a>
+                        @*GOOGLE第三方登入測試結束*@
                         <div id="register-link" class="text-right" style="">
-                            <button type="button" data-toggle="modal" data-target="#forgetPasswordModal" for="forgetPassword" name="forgetPassword"class="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</button>
+                            <button type="button" data-toggle="modal" data-target="#forgetPasswordModal" for="forgetPassword" name="forgetPassword" class="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</button>
                             <br />
                             <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="margin-top:4.5px ;color:white; padding:10px;">尚未註冊?</a>
                         </div>
