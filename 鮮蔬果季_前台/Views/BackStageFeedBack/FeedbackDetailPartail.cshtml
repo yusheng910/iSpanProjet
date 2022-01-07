@@ -1,40 +1,15 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.FeedbackResponseViewModel
-    <h1>回覆會員</h1>
+   
     
-        <form>
-            <input type="text" id="UserUd" name="UserId"  />
-            <input type="text" id="feedbackName"name="feedbackName"   />
-            <textarea cols="5" rows="5" id="msg" placeholder="Your message.."></textarea>
-            <button onclick="sendMail"id="sendEmail">Send</button>
-        </form>
+
+        <input type="hidden" id="FeedbackResponseID" name="FeedbackResponseID" value="@Model.FeedbackResponseID " />
+        <input type="text" class="UserId" id="UserId" name="UserId" value="@Model.member.UserId" />
+        <input type="text" id="feedbackName" name="feedbackname" value="@Model.FeedbackName " />
+        <textarea id="msg" placeholder="Your message.."></textarea>
+        <center><button onclick="BtnSend" id="BtnSend" align="center">Send</button></center>
 
 
-    <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            width: 80%;
-            margin: auto;
-        }
-            form input, form textarea, form button {
-                padding: 20px;
-                margin-bottom: 20px;
-                outline: none;
-                border: none;
-                background-color: #ddd;
-            }
 
-            form button {
-                background-color: #333;
-                cursor: pointer;
-                color: #fff;
-            }
-
-        h1 {
-            text-align: center;
-        }
-    </style>
-    
 
     @*
         For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
