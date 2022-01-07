@@ -164,7 +164,7 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        $("#BtnSend").click(function () {
+        $(".BtnSend").click(function () {
 
             Email.send({
                 Host: "smtp.elasticemail.com",
@@ -174,7 +174,7 @@
                 To: "freshveg132@gmail.com",
                 From: "dryadl978188@gmail.com",
                 Subject: "鮮蔬果季 意見回覆",
-                Body: "很高興為您服務"
+                Body: "很高興為您服務" + $("#FeedbackCommet").val()
             })
                 .then(
                    message=> alert("已回覆")
