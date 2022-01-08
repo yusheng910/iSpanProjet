@@ -33,7 +33,7 @@ namespace 鮮蔬果季_前台.Controllers
             Supplier supplier = db.Suppliers.FirstOrDefault(t => t.SupplierAccount.Equals(LOGIN.username) && t.SupplierPassword.Equals(LOGIN.password));
             if (user != null)
             {
-                if (user.UserId.Equals("adminuser") && user.Password.Equals("a12345"))
+                if (user.UserId.Equals("freshveg132@gmail.com") && user.Password.Equals("a12345"))
                 {
                     string json = "";
 

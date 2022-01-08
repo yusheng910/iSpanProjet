@@ -42,17 +42,27 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (memberphoto.photo != null)
             {
+                Member cust = db.Members.FirstOrDefault(c => c.MemberId == memberphoto.MemberId);
                 string photoName = Guid.NewGuid().ToString() + ".jpg";
                 string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/MemberPhoto/" + photoName);
+                string oldfilePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/MemberPhoto/" + cust.MemberPhotoPass);
+                bool result = System.IO.File.Exists(oldfilePath);
+                if (cust.MemberPhotoPass != "inihead.png")
+                {
+                    if (result == true)
+                    {
+                        System.IO.File.Delete(oldfilePath);
+                    }
+                }
                 using (var fileStream = new FileStream(filePath, FileMode.Create))//創造新圖片,如果已存在就覆寫
                 {
-                    memberphoto.photo.CopyTo(fileStream);//上傳指令
+                      memberphoto.photo.CopyTo(fileStream);//上傳指令
                 }
-                Member cust = db.Members.FirstOrDefault(c => c.MemberId == memberphoto.MemberId);
+
                 if (cust != null)
                 {
-                    cust.MemberPhotoPass = photoName;
-                    db.SaveChanges();
+                      cust.MemberPhotoPass = photoName;
+                      db.SaveChanges();
                 }
             }
             else
