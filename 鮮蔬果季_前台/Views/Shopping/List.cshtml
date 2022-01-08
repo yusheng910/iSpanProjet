@@ -154,28 +154,35 @@
                 }
             }
 
-            var cbxVehicle = new Array();
-            $('input:checkbox:checked[name="vehicle"]').each(function (i) { cbxVehicle[i] = $(this).next().val(); });
-            console.log("allcategory=" + cbxVehicle)
+            var cbxVehicle = [];
+            $('input:checkbox:checked[name="vehicle"]').each(function (i) {
+                if ($(this).next().val() == 1 || $(this).next().val() == 6) {
+                    return true;
+                } else {
+                    cbxVehicle.push($(this).next().val())
+                }
+
+            });
+            console.log(cbxVehicle)
             console.log(categorySelId)
 
-
-            if ($(this).prop('checked')) {
-
-                 if (categorySelId == 1 || categorySelId== 6) { }
-                else {
-                    $(".categorySel").val(categorySelId) //設定有塞選過的編號
-                    let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10 / 2
-                    let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10 / 2
-                    var str = $(this).text()
-                    $("#textName").html($.trim(str).split(" ")[0] + "    ")
-                    $("#textPrice").html("價錢 $" + min + " ~ $" + max)
-                    $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
-                    let value = $(this).find(".cateid").val()
-                    $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryPartial")/" + categorySelId + "?min=" + min + "&max=" + max, countfind)
-                    selcted.selectedIndex = 0;
-                }
+          $(".categorySel").val(categorySelId) //設定有塞選過的編號
+          let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10 / 2
+          let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10 / 2
+          var str = $(this).text()
+          $("#textName").html($.trim(str).split(" ")[0] + "    ")
+          $("#textPrice").html("價錢 $" + min + " ~ $" + max)
+          $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
+            let value = $(this).find(".cateid").val()
+            if (cbxVehicle == "")
+            {
+                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/AllProductPartial")", countfind)
+            } else {
+                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryArray")?cateSel=" + cbxVehicle + "&min=" + min + "&max=" + max, countfind)
             }
+
+                    selcted.selectedIndex = 0;
+
 
         })
         //價錢查詢
@@ -687,7 +694,7 @@
 
                                     count1++;
                                     string men = "sub-men" + count1;
-                                    string groupmen = "list-group-men"+count1;
+                                    string groupmen = "list-group-men" + count1;
                                     if (分類.FatherCategoryId == null)
                                     {
                                         <div class="list-group-collapse sub-men">
@@ -711,7 +718,7 @@
                                                                     //之後改成多選
                                                                     <label class="list-group-item list-group-item-action " href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 6px;" class="categoryselect" name="vehicle"/>
+                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 6px;" class="categoryselect" name="vehicle" />
                                                                         <input type="hidden" class="cateid" value="@次分類.CategoryId" />
                                                                     </label>
 

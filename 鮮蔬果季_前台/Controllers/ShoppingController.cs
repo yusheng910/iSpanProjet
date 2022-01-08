@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,7 +164,116 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return PartialView("ProductSearchPartial", 所有商品列表);
         }
-        public IActionResult CategoryPartial(int id, int min, int max)
+        public IActionResult CategoryArray(string cateSel, int min, int max)
+        {
+            List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
+            //如果有篩選
+            if (cateSel != null)
+            {
+                string[] textid = cateSel.Split(",");
+                int[] cateid = Array.ConvertAll<string, int>(textid, s => int.Parse(s));
+                var 所有商品2 = (from prod in db.Products
+                             join supp in db.Suppliers
+                            on prod.SupplierId equals supp.SupplierId
+                             join c in db.CategoryDetails
+                             on prod.ProductId equals c.ProductId
+                             orderby prod.ProductId
+                             where c.CategoryId==cateid[0]
+                             select new
+                             {
+                                 prod.ProductId,
+                                 prod.ProductName,
+                                 prod.ProductUnitPrice,
+                                 prod.ProductSize,
+                                 supp.SupplierName,
+                                 prod.DefectiveGood,
+                                 prod.InShop,
+                                 prod.ProductUnitsInStock
+                             });
+                int count = 0;
+                int count2 = 0;
+                foreach (var id in cateid)
+                {
+                    count++;
+                    if (count == 1) continue;
+                    if (2 <= id && id <= 7)
+                    {
+                        var 所有商品 = (from prod in db.Products
+                                    join supp in db.Suppliers
+                                   on prod.SupplierId equals supp.SupplierId
+                                    join c in db.CategoryDetails
+                                    on prod.ProductId equals c.ProductId
+                                    orderby prod.ProductId
+                                    where c.CategoryId==id
+                                    select new
+                                    {
+                                        prod.ProductId,
+                                        prod.ProductName,
+                                        prod.ProductUnitPrice,
+                                        prod.ProductSize,
+                                        supp.SupplierName,
+                                        prod.DefectiveGood,
+                                        prod.InShop,
+                                        prod.ProductUnitsInStock
+                                    });
+                        所有商品2 = 所有商品2.Union(所有商品);
+                    }
+
+                    if (20 <= id && id <= 21)
+                    {
+                        count2++;
+                        if (count2 == 2) continue;
+                        var 所有商品 = (from prod in db.Products
+                                    join supp in db.Suppliers
+                                   on prod.SupplierId equals supp.SupplierId
+                                    join c in db.CategoryDetails
+                                    on prod.ProductId equals c.ProductId
+                                    orderby prod.ProductId
+                                    where c.CategoryId==id
+                                    select new
+                                    {
+                                        prod.ProductId,
+                                        prod.ProductName,
+                                        prod.ProductUnitPrice,
+                                        prod.ProductSize,
+                                        supp.SupplierName,
+                                        prod.DefectiveGood,
+                                        prod.InShop,
+                                        prod.ProductUnitsInStock
+                                    });
+                        所有商品2 = 所有商品2.Intersect(所有商品);
+                    }
+                }
+                var 真的所有商品 = 所有商品2.ToList();
+                foreach (var item in 真的所有商品)
+                {
+                    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                    相片List.Add(封面相片);
+                    所有商品列表.Add(new ShoppingListViewModel()
+                    {
+                        ProductId = item.ProductId,
+                        ProductName = item.ProductName,
+                        ProductUnitPrice = item.ProductUnitPrice,
+                        ProductSize = item.ProductSize,
+                        SupplierName = item.SupplierName,
+                        InShop = item.InShop,
+                        DefectiveGood = item.DefectiveGood,
+                        myFavorite = 最愛商品,
+                        ProductUnitsInStock = item.ProductUnitsInStock,
+                        photoBank = 相片List
+                    });
+                }
+
+            }
+            else { 
+            
+            }
+
+            return PartialView("ProductSearchPartial", 所有商品列表);
+        }
+            public IActionResult CategoryPartial(int id, int min, int max)
         {
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products

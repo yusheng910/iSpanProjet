@@ -14,7 +14,15 @@
                         <div class="type-lb">
                             @if (item.DefectiveGood)
                             {
-                                <p class="sale" style="background-color: #FF9224 ">福利</p>
+                                <p class="sale" style="background-color: #FFD306 ">福利</p>
+                            }
+                            else if (item.ProductUnitsInStock == 0)
+                            {
+                                <p class="sale" style="background-color: #FF2D2D ">已售完</p>
+                            }
+                            else if (item.ProductUnitsInStock <= 20)
+                            {
+                                <p class="sale" style="background-color: #FF9224 ">即將售完</p>
                             }
                             else
                             {
@@ -86,7 +94,10 @@
                         }
                         @if (item.ProductUnitsInStock == 0)
                         {
-                            <h5> @公克[0]/NT$@item.product.ProductUnitPrice/已售完</h5>
+                            <h5>
+                                @公克[0]/NT$@item.product.ProductUnitPrice/
+                                <span style="color: #FF2D2D">已售完</span>
+                            </h5>
                         }
                         else
                         {
