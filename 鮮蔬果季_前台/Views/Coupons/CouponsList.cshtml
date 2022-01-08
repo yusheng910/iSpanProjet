@@ -12,7 +12,7 @@
 
         .coupon .kanan {
             border-left: 1px dashed #ddd;
-            width: 40% !important;
+            width: 55% !important;
             position: relative;
         }
 
@@ -165,18 +165,24 @@
             font-weight:bold;
         }
         .spldis {
-            width: 130px;
+            width: 70px;
             position: absolute;
-            right: -18px;
-            top: -65px;
+            right: 62px;
+            top: -46px;
+            z-index: 10;
         }
         .disdis {
             padding-bottom: 30px;
         }
         .last {
             position: absolute;
-            right: 25px;
-            top: -25px;
+            right: 19px;
+            top: -22px;
+            background-color: ghostwhite;
+            border-radius: 16px;
+            width: 70px;
+            text-align: right;
+            padding-right: 12px;
         }
         .lastdate {
             color: red;
@@ -198,6 +204,18 @@
             position: absolute;
             right: 12px;
             top: -24px;
+        }
+        .container {
+            padding-left: 3%;
+            padding-right: 3%;
+        }
+        .lead {
+            padding-top: 10px;
+            text-shadow: 0.1em 0.1em 0.2em #c7b9bc;
+            font-weight:normal;
+        }
+        .block{
+            padding-left:5%;
         }
     </style>
 }
@@ -343,21 +361,21 @@
                                             int lastmin = mmm - nmmm;
                                             if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
                                             {
-                                                <img class="spldis" src="~/images/explode.png" />
+                                                <img class="spldis" src="~/images/clock-unscreen.gif" />
                                                 <div class="last">
                                                     <span class="lastfont">剩</span><span class="lastdate">@lastdate</span><span class="lastfont">天</span>
                                                 </div>
                                             }
                                             else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
                                             {
-                                                <img class="spldis" src="~/images/explode.png" />
+                                                <img class="spldis" src="~/images/clock-unscreen.gif" />
                                                 <div class="last2">
                                                     <span class="lastfont">剩</span><span class="lastdate">@lasthour</span><span class="lastfont">小時</span>
                                                 </div>
                                             }
                                             else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour == 0 && lastmin!=0)
                                             {
-                                                <img class="spldis" src="~/images/explode.png" />
+                                                <img class="spldis" src="~/images/clock-unscreen.gif" />
                                                 <div class="last3">
                                                     <span class="lastfont">剩</span><span class="lastdate">@lastmin</span><span class="lastfont">分鐘</span>
                                                 </div>
@@ -399,11 +417,11 @@
                                                 @{
                                                     if (item.coupon.DiscountCondition == 0)
                                                     {
-                                                        <p class="text-muted mb-0">全館消費不限金額 現折NT $@item.coupon.CouponDiscount</p>
+                                                        <p class="text-muted mb-0">全館消費不限金額 現折NT$ @item.coupon.CouponDiscount</p>
                                                     }
                                                     else
                                                     {
-                                                        <p class="text-muted mb-0">消費滿NT $@item.coupon.DiscountCondition 現折NT $@item.coupon.CouponDiscount</p>
+                                                        <p class="text-muted mb-0">消費滿NT$ @item.coupon.DiscountCondition 現折NT$ @item.coupon.CouponDiscount</p>
 
                                                     }
                                                 }

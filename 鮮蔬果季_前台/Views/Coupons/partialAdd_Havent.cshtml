@@ -24,29 +24,23 @@
                     int lastmin = mmm - nmmm;
                     if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
                     {
-                        <img class="spldis" src="~/images/explode.png" />
+                        <img class="spldis" src="~/images/clock-unscreen.gif" />
                         <div class="last">
-                            <span class="lastfont">剩</span>
-                            <span class="lastdate">@lastdate</span>
-                            <span class="lastfont">天</span>
+                            <span class="lastfont">剩</span><span class="lastdate">@lastdate</span><span class="lastfont">天</span>
                         </div>
                     }
                     else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
                     {
-                        <img class="spldis" src="~/images/explode.png" />
+                        <img class="spldis" src="~/images/clock-unscreen.gif" />
                         <div class="last2">
-                            <span class="lastfont">剩</span>
-                            <span class="lastdate">@lasthour</span>
-                            <span class="lastfont">小時</span>
+                            <span class="lastfont">剩</span><span class="lastdate">@lasthour</span><span class="lastfont">小時</span>
                         </div>
                     }
                     else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour == 0 && lastmin != 0)
                     {
-                        <img class="spldis" src="~/images/explode.png" />
+                        <img class="spldis" src="~/images/clock-unscreen.gif" />
                         <div class="last3">
-                            <span class="lastfont">剩</span>
-                            <span class="lastdate">@lastmin</span>
-                            <span class="lastfont">分鐘</span>
+                            <span class="lastfont">剩</span><span class="lastdate">@lastmin</span><span class="lastfont">分鐘</span>
                         </div>
                     }
                 }
@@ -86,11 +80,11 @@
                         @{
                             if (item.coupon.DiscountCondition == 0)
                             {
-                                <p class="text-muted mb-0">全館消費不限金額 現折NT $@item.coupon.CouponDiscount</p>
+                                <p class="text-muted mb-0">全館消費不限金額 現折NT$ @item.coupon.CouponDiscount</p>
                             }
                             else
                             {
-                                <p class="text-muted mb-0">消費滿NT $@item.coupon.DiscountCondition 現折NT $@item.coupon.CouponDiscount</p>
+                                <p class="text-muted mb-0">消費滿NT$ @item.coupon.DiscountCondition 現折NT$ @item.coupon.CouponDiscount</p>
 
                             }
                         }
