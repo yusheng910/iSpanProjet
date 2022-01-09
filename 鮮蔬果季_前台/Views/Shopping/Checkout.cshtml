@@ -13,6 +13,16 @@
         .order-box h3 {
             font-size: 18px;
         }
+
+        #loader { /*   這是整個會蓋住畫面的底色色塊  */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 45%;
+            top: 25%;
+            background-color: transparent;
+            z-index: 9999;
+        }
     </style>
 }
 
@@ -23,7 +33,9 @@
             <div class="col-lg-12">
                 <h2>商品結帳</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Shopping" asp-action="Cart">購物專區</a></li>
+                    <li class="breadcrumb-item">
+                        <a asp-area="" asp-controller="Shopping" asp-action="Cart">購物專區</a>
+                    </li>
                     <li class="breadcrumb-item active">商品結帳</li>
                 </ul>
             </div>
@@ -33,7 +45,7 @@
 <!-- End All Title Box -->
 <!-- Start Cart  -->
 <div class="cart-box-main">
-    <div class="container">
+    <div id="CheckoutForm" class="container">
         <form class="needs-validation" novalidate>
             <div class="row">
                 <div class="col-sm-6 col-lg-6 mb-3">
@@ -76,55 +88,22 @@
                                 <input id="credit" name="paymentMethod" value="1" type="radio" class="custom-control-input" checked required>
                                 <label class="custom-control-label" for="credit">信用卡</label>
                             </div>
+                            <div style="width:68%" class="payment-icon">
+                                <ul>
+                                    <li>
+                                        <img class="img-fluid" src="~/images/payment-icon/1.png" alt="">
+                                    </li>
+                                    <li>
+                                        <img class="img-fluid" src="~/images/payment-icon/2.png" alt="">
+                                    </li>
+                                    <li>
+                                        <img class="img-fluid" src="~/images/payment-icon/3.png" alt="">
+                                    </li>
+                                </ul>
+                            </div>
                             <div class="custom-control custom-radio">
                                 <input id="debit" name="paymentMethod" value="2" type="radio" class="custom-control-input" required>
                                 <label class="custom-control-label" for="debit">貨到付款</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-name">持卡人姓名</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                                <small class="text-muted">Full name as displayed on card</small>
-                                <div class="invalid-feedback"> 此為必填欄位 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-number">卡片號碼</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                                <div class="invalid-feedback"> 此為必填欄位 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">到期日</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                                <div class="invalid-feedback"> 此為必填欄位 </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">CVV 安全碼</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                                <div class="invalid-feedback"> 此為必填欄位 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="payment-icon">
-                                    <ul>
-                                        <li>
-                                            <img class="img-fluid" src="~/images/payment-icon/1.png" alt="">
-                                        </li>
-                                        <li>
-                                            <img class="img-fluid" src="~/images/payment-icon/2.png" alt="">
-                                        </li>
-                                        <li>
-                                            <img class="img-fluid" src="~/images/payment-icon/3.png" alt="">
-                                        </li>
-                                        <li>
-                                            <img class="img-fluid" src="~/images/payment-icon/5.png" alt="">
-                                        </li>
-                                        <li>
-                                            <img class="img-fluid" src="~/images/payment-icon/7.png" alt="">
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <hr class="mb-1">
@@ -187,37 +166,41 @@
                         <div class="col-12 d-flex shopping-box">
                             <button class="ml-auto btn hvr-hover btnCheck" id="submit" type="button" data-toggle="modal" data-target="#exampleModal" style="color:white; padding:10px 20px 10px 20px ;">付款</button>
                         </div>
-                        @*Modal Starts Here*@
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">付款確認</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        您確定要結帳購物車內的商品嗎?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button id="btnPay" type="button" class="btn btn-primary">確定</button>
-                                        <input type="hidden" id="cpq" value="" />
-                                        <input class="toOrder" type="hidden" onclick="window.location.href = '@Url.Content("~/Order/Orders")'">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+    @*Modal Starts Here*@
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">付款確認</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    您確定要結帳購物車內的商品嗎?
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPay" type="button" class="btn btn-primary" data-dismiss="modal">確定</button>
+                    <input type="hidden" id="cpq" value="" />
+                    <input class="toOrder" type="hidden" onclick="window.location.href = '@Url.Content("~/Order/Orders")'">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- End Cart -->
 @section Scripts{
     <script>
+        $(document).ready(function () {
+            $("#send").click();
+        });
+
         $(document).on("click", "#submit", function () {
             var cpid = @ViewBag.cpid;
             console.log("CPID=" + cpid)
@@ -226,9 +209,7 @@
         var btn = document.querySelector('#btnPay')
         var payRadio = $('input[name=paymentMethod]:checked').val()
 
-        function showAlert() {
-            alert('寄送地址為必填欄位!');
-        }
+
 
         btn.addEventListener('click', async function () {
             var payRadio = $('input[name=paymentMethod]:checked').val()
@@ -240,20 +221,35 @@
             //console.log("CpQunt=" + CpQunt);
             var txtAddress = $('.address').val()
             console.log(txtAddress)
-            if (txtAddress != "") {
-                var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid='+ cpid)
-                var data = await response.text();
-                    if (data == 1) {
-                        // 創建事件物件
-                        var evt = document.createEvent("HTMLEvents");
-                        // 初始化
-                        evt.initEvent("click", false, false);
-                        document.querySelector(".toOrder").dispatchEvent(evt)
-                    }
-            } else {
-                alert('寄送地址為必填欄位!');
+            if (payRadio == "2") {
+                if (txtAddress != "") {
+                    var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid='+ cpid)
+                    var data = await response.text();
+                        if (data == 1) {
+                            // 創建事件物件
+                            var evt = document.createEvent("HTMLEvents");
+                            // 初始化
+                            evt.initEvent("click", false, false);
+                            document.querySelector(".toOrder").dispatchEvent(evt)
+                        }
+                } else {
+                    alert('寄送地址為必填欄位!');
+                }
             }
-
+            if (payRadio == "1") {
+                    if (txtAddress != "") {
+                        $('#CheckoutForm').load('@Url.Content("~/Shopping/Checkout2Partial/")' + cpid, async function () {
+                            function wait() {
+                                $("#send").click();
+                            }
+                            setInterval(wait, 1500)
+                            var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid=' + cpid)
+                            var data = await response.text();
+                        })
+                    } else {
+                        alert('寄送地址為必填欄位!');
+                    }
+                }
         })
     </script>
-}
+}   

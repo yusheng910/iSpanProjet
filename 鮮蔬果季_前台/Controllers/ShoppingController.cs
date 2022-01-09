@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using 鮮蔬果季_前台.Models;
 using 鮮蔬果季_前台.ViewModels;
 
@@ -1098,6 +1101,103 @@ namespace 鮮蔬果季_前台.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
+
+        #region -- <方法> SHA256 編碼 --
+        private static string GetHash(HashAlgorithm hashAlgorithm, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            var sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
+        #endregion
+
+        #region -- <方法> 隨機產生四碼英(小寫)數混雜編碼 --
+        public static string GetRandomString4()
+        {
+            var str = "0123456789abcdefghijklmnopqrstuvwxyz";
+            var next = new Random();
+            var builder = new StringBuilder();
+            for (var i = 0; i < 4; i++)
+            {
+                builder.Append(str[next.Next(0, str.Length)]);
+            }
+            return builder.ToString();
+        }
+        #endregion
+
+        public IActionResult Checkout2Partial(int id)
+        {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                ViewBag.USER = UserLogin.member.MemberName;
+                ViewBag.userID = UserLogin.member.MemberId;
+
+                var 購物車商品 = (from pro in db.Products
+                             join item in db.ShoppingCarts
+                             on pro.ProductId equals item.ProductId
+                             join stat in db.Statuses
+                             on item.StatusId equals stat.StatusId
+                             where item.MemberId == UserLogin.member.MemberId && stat.StatusId == 1
+                             //where item.MemberId == 19 && stat.StatusId == 1
+                             select new { item, pro, stat }).ToList();
+                //抓酷碰折扣
+                CPID.couponid = id;
+                var discount = (from cp in db.Coupons
+                                where cp.CouponId == id
+                                select cp.CouponDiscount).FirstOrDefault();
+                int totalAmount = 0;
+                string itemName = "";
+
+                foreach (var i in 購物車商品)
+                {
+                    totalAmount += (i.pro.ProductUnitPrice * i.item.UnitsInCart);
+                    itemName += i.pro.ProductName + " " + i.item.UnitsInCart + "xNT$ " + i.pro.ProductUnitPrice + "#";
+                }
+                //itemName = itemName.Substring(0, itemName.Length - 1);
+                totalAmount = totalAmount - discount;
+                itemName = itemName + "折扣-NT$" + discount;
+                DateTime date = DateTime.Now;
+                string random4 = GetRandomString4();
+                string tradeNo = "DX" + DateTime.Now.ToString("yyyyMMddHHmmss") + random4;
+                string backtoUrl = "https://localhost:44344/Order/orders";
+                string dateString = date.ToString("yyyy/MM/dd HH:mm:ss");
+                string checkMac = "HashKey=5294y06JbISpM5x9&ChoosePayment=Credit&ClientBackURL=" + backtoUrl + "&CreditInstallment=&EncryptType=1&InstallmentAmount=&ItemName=" + itemName + "&MerchantID=2000132&MerchantTradeDate=" + dateString + "&MerchantTradeNo=" + tradeNo + "&PaymentType=aio&Redeem=&ReturnURL=https://developers.opay.tw/AioMock/MerchantReturnUrl" + "&StoreID=&TotalAmount=" + totalAmount + "&TradeDesc=建立信用卡測試訂單&HashIV=v77hoKGq4kWxNNIS";
+                string checkMac2 = HttpUtility.UrlEncode(checkMac, System.Text.Encoding.UTF8);
+                string checkMac3 = checkMac2.ToLower();
+                //string checkMac4 = SHA256Encrypt(checkMac3).ToUpper();
+                SHA256 sha256 = SHA256.Create();
+                string checkMac4 = GetHash(sha256, checkMac3).ToUpper();
+                Cashier 支付資訊 = new Cashier()
+                {
+                    TotalAmount = totalAmount,
+                    ItemName = itemName,
+                    TradeNo = tradeNo,
+                    BacktoUrl = backtoUrl,
+                    Date = dateString,
+                    CheckMac = checkMac4
+                };
+                return PartialView(支付資訊);
+            }            
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+        }
+
         public IActionResult CheckAddOrder(string address, int paymentMethod)
         {
             ViewBag.USER = UserLogin.member.MemberName;
@@ -1154,17 +1254,72 @@ namespace 鮮蔬果季_前台.Controllers
                 couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
                 db.SaveChanges();
             }
-            //var q = from sc in db.ShoppingCarts
-            //        where sc.MemberId == UserLogin.member.MemberId && sc.StatusId == 1
-            //        select sc;
-            //foreach (var i in q)
-            //{
-            //    i.StatusId = 3;
-            //}
 
             return Content("1");
 
         }
+
+        public IActionResult Check2AddOrder(string address, int paymentMethod)
+        {
+            ViewBag.USER = UserLogin.member.MemberName;
+
+            var 結帳區商品商品 = (from items in db.ShoppingCarts
+                           where items.MemberId == UserLogin.member.MemberId && items.StatusId == 1
+                           select items).ToList();
+
+            if (結帳區商品商品 != null)
+            {
+                Order newOrder = new Order()
+                {
+                    MemberId = UserLogin.member.MemberId,
+                    OrderDate = DateTime.Now,
+                    ShippedTo = address,
+                    StatusId = 4,
+                    PayMethodId = paymentMethod,
+                    CouponId = CPID.couponid
+                };
+                db.Add(newOrder);
+                db.SaveChanges();
+
+                var latestOrder = (from i in db.Orders
+                                   orderby i.OrderId descending
+                                   select i.OrderId).FirstOrDefault();
+                OrderDetail OD = null;
+                foreach (var i in 結帳區商品商品)
+                {
+                    OD = new OrderDetail
+                    {
+                        OrderId = latestOrder,
+                        ProductId = i.ProductId,
+                        UnitsPurchased = i.UnitsInCart,
+                        HaveReviews = false
+                    };
+                    db.OrderDetails.Add(OD);
+                    var units = (from p in db.Products
+                                 where p.ProductId == i.ProductId
+                                 select p).FirstOrDefault();
+                    units.ProductUnitsInStock -= i.UnitsInCart;
+                }
+                db.SaveChanges();
+
+                foreach (var j in 結帳區商品商品)
+                {
+                    j.StatusId = 3;
+                }
+                db.SaveChanges();
+
+                CouponDetail couponDetail = (from cpd in db.CouponDetails
+                                             where cpd.MemberId == UserLogin.member.MemberId &&
+                                             cpd.CouponId == CPID.couponid
+                                             select cpd).FirstOrDefault();
+                couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
+                db.SaveChanges();
+            }
+
+            return Content("1");
+
+        }
+
         public IActionResult CartCpPartial(int ttcart)
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
