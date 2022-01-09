@@ -176,7 +176,7 @@
             let value = $(this).find(".cateid").val()
             if (cbxVehicle == "")
             {
-                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/AllProductPartial")", countfind)
+                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max, countfind)
             } else {
                  $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryArray")?cateSel=" + cbxVehicle + "&min=" + min + "&max=" + max, countfind)
             }

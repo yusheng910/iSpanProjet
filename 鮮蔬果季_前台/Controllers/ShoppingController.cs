@@ -172,100 +172,153 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 string[] textid = cateSel.Split(",");
                 int[] cateid = Array.ConvertAll<string, int>(textid, s => int.Parse(s));
-                var 所有商品2 = (from prod in db.Products
-                             join supp in db.Suppliers
-                            on prod.SupplierId equals supp.SupplierId
-                             join c in db.CategoryDetails
-                             on prod.ProductId equals c.ProductId
-                             orderby prod.ProductId
-                             where c.CategoryId==cateid[0]
-                             select new
-                             {
-                                 prod.ProductId,
-                                 prod.ProductName,
-                                 prod.ProductUnitPrice,
-                                 prod.ProductSize,
-                                 supp.SupplierName,
-                                 prod.DefectiveGood,
-                                 prod.InShop,
-                                 prod.ProductUnitsInStock
-                             });
-                int count = 0;
-                int count2 = 0;
+                var 所有商品2 = db.CategoryDetails
+                    .Where(o => o.CategoryId == cateid[0] && o.Product.ProductUnitPrice > min && o.Product.ProductUnitPrice < max);
+                int count = 0,count2=0; //count2為產品數量
+                bool flag1=true, flag2=true, flag3=true, flag4=true;
                 foreach (var id in cateid)
                 {
-                    count++;
-                    if (count == 1) continue;
-                    if (2 <= id && id <= 7)
-                    {
-                        var 所有商品 = (from prod in db.Products
-                                    join supp in db.Suppliers
-                                   on prod.SupplierId equals supp.SupplierId
-                                    join c in db.CategoryDetails
-                                    on prod.ProductId equals c.ProductId
-                                    orderby prod.ProductId
-                                    where c.CategoryId==id
-                                    select new
-                                    {
-                                        prod.ProductId,
-                                        prod.ProductName,
-                                        prod.ProductUnitPrice,
-                                        prod.ProductSize,
-                                        supp.SupplierName,
-                                        prod.DefectiveGood,
-                                        prod.InShop,
-                                        prod.ProductUnitsInStock
-                                    });
-                        所有商品2 = 所有商品2.Union(所有商品);
+                    if (flag1&&(id == 3 || id == 4 || id == 5 || id == 7)) {
+                        count2++;
+                        flag1 = false;
                     }
-
-                    if (20 <= id && id <= 21)
+                    if (flag2 && (id == 20 || id == 21))
                     {
                         count2++;
-                        if (count2 == 2) continue;
-                        var 所有商品 = (from prod in db.Products
-                                    join supp in db.Suppliers
-                                   on prod.SupplierId equals supp.SupplierId
-                                    join c in db.CategoryDetails
-                                    on prod.ProductId equals c.ProductId
-                                    orderby prod.ProductId
-                                    where c.CategoryId==id
-                                    select new
-                                    {
-                                        prod.ProductId,
-                                        prod.ProductName,
-                                        prod.ProductUnitPrice,
-                                        prod.ProductSize,
-                                        supp.SupplierName,
-                                        prod.DefectiveGood,
-                                        prod.InShop,
-                                        prod.ProductUnitsInStock
-                                    });
-                        所有商品2 = 所有商品2.Intersect(所有商品);
+                        flag2 = false;
                     }
-                }
-                var 真的所有商品 = 所有商品2.ToList();
-                foreach (var item in 真的所有商品)
-                {
-                    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
-                    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
-                    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
-                    相片List.Add(封面相片);
-                    所有商品列表.Add(new ShoppingListViewModel()
+                    if (flag3 && (id == 17 || id == 18))
                     {
-                        ProductId = item.ProductId,
-                        ProductName = item.ProductName,
-                        ProductUnitPrice = item.ProductUnitPrice,
-                        ProductSize = item.ProductSize,
-                        SupplierName = item.SupplierName,
-                        InShop = item.InShop,
-                        DefectiveGood = item.DefectiveGood,
-                        myFavorite = 最愛商品,
-                        ProductUnitsInStock = item.ProductUnitsInStock,
-                        photoBank = 相片List
-                    });
+                        count2++;
+                        flag3 = false;
+                    }
+                    if (flag4 && (id == 12 || id == 13 || id == 14 || id == 15 || id == 23))
+                    {
+                        count2++;
+                        flag4= false;
+                    }
+                    count++;
+                    if (count == 1) continue;
+                    var 所有商品 = db.CategoryDetails
+                    .Where(o => o.CategoryId == id && o.Product.ProductUnitPrice > min && o.Product.ProductUnitPrice < max);
+                    所有商品2 = 所有商品2.Union(所有商品);
                 }
+                var 所有商品3 = 所有商品2.GroupBy(x => x.ProductId).Select(x=>new  {prod=x.Key,數量=x.Count() }).ToList();
 
+                #region 備份
+                //var 所有商品2 = (from prod in db.Products
+                //             join supp in db.Suppliers
+                //            on prod.SupplierId equals supp.SupplierId
+                //             join c in db.CategoryDetails
+                //             on prod.ProductId equals c.ProductId
+                //             orderby prod.ProductId
+                //             where c.CategoryId==cateid[0] && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                //             select new
+                //             {
+                //                 prod.ProductId,
+                //                 prod.ProductName,
+                //                 prod.ProductUnitPrice,
+                //                 prod.ProductSize,
+                //                 supp.SupplierName,
+                //                 prod.DefectiveGood,
+                //                 prod.InShop,
+                //                 prod.ProductUnitsInStock
+                //             });
+                //int count = 0;
+                //int count2 = 0;
+                //foreach (var id in cateid)
+                //{
+                //    count++;
+                //    if (count == 1) continue;
+                //    if (2 <= id && id <= 7)
+                //    {
+                //        var 所有商品 = (from prod in db.Products
+                //                    join supp in db.Suppliers
+                //                   on prod.SupplierId equals supp.SupplierId
+                //                    join c in db.CategoryDetails
+                //                    on prod.ProductId equals c.ProductId
+                //                    orderby prod.ProductId
+                //                    where c.CategoryId== id && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                //                    select new
+                //                    {
+                //                        prod.ProductId,
+                //                        prod.ProductName,
+                //                        prod.ProductUnitPrice,
+                //                        prod.ProductSize,
+                //                        supp.SupplierName,
+                //                        prod.DefectiveGood,
+                //                        prod.InShop,
+                //                        prod.ProductUnitsInStock
+                //                    });
+                //        所有商品2 = 所有商品2.Union(所有商品);
+                //    }
+
+                //    if (20 <= id && id <= 21)
+                //    {
+                //        count2++;
+                //        var 所有商品 = (from prod in db.Products
+                //                    join supp in db.Suppliers
+                //                   on prod.SupplierId equals supp.SupplierId
+                //                    join c in db.CategoryDetails
+                //                    on prod.ProductId equals c.ProductId
+                //                    orderby prod.ProductId
+                //                    where c.CategoryId== id && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                //                    select new
+                //                    {
+                //                        prod.ProductId,
+                //                        prod.ProductName,
+                //                        prod.ProductUnitPrice,
+                //                        prod.ProductSize,
+                //                        supp.SupplierName,
+                //                        prod.DefectiveGood,
+                //                        prod.InShop,
+                //                        prod.ProductUnitsInStock
+                //                    });
+                //        if (count2 == 2) {
+                //             所有商品 = (from prod in db.Products
+                //                        join supp in db.Suppliers
+                //                       on prod.SupplierId equals supp.SupplierId
+                //                        join c in db.CategoryDetails
+                //                        on prod.ProductId equals c.ProductId
+                //                        orderby prod.ProductId
+                //                        where c.CategoryId==21 && prod.ProductUnitPrice > min && prod.ProductUnitPrice < max
+                //                        select new
+                //                        {
+                //                            prod.ProductId,
+                //                            prod.ProductName,
+                //                            prod.ProductUnitPrice,
+                //                            prod.ProductSize,
+                //                            supp.SupplierName,
+                //                            prod.DefectiveGood,
+                //                            prod.InShop,
+                //                            prod.ProductUnitsInStock
+                //                        });
+                //        };
+                //        所有商品2 = 所有商品2.Intersect(所有商品);
+                //    }
+                //}
+                //var 真的所有商品 = 所有商品2.ToList();
+                //foreach (var item in 真的所有商品)
+                //{
+                //    List<ProductPhotoBank> 相片List = new List<ProductPhotoBank>();
+                //    var 封面相片 = db.ProductPhotoBanks.FirstOrDefault(p => p.ProductId == item.ProductId);
+                //    var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.ProductId);
+                //    相片List.Add(封面相片);
+                //    所有商品列表.Add(new ShoppingListViewModel()
+                //    {
+                //        ProductId = item.ProductId,
+                //        ProductName = item.ProductName,
+                //        ProductUnitPrice = item.ProductUnitPrice,
+                //        ProductSize = item.ProductSize,
+                //        SupplierName = item.SupplierName,
+                //        InShop = item.InShop,
+                //        DefectiveGood = item.DefectiveGood,
+                //        myFavorite = 最愛商品,
+                //        ProductUnitsInStock = item.ProductUnitsInStock,
+                //        photoBank = 相片List
+                //    });
+                //}
+                #endregion
             }
             else { 
             
