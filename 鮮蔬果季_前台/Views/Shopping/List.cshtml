@@ -141,6 +141,12 @@
                     })
                 }
             }
+            //選擇蔬菜類
+            if (categorySelId >= 2 && categorySelId <= 5 || categorySelId ==7) {
+                if ($(this).prop('checked')) {
+                    $(this).parent().parent().parent().prev().find(".categoryselect").prop("checked", "checked")
+                }           
+            }
             //選擇水果類
             if (categorySelId == 6) {
                 if ($(this).prop('checked')) {
@@ -214,6 +220,7 @@
             $("#textPrice").html("")
             $(".categorytrash").html("")
             $(".categorySel").val("")
+            $(".categoryselect").prop("checked", false)
             selcted.selectedIndex = 0;
         })
         //搜尋商品
