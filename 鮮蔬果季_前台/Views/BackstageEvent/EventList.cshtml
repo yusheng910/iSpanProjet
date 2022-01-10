@@ -15,7 +15,7 @@
         <br />
 
         <button type="button" class="btn btn-primary btn-lg">
-            @Html.ActionLink("新增活動", "EventCreate", "BackstageEvent",new { }, new {@style= "color:White" } )
+            @Html.ActionLink("新增活動", "EventCreate", "BackstageEvent", new { }, new { @style = "color:White" })
         </button>
 
         <div class="row my-3">
@@ -23,7 +23,6 @@
             <div class="col-md-12">
                 <div class="card shadow">
                     <div class="card-body">
-
 
                         <!-- table -->
                         <table class="table datatables border-dark" id="dataTable-1">
@@ -47,12 +46,12 @@
                             @{
                                 foreach (var item in Model)
                                 {
-                                    <tbody>
+                                    <tbody class="tEventBody">
                                         <tr>
                                             <td>
                                                 <!--<div class="custom-control custom-checkbox">-->
-                                                    @*<input type="checkbox" class="custom-control-input">*@
-                                                    @*<label class="custom-control-label"></label>*@
+                                                @*<input type="checkbox" class="custom-control-input">*@
+                                                @*<label class="custom-control-label"></label>*@
                                                 <!--</div>-->
                                             </td>
                                             <td>@item.Event.EventId</td>
@@ -66,14 +65,14 @@
                                             <td>@item.Event.EventEndDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
                                             <td>@item.Event.Lable</td>
                                             <td></td>
+
                                             <td>
-                                                @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted sr-only">Action</span>
-                                                </button>*@
-                                                <div>
-                                                    <a class="fe fe-16 fe-edit" asp-area="" asp-controller="BackstageEvent" asp-action="EventEdit"> </a>
-                                                </div>
-                                            </td>
+                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="fe fe-edit fe-16"></i>
+                                                </button>
+                                                <input type="hidden" class="Eid" value="@item.Event.EventId" />
+                                            </td>                                                   @*透過vaule回傳的ID*@
+
                                         </tr>
                                     </tbody>
                                 }
@@ -85,6 +84,30 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
+<!-- Modal 修改-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">活動修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="ProdEdit">
+                <div class="modal-body eventBody">
+                    <!--內容-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -92,14 +115,169 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
-        $('#dataTable-1').DataTable(
-            {
-                autoWidth: true,
-                "lengthMenu": [
-                    [16, 32, 64, -1],
-                    [16, 32, 64, "All"]
-                ]
-            });
+
+
+        $(document).on("click", ".btnEdit", function () {
+            var eid = $(this).next(".Eid").val();
+            console.log(eid);
+            $(".eventBody").load("@Url.Content("~/BackstageEvent/BackstageEvevtDetailPartial")/"+eid)
+        });
+
+
+
+
+
+
+
+        //$('#dataTable-1').DataTable(
+        //    {
+        //        autoWidth: true,
+        //        "lengthMenu": [
+        //            [16, 32, 64, -1],
+        //            [16, 32, 64, "All"]
+        //        ]
+        //    });
+
+
+         //產品修改=========================================================================
+        //修改按鈕
+        @*<!--$(document).on("click", ".btnEdit", function () {
+            var pid = $(this).next(".Pid").val();
+            console.log(pid);
+            $('.prodBody').load("@Url.Content("~/BackstageEvent/ProdDetailPartial")/" + pid, function () {
+                var editor = document.getElementById('editor');
+                if (editor) {
+                    console.log(editor)
+                    var toolbarOptions = [
+                        [
+                            {
+                                'font': []
+                            }],
+                        [
+                            {
+                                'header': [1, 2, 3, 4, 5, 6, false]
+                            }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [
+                            {
+                                'header': 1
+                            },
+                            {
+                                'header': 2
+                            }],
+                        [
+                            {
+                                'list': 'ordered'
+                            },
+                            {
+                                'list': 'bullet'
+                            }],
+                        [
+                            {
+                                'script': 'sub'
+                            },
+                            {
+                                'script': 'super'
+                            }],
+                        [
+                            {
+                                'indent': '-1'
+                            },
+                            {
+                                'indent': '+1'
+                            }], // outdent/indent
+                        [
+                            {
+                                'direction': 'rtl'
+                            }], // text direction
+                        [
+                            {
+                                'color': []
+                            },
+                            {
+                                'background': []
+                            }], // dropdown with defaults from theme
+                        [
+                            {
+                                'align': []
+                            }],
+                        ['clean'] // remove formatting button
+                    ];
+                    var quill = new Quill(editor,
+                        {
+                            modules:
+                            {
+                                toolbar: toolbarOptions
+                            },
+                            theme: 'snow'
+                        });
+                }
+            })
+        })
+        //修改儲存
+        $(document).on("click", ".btnSave", async function (e) {
+            e.preventDefault();
+
+            //讀取文字編輯器
+            var discription = $(".ql-editor").html();
+            $(".prodDescription").val(discription);
+
+            const formData = new FormData(document.ProdEdit)
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+                    alert("修改成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        })
+        //圖片上傳
+        console.log($(".selectphoto"))
+        $(document).on("change",".selectphoto",async function () {
+            let pid = $("#ProductId").val()-->
+            上傳圖片後，用load進去把圖片新增後，去讀取照片
+            <!--let obj = $(this);
+            const formData = new FormData(document.ProdEdit)
+            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            if (data == 1) {
+                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                    alert("上傳圖片成功");
+                    obj.val("")
+                })
+            }
+        });
+        //圖片清空
+        $(document).on("click", ".imgClear", async function (e) {
+            let pid = $("#ProductId").val()
+            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                    alert("清空圖片成功")
+                })
+            }
+        })-->*@
+
+
+
     </script>
 }
 

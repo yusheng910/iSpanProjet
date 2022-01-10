@@ -33,7 +33,7 @@
 }
 
 
-
+@*條件1   form 的method="post"   *@
 <form method="post" name="FormData">
     <div class="row justify-content-center">
         <div class="col-12">
@@ -43,18 +43,13 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="form-group mb-3">
-                                <label for="simpleinput">活動名稱</label>
+                                <label for="simpleinput">活動名稱</label>            @*input欄位的name名稱,與資料表欄位名稱相同*@
                                 <input type="text" id="EventName" class="form-control" name="EventName" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="simpleinput">供應商ID</label>
                                 <input type="number" id="SupplierId" class="form-control" name="SupplierId" required>
                             </div>
-
-                            <!--<div class="form-group mb-3">
-                                <label for="simpleinput">供應商名稱</label>-->  @*透過供應商ID帶出對應,不可寫入*@
-                                <!--<input type="text" id="simpleinput" class="form-control" readonly="readonly" required>
-                            </div>-->
 
                             <div class="form-group mb-3">
                                 <label for="simpleinput">人數上限</label>
@@ -193,7 +188,7 @@
             </div>
         </div>
     </div>
-
+                @*條件3  要使用input  且type必須為"submit" *@
     <input type="submit" class="btn btn-primary btn-lg btn-lg " id="chickBT"  style="float:left; margin-right:40px">
 </form>
 
@@ -249,25 +244,12 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
 
-   /* 卡關,如何合併日期和時間後,回傳DB*/
-    //var 開始日期 =  $("input[ id='StatDate']").val();
-    //var 開始時間 = $("input[ id='StatTime']").val();
-    //var 開始日期時間 = 開始日期.val + 開始時間.val;
-
-    //$("#testbtn").click(function (event) {
-    //console.log(開始日期.val);
-    //})
+        $(document).on("click", "#chickBT", async function (e) {
+            const 
 
 
-        $("#chickBT").click(function () {
-            let 活動名稱 = $("#EventName").val();
-            if (活動名稱 != "A") {
-                console.log("A")
-            }
-            else {
-                alert("報名成功");
-            }
-        });
+        })
+
 
 
         $("#DemoBtn").click(function () {

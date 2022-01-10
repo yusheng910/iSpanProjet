@@ -33,6 +33,7 @@ namespace 鮮蔬果季_前台.Models
         public bool InShop { get; set; }
         public byte[] ProductQrcode { get; set; }
         public bool HotProduct { get; set; }
+        public double? ProductDisCount { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<CategoryDetail> CategoryDetails { get; set; }
