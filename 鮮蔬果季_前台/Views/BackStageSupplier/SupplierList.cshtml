@@ -87,7 +87,7 @@
 
                                             <td>
                                                 <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
-                                                <input type="hidden" class="Cid" value="" />
+                                                <input type="hidden" class="supid" id="supid" value="@item.supplier.SupplierId" />
                                             </td>
                                             @*<td>
                                                     <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,7 +125,7 @@
             <form name="CouponsEdit">
                 <div class="modal-body EditBody">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 supedit">
                             @* SupplierEditPartial *@
                         </div>
                     </div>
@@ -180,9 +180,9 @@
                                 <input class="form-control" min="1" />
                                 <span class="text-danger"></span>
                             </div>
-                            
-                            
-                            
+
+
+
                         </div>
                     </div>
                 </div>
@@ -195,3 +195,64 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
+        var imgLoad = document.querySelector('#imgLoad')
+
+        $('#dataTable-1').DataTable({
+            autoWidth: true,
+            "lengthMenu": [
+                [16, 32, 64, -1],
+                [16, 32, 64, "All"]
+            ]
+        });
+
+        $(document).on('click', '.btnShipped', function () {
+            var oid = $(this).next().val();
+            $('#loader').attr("hidden",false);
+            console.log(oid);
+            $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid, function () {
+                $('#loader').attr("hidden", true);
+                $('.alert-autocloseable-warning').attr("hidden", false);
+                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
+        });
+
+        $(document).on('click', '.btnDelivered', function () {
+            var oid = $(this).next().val();
+            $('#loader').attr("hidden", false);
+            console.log(oid);
+            $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid, function () {
+                $('#loader').attr("hidden", true);
+                $('.alert-autocloseable-warning').attr("hidden", false);
+                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
+        });
+
+
+        $(document).on("click", ".btnEdit", function () {
+            var supid = $(this).next(".supid").val();
+
+            $('.supedit').load("@Url.Content("~/BackstageSupplier/SupplierEditPartail")/" + supid)
+        })
+
+    </script>
+    }

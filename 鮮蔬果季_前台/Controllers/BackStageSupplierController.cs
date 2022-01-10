@@ -33,5 +33,15 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(list);
         }
+
+        public IActionResult SupplierEditPartail(int id)
+        {
+            List<SupplierViewModel> supedit = new List<SupplierViewModel>();
+            var suplist = (
+                from sup in db.Suppliers
+                select new { sup }).ToList();
+            var suptxt = db.Suppliers.FirstOrDefault(a => a.SupplierId == id);
+            return PartialView(supedit);
+        }
     }
 }
