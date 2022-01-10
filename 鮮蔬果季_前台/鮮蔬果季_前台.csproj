@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\BackStageProduct\**" />
     <Compile Remove="Views\Supplier\**" />
+    <Content Remove="Views\BackStageProduct\**" />
     <Content Remove="Views\Supplier\**" />
+    <EmbeddedResource Remove="Views\BackStageProduct\**" />
     <EmbeddedResource Remove="Views\Supplier\**" />
+    <None Remove="Views\BackStageProduct\**" />
     <None Remove="Views\Supplier\**" />
   </ItemGroup>
 
@@ -27,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\BackStageProduct\" />
     <Folder Include="wwwroot\assets\btn\" />
     <Folder Include="wwwroot\assets\img\合作農友\" />
   </ItemGroup>

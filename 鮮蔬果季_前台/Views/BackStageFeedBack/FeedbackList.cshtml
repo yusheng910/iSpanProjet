@@ -118,8 +118,8 @@
                                                 }
                                                 else
                                                 {
-                                                    <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#replyModal">
-                                                        回覆
+                                                    <button type="button" class="btn btn-danger btnEdit" data-toggle="modal" data-target="#replyModal">
+                                                        請盡快回覆
                                                     </button>
                                                     <input type="hidden" class="FeedbackResponseID" value="@item.feedbackResponse.FeedbackResponseId" />
                                                 }
@@ -132,7 +132,7 @@
                         </table>
 
                     </div>
-                    <!-- Modal 會員修改-->
+                    <!-- Modal 回應項目管理-->
                     <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -145,27 +145,27 @@
                                 <div id="contactForm">
                                     <form>
                                         <div class="modal-body feedbackresponsebody">
-                                            <!--內容-->
+                                            <!--回應項目管理表單-->
                                         </div>
                                     </form>
                                     <!--<div class="form-group">
-                    <label>登入帳號</label>
-                    <input type="hidden"/>
-                    <input type="hidden" class="form-control" id="UserId"name="UserId" required data-error="欄位不可空白">
-                    <input />-->
+                                    <label>登入帳號</label>
+                                    <input type="hidden"/>
+                                    <input type="hidden" class="form-control" id="UserId"name="UserId" required data-error="欄位不可空白">
+                                    <input />-->
                                     @*Subject*@
                                     <!--<textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" ></textarea>
-                        <div class="help-block with-errors">
-                            <ul class="list-unstyled">
-                                <li id="UserIderr"></li>
-                            </ul>
-                        </div>
-                    </div>-->
+                                        <div class="help-block with-errors">
+                                            <ul class="list-unstyled">
+                                                <li id="UserIderr"></li>
+                                            </ul>
+                                        </div>
+                                    </div>-->
                                     @*<div class="submit-button">
-                            <button class="btn hvr-hover BtnSend" id="submit" type="submit" style="color:black">傳送</button>
-                            <div id="msgSubmit" class="h3 text-center hidden"></div>
-                            <div class="clearfix"></div>
-                        </div>*@
+                                            <button class="btn hvr-hover BtnSend" id="submit" type="submit" style="color:black">傳送</button>
+                                            <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                            <div class="clearfix"></div>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -196,10 +196,13 @@
             var email = $(".UserId").val()
             Email.send({
                 Host: "smtp.elasticemail.com",
+                /* Host = "smtp.gmail.com",*/
+                /*Host: "sdryadl978188@gmail.com",*/
+                Port:587,
                 SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
                 Username: "dryadl978188@gmail.com",
                 Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
-                To: $(".UserId").val(),
+                To: `${email}`,
                 From: "dryadl978188@gmail.com",
                 Subject: "鮮蔬果季 意見回覆",
                 Body: $("#FeedbackCommet").val()
@@ -215,8 +218,4 @@
             $(".feedbackresponsebody").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail/")" + FeedbackResponseID)
         })
     </script>
-
-
-
-
 }

@@ -264,6 +264,8 @@ namespace 鮮蔬果季_前台.ViewModels
         public byte[] ProductQrcode { get { return this.product.ProductQrcode; } set { this.product.ProductQrcode = value; } }
         [DisplayName("推廣產品")]
         public bool HotProduct { get { return this.product.HotProduct; } set { this.product.HotProduct = value; } }
+        [DisplayName("打折係數")]
+        public double? ProductDisCount { get { return this.product.ProductDisCount; } set { this.product.ProductDisCount = value; } }
         [DisplayName("供應商名稱")]
         public string SupplierName { get {return this.supplier.SupplierName; } set {this.supplier.SupplierName=value; } }
         public int CategeoryFirst { get; set; }
