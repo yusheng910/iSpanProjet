@@ -99,6 +99,12 @@
                                 <span style="color: #FF2D2D">已售完</span>
                             </h5>
                         }
+                        else if (item.DefectiveGood)
+                        {
+                            decimal price = Convert.ToDecimal(@item.product.ProductUnitPrice / item.product.ProductDisCount);
+                            int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                            <h5> @公克[0]/<del style="font-size:16px; color:lightgrey">NT$@打折過</del><span style="color: #D94600; font-weight: bolder; font-size: 22px; "> NT$@item.product.ProductUnitPrice </span></h5>
+                        }
                         else
                         {
                             <h5> @公克[0]/NT$@item.product.ProductUnitPrice</h5>
