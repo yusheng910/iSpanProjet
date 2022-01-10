@@ -20,8 +20,8 @@
         </div>
         <div class="form-group">
             <label class="control-label" style="display:block">產品分類</label>
-            <label class="control-label" style="">品項：</label>
-            <select class="form-control CategeoryCreateFirst" style="width:10%;display:inline" name="CategeoryFirst">
+            <label class="control-label" style="float: left;">品項：</label>
+            <select class="form-control CategeoryCreateFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4" name="CategeoryFirst" >
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -32,7 +32,7 @@
                     }
                 }
             </select>
-            <select class="form-control CategeoryCreateSecond" style="width:15%;display:inline" name="CategeorySecond">
+            <select class="form-control CategeoryCreateSecond"style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4"  name="CategeorySecond">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -43,8 +43,8 @@
                     }
                 }
             </select>
-            <label class="control-label" style="">商品等級：</label>
-            <select class="form-control " style="width:10%;display:inline" name="CategeoryLevel">
+            <label class="control-label" style="float: left;">商品等級：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4"  name="CategeoryLevel">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -55,8 +55,8 @@
                     }
                 }
             </select>
-            <label class="control-label" style="">溫層：</label>
-            <select class="form-control " style="width:10%;display:inline" name="CategeoryTemp">
+            <label class="control-label" style="float: left;">溫層：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4"  name="CategeoryTemp">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -67,8 +67,8 @@
                     }
                 }
             </select>
-            <label class="control-label" style="">產季：</label>
-            <select class="form-control " style="width:10%;display:inline" name="CategeorySeason">
+            <label class="control-label" style="float: left;">產季：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; margin-right: 10px " multiple  name="CategeorySeason">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {

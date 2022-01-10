@@ -18,10 +18,10 @@
             <span asp-validation-for="ProductName" class="text-danger"></span>
         </div>
         @*<div class="form-group">
-            <label asp-for="SupplierId" class="control-label"></label>
-            <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
-            <span asp-validation-for="SupplierId" class="text-danger"></span>
-        </div>*@
+                <label asp-for="SupplierId" class="control-label"></label>
+                <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>*@
         <div class="form-group">
             <label asp-for="SupplierName" class="control-label"></label>
             <select asp-for="SupplierName" class="form-control">
@@ -43,8 +43,8 @@
         </div>
         <div class="form-group">
             <label class="control-label" style="display:block">產品分類</label>
-            <label class="control-label" style="">品項：</label>
-            <select class="form-control  CategeoryFirst" style="width:10%;display:inline" name="CategeoryFirst">
+            <label class="control-label" style="float: left;">品項：</label>
+            <select class="form-control  CategeoryFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " name="CategeoryFirst" size="4">
                 @{
                     int id = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -70,7 +70,7 @@
                     }
                 }
             </select>
-            <select class="form-control CategeorySecond" style="width:15%;display:inline" name="CategeorySecond">
+            <select class="form-control CategeorySecond" style="width: 15%; display: inline; overflow: auto; float: left; margin-right: 10px " name="CategeorySecond" size="4">
                 @{
                     int id2 = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -97,8 +97,8 @@
                     }
                 }
             </select>
-            <label class="control-label" style="">商品等級：</label>
-            <select class="form-control " style="width:10%;display:inline" name="CategeoryLevel">
+            <label class="control-label" style="float: left;">商品等級：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " name="CategeoryLevel" size="4">
                 @{
                     int id3 = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -124,8 +124,8 @@
                     }
                 }
             </select>
-            <label class="control-label" style="">溫層：</label>
-            <select class="form-control " style="width:10%;display:inline" name="CategeoryTemp">
+            <label class="control-label" style="float: left;">溫層：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left;margin-right:10px" name="CategeoryTemp" size="4">
                 @{
                     int id4 = 0;
                     @foreach (var item2 in Model.categoryDetails2)
@@ -151,22 +151,46 @@
                     }
                 }
             </select>
-            <label class="control-label" style="">產季：</label>
-            <select class="form-control " style="width:10%;display:inline" name="CategeorySeason">
+            <label class="control-label" style="float: left;">產季：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto;  " name="CategeorySeason" multiple>
                 @{
-                    int id5 = 0;
+                    int id5 = 0, id6 = 0, id7 = 0, id8 = 0, id9 = 0;
+                    bool flag1 = true, flag2 = true, flag3 = true, flag4 = true;
                     @foreach (var item2 in Model.categoryDetails2)
                     {
                         if (item2.CategoryId <= 15 && item2.CategoryId >= 12 || item2.CategoryId == 23)
                         {
-                            id5 = item2.CategoryId;
+                            if (flag1)
+                            {
+                                id5 = item2.CategoryId;
+                                flag1 = false;
+                            }
+                            else if (flag2)
+                            {
+                                id6 = item2.CategoryId;
+                                flag2 = false;
+                            }
+                            else if (flag3)
+                            {
+                                id7 = item2.CategoryId;
+                                flag3 = false;
+                            }
+                            else if (flag4)
+                            {
+                                id8 = item2.CategoryId;
+                                flag4 = false;
+                            }
+                            else
+                            {
+                                id9 = item2.CategoryId;
+                            }
                         }
                     }
                     @foreach (var item in ViewBag.次類別)
                     {
                         if (item.CategoryId <= 15 && item.CategoryId >= 12 || item.CategoryId == 23)
                         {
-                            if (item.CategoryId == id5)
+                            if (item.CategoryId == id5 || item.CategoryId == id6 || item.CategoryId == id7 || item.CategoryId == id8 || item.CategoryId == id9)
                             {
                                 <option selected value="@item.CategoryId">@item.CategoryName</option>
                             }
@@ -181,17 +205,27 @@
             <span class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="ProductUnitPrice" oninput = "if(value<0)value=0" class="control-label"></label>
-            <input asp-for="ProductUnitPrice" class="form-control" />
+            <label asp-for="ProductUnitPrice" oninput="if(value<0)value=0" class="control-label"></label>
+            @if (Model.product.DefectiveGood)
+            {
+                decimal price = Convert.ToDecimal(Model.product.ProductUnitPrice / Model.product.ProductDisCount);
+                int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                <input id="ProductUnitPrice" value="@打折過" class="form-control" />
+            }
+            else
+            {
+                <input asp-for="ProductUnitPrice" class="form-control" />
+            }
+
             <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="ProductCostPrice" oninput = "if(value<0)value=0" class="control-label"></label>
+            <label asp-for="ProductCostPrice" oninput="if(value<0)value=0" class="control-label"></label>
             <input asp-for="ProductCostPrice" class="form-control" />
             <span asp-validation-for="ProductCostPrice" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="ProductUnitsInStock" oninput = "if(value<0)value=0" class="control-label"></label>
+            <label asp-for="ProductUnitsInStock" oninput="if(value<0)value=0" class="control-label"></label>
             <input asp-for="ProductUnitsInStock" class="form-control" />
             <span asp-validation-for="ProductUnitsInStock" class="text-danger"></span>
         </div>
@@ -203,7 +237,7 @@
         <div class="form-group">
             <label asp-for="ProductDescription" class="control-label"></label>
             @*<input asp-for="ProductDescription" class="form-control" />
-            <span asp-validation-for="ProductDescription" class="text-danger"></span>*@
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>*@
             <div id="editor" class="descript" style="min-height:200px;" name="ProductDescription">
                 @Html.Raw(Model.ProductDescription)
             </div>
@@ -257,13 +291,28 @@
                 <input class="form-check-input" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
             </label>
         </div>
+        <div class="form-group form-check">
+            @if (Model.product.DefectiveGood)
+            {
+                <label asp-for="ProductDisCount" class="control-label">
+                    @Html.DisplayNameFor(model => model.ProductDisCount)<input asp-for="ProductDisCount" class="form-control" />
+                </label>
+            }
+            else
+            {
+                <label asp-for="ProductDisCount" class="control-label">
+                    @Html.DisplayNameFor(model => model.ProductDisCount)<input asp-for="ProductDisCount" class="form-control" disabled />
+                </label>
+            }
+
+        </div>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-            // editor
+                // editor
 
     </script>
 }
