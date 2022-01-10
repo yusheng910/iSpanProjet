@@ -1,0 +1,115 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
+
+@{
+    ViewData["Title"] = "Newsletter";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+}
+<div class="card shadow" style="width:60%;">
+    <div class="card-body">
+        <div class="form-group">
+            <label class="control-label"></label>
+            <div id="editorcreate" class="descript" style="min-height:500px;" name="ProductDescription">
+            </div>
+            <input type="hidden" class="prodCreateDescription" name="ProductDescription">
+        </div>
+    </div>
+</div>
+
+@*<link rel="stylesheet" href="~/editormd/css/editormd.css" />
+<div id="test-editor">
+    <textarea style="display:none;">### 关于 Editor.md
+
+**Editor.md** 是一款开源的、可嵌入的 Markdown 在线编辑器（组件），基于 CodeMirror、jQuery 和 Marked 构建。
+    </textarea>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="~/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var editor = editormd("test-editor", {
+            // width  : "100%",
+            // height : "100%",
+            path: "~/editormd/lib/"
+        });
+    });
+</script>*@
+
+@section Scripts{
+
+
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script>
+        var editor = document.getElementById('editorcreate');
+        if (editor) {
+            console.log(editor)
+            var toolbarOptions = [
+                [
+                    {
+                        'font': []
+                    }],
+                [
+                    {
+                        'header': [1, 2, 3, 4, 5, 6, false]
+                    }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [
+                    {
+                        'header': 1
+                    },
+                    {
+                        'header': 2
+                    }],
+                [
+                    {
+                        'list': 'ordered'
+                    },
+                    {
+                        'list': 'bullet'
+                    }],
+                [
+                    {
+                        'script': 'sub'
+                    },
+                    {
+                        'script': 'super'
+                    }],
+                [
+                    {
+                        'indent': '-1'
+                    },
+                    {
+                        'indent': '+1'
+                    }], // outdent/indent
+                [
+                    {
+                        'direction': 'rtl'
+                    }], // text direction
+                [
+                    {
+                        'color': []
+                    },
+                    {
+                        'background': []
+                    }], // dropdown with defaults from theme
+                [
+                    {
+                        'align': []
+                    }],
+                ['clean'] // remove formatting button
+            ];
+            var quill = new Quill(editor,
+                {
+                    modules:
+                    {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+        }
+
+    </script>
+}
