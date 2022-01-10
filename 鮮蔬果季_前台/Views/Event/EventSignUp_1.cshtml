@@ -236,12 +236,8 @@
                                 <div class="card-body">
                                     <div class="billing-address-form">
 
-                                        @*<button type="button" class="btn btn-primary" id="AAA">帶入會員資料</button>
-                                            <p id="PPP" name="測試">AA</p>*@
-
-
                                         @*偷雞摸狗法:  在沒有Action的情況下,Method使用post,系統會到Controller找同名的方法執行*@
-                                        <form class="col-6" name="SignUpForm">
+                                        <form class="col-6" name="SignUpForm" >  @*method="post"*@
 
                                             @*使用From將所有底下資料回傳*@
                                             <input type="hidden" name="EventId" value=@Model.Event.EventId>
@@ -294,7 +290,6 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -326,20 +321,20 @@
 
 
         $(document).on("click", "#chickBT", async function (e) {
-            e.preventDefault();
+          /*   e.preventDefault();*/
             console.log("測試")
             const SignUpdata = new FormData(document.SignUpForm)     //最右邊的FormData,代表報名表的form name
 
-            const response = await fetch('@Url.Content("~/EventAPI/EventSignUpAPI")', {
+            const response = await fetch('@Url.Content("~/Event/EventSignUp_1")', {
                 method: "POST",
                 body: SignUpdata
             })
 
-            const data = await response.text()
-
-            if (data == "AA") {
-                alert("嗨")
-            }
+            //const data = await response.text()
+            //console.log(data)
+            //if (data ==1) {
+            //    console.log("A")
+            //}
         })
 
 
