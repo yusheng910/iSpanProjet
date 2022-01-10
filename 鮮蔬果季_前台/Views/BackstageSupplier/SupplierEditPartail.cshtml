@@ -11,4 +11,20 @@
             <td>4</td>
         </tr>
     </thead>
+    <tbody>
+        @{ 
+            int count = 0;
+            foreach(var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@count</td>
+                    <td>@count</td>
+                    <td>@count</td>
+                </tr>
+            }
+        }
+    </tbody>
 </table>
+<div id=""></div>
