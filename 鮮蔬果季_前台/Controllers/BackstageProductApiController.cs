@@ -35,33 +35,78 @@ namespace 鮮蔬果季_前台.Controllers
             Product 新產品 = null;
             if (ProdCreate.InShop)
             {
-                新產品 = new Product()
+                if (ProdCreate.DefectiveGood)
                 {
-                    ProductName = ProdCreate.ProductName,
-                    SupplierId = 供應商id.SupplierId,
-                    ProductUnitPrice = ProdCreate.ProductUnitPrice,
-                    ProductCostPrice = ProdCreate.ProductCostPrice,
-                    ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
-                    ProductDescription = ProdCreate.ProductDescription,
-                    ProductSize = ProdCreate.ProductSize,
-                    InShop = ProdCreate.InShop,
-                    ProduceDate = DateTime.Now,
-                    DefectiveGood = ProdCreate.DefectiveGood
-                };
+                    decimal price = Convert.ToDecimal(ProdCreate.ProductUnitPrice * ProdCreate.ProductDisCount);
+                    int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                    新產品 = new Product()
+                    {
+                        ProductName = ProdCreate.ProductName,
+                        SupplierId = 供應商id.SupplierId,
+                        ProductUnitPrice = 打折過,
+                        ProductCostPrice = ProdCreate.ProductCostPrice,
+                        ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
+                        ProductDescription = ProdCreate.ProductDescription,
+                        ProductSize = ProdCreate.ProductSize,
+                        InShop = ProdCreate.InShop,
+                        ProduceDate = DateTime.Now,
+                        DefectiveGood = ProdCreate.DefectiveGood,
+                        ProductDisCount=ProdCreate.ProductDisCount
+                    };
+                }
+                else
+                {
+                    新產品 = new Product()
+                    {
+                        ProductName = ProdCreate.ProductName,
+                        SupplierId = 供應商id.SupplierId,
+                        ProductUnitPrice = ProdCreate.ProductUnitPrice,
+                        ProductCostPrice = ProdCreate.ProductCostPrice,
+                        ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
+                        ProductDescription = ProdCreate.ProductDescription,
+                        ProductSize = ProdCreate.ProductSize,
+                        InShop = ProdCreate.InShop,
+                        ProduceDate = DateTime.Now,
+                        DefectiveGood = ProdCreate.DefectiveGood
+                    };
+                }
+
             }
             else {
-                新產品 = new Product()
+                if (ProdCreate.DefectiveGood)
                 {
-                    ProductName = ProdCreate.ProductName,
-                    SupplierId = 供應商id.SupplierId,
-                    ProductUnitPrice = ProdCreate.ProductUnitPrice,
-                    ProductCostPrice = ProdCreate.ProductCostPrice,
-                    ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
-                    ProductDescription = ProdCreate.ProductDescription,
-                    ProductSize = ProdCreate.ProductSize,
-                    InShop = ProdCreate.InShop,
-                    DefectiveGood = ProdCreate.DefectiveGood
-                };
+                    decimal price = Convert.ToDecimal(ProdCreate.ProductUnitPrice * ProdCreate.ProductDisCount);
+                    int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                    新產品 = new Product()
+                    {
+                        ProductName = ProdCreate.ProductName,
+                        SupplierId = 供應商id.SupplierId,
+                        ProductUnitPrice = 打折過,
+                        ProductCostPrice = ProdCreate.ProductCostPrice,
+                        ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
+                        ProductDescription = ProdCreate.ProductDescription,
+                        ProductSize = ProdCreate.ProductSize,
+                        InShop = ProdCreate.InShop,
+                        DefectiveGood = ProdCreate.DefectiveGood,
+                        ProductDisCount = ProdCreate.ProductDisCount
+                    };
+                }
+                else
+                {
+                    新產品 = new Product()
+                    {
+                        ProductName = ProdCreate.ProductName,
+                        SupplierId = 供應商id.SupplierId,
+                        ProductUnitPrice = ProdCreate.ProductUnitPrice,
+                        ProductCostPrice = ProdCreate.ProductCostPrice,
+                        ProductUnitsInStock = ProdCreate.ProductUnitsInStock,
+                        ProductDescription = ProdCreate.ProductDescription,
+                        ProductSize = ProdCreate.ProductSize,
+                        InShop = ProdCreate.InShop,
+                        DefectiveGood = ProdCreate.DefectiveGood
+                    };
+                }
+
             }
             db.Add(新產品);
             db.SaveChanges();
@@ -77,7 +122,7 @@ namespace 鮮蔬果季_前台.Controllers
             db.Add(cateAdd);
             foreach (var item in ProdCreate.CategeorySeason)
             {
-                cateAdd = new CategoryDetail() { ProductId = ProdCreate.ProductId, CategoryId = item };
+                cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = item };
                 db.Add(cateAdd);
             }
             db.SaveChanges();
