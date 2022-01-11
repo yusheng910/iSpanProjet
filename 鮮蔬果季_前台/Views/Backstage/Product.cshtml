@@ -255,28 +255,54 @@
             })
         })
         //醜蔬果折價計算
-        $(document).on("change", "#ProductDisCount", async function (e) {
-            var price = $("#ProductUnitPrice").val();
+        $(document).on("change", ".ProductDisCount1", async function (e) {
+            var price = $(".ProductUnitPrice1").val();
             var count = $(this).val();
             var price2 = Math.round(price * count);
-            $(".countprice").val(price2)
+            $(".countprice1").val(price2)
         })
-        $(document).on("change", "#ProductUnitPrice", async function (e) {
-            if ($("#DefectiveGood").prop("checked")) {
-                var price = $("#ProductDisCount").val();
+        $(document).on("change", ".ProductDisCount2", async function (e) {
+            var price = $(".ProductUnitPrice2").val();
+            var count = $(this).val();
+            var price2 = Math.round(price * count);
+            $(".countprice2").val(price2)
+        })
+        $(document).on("change", ".ProductUnitPrice1", async function (e) {
+            console.log($(this))
+            if ($(".DefectiveGood1").prop("checked")) {
+                var price = $(".ProductDisCount1").val();
                 var count = $(this).val();
                 var price2 = Math.round(price * count);
-                $(".countprice").val(price2)
+                $(".countprice1").val(price2)
             }
         })
-        $(document).on("change", "#DefectiveGood", function (e) {
+        $(document).on("change", ".ProductUnitPrice2", async function (e) {
+            console.log($(this))
+            if ($(".DefectiveGood2").prop("checked")) {
+                var price = $(".ProductDisCount2").val();
+                var count = $(this).val();
+                var price2 = Math.round(price * count);
+                $(".countprice2").val(price2)
+            }
+        })
+        $(document).on("change", ".DefectiveGood1", function (e) {
             console.log($(this))
             if ($(this).prop("checked")) {
-                $("#ProductDisCount").prop("disabled", false)
+                $(".ProductDisCount1").prop("disabled", false)
             } else {
-                $("#ProductDisCount").prop("disabled", true)
-                $("#ProductDisCount").val("")
-                $(".countprice").val("")
+                $(".ProductDisCount1").prop("disabled", true)
+                $(".ProductDisCount1").val("")
+                $(".countprice1").val("")
+            }
+        })
+        $(document).on("change", ".DefectiveGood2", function (e) {
+            console.log($(this))
+            if ($(this).prop("checked")) {
+                $(".ProductDisCount2").prop("disabled", false)
+            } else {
+                $(".ProductDisCount2").prop("disabled", true)
+                $(".ProductDisCount2").val("")
+                $(".countprice2").val("")
             }
         })
         //修改儲存
