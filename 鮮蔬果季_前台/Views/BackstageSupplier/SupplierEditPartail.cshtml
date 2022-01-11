@@ -5,10 +5,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
+            <td>負責人</td>
+            <td>地址</td>
+            <td>電話</td>
+            <td>城市</td>
         </tr>
     </thead>
     <tbody>
@@ -19,9 +19,10 @@
                 count++;
                 <tr>
                     <td>@count</td>
-                    <td>@count</td>
-                    <td>@count</td>
-                    <td>@count</td>
+                    <td >@item.supplier.BusinessOwner</td>
+                    <td>@item.supplier.SupplierAddress</td>
+                    <td>@item.supplier.Mobile</td>
+                    <td>@item.city.CityName</td>
                 </tr>
             }
         }
