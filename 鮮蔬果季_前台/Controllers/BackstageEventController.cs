@@ -54,22 +54,32 @@ namespace 鮮蔬果季_前台.Controllers
             //進到指定的活動頁(單筆活動),故不使用list,透過回傳的ID僅只一筆對應資料
             EventListViewModel 單筆活動 = new EventListViewModel();
 
-
             //單筆資料的加入(屬性:物件)
             單筆活動.Event = 活動及供應商明細.E;
             單筆活動.Supplier = 活動及供應商明細.supp;
 
-            List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
-            var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == 單筆活動.Event.Supplier.CityId);
-            //因為是多張照片,故使用Where(找全部),型態List
-            var 照片資料 = db.EventPhotoBanks.Where(EP => EP.EventId == id).ToList();
-            //把上面找到的照片加入到 單筆活動(物件),因EventPhoto ViewModel型態為list,故可以用以下list加法
-            foreach (var 照片 in 照片資料) 單筆活動.EventPhoto.Add(照片);
-
             return PartialView("EventEditPartial",單筆活動);
-        }                                  //要用分號指定帶入的顯示的頁面  "EventEditPartial"
-
-
+        }              //如果要導入與方法不同名稱的view, 要用分號指定帶入的顯示的頁面   "EventEditPartial"
+      
+        
+        [HttpPost]        //修改寫入資料庫
+        public IActionResult bEvevtEditPartial(Event EventEdit)
+        {
+            Event 修改的活動資料 = new Event()
+            {
+                EventId = EventEdit.EventId,
+                EventParticipantCap = EventEdit.EventParticipantCap,
+                EventLocation = EventEdit.EventLocation,
+                EventStartDate = EventEdit.EventStartDate,
+                EventEndDate = EventEdit.EventEndDate,
+                EventPrice = EventEdit.EventPrice,
+                Subtitle = EventEdit.Subtitle,
+                EventDescription = EventEdit.EventDescription,
+            };
+            db.Add(修改的活動資料);
+            db.SaveChanges();
+            return Content("0");
+        }
 
 
 
@@ -107,6 +117,40 @@ namespace 鮮蔬果季_前台.Controllers
 
             return RedirectToAction("EventCreate");
         }
+
+
+
+
+        public IActionResult EventListPartial()
+        {
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+            foreach (var item in 所有活動)
+            {
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+
+                所有活動列表.Add(new EventListViewModel()  //加入EventListViewModel (new新記憶體空間)
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list
+                });
+            }
+            return PartialView(所有活動列表);
+        }
+
+
+
+
+
+
 
 
 
