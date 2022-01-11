@@ -210,31 +210,31 @@
             {
                 decimal price = Convert.ToDecimal(Model.product.ProductUnitPrice / Model.product.ProductDisCount);
                 int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
-                <input id="ProductUnitPrice" name="ProductUnitPrice" value="@打折過" class="form-control" />
+                <input id="ProductUnitPrice" name="ProductUnitPrice" value="@打折過" class="form-control ProductUnitPrice1" />
             }
             else
             {
-                <input asp-for="ProductUnitPrice" class="form-control" />
+                <input asp-for="ProductUnitPrice" class="form-control ProductUnitPrice1" />
             }
 
             <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
-                <input class="form-check-input" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
+                <input class="form-check-input DefectiveGood1" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
             </label>
         </div>
         <div class="form-group form-check">
             @if (Model.product.DefectiveGood)
             {
                 <label asp-for="ProductDisCount" class="control-label">
-                    @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control" style="display:inline;width:40%"/> <br>折後金額：<br><input name="disCountPrice" value="@Model.product.ProductUnitPrice " style="display:inline;width:40%" class="form-control countprice" disabled />
+                    @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control ProductDisCount1" style="display:inline;width:40%"/> <br>折後金額：<br><input name="disCountPrice" value="@Model.product.ProductUnitPrice " style="display:inline;width:40%" class="form-control countprice1" disabled />
                 </label>
             }
             else
             {
         <label asp-for="ProductDisCount" class="control-label">
-            @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control" style="display:inline;width:40%" disabled /> <br>折後金額：<br><input name="disCountPrice" value=" " style="display:inline;width:40%" class="form-control countprice" disabled />
+            @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control ProductDisCount" style="display:inline;width:40%" disabled /> <br>折後金額：<br><input name="disCountPrice" value=" " style="display:inline;width:40%" class="form-control countprice" disabled />
         </label>
             }
 

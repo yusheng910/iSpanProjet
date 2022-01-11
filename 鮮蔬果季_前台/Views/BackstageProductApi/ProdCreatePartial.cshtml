@@ -83,17 +83,17 @@
         </div>
         <div class="form-group">
             <label asp-for="ProductUnitPrice" class="control-label"></label>
-            <input asp-for="ProductUnitPrice" oninput="if(value<0)value=0" class="form-control" />
+            <input asp-for="ProductUnitPrice" oninput="if(value<0)value=0" class="form-control ProductUnitPrice2" />
             <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
-                <input class="form-check-input" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
+                <input class="form-check-input DefectiveGood2" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
             </label>
         </div>
         <div class="form-group form-check">
             <label asp-for="ProductDisCount" class="control-label">
-                @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control" style="display:inline;width:40%" disabled /> <br>折後金額：<br><input name="disCountPrice" value=" " style="display:inline;width:40%" class="form-control countprice" disabled />
+                @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control ProductDisCount2" style="display:inline;width:40%" disabled /> <br>折後金額：<br><input name="disCountPrice" value=" " style="display:inline;width:40%" class="form-control countprice2" disabled />
             </label>
         </div>
         <div class="form-group">
