@@ -66,7 +66,8 @@
                                             <td>@item.Event.Lable</td>
                                             <td></td>
 
-                                            <td>      @*修改按鈕*@
+                                            <td>
+                                                @*修改按鈕*@
                                                 <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                                                     <i class="fe fe-edit fe-16"></i>
                                                 </button>
@@ -94,8 +95,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="EventEdit">                              @*此處Form的內容就是EventEditPartial.cshtml*@
-                <div class="modal-body eventBody">           @*載入的主體*@
+            <form name="EventEdit">
+                @*此處Form的內容就是EventEditPartial.cshtml*@
+                <div class="modal-body eventBody">
+                    @*載入的主體*@
                     <!--內容-->
                 </div>
                 <div class="modal-footer">
@@ -123,7 +126,7 @@
             });
 
 
-
+            //開啟修改的PartialView
            $(document).on("click", ".btnEdit", function () {
                   var eid = $(this).next(".Eid").val();
                     console.log(eid);
@@ -198,6 +201,41 @@
                    }
                })
              });
+
+
+
+
+        //修改儲存
+        $(document).on("click", ".btnSave", async function (e) {
+            e.preventDefault();
+
+            //讀取文字編輯器
+            var discription = $(".ql-editor").html();
+            $(".eventDescription").val(discription);
+
+            const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
+            const response = await fetch('@Url.Content("~/BackstageEvent/bEvevtEditPartial")', {
+                method: "POST",
+                body: formData
+            })
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.card-body').load("@Url.Content("~/BackstageEvent/EvevtListPartial")", function () {
+                    alert("修改成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        })
+
+
 
 
 
