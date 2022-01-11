@@ -60,13 +60,12 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>序號</th>
-                                    <th>供應商</th>
-                                    <th>負責人</th>
-                                    <th>地址</th>
-                                    <th>電話</th>
-                                    <th>城市</th>
+                                    <th>@Html.DisplayNameFor(model=>model.First().SupplierName)</th>
+                                    <th>@Html.DisplayNameFor(model=>model.First().BusinessOwner)</th>
+                                    <th>@Html.DisplayNameFor(model=>model.First().SupplierAddress)</th>
+                                    <th>@Html.DisplayNameFor(model=>model.First().Mobile)</th>
+                                    <th>@Html.DisplayNameFor(model=>model.First().CityName)</th>
                                     <th>修改</th>
-                                    @*<th>編輯</th>*@
                                 </tr>
                             </thead>
                             <tbody class="SupplierList">
@@ -82,12 +81,9 @@
                                             <td>@item.supplier.SupplierAddress</td>
                                             <td>@item.supplier.Mobile</td>
                                             <td>@item.city.CityName</td>
-
-
-
                                             <td>
                                                 <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
-                                                <input type="hidden" class="supid" id="supid" value="@item.supplier.SupplierId" />
+                                                <input type="hidden" class="supid" id="supid" value="@item.SupplierId" />
                                             </td>
                                             @*<td>
                                                     <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,14 +144,13 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAddLabel">新增供應商</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form name="SupplierAdd">
                 <div class="modal-body CreateBody">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="text-danger"></div>
+                        <div class="col-md-12 supadd">
+                            @*<div class="text-danger"></div>
                             <input type="hidden" />
                             <div class="form-group">
                                 <label class="control-label"></label>
@@ -181,7 +176,7 @@
                                 <label class="control-label"></label>
                                 <input class="form-control" />
                                 <span class="text-danger"></span>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -232,13 +227,13 @@
         $(document).on("click", ".btnAddSave", async function (e) {
             e.preventDefault();
             const formdata = new FormData(document.SupplierAdd)
-            const response = await fetch('@Url.Content("~/BackstageSupplier.SupplierAdd")', {
+            const response = await fetch('@Url.Content("~/BackStageSupplier.SupplierAdd")', {
                 method: "POST",
                 body: formdata
             })
             const data = await response.text()
             if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackStageSupplier/SupplierListPartial")", function () {
+                $('.card-body').load('@Url.Content("~/BackStageSupplier/SupplierListPartial")', function () {
                     alert("新增成功")
                     $('#dataTable-1').DataTable(
                         {
@@ -258,7 +253,7 @@
             $('.supedit').load("@Url.Content("~/BackStageSupplier/SupplierEditPartail")/" + supid)
         })
         $(document).on("click", ".btnAdd", function () {
-            $('.CreateBody').load("@Url.Content("~/BackStageSuppplier/SupplierAddPartial")")
+            $('.supadd').load("@Url.Content("~/BackStageSupplier/SupplierAddPartial")")
         })
     </script>
 }
