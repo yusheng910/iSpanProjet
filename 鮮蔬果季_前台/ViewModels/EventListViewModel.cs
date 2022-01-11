@@ -127,6 +127,9 @@ namespace 鮮蔬果季_前台.ViewModels
         [DisplayName("活動費用")]
         public int EventPrice { get { return (int)this.Event.EventPrice; } set { this.Event.EventPrice = value; } }
 
+        public int? 活動滿額人數 { get; set; }
 
+        public int? 已報名人數 { get; set; }
+        public int? 剩餘名額 { get; set; }
     }
 }
