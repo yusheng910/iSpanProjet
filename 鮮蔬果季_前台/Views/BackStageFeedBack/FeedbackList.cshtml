@@ -147,6 +147,7 @@
                                         <div class="modal-body feedbackresponsebody">
                                             <!--回應項目管理表單-->
                                         </div>
+                                        <center><button class="btn hvr-hover BtnSend" id="submit" type="submit" style="" align="center">傳送密碼郵件</button></center>
                                     </form>
                                     <!--<div class="form-group">
                                     <label>登入帳號</label>
@@ -179,6 +180,7 @@
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    @*<script src="https://smtpjs.com/v3/smtp.js"></script>*@
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
 
@@ -190,26 +192,27 @@
                     [16, 32, 64, "All"]
                 ]
             });
-        $(document).on("click", "#BtnSend", async function (e) {
+        $(".BtnSend").click(async function (e) {
             e.preventDefault();
             console.log($(".UserId").val())
             var email = $(".UserId").val()
             Email.send({
                 Host: "smtp.elasticemail.com",
-                /* Host = "smtp.gmail.com",*/
-                /*Host: "sdryadl978188@gmail.com",*/
-                Port:587,
                 SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
                 Username: "dryadl978188@gmail.com",
                 Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
-                To: `${email}`,
+                To: $(".UserId").val(),
                 From: "dryadl978188@gmail.com",
+                port: "587",
                 Subject: "鮮蔬果季 意見回覆",
-                Body: $("#FeedbackCommet").val()
-            }).then(
-                alert("已傳送信件")
+                Body: $("#msg").val(),
+            })
 
-            );
+                .then(function (message) {
+
+                    alert(message + "mail sent successfully")
+
+                });
 
         });
         $(document).on("click", ".btnEdit", function () {
