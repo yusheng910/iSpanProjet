@@ -94,8 +94,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="ProdEdit">
-                <div class="modal-body eventBody">
+            <form name="EventEdit">                              @*此處Form的內容就是EventEditPartial.cshtml*@
+                <div class="modal-body eventBody">           @*載入的主體*@
                     <!--內容-->
                 </div>
                 <div class="modal-footer">
@@ -106,8 +106,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 @section Scripts{
@@ -129,137 +127,93 @@
            $(document).on("click", ".btnEdit", function () {
                   var eid = $(this).next(".Eid").val();
                     console.log(eid);
-                $(".eventBody").load("@Url.Content("~/BackstageEvent/bEvevtEditPartial")/"+eid)
+               $(".eventBody").load("@Url.Content("~/BackstageEvent/bEvevtEditPartial")/" + eid, function () {
+                   var editor = document.getElementById('editor');    //取得文字編輯器的id
+                   if (editor) {
+                         //以下為文字編輯器套件的程式碼
+                       var toolbarOptions = [
+                           [
+                               {
+                                   'font': []
+                               }],
+                           [
+                               {
+                                   'header': [1, 2, 3, 4, 5, 6, false]
+                               }],
+                           ['bold', 'italic', 'underline', 'strike'],
+                           ['blockquote', 'code-block'],
+                           [
+                               {
+                                   'header': 1
+                               },
+                               {
+                                   'header': 2
+                               }],
+                           [
+                               {
+                                   'list': 'ordered'
+                               },
+                               {
+                                   'list': 'bullet'
+                               }],
+                           [
+                               {
+                                   'script': 'sub'
+                               },
+                               {
+                                   'script': 'super'
+                               }],
+                           [
+                               {
+                                   'indent': '-1'
+                               },
+                               {
+                                   'indent': '+1'
+                               }], // outdent/indent
+                           [
+                               {
+                                   'direction': 'rtl'
+                               }], // text direction
+                           [
+                               {
+                                   'color': []
+                               },
+                               {
+                                   'background': []
+                               }], // dropdown with defaults from theme
+                           [
+                               {
+                                   'align': []
+                               }],
+                           ['clean'] // remove formatting button
+                       ];
+                       var quill = new Quill(editor,
+                           {
+                               modules:
+                               {
+                                   toolbar: toolbarOptions
+                               },
+                               theme: 'snow'
+                           });
+                   }
+               })
              });
 
 
 
-
-
-
-
-
-
-
-         //產品修改=========================================================================
-        //修改按鈕
-        @*<!--$(document).on("click", ".btnEdit", function () {
-            var pid = $(this).next(".Pid").val();
-            console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageEvent/ProdDetailPartial")/" + pid, function () {
-                var editor = document.getElementById('editor');
-                if (editor) {
-                    console.log(editor)
-                    var toolbarOptions = [
-                        [
-                            {
-                                'font': []
-                            }],
-                        [
-                            {
-                                'header': [1, 2, 3, 4, 5, 6, false]
-                            }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote', 'code-block'],
-                        [
-                            {
-                                'header': 1
-                            },
-                            {
-                                'header': 2
-                            }],
-                        [
-                            {
-                                'list': 'ordered'
-                            },
-                            {
-                                'list': 'bullet'
-                            }],
-                        [
-                            {
-                                'script': 'sub'
-                            },
-                            {
-                                'script': 'super'
-                            }],
-                        [
-                            {
-                                'indent': '-1'
-                            },
-                            {
-                                'indent': '+1'
-                            }], // outdent/indent
-                        [
-                            {
-                                'direction': 'rtl'
-                            }], // text direction
-                        [
-                            {
-                                'color': []
-                            },
-                            {
-                                'background': []
-                            }], // dropdown with defaults from theme
-                        [
-                            {
-                                'align': []
-                            }],
-                        ['clean'] // remove formatting button
-                    ];
-                    var quill = new Quill(editor,
-                        {
-                            modules:
-                            {
-                                toolbar: toolbarOptions
-                            },
-                            theme: 'snow'
-                        });
-                }
-            })
-        })
-        //修改儲存
-        $(document).on("click", ".btnSave", async function (e) {
-            e.preventDefault();
-
-            //讀取文字編輯器
-            var discription = $(".ql-editor").html();
-            $(".prodDescription").val(discription);
-
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
-                method: "POST",
-                body: formData
-            })
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
-                    alert("修改成功")
-                    $('#dataTable-1').DataTable(
-                        {
-                            autoWidth: true,
-                            "lengthMenu": [
-                                [16, 32, 64, -1],
-                                [16, 32, 64, "All"]
-                            ]
-                        });
-                })
-            }
-        })
-        //圖片上傳
+         //圖片上傳
         console.log($(".selectphoto"))
         $(document).on("change",".selectphoto",async function () {
-            let pid = $("#ProductId").val()-->
-            上傳圖片後，用load進去把圖片新增後，去讀取照片
-            <!--let obj = $(this);
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
+            let eid = $(".Eid").val()     @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
+            let obj = $(this);           @*this為目前狀態(selectphoto) *@
+            const formData = new FormData(document.EventEdit)      @* EventEdit 為 Form的名稱*@
+            const response = await fetch('@Url.Content("~/BackstageEventAPI/PhotoLoad")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
             if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                $('.imgLoad').load("@Url.Content("~/BackstageEventAPI/imgLoad/")" + eid, function () {
                     alert("上傳圖片成功");
                     obj.val("")
                 })
@@ -267,16 +221,20 @@
         });
         //圖片清空
         $(document).on("click", ".imgClear", async function (e) {
-            let pid = $("#ProductId").val()
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
+            let eid = $(".Eid").val()
+            const response = await fetch('@Url.Content("~/BackstageEventAPI/ClearImg/")'+eid)
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                $('.imgLoad').load("@Url.Content("~/BackstageEventAPI/imgLoad/")" + eid, function () {
                     alert("清空圖片成功")
                 })
             }
-        })-->*@
+        })
+
+
+
+
 
 
 

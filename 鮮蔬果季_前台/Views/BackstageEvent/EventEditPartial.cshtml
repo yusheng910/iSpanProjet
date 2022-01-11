@@ -4,112 +4,136 @@
 <div class="row">
     <div class="col-md-12">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input  asp-for="Event.EventId"/>
+        <input asp-for="Event.EventId" type="hidden" />
         <div class="form-group">
-            <label asp-for="Event.EventName" class="control-label"></label>
-            <input asp-for="Event.EventName" class="form-control" />
-            <span asp-validation-for="Event.EventName" class="text-danger"></span>
-        </div>
-        @*<div class="form-group">
-            <label asp-for="SupplierName" class="control-label"></label>
-            <select asp-for="SupplierName" class="form-control">
-                @foreach (var item in ViewBag.AllSupp)
-                {
-                    <option>@item.SupplierName</option>
-
-                }
-            </select>
-        </div>*@
-        @*<div class="form-group">
-            <label class="control-label" style="display:block">產品分類</label>
-            <label class="control-label" style="float: left;">品項：</label>
-            <select class="form-control CategeoryCreateFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryFirst">
-                @{
-                    @foreach (var item in ViewBag.次類別)
-                    {
-                        if (item.CategoryId == 1 || item.CategoryId == 6)
-                        {
-                            <option value="@item.CategoryId">@item.CategoryName</option>
-                        }
-                    }
-                }
-            </select>
-            <select class="form-control CategeoryCreateSecond" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeorySecond">
-                @{
-                    @foreach (var item in ViewBag.次類別)
-                    {
-                        if (item.CategoryId <= 5 && item.CategoryId >= 2)
-                        {
-                            <option value="@item.CategoryId">@item.CategoryName</option>
-                        }
-                    }
-                }
-            </select>
-            <label class="control-label" style="float: left;">商品等級：</label>
-            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryLevel">
-                @{
-                    @foreach (var item in ViewBag.次類別)
-                    {
-                        if (item.CategoryId == 20 || item.CategoryId == 21)
-                        {
-                            <option value="@item.CategoryId">@item.CategoryName</option>
-                        }
-                    }
-                }
-            </select>
-            <label class="control-label" style="float: left;">溫層：</label>
-            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryTemp">
-                @{
-                    @foreach (var item in ViewBag.次類別)
-                    {
-                        if (item.CategoryId == 17 || item.CategoryId == 18)
-                        {
-                            <option value="@item.CategoryId">@item.CategoryName</option>
-                        }
-                    }
-                }
-            </select>
-            <label class="control-label" style="float: left;">產季：</label>
-            <select class="form-control " style="width: 10%; display: inline; overflow: auto; margin-right: 10px " multiple name="CategeorySeason">
-                @{
-                    @foreach (var item in ViewBag.次類別)
-                    {
-                        if (item.CategoryId <= 15 && item.CategoryId >= 12 || item.CategoryId == 23)
-                        {
-                            <option value="@item.CategoryId">@item.CategoryName</option>
-                        }
-                    }
-                }
-            </select>
-            <span class="text-danger"></span>
-        </div>*@
-        
-        @*<div class="form-group">
-            <label asp-for="ProductSize" class="control-label"></label>
-            <input asp-for="ProductSize" class="form-control" />
-            <span asp-validation-for="ProductSize" class="text-danger"></span>
+            <label asp-for="EventName" class="control-label"></label>
+            <input asp-for="EventName" class="form-control" />
+            <span asp-validation-for="EventName" class="text-danger"></span>
         </div>
 
+        @*文字編輯器*@
         <div class="form-group">
-            <label asp-for="ProductDescription" class="control-label"></label>
-            <div id="editorcreate" class="descript" style="min-height:200px;" name="ProductDescription">
+            <label asp-for="Event.EventDescription" class="control-label"></label>
+
+            @*前台觸發這邊的編輯器id (editor)*@
+            <div id="editor" class="descript" style="min-height:200px;" name="EventDescription">
+                @Html.Raw(Model.Event.EventDescription)
+            </div>         @*Raw代表使用HTML語法轉譯,因為透過文字編輯器存進資料庫的資料,有包含html標籤*@
+            <input type="hidden" class="prodDescription" name="EventDescription">
+        </div>
+
+
+        @*<div class="form-group">
+                <label asp-for="SupplierName" class="control-label"></label>
+                <select asp-for="SupplierName" class="form-control">
+                    @foreach (var item in ViewBag.AllSupp)
+                    {
+                        <option>@item.SupplierName</option>
+
+                    }
+                </select>
+            </div>*@
+        @*<div class="form-group">
+                <label class="control-label" style="display:block">產品分類</label>
+                <label class="control-label" style="float: left;">品項：</label>
+                <select class="form-control CategeoryCreateFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryFirst">
+                    @{
+                        @foreach (var item in ViewBag.次類別)
+                        {
+                            if (item.CategoryId == 1 || item.CategoryId == 6)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+                <select class="form-control CategeoryCreateSecond" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeorySecond">
+                    @{
+                        @foreach (var item in ViewBag.次類別)
+                        {
+                            if (item.CategoryId <= 5 && item.CategoryId >= 2)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+                <label class="control-label" style="float: left;">商品等級：</label>
+                <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryLevel">
+                    @{
+                        @foreach (var item in ViewBag.次類別)
+                        {
+                            if (item.CategoryId == 20 || item.CategoryId == 21)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+                <label class="control-label" style="float: left;">溫層：</label>
+                <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryTemp">
+                    @{
+                        @foreach (var item in ViewBag.次類別)
+                        {
+                            if (item.CategoryId == 17 || item.CategoryId == 18)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+                <label class="control-label" style="float: left;">產季：</label>
+                <select class="form-control " style="width: 10%; display: inline; overflow: auto; margin-right: 10px " multiple name="CategeorySeason">
+                    @{
+                        @foreach (var item in ViewBag.次類別)
+                        {
+                            if (item.CategoryId <= 15 && item.CategoryId >= 12 || item.CategoryId == 23)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+                <span class="text-danger"></span>
+            </div>*@
+
+        @*<div class="form-group">
+                <label asp-for="ProductSize" class="control-label"></label>
+                <input asp-for="ProductSize" class="form-control" />
+                <span asp-validation-for="ProductSize" class="text-danger"></span>
             </div>
-            <input type="hidden" class="prodCreateDescription" name="ProductDescription">
-        </div>*@
+
+            <div class="form-group">
+                <label asp-for="ProductDescription" class="control-label"></label>
+                <div id="editorcreate" class="descript" style="min-height:200px;" name="ProductDescription">
+                </div>
+                <input type="hidden" class="prodCreateDescription" name="ProductDescription">
+            </div>*@
 
         <div class="form-group">
             <label class="control-label">產品相片(第一張圖片會為封面)</label>
             <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">
-                <div class="imgCreate">
+                <div class="imgLoad">
+                    @foreach (var item in Model.EventPhoto)
+                    {
+                        <img src="~/images/活動照片/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
+                        <input type="hidden" name="photoList" class="photoHid" value="@item.PhotoPath" />
+                    }
                 </div>
                 <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" multiple class="custom-file-input createimg" id="createimg" name="photo">
-                        <label class="custom-file-label" for="createimg" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
+                    @*<input type="file" class="selectphoto"/>*@
+                    <div class="custom-file">                   @*透過此處的selectphoto觸發*@
+                        <input type="file" multiple class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
+                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
+                    </div>
+                    <div class="input-group-append">
+                        <a class="input-group-text imgClear" style="cursor:pointer">清空</a>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 </div>
 
@@ -117,5 +141,5 @@
 
 
 @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
