@@ -49,7 +49,17 @@
                                                 }
                                             }
                                             <td>@item.SupplierName</td>
-                                            <td>@item.ProductUnitPrice</td>
+                                            @if (item.product.DefectiveGood)
+                                            {
+                                                decimal price = Convert.ToDecimal(item.product.ProductUnitPrice / item.product.ProductDisCount);
+                                                int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                                                <td>@打折過</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@item.ProductUnitPrice</td>
+                                            }
+
                                             <td>@item.ProductCostPrice</td>
                                             @if (@item.ProductUnitsInStock == 0)
                                             {
@@ -76,15 +86,15 @@
                                             <td>@item.category.CategoryName</td>
                                             <td>
                                                 @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="text-muted sr-only">Action</span>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                            修改
-                                        </button>
-                                        <input type="hidden" class="Pid" value="@item.ProductId" />
-                                        <a class="dropdown-item" href="#">移除</a>
-                                    </div>*@
+                                                        <span class="text-muted sr-only">Action</span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                            修改
+                                                        </button>
+                                                        <input type="hidden" class="Pid" value="@item.ProductId" />
+                                                        <a class="dropdown-item" href="#">移除</a>
+                                                    </div>*@
                                                 <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                                                     <i class="fe fe-edit fe-16"></i>
                                                 </button>
@@ -134,7 +144,7 @@
                                         <!--內容-->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary CreateDemo" >Demo</button>
+                                        <button type="button" class="btn btn-secondary CreateDemo">Demo</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                         <input type="submit" value="儲存" class="btn btn-primary CreateSubmit " data-dismiss="modal" />
                                     </div>
@@ -462,8 +472,18 @@
             $("#ProductUnitsInStock").val(200)
             $("#ProductSize").val("600g/包")
             $(".ql-editor").html("<h1><span style='color: rgb(0, 138, 0); '>清脆爽口的大白菜</span></h1><h2><span style='color: rgb(0, 0, 0);'>大白菜的葉子含有十字花科特有的異硫氰酸鹽、吲哚、蘿蔔硫素、胡蘿蔔素、葉黃素、葉酸等營養素，所以只要趁新鮮食用，就可以吃到很高的營養素哦!!!</span></h2>")
-                
+
         })
+        $(document).on("change", "#DefectiveGood", function (e) {
+            console.log($(this))
+            if ($(this).prop("checked")) {
+                $("#ProductDisCount").prop("disabled", false)
+            } else {
+                $("#ProductDisCount").prop("disabled", true)
+            }
+        })
+
+
     </script>
 
 }

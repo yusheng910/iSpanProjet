@@ -75,8 +75,11 @@ namespace 鮮蔬果季_前台.Controllers
             db.Add(cateAdd);
             cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeoryTemp };
             db.Add(cateAdd);
-            cateAdd = new CategoryDetail() { ProductId = 新的產品.ProductId, CategoryId = ProdCreate.CategeorySeason };
-            db.Add(cateAdd);
+            foreach (var item in ProdCreate.CategeorySeason)
+            {
+                cateAdd = new CategoryDetail() { ProductId = ProdCreate.ProductId, CategoryId = item };
+                db.Add(cateAdd);
+            }
             db.SaveChanges();
 
             if (ProdCreate.photo != null)
@@ -210,7 +213,16 @@ namespace 鮮蔬果季_前台.Controllers
                                         select p).FirstOrDefault();
             var Sid = db.Suppliers.FirstOrDefault(a => a.SupplierName == ProdEdit.SupplierName);
             product.ProductName = ProdEdit.ProductName;
-            product.ProductUnitPrice = ProdEdit.ProductUnitPrice;
+            if (ProdEdit.DefectiveGood)
+            {
+                decimal price = Convert.ToDecimal(ProdEdit.ProductUnitPrice * ProdEdit.ProductDisCount);
+                int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                product.ProductUnitPrice = 打折過;
+            }
+            else {
+                product.ProductUnitPrice = ProdEdit.ProductUnitPrice;
+            }
+            product.ProductDisCount = ProdEdit.ProductDisCount;
             product.ProductUnitsInStock = ProdEdit.ProductUnitsInStock;
             product.ProductCostPrice = ProdEdit.ProductCostPrice;
             product.ProductDescription = ProdEdit.ProductDescription;
@@ -234,8 +246,10 @@ namespace 鮮蔬果季_前台.Controllers
             db.Add(cateAdd);
             cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = ProdEdit.CategeoryTemp };
             db.Add(cateAdd);
-            cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = ProdEdit.CategeorySeason };
-            db.Add(cateAdd);
+            foreach (var item in ProdEdit.CategeorySeason) {
+                cateAdd = new CategoryDetail() { ProductId = ProdEdit.ProductId, CategoryId = item };
+                db.Add(cateAdd);
+            }
             db.SaveChanges();
             return Content("1");
         }
