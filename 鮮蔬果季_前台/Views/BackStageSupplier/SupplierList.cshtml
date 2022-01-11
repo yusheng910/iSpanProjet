@@ -134,14 +134,14 @@
                     <button type="button" class="btn btn-info btneditdemo">DEMO</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary btnEditSave"data-dismiss="modal" />
+                        <input type="submit" value="Save" class="btn btn-primary btnEditSave" data-dismiss="modal" />
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- 新增供應商 -->
+<!-- 新增供應商 SupplierAddPartial -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
@@ -153,8 +153,36 @@
             </div>
             <form name="SupplierAdd">
                 <div class="modal-body CreateBody">
-                    <div class="col-md-12 supadd">
-                        @* SupplierAddPartial *@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-danger"></div>
+                            <input type="hidden" />
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -230,7 +258,7 @@
             $('.supedit').load("@Url.Content("~/BackStageSupplier/SupplierEditPartail")/" + supid)
         })
         $(document).on("click", ".btnAdd", function () {
-            $('.supadd').load("@Url.Content("~/BackStageSuppplier/SupplierAddPartial")")
+            $('.CreateBody').load("@Url.Content("~/BackStageSuppplier/SupplierAddPartial")")
         })
     </script>
-    }
+}

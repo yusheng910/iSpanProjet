@@ -108,7 +108,7 @@ namespace 鮮蔬果季_前台.Controllers
             }; 
             db.Add(supplier);
             db.SaveChanges();
-            return Content();
+            return Content("1");
         }
     }
 }

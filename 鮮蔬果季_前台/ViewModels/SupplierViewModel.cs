@@ -42,7 +42,7 @@ namespace 鮮蔬果季_前台.ViewModels
         public int CityId { get {return this.supplier.CityId; } set {this.supplier.CityId=value; } }
         public String CityName { get { return this.city.CityName; } set { this.city.CityName = value; } }
         [DisplayName("供應商履歷")]
-        public string SupplierProfile { get { return this.supplier.SupplierProfile; } set {this._supplier.SupplierName=value; } }
+        public string SupplierProfile { get { return this.supplier.SupplierProfile; } set {this.supplier.SupplierName=value; } }
         
 
     }
