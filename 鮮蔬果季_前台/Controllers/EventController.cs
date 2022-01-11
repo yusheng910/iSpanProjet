@@ -167,7 +167,22 @@ namespace 鮮蔬果季_前台.Controllers
           
             foreach (var item in 所有活動)
             {
-
+                //計算該活動已報名人數
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
 
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
@@ -178,6 +193,9 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    活動滿額人數 = all,
+                    已報名人數 = count,
+                    剩餘名額 = all - count
                 });
             }
             return PartialView("BlogPartial",所有活動列表);
@@ -213,7 +231,22 @@ namespace 鮮蔬果季_前台.Controllers
 
             foreach (var item in 所有活動)
             {
-
+                //計算該活動已報名人數
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
 
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
@@ -224,6 +257,9 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    活動滿額人數 = all,
+                    已報名人數 = count,
+                    剩餘名額 = all - count
                 });
             }
             return PartialView("BlogPartial", 所有活動列表);
@@ -256,7 +292,22 @@ namespace 鮮蔬果季_前台.Controllers
 
             foreach (var item in 所有活動)
             {
-
+                //計算該活動已報名人數
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
 
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
@@ -267,6 +318,9 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    活動滿額人數 = all,
+                    已報名人數 = count,
+                    剩餘名額 = all - count
                 });
             }
             return PartialView("BlogPartial", 所有活動列表);
@@ -301,7 +355,22 @@ namespace 鮮蔬果季_前台.Controllers
 
             foreach (var item in 所有活動)
             {
-
+                //計算該活動已報名人數
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
 
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
@@ -312,6 +381,9 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    活動滿額人數 = all,
+                    已報名人數 = count,
+                    剩餘名額 = all - count
                 });
             }
             return PartialView("BlogPartial", 所有活動列表);
@@ -342,7 +414,22 @@ namespace 鮮蔬果季_前台.Controllers
 
             foreach (var item in 所有活動)
             {
-
+                //計算該活動已報名人數
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
 
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
@@ -353,12 +440,13 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    活動滿額人數 = all,
+                    已報名人數 = count,
+                    剩餘名額 = all - count
                 });
             }
             return PartialView("BlogPartial", 所有活動列表);
         }
-
-
 
         //活動首頁標籤的Partialview 專業課程
         public IActionResult BlogTag_ProfessionalClass()
@@ -385,7 +473,22 @@ namespace 鮮蔬果季_前台.Controllers
 
             foreach (var item in 所有活動)
             {
-
+                //計算該活動已報名人數
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
 
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
@@ -396,6 +499,9 @@ namespace 鮮蔬果季_前台.Controllers
                     Event = item.E,
                     City = 城市資料,
                     EventPhoto = 相片list,
+                    活動滿額人數 = all,
+                    已報名人數 = count,
+                    剩餘名額 = all - count
                 });
             }
             return PartialView("BlogPartial", 所有活動列表);
