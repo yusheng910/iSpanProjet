@@ -437,8 +437,8 @@ namespace 鮮蔬果季_前台.Controllers
              return View(單筆活動);
         }
 
-
-        [HttpPost]  //同名方法
+        //報名送出
+        [HttpPost]  
         public IActionResult EventSignUp_1(EventRegistration SignUpForm)  //回傳前台form的資料(name為FormData)
         {
             // 判斷會員是否登入
@@ -460,7 +460,7 @@ namespace 鮮蔬果季_前台.Controllers
                 };
                 db.Add(送出報名資料);
                 db.SaveChanges();
-                return Content("1");
+                return Content("0");
             }
 
             else  //Seesion沒找到

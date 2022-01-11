@@ -1,45 +1,29 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.EventListViewModel
 
+<h1>@Model.Event.EventName</h1>
 <div class="row">
     <div class="col-md-12">
-
-        <div class="form-group col-md-6">
-            <input type="hidden" asp-for="Event.EventId" name="MemberId" />
-            <label for="name">姓名</label>
-            <input asp-for="Event.EventName" type="text" id="MemberName" name="MemberName" class="form-control" placeholder="您的大名" required data-error="請填寫您的欄位">
-            <div class="help-block with-errors">
-                @*錯誤訊息的ul要先自己建出來 並且li需要給個id(emailerr)*@
-                <ul class="list-unstyled">
-                    <li id="MemberNameerr"></li>
-                </ul>
-            </div>
-        </div>
-
-
-
-        <!--<input type="hidden" asp-for="Event.EventId" name="EventId" />-->
-        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-        <!--<div class="form-group">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input  asp-for="Event.EventId"/>
+        <div class="form-group">
             <label asp-for="Event.EventName" class="control-label"></label>
             <input asp-for="Event.EventName" class="form-control" />
             <span asp-validation-for="Event.EventName" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="Event.Supplier.SupplierName" class="control-label"></label>
-            <select asp-for="Event.Supplier.SupplierName" class="form-control">
+        @*<div class="form-group">
+            <label asp-for="SupplierName" class="control-label"></label>
+            <select asp-for="SupplierName" class="form-control">
                 @foreach (var item in ViewBag.AllSupp)
                 {
                     <option>@item.SupplierName</option>
 
                 }
             </select>
-        </div>-->
-
-
+        </div>*@
         @*<div class="form-group">
             <label class="control-label" style="display:block">產品分類</label>
-            <label class="control-label" style="">品項：</label>
-            <select class="form-control CategeoryCreateFirst" style="width:10%;display:inline" name="CategeoryFirst">
+            <label class="control-label" style="float: left;">品項：</label>
+            <select class="form-control CategeoryCreateFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryFirst">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -50,47 +34,69 @@
                     }
                 }
             </select>
+            <select class="form-control CategeoryCreateSecond" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeorySecond">
+                @{
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId <= 5 && item.CategoryId >= 2)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                }
+            </select>
+            <label class="control-label" style="float: left;">商品等級：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryLevel">
+                @{
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId == 20 || item.CategoryId == 21)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                }
+            </select>
+            <label class="control-label" style="float: left;">溫層：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryTemp">
+                @{
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId == 17 || item.CategoryId == 18)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                }
+            </select>
+            <label class="control-label" style="float: left;">產季：</label>
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; margin-right: 10px " multiple name="CategeorySeason">
+                @{
+                    @foreach (var item in ViewBag.次類別)
+                    {
+                        if (item.CategoryId <= 15 && item.CategoryId >= 12 || item.CategoryId == 23)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                }
+            </select>
+            <span class="text-danger"></span>
         </div>*@
-
-
-
+        
         @*<div class="form-group">
-            <label asp-for="Event.EventParticipantCap" class="control-label"></label>
-            <input asp-for="Event.EventParticipantCap" oninput="if(value<0)value=0" class="form-control" />
-            <span asp-validation-for="Event.EventParticipantCap" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Event.EventLocation" class="control-label"></label>
-            <input asp-for="Event.EventLocation" oninput="if(value<0)value=0" class="form-control" />
-            <span asp-validation-for="Event.EventLocation" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Event.EventPrice" class="control-label"></label>
-            <input asp-for="Event.EventPrice" class="form-control" />
-            <span asp-validation-for="Event.EventPrice" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Event.EventPrice" class="control-label"></label>
-            <input asp-for="Event.EventPrice" class="form-control" />
-            <span asp-validation-for="Event.EventPrice" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Event.Lable" class="control-label"></label>
-            <input asp-for="Event.Lable" class="form-control" />
-            <span asp-validation-for="Event.Lable" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Event.EventEndDate" class="control-label"></label>
-            <input asp-for="Event.EventEndDate" class="form-control" />
-            <span asp-validation-for="Event.EventEndDate" class="text-danger"></span>
+            <label asp-for="ProductSize" class="control-label"></label>
+            <input asp-for="ProductSize" class="form-control" />
+            <span asp-validation-for="ProductSize" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Event.EventDescription" class="control-label"></label>
+            <label asp-for="ProductDescription" class="control-label"></label>
             <div id="editorcreate" class="descript" style="min-height:200px;" name="ProductDescription">
             </div>
             <input type="hidden" class="prodCreateDescription" name="ProductDescription">
-        </div>
+        </div>*@
+
         <div class="form-group">
             <label class="control-label">產品相片(第一張圖片會為封面)</label>
             <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">
@@ -103,11 +109,13 @@
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div>
     </div>
 </div>
 
 
-@*@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+
+
+@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
