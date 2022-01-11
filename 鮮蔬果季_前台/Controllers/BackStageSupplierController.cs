@@ -97,6 +97,7 @@ namespace 鮮蔬果季_前台.Controllers
                 BusinessOwner=sup.BusinessOwner,
                 SupplierAddress=sup.SupplierAddress,
                 Mobile=sup.Mobile,
+                CityId=sup.CityId,
             }; 
             db.Add(supplier);
             db.SaveChanges();
