@@ -94,6 +94,8 @@ namespace 鮮蔬果季_前台.ViewModels
         [DisplayName("活動名稱")]         
         public string EventName { get { return this.Event.EventName; } set { this.Event.EventName = value;  } }
         
+        [DisplayName("活動ID")]
+        public int EventId { get { return this.Event.EventId; } set { this.Event.EventId = value; } }
 
     }
 }

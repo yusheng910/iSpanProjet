@@ -212,6 +212,7 @@
                 body: formData
             })
             const data = await response.text()
+            console.log(data)
             if (data == 1) {
                 $('.imgLoad').load("@Url.Content("~/BackstageEventAPI/imgLoad/")" + eid, function () {
                     alert("上傳圖片成功");
@@ -222,6 +223,7 @@
         //圖片清空
         $(document).on("click", ".imgClear", async function (e) {
             let eid = $(".Eid").val()
+            console.log("123")
             const response = await fetch('@Url.Content("~/BackstageEventAPI/ClearImg/")'+eid)
             const data = await response.text()
             console.log(data)

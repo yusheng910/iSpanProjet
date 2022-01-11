@@ -58,15 +58,20 @@ namespace 鮮蔬果季_前台.Controllers
             return Content("1");
         }
 
-        public IActionResult imgLoad(int id)
+
+
+        public IActionResult imgLoad(int id)         //此處為獨立的view (同名稱的view才能連接到)
         {
             var q = db.EventPhotoBanks.Where(E => E.EventId == id).ToList();
             if (q == null)
             {
                 return Content("請上傳圖片");
             }
-            return PartialView(q);
+            return PartialView(q);    //與方法不同名的view要用""註明view的名稱  
         }
+
+
+
         public IActionResult ClearImg(int id)
         {
             var q = db.EventPhotoBanks.Where(E => E.EventId == id).ToList();
@@ -74,7 +79,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 if (圖片.PhotoPath != "nprod.jpg")
                 {
-                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/商品照/" + 圖片.PhotoPath); //取得路徑
+                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/活動照片/" + 圖片.PhotoPath); //取得路徑
                     bool result = System.IO.File.Exists(filePath);
                     if (result == true)
                     {
