@@ -27,8 +27,8 @@ namespace 鮮蔬果季_前台.ViewModels
             }
             set { _city = value; }
         }
-       
 
+        public string cities { get; set; }
         public int SupplierId { get {return this._supplier.SupplierId; } set {this._supplier.SupplierId=value; } }
         [DisplayName("供應商名稱")]
         public string SupplierName { get {return this._supplier.SupplierName; } set { this._supplier.SupplierName = value; } }
