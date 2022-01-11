@@ -335,7 +335,17 @@
                 <div class="col-xl-7 col-lg-7 col-md-6">
                     <div class="single-product-details">
                         <h2>【@Model.supplier.SupplierName】@Model.product.ProductName </h2>
-                        <h5> @*<del>NT$ 80</del>*@ NT$ @Model.product.ProductUnitPrice</h5>
+                        @if (Model.DefectiveGood)
+                        {
+                            decimal price = Convert.ToDecimal(Model.product.ProductUnitPrice / Model.product.ProductDisCount);
+                            int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                            <h5> <del style="font-size:16px; ">NT$@打折過</del><span style="color: #EA7500; font-weight: bolder; font-size: 22px; "> NT$@Model.product.ProductUnitPrice </span></h5>
+                        }
+                        else
+                        {
+                            <h5> @*<del>NT$ 80</del>*@ NT$ @Model.product.ProductUnitPrice</h5>
+                        }
+
                         <p class="available-stock">
                             <span> 尚餘 @Model.product.ProductUnitsInStock 件  /  <a href="#">@Model.出售量 已售出 <span id="sepline" style="color:darkcyan">｜</span> <span class="addstr" style="color:yellowgreen"></span> <span class="addavg" style="color:darkred"></span> </a></span>
                         <p>

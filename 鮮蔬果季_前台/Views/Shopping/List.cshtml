@@ -116,7 +116,7 @@
                  minPrice = ($("#textPrice").html().split("$")[1]).split(" ")[0];
                  maxPrice = ($("#textPrice").html().split("$")[2]);
             }
-            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/OrderProductPartial")/" + value + "?min=" + minPrice + "&max=" + maxPrice + "&categetoryId=" + Cid, countfind)
+            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/OrderCateArrayPartial")/" + value + "?min=" + minPrice + "&max=" + maxPrice + "&cateSel=" + Cid, countfind)
         })
         //商品比數查詢
         function countfind() {
@@ -145,7 +145,7 @@
             if (categorySelId >= 2 && categorySelId <= 5 || categorySelId ==7) {
                 if ($(this).prop('checked')) {
                     $(this).parent().parent().parent().prev().find(".categoryselect").prop("checked", "checked")
-                }           
+                }
             }
             //選擇水果類
             if (categorySelId == 6) {
@@ -170,13 +170,13 @@
 
             });
             console.log(cbxVehicle)
-            console.log(categorySelId)
 
-          $(".categorySel").val(categorySelId) //設定有塞選過的編號
+            $(".categorySel").val(cbxVehicle) //設定有塞選過的編號
           let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10 / 2
           let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10 / 2
           var str = $(this).text()
-          $("#textName").html($.trim(str).split(" ")[0] + "    ")
+          //$("#textName").html($.trim(str).split(" ")[0] + "    ")
+            $("#textName").html("")
           $("#textPrice").html("價錢 $" + min + " ~ $" + max)
           $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
             let value = $(this).find(".cateid").val()
@@ -196,7 +196,16 @@
         priceSelect.click(function () {
             let min = (($("#slider-range").find("span")[0].style.left).split("%")[0]) * 10/2
             let max = (($("#slider-range").find("span")[1].style.left).split("%")[0]) * 10/2
-            let categorySelId = $(".categorySel").val();
+            //let categorySelId = $(".categorySel").val();
+            var cbxVehicle = [];
+            $('input:checkbox:checked[name="vehicle"]').each(function (i) {
+                if ($(this).next().val() == 1 || $(this).next().val() == 6) {
+                    return true;
+                } else {
+                    cbxVehicle.push($(this).next().val())
+                }
+
+            });
             console.log(min)
             console.log(max)
             if ($(".categorySel").val() != "") {
@@ -208,8 +217,15 @@
                 $("#textPrice").html("價錢 $" + min + " ~ $" + max)
                 $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
             }
-            console.log(categorySelId)
-            $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max + "&categetoryId=" + categorySelId, countfind)
+            //console.log(categorySelId)
+            $(".categorySel").val(cbxVehicle) //設定有塞選過的編號
+             if (cbxVehicle == "")
+            {
+                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/PricePartial")?min=" + min + "&max=" + max, countfind)
+            } else {
+                 $('#grid-view').find('.row').load("@Url.Content("~/Shopping/CategoryArray")?cateSel=" + cbxVehicle + "&min=" + min + "&max=" + max, countfind)
+            }
+
             selcted.selectedIndex = 0;
         })
         //清空篩選
@@ -365,11 +381,10 @@
                                     <option value="1">最新商品</option>
                                     <option value="2">價格 (由高至低)</option>
                                     <option value="3">價格 (由低至高)</option>
-                                    <option value="4">最高銷售</option>
                                 </select>
                             </div>
-                            <p id="textSel" style="text-align:left">
-                                <span class="textCount"></span>
+                            <p id="textSel" style="text-align: left; font-size: 18px;">
+                                <span class="textCount" style="font-size: 22px"></span>
                                 篩選：
                                 <span id="textName">無</span>
                                 <span id="textPrice"></span>
@@ -494,6 +509,12 @@
                                                                     <span style="color: #FF2D2D">已售完</span>
                                                                 </h5>
                                                             }
+                                                            else if (item.DefectiveGood)
+                                                            {
+                                                                decimal price = Convert.ToDecimal(@item.product.ProductUnitPrice / item.product.ProductDisCount);
+                                                                int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
+                                                                    <h5 > @公克[0]/<del style="font-size:16px; color:lightgrey">NT$@打折過</del><span style="color: #D94600; font-weight: bolder; font-size: 22px; "> NT$@item.product.ProductUnitPrice </span></h5>
+                                                            }
                                                             else
                                                             {
                                                                 <h5> @公克[0]/NT$@item.product.ProductUnitPrice</h5>
@@ -570,12 +591,12 @@
                                                             <h4>【@item.supplier.SupplierName】</h4>
                                                             <h5 style=" margin-bottom: 15px">
                                                                 @{
-                                                                    string 規格 = @item.product.ProductSize;
+                                                                    string 規格 = item.product.ProductSize;
                                                                     string[] 公克 = 規格.Split("/");
-                                                                    decimal price = Convert.ToDecimal(@item.ProductUnitPrice * 1.25);
+                                                                    decimal price = Convert.ToDecimal(item.ProductUnitPrice /item.product.ProductDisCount);
                                                                     int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
                                                                 }
-                                                                @公克[0]/NT$ @item.ProductUnitPrice
+                                                                @公克[0]/<del>NT$ @打折過</del>  NT$ @item.ProductUnitPrice
                                                             </h5>
 
                                                             <p style="padding-bottom:0px;">
