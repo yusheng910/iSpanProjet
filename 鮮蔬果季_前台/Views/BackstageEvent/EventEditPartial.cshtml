@@ -1,10 +1,10 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.EventListViewModel
 
-<h1>@Model.Event.EventName</h1>
+
 <div class="row">
     <div class="col-md-12">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input asp-for="Event.EventId" type="hidden" />
+        <input asp-for="EventId" type="hidden" />
         <div class="form-group">
             <label asp-for="EventName" class="control-label"></label>
             <input asp-for="EventName" class="form-control" />
@@ -113,7 +113,7 @@
         <div class="form-group">
             <label class="control-label">產品相片(第一張圖片會為封面)</label>
             <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">
-                <div class="imgLoad">
+                <div class="imgLoad">    @*載入上傳圖片區塊imgClear*@
                     @foreach (var item in Model.EventPhoto)
                     {
                         <img src="~/images/活動照片/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
