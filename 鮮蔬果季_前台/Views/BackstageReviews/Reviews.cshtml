@@ -46,9 +46,57 @@
             font-style: italic;
             color: darkred;
         }
+        #loader { /*   這是整個會蓋住畫面的底色色塊  */
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            top: 25%;
+            background-color: transparent;
+            z-index: 9999;
+        }
+
+        #shippingmsgbox {
+            background-color: #E0E0E0;
+            z-index: 100;
+            height: 70px;
+            width: 150px;
+            position: fixed;
+            top: 30%;
+            left: 53%;
+            margin-top: -35px;
+            margin-left: -75px;
+            align-items: center;
+            display: flex;
+            padding-top: 75px;
+            border-radius: 15px;
+            font-weight: bolder;
+            font-size: 15px;
+            box-shadow: 1.5px 1.5px 7px 1px #5b5b5b;
+        }
+
+        #shippingmsgText {
+            height: 100px;
+            width: 200px;
+            text-align: center;
+            color: #4D0000;
+            font-weight: bold;
+        }
     </style>
 }
-
+<div id="loader" hidden>
+    <img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+</div>
+<div class="alert-autocloseable-warning" id="shippingmsgbox" hidden>
+    <div class="alert-autocloseable-warning" id="shippingmsgText">
+        屏蔽成功
+    </div>
+</div>
+<div class="alert-autocloseable-warning2" id="shippingmsgbox" hidden>
+    <div class="alert-autocloseable-warning2" id="shippingmsgText">
+        解除屏蔽成功
+    </div>
+</div>
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">評論管理</h2>
@@ -186,7 +234,12 @@
                 var data = await response.text();
                 if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageReviewsApi/ReviewsListPartial")", function () {
-                    alert("屏蔽成功")
+                    $('#loader').attr("hidden", true);
+                    $('.alert-autocloseable-warning').attr("hidden", false);
+                    $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
+                        $('.alert-autocloseable-warning').attr("hidden", true);
+                        $('.alert-autocloseable-warning').removeAttr("style");
+                    });
                     $('#dataTable-1').DataTable(
                         {
                             autoWidth: true,
@@ -208,7 +261,12 @@
                 var data = await response.text();
                 if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageReviewsApi/ReviewsListPartial")", function () {
-                    alert("解除屏蔽成功")
+                    $('#loader').attr("hidden", true);
+                    $('.alert-autocloseable-warning2').attr("hidden", false);
+                    $('.alert-autocloseable-warning2').delay(2000).fadeOut("slow", function () {
+                        $('.alert-autocloseable-warning2').attr("hidden", true);
+                        $('.alert-autocloseable-warning2').removeAttr("style");
+                    });
                     $('#dataTable-1').DataTable(
                         {
                             autoWidth: true,
