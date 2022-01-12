@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 using 鮮蔬果季_前台.ViewModels;
-
 namespace 鮮蔬果季_前台.Controllers
 {
     public class LoginController : Controller
@@ -20,6 +19,8 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Login()
         {
+            ViewBag.UserId = HttpContext.Request.Cookies["UserId"];
+            ViewBag.Password = HttpContext.Request.Cookies["Password"];
             return View();
         }
         [HttpPost]
@@ -49,6 +50,10 @@ namespace 鮮蔬果季_前台.Controllers
                     json = JsonSerializer.Serialize(user);
                     HttpContext.Session.SetString(CDictionary.SK_LOGINED_USER, json);
                     UserLogin.member = user;
+                    CookieOptions options = new CookieOptions();
+                    options.Expires = DateTime.Now.AddDays(30);
+                    HttpContext.Response.Cookies.Append("UserId", user.UserId, options);
+                    HttpContext.Response.Cookies.Append("Password", user.Password, options);
                     return RedirectToAction("Index", "Home");
 
                 }
@@ -212,26 +217,7 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult CheckUserId(string UserId)
         {
-            //    try
-            //    {
-            //        System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress("freshveg132@gmail.com", "鮮蔬果季客服");
-            //        System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(UserId, "客戶");
-            //        System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            //        mail.From = from;
-            //        mail.To.Add(to);
-            //        mail.Subject = "忘記密碼測試郵件";
-            //        mail.Body = "測試郵件";
-            //        mail.IsBodyHtml = true;
-            //        System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-            //        client.Host = "smtp.elasticemail.com";
-            //        client.Credentials = new System.Net.NetworkCredential("freshveg132@gmail.com", "@Xyz1234@");
-            //        client.Send(mail);
-            //        return Content("1");
-            //    }
-            //    catch
-            //    {
-            //        return Content("0");
-            //    }
+           
             var cust = (from i in db.Members
                        where i.UserId == UserId
                        select new { i.MemberName} ).FirstOrDefault();
