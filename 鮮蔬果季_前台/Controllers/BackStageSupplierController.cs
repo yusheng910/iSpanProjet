@@ -83,12 +83,6 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult SupplierAddPartial()
         {
-            var suplist = (from a in db.Suppliers
-                           select  a).FirstOrDefault();
-            List<SupplierViewModel> supadd = new List<SupplierViewModel>();
-            {
-                        
-            };
             return PartialView();
         }
         [HttpPost]
@@ -96,18 +90,18 @@ namespace 鮮蔬果季_前台.Controllers
         {
             //新增
             var suplist = (from a in db.Suppliers
-                           join b in db.Cities
-                           on a.CityId equals b.CityId
-                          select new{ a,b}).FirstOrDefault();
+                           select a).FirstOrDefault();
             Supplier supplier = new Supplier()
             {
                 SupplierName=sup.SupplierName,
                 BusinessOwner=sup.BusinessOwner,
                 SupplierAddress=sup.SupplierAddress,
-                Mobile=sup.Mobile,    
+                Mobile=sup.Mobile,
+                CityId=sup.CityId,
             }; 
             db.Add(supplier);
             db.SaveChanges();
+
             return Content("1");
         }
     }
