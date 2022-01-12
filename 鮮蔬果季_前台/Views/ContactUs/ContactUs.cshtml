@@ -134,6 +134,7 @@
                         <div class="form-group">
                             <div class="col-12" style="background-color: #FFF9E9">
                                 <button type="submit" id="submit" class="btn btn-success" align="center">傳送</button>
+                                <button type="button" class="btn btn-info btncredemo">DEMO</button>
                             </div>
                         </div>
                     </form>
@@ -184,7 +185,9 @@
                 return false
             }
         })
-
+        $(".btncredemo").click(function () {
+            $("#FeedbackCommet").val("東西沒送到你要怎麼負責!!!!")
+        })
 
 
     </script>
