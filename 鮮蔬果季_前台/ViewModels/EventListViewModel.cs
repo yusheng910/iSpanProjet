@@ -111,7 +111,7 @@ namespace 鮮蔬果季_前台.ViewModels
         [DisplayName("活動地點")]
         public string EventLocation { get { return this.Event.EventLocation; } set { this.Event.EventLocation = value; } }
 
-        [DisplayName("活動開始時間")]
+        [DisplayName("活動開始時間")]     //部落格上傳圖片,這邊會出錯!
         public DateTime EventStartDate { get { return (DateTime)this.Event.EventStartDate; } set { this.Event.EventStartDate = value; } }
 
         [DisplayName("活動結束時間")]

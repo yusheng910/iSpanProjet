@@ -2,24 +2,19 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
 
-
-
+@model List<鮮蔬果季_前台.ViewModels.BlogDetailListViewModel>
+<!-- table -->
 <table class="table datatables border-dark" id="dataTable-1">
     <thead class="thead-dark">
         <tr>
             <th></th>
-            <th>活動ID</th>
-            <th>活動名稱</th>
-            <th>供應商ID</th>
+            <th>部落格ID</th>
             <th>供應商名稱</th>
-            <th>活動人員上限</th>
-            <th>活動地點</th>
-            <th>活動費用</th>
-            <th>活動開始時間</th>
-            <th>活動結束時間</th>
-            <th>活動類別</th>
+            <th>部落格主標題</th>
+            <th>部落格次標題</th>
+            <th>標籤分類</th>
+            <th>發布日期</th>
             <th></th>
             <th>編輯</th>
         </tr>
@@ -35,16 +30,12 @@
                         @*<label class="custom-control-label"></label>*@
                         <!--</div>-->
                     </td>
-                    <td>@item.Event.EventId</td>
-                    <td>@item.Event.EventName</td>
-                    <td>@item.Event.Supplier.SupplierId</td>
-                    <td>@item.Event.Supplier.SupplierName</td>
-                    <td>@item.Event.EventParticipantCap</td>
-                    <td>@item.Event.EventLocation</td>
-                    <td>@item.Event.EventPrice</td>
-                    <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
-                    <td>@item.Event.EventEndDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
-                    <td>@item.Event.Lable</td>
+                    <td>@item.BlogDetail.BlogDetailId</td>
+                    <td>@item.Supplier.SupplierName</td>
+                    <td>@item.BlogDetail.Title</td>
+                    <td>@item.BlogDetail.Subtitle</td>
+                    <td>@item.BlogDetail.Label</td>
+                    <td>@ViewBag.活動日期</td>
                     <td></td>
 
                     <td>
@@ -52,7 +43,7 @@
                         <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                             <i class="fe fe-edit fe-16"></i>
                         </button>
-                        <input type="hidden" class="Eid" value="@item.Event.EventId" />
+                        <input type="hidden" class="Eid" value="@item.BlogDetail.BlogDetailId" />
                     </td>                                                   @*透過vaule回傳的ID*@
 
                 </tr>
