@@ -116,14 +116,6 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
 
-        $('#dataTable-1').DataTable(
-            {
-                autoWidth: true,
-                "lengthMenu": [
-                    [16, 32, 64, -1],
-                    [16, 32, 64, "All"]
-                ]
-            });
 
 
             //開啟修改的PartialView
@@ -204,7 +196,7 @@
 
 
 
-
+        @**@
         //修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
@@ -218,12 +210,13 @@
                 method: "POST",
                 body: formData
             })
+
             const data = await response.text()
             console.log(data)
-            if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackstageEvent/EvevtListPartial")", function () {
+            if (data == 1) {            //寫入後需要重新載入的原因,在於修改是使用浮動視窗,並不會把更新資料修改上去
+                $('.card-body').load("@Url.Content("~/BackstageEvent/EventListPartial")", function () {
                     alert("修改成功")
-                    $('#dataTable-1').DataTable(
+                    $('#dataTable-1').DataTable(     //此段待確認作用
                         {
                             autoWidth: true,
                             "lengthMenu": [
@@ -234,7 +227,6 @@
                 })
             }
         })
-
 
 
 
