@@ -15,6 +15,7 @@ namespace 鮮蔬果季_前台.Controllers
         {
             db = dbContext;
         }
+        //表單
         public IActionResult SupplierList()
         {
             List<SupplierViewModel> list = new List<SupplierViewModel>();
@@ -33,6 +34,7 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(list);
         }
+        //=============== 重新載入頁面 =====================================================
         public IActionResult SupplierListPartial()
         {
             List<SupplierViewModel> list = new List<SupplierViewModel>();
@@ -52,7 +54,7 @@ namespace 鮮蔬果季_前台.Controllers
             return PartialView(list);
         }
 
-
+        //==============  修改功能  ===========================================================
         public IActionResult SupplierEditPartail(int id)
         {
 
@@ -80,7 +82,7 @@ namespace 鮮蔬果季_前台.Controllers
             db.SaveChanges();
             return Content("1");
         }
-
+        //============= 新增功能      ========================================================
         public IActionResult SupplierAddPartial()
         {
             var 縣市 = db.Cities.ToList();
