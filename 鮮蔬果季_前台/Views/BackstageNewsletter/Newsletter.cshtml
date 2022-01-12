@@ -4,112 +4,223 @@
     ViewData["Title"] = "Newsletter";
 }
 @section Styles{
-    <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <link href="~/editormd/css/editormd.css" rel="stylesheet" />
+    <link href="~/editormd/css/editormd.preview.css" rel="stylesheet" />
+    <link href="~/editormd/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
 }
-<div class="card shadow" style="width:60%;">
-    <div class="card-body">
-        <div class="form-group">
-            <label class="control-label"></label>
-            <div id="editorcreate" class="descript" style="min-height:500px;" name="ProductDescription">
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h2 class="mb-2 page-title" style="font-weight: 700;font-size:1.75rem">優惠電子報</h2>
+        <p class="card-text"></p>
+        <div class="card shadow" style="width:85%">
+            <div class="card-body">
+                <div class="form-group mb-3" style="padding-left:7px">
+                    <label for="example-email">收件者</label>
+                    <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Email" style="width:60%">
+                </div>
+                <p class="card-text"></p>
+                <div class="form-check form-check-inline" style="padding-left:2.5%">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">寄給全部</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">寄給?</label>
+                </div>
+                <div class="form-group mb-3" style="padding-left:7px">
+                    <label>電子報主旨</label>
+                    <input type="text" id="example-email" name="example-email" class="form-control" placeholder="輸入主旨" style="width:60%">
+                </div>
+                <p class="card-text"></p>
+                <p class="card-text"></p>
+                <div id="test-editormd">
+                    <textarea id="articleContent" style="display: none;"></textarea>
+                </div>
+                <div style="text-align:center">
+                    <button type="button" class="btn btn-primary btnsend" style="width:99%">寄送</button>
+                </div>
             </div>
-            <input type="hidden" class="prodCreateDescription" name="ProductDescription">
         </div>
     </div>
 </div>
 
-@*<link rel="stylesheet" href="~/editormd/css/editormd.css" />
-<div id="test-editor">
-    <textarea style="display:none;">### 关于 Editor.md
-
-**Editor.md** 是一款开源的、可嵌入的 Markdown 在线编辑器（组件），基于 CodeMirror、jQuery 和 Marked 构建。
-    </textarea>
-</div>
-<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="~/editormd/editormd.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        var editor = editormd("test-editor", {
-            // width  : "100%",
-            // height : "100%",
-            path: "~/editormd/lib/"
-        });
-    });
-</script>*@
-
 @section Scripts{
-
-
-    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
-    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/editormd/js/editormd.js"></script>
+    <script src="~/editormd/languages/zh-tw.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
-        var editor = document.getElementById('editorcreate');
-        if (editor) {
-            console.log(editor)
-            var toolbarOptions = [
-                [
-                    {
-                        'font': []
-                    }],
-                [
-                    {
-                        'header': [1, 2, 3, 4, 5, 6, false]
-                    }],
-                ['bold', 'italic', 'underline', 'strike'],
-                ['blockquote', 'code-block'],
-                [
-                    {
-                        'header': 1
+        $(function () {
+            testEditor = editormd("test-editormd", {
+                width: "99%",
+                height: 640,
+                syncScrolling: "single",
+                path: "/editormd/lib/",
+                saveHTMLToTextarea: true,
+                emoji: true,
+                //theme: "gray",//工具栏主题
+                //previewTheme: "dark",//预览主题
+                //editorTheme: "pastel-on-dark",//编辑主题
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "./Newsletter/uploadimg",
+            });
+            //$(document).on("click", ".btnsend", function () {
+            //    alert(testEditor.getHTML());
+            //})
+            $(document).on("click", ".btnsend", async function (e) {
+                console.log($(".UserId").val())
+                var email = $(".UserId").val()
+                e.preventDefault();
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                    /* Host = "smtp.gmail.com",*/
+                    /*Host: "sdryadl978188@gmail.com",*/
+                    Port: 587,
+                    SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                    Username: "dryadl978188@gmail.com",
+                    Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
+                    /*To: `${email}`,*/
+                    To: "leechintuxxx@gmail.com",
+                    From: "dryadl978188@gmail.com",
+                    Subject: "測試信件內容",
+                    Body: testEditor.getHTML()
+                }).then(
+                    alert("已傳送信件")
+
+                );
+
+            });
+        });
+        (function () {
+            var factory = function (exports) {
+                var lang = {
+                    name: "zh-tw",
+                    description: "開源在線Markdown編輯器<br/>Open source online Markdown editor.",
+                    tocTitle: "目錄",
+                    toolbar: {
+                        undo: "撤銷（Ctrl+Z）",
+                        redo: "重做（Ctrl+Y）",
+                        bold: "粗體",
+                        del: "刪除線",
+                        italic: "斜體",
+                        quote: "引用",
+                        ucwords: "將所選的每個單詞首字母轉成大寫",
+                        uppercase: "將所選文本轉成大寫",
+                        lowercase: "將所選文本轉成小寫",
+                        h1: "標題1",
+                        h2: "標題2",
+                        h3: "標題3",
+                        h4: "標題4",
+                        h5: "標題5",
+                        h6: "標題6",
+                        "list-ul": "無序列表",
+                        "list-ol": "有序列表",
+                        hr: "橫線",
+                        link: "鏈結",
+                        "reference-link": "引用鏈結",
+                        image: "圖片",
+                        code: "行內代碼",
+                        "preformatted-text": "預格式文本 / 代碼塊（縮進風格）",
+                        "code-block": "代碼塊（多語言風格）",
+                        table: "添加表格",
+                        datetime: "日期時間",
+                        emoji: "Emoji 表情",
+                        "html-entities": "HTML 實體字符",
+                        pagebreak: "插入分頁符",
+                        watch: "關閉實時預覽",
+                        unwatch: "開啟實時預覽",
+                        preview: "全窗口預覽HTML（按 Shift + ESC 退出）",
+                        fullscreen: "全屏（按 ESC 退出）",
+                        clear: "清空",
+                        search: "搜尋",
+                        help: "使用幫助",
+                        info: "關於" + exports.title
                     },
-                    {
-                        'header': 2
-                    }],
-                [
-                    {
-                        'list': 'ordered'
+                    buttons: {
+                        enter: "確定",
+                        cancel: "取消",
+                        close: "關閉"
                     },
-                    {
-                        'list': 'bullet'
-                    }],
-                [
-                    {
-                        'script': 'sub'
-                    },
-                    {
-                        'script': 'super'
-                    }],
-                [
-                    {
-                        'indent': '-1'
-                    },
-                    {
-                        'indent': '+1'
-                    }], // outdent/indent
-                [
-                    {
-                        'direction': 'rtl'
-                    }], // text direction
-                [
-                    {
-                        'color': []
-                    },
-                    {
-                        'background': []
-                    }], // dropdown with defaults from theme
-                [
-                    {
-                        'align': []
-                    }],
-                ['clean'] // remove formatting button
-            ];
-            var quill = new Quill(editor,
-                {
-                    modules:
-                    {
-                        toolbar: toolbarOptions
-                    },
-                    theme: 'snow'
-                });
-        }
+                    dialog: {
+                        link: {
+                            title: "添加鏈結",
+                            url: "鏈結地址",
+                            urlTitle: "鏈結標題",
+                            urlEmpty: "錯誤：請填寫鏈結地址。"
+                        },
+                        referenceLink: {
+                            title: "添加引用鏈結",
+                            name: "引用名稱",
+                            url: "鏈結地址",
+                            urlId: "鏈結ID",
+                            urlTitle: "鏈結標題",
+                            nameEmpty: "錯誤：引用鏈結的名稱不能為空。",
+                            idEmpty: "錯誤：請填寫引用鏈結的ID。",
+                            urlEmpty: "錯誤：請填寫引用鏈結的URL地址。"
+                        },
+                        image: {
+                            title: "添加圖片",
+                            url: "圖片地址",
+                            link: "圖片鏈結",
+                            alt: "圖片描述",
+                            uploadButton: "本地上傳",
+                            imageURLEmpty: "錯誤：圖片地址不能為空。",
+                            uploadFileEmpty: "錯誤：上傳的圖片不能為空！",
+                            formatNotAllowed: "錯誤：只允許上傳圖片文件，允許上傳的圖片文件格式有："
+                        },
+                        preformattedText: {
+                            title: "添加預格式文本或代碼塊",
+                            emptyAlert: "錯誤：請填寫預格式文本或代碼的內容。",
+                            placeholder: "coding now...."
+                        },
+                        codeBlock: {
+                            title: "添加代碼塊",
+                            selectLabel: "代碼語言：",
+                            selectDefaultText: "請語言代碼語言",
+                            otherLanguage: "其他語言",
+                            unselectedLanguageAlert: "錯誤：請選擇代碼所屬的語言類型。",
+                            codeEmptyAlert: "錯誤：請填寫代碼內容。",
+                            placeholder: "coding now...."
+                        },
+                        htmlEntities: {
+                            title: "HTML實體字符"
+                        },
+                        help: {
+                            title: "使用幫助"
+                        }
+                    }
+                };
+
+                exports.defaults.lang = lang;
+            };
+
+            // CommonJS/Node.js
+            if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
+                module.exports = factory;
+            }
+            else if (typeof define === "function")  // AMD/CMD/Sea.js
+            {
+                if (define.amd) { // for Require.js
+
+                    define(["editormd"], function (editormd) {
+                        factory(editormd);
+                    });
+
+                } else { // for Sea.js
+                    define(function (require) {
+                        var editormd = require("../editormd");
+                        factory(editormd);
+                    });
+                }
+            }
+            else {
+                factory(window.editormd);
+            }
+
+        })();
 
     </script>
 }

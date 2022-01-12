@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace 鮮蔬果季_前台.ViewModels
 {
@@ -55,6 +56,23 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
+        [DisplayName("部落格ID")]
+        public int BlogDetailID { get { return this.BlogDetail.BlogDetailId; } set { this.BlogDetail.BlogDetailId = value; } }
+
+        [DisplayName("主標題")]
+        public string Title { get { return this.BlogDetail.Title; } set { this.BlogDetail.Title = value; } }
+
+        [DisplayName("次標題")]
+        public string Subtitle { get { return this.BlogDetail.Subtitle; } set { this.BlogDetail.Subtitle = value; } }
+
+        [DisplayName("部落格文章")]
+        public string Maintext { get { return this.BlogDetail.Maintext; } set { this.BlogDetail.Maintext = value; } }
+
+        [DisplayName("發布日期")]
+        public DateTime PublishedDate { get { return (DateTime)this.BlogDetail.PublishedDate; } set { this.BlogDetail.PublishedDate = value; } }
+
+        [DisplayName("標籤分類")]
+        public string Label { get { return this.BlogDetail.Label; } set { this.BlogDetail.Label = value; } }
 
     }
 }

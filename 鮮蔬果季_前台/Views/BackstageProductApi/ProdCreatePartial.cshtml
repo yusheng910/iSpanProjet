@@ -21,7 +21,7 @@
         <div class="form-group">
             <label class="control-label" style="display:block">產品分類</label>
             <label class="control-label" style="float: left;">品項：</label>
-            <select class="form-control CategeoryCreateFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4" name="CategeoryFirst" >
+            <select class="form-control CategeoryCreateFirst" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryFirst">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -32,7 +32,7 @@
                     }
                 }
             </select>
-            <select class="form-control CategeoryCreateSecond"style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4"  name="CategeorySecond">
+            <select class="form-control CategeoryCreateSecond" style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeorySecond">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -44,7 +44,7 @@
                 }
             </select>
             <label class="control-label" style="float: left;">商品等級：</label>
-            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4"  name="CategeoryLevel">
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryLevel">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -56,7 +56,7 @@
                 }
             </select>
             <label class="control-label" style="float: left;">溫層：</label>
-            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px "size="4"  name="CategeoryTemp">
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; float: left; margin-right: 10px " size="4" name="CategeoryTemp">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -68,7 +68,7 @@
                 }
             </select>
             <label class="control-label" style="float: left;">產季：</label>
-            <select class="form-control " style="width: 10%; display: inline; overflow: auto; margin-right: 10px " multiple  name="CategeorySeason">
+            <select class="form-control " style="width: 10%; display: inline; overflow: auto; margin-right: 10px " multiple name="CategeorySeason">
                 @{
                     @foreach (var item in ViewBag.次類別)
                     {
@@ -83,17 +83,27 @@
         </div>
         <div class="form-group">
             <label asp-for="ProductUnitPrice" class="control-label"></label>
-            <input asp-for="ProductUnitPrice" oninput = "if(value<0)value=0" class="form-control" />
+            <input asp-for="ProductUnitPrice" oninput="if(value<0)value=0" class="form-control ProductUnitPrice2" />
             <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input DefectiveGood2" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
+            </label>
+        </div>
+        <div class="form-group form-check">
+            <label asp-for="ProductDisCount" class="control-label">
+                @Html.DisplayNameFor(model => model.ProductDisCount)<br><input asp-for="ProductDisCount" class="form-control ProductDisCount2" style="display:inline;width:40%" disabled /> <br>折後金額：<br><input name="disCountPrice" value=" " style="display:inline;width:40%" class="form-control countprice2" disabled />
+            </label>
         </div>
         <div class="form-group">
             <label asp-for="ProductCostPrice" class="control-label"></label>
-            <input asp-for="ProductCostPrice" oninput = "if(value<0)value=0" class="form-control" />
+            <input asp-for="ProductCostPrice" oninput="if(value<0)value=0" class="form-control" />
             <span asp-validation-for="ProductCostPrice" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ProductUnitsInStock" class="control-label"></label>
-            <input asp-for="ProductUnitsInStock" oninput = "if(value<0)value=0" class="form-control" />
+            <input asp-for="ProductUnitsInStock" oninput="if(value<0)value=0" class="form-control" />
             <span asp-validation-for="ProductUnitsInStock" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -119,11 +129,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="DefectiveGood" /> @Html.DisplayNameFor(model => model.DefectiveGood)
-            </label>
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">

@@ -27,22 +27,23 @@ namespace 鮮蔬果季_前台.ViewModels
             }
             set { _city = value; }
         }
-       
 
-        public int SupplierId { get {return this._supplier.SupplierId; } set {this._supplier.SupplierId=value; } }
+        public string cities { get; set; }
+        public int SupplierId { get {return this.supplier.SupplierId; } set {this.supplier.SupplierId=value; } }
         [DisplayName("供應商名稱")]
-        public string SupplierName { get {return this._supplier.SupplierName; } set { this._supplier.SupplierName = value; } }
+        public string SupplierName { get {return this.supplier.SupplierName; } set { this.supplier.SupplierName = value; } }
         [DisplayName("負責人")]
-        public string BusinessOwner { get { return this._supplier.BusinessOwner; } set {this._supplier.BusinessOwner=value; } }
+        public string BusinessOwner { get { return this.supplier.BusinessOwner; } set {this.supplier.BusinessOwner=value; } }
         [DisplayName("供應商地址")]
-        public string SupplierAddress { get { return this._supplier.SupplierAddress; } set {this._supplier.SupplierAddress=value; } }
+        public string SupplierAddress { get { return this.supplier.SupplierAddress; } set {this.supplier.SupplierAddress=value; } }
         [DisplayName("電話")]
-        public string Mobile { get {return this._supplier.Mobile; } set { this._supplier.Mobile = value; } }
+        public string Mobile { get {return this.supplier.Mobile; } set { this.supplier.Mobile = value; } }
         [DisplayName("城市ID")]
-        public int CityId { get {return this._supplier.CityId; } set {this._supplier.CityId=value; } }
-        
+        public int CityId { get {return this.supplier.CityId; } set {this.supplier.CityId=value; } }
+        [DisplayName("縣市")]
+        public String CityName { get { return this.city.CityName; } set { this.city.CityName = value; } }
         [DisplayName("供應商履歷")]
-        public string SupplierProfile { get { return this._supplier.SupplierProfile; } set {this._supplier.SupplierName=value; } }
+        public string SupplierProfile { get { return this.supplier.SupplierProfile; } set {this.supplier.SupplierName=value; } }
         
 
     }

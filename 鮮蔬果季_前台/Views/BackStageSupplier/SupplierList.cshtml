@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "SupplierList";
 }
-
-<h1>SupplierList</h1>
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
     <style>
@@ -32,23 +30,13 @@
         .control-label {
             font-weight: bold;
         }
-        /*        .cpcondition{
-            float:left;
-            width:45%;
-            padding-right:2.5%;
-        }
-        .cpdisc{
-            float:left;
-            width:45%;
-            padding-left:2.5%;
-        }*/
     </style>
 }
 
 <div class="row justify-content-center">
     <div class="col-12">
-        <h2 class="mb-2 page-title">酷碰券管理</h2>
-        <button type="button" class="btn mb-2 btn-primary btnAdd" data-toggle="modal" data-target="#ModalAdd">+新增酷碰券</button>
+        <h2 class="mb-2 page-title">供應商管理</h2>
+        <button type="button" class="btn mb-2 btn-primary btnAdd" data-toggle="modal" data-target="#ModalAdd">新增供應商</button>
         <p class="card-text"></p>
         <div class="row my-4">
             <!-- Small table -->
@@ -60,16 +48,15 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>序號</th>
-                                    <th>供應商</th>
-                                    <th>負責人</th>
-                                    <th>地址</th>
-                                    <th>電話</th>
-                                    <th>城市</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().SupplierName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().BusinessOwner)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().SupplierAddress)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().Mobile)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().CityName)</th>
                                     <th>修改</th>
-                                    @*<th>編輯</th>*@
                                 </tr>
                             </thead>
-                            <tbody class="couponlist">
+                            <tbody class="SupplierList">
                                 @{ int count = 0;
                                     foreach (var item in Model)
                                     {
@@ -82,25 +69,10 @@
                                             <td>@item.supplier.SupplierAddress</td>
                                             <td>@item.supplier.Mobile</td>
                                             <td>@item.city.CityName</td>
-
-
-
                                             <td>
                                                 <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#ModalEdit"><span class="fe fe-16 fe-edit"></span></button>
-                                                <input type="hidden" class="supid" id="supid" value="@item.supplier.SupplierId" />
+                                                <input type="hidden" class="supid" id="supid" value="@item.SupplierId" />
                                             </td>
-                                            @*<td>
-                                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="text-muted sr-only">Action</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <button type="button" class="dropdown-item btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                            修改
-                                                        </button>
-                                                        <input type="hidden" class="Cid" value="@item.CouponId" />
-                                                        <a class="dropdown-item btnDel" href="#">移除</a>
-                                                    </div>
-                                                </td>*@
                                         </tr>
                                     }
                                 }
@@ -112,84 +84,56 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
-<!-- Modal -->
+<!--=================================================================================================================================================-->
+<!-- 修改供應商 -->
 <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalEditLabel">酷碰券修改</h5>
+                <h5 class="modal-title" id="ModalEditLabel">供應商管理</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="CouponsEdit">
+            <form name="SupplierEdit">
                 <div class="modal-body EditBody">
                     <div class="row">
                         <div class="col-md-12 supedit">
-                            @* SupplierEditPartial *@
+                            <!--SupplierEditPartial-->
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-info btneditdemo">DEMO</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <input type="submit" value="儲存" class="btn btn-primary btnSave btnEditSave" data-dismiss="modal" />
+                    <input type="submit" value="Save" class="btn btn-primary btnEditSave" data-dismiss="modal" />
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- Modal2 -->
+<!--===========================================================================================================================================-->>
+<!-- 新增供應商 SupplierAddPartial -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalAddLabel">新增酷碰券</h5>
+                <h5 class="modal-title" id="ModalAddLabel">新增供應商</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="CouponsAdd">
+            <form name="SupplierAdd">
                 <div class="modal-body CreateBody">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="text-danger"></div>
-                            <input type="hidden" />
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="0" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="1" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="1" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="1" />
-                                <span class="text-danger"></span>
-                            </div>
-
-
-
+                        <div class="col-md-12 supadd">
+                            <!--SupplierAddPartial-->>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-info btncredemo">DEMO</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
+                    <input type="submit" value="新增" class="btn btn-primary  btnAddSave" data-dismiss="modal" />
                 </div>
             </form>
         </div>
@@ -199,8 +143,6 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
-        var imgLoad = document.querySelector('#imgLoad')
-
         $('#dataTable-1').DataTable({
             autoWidth: true,
             "lengthMenu": [
@@ -208,51 +150,84 @@
                 [16, 32, 64, "All"]
             ]
         });
-
-        $(document).on('click', '.btnShipped', function () {
-            var oid = $(this).next().val();
-            $('#loader').attr("hidden",false);
-            console.log(oid);
-            $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid, function () {
-                $('#loader').attr("hidden", true);
-                $('.alert-autocloseable-warning').attr("hidden", false);
-                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
-                $('#dataTable-1').DataTable(
-                    {
-                        autoWidth: true,
-                        "lengthMenu": [
-                            [16, 32, 64, -1],
-                            [16, 32, 64, "All"]
-                        ]
-                    });
+        $(document).on("click", ".btnEditSave", async function (e) {
+            e.preventDefault();
+            const formdata = new FormData(document.SupplierEdit)
+            const response = await fetch('@Url.Content("~/BackStageSupplier/SupplierEditPartail")', {
+                method: "POST",
+                body: formdata
             })
-        });
-
-        $(document).on('click', '.btnDelivered', function () {
-            var oid = $(this).next().val();
-            $('#loader').attr("hidden", false);
-            console.log(oid);
-            $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid, function () {
-                $('#loader').attr("hidden", true);
-                $('.alert-autocloseable-warning').attr("hidden", false);
-                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
-                $('#dataTable-1').DataTable(
-                    {
-                        autoWidth: true,
-                        "lengthMenu": [
-                            [16, 32, 64, -1],
-                            [16, 32, 64, "All"]
-                        ]
-                    });
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {
+                $('.card-body').load("@Url.Content("~/BackStageSupplier/SupplierListPartial")", function () {
+                    alert("修改成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        })
+        $(document).on("click", ".btnAddSave", async function (e) {
+            e.preventDefault();
+            const formdata = new FormData(document.SupplierAdd)
+            const response = await fetch('@Url.Content("~/BackStageSupplier/SupplierAddPartial")', {
+                method: "POST",
+                body: formdata
             })
-        });
-
-
+            const data = await response.text()
+            if (data == 1) {
+                $('.card-body').load('@Url.Content("~/BackStageSupplier/SupplierListPartial")', function () {
+                    alert("新增成功")
+                    $('#dataTable-1').DataTable(
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16,32,64,"All"]
+                            ]
+                        }
+                    );
+                })
+            }
+        })
         $(document).on("click", ".btnEdit", function () {
             var supid = $(this).next(".supid").val();
-
-            $('.supedit').load("@Url.Content("~/BackstageSupplier/SupplierEditPartail")/" + supid)
+            console.log(supid);
+            $('.supedit').load("@Url.Content("~/BackStageSupplier/SupplierEditPartail")/" + supid)
         })
-
+        $(document).on("click", ".btnAdd", function () {
+            $('.supadd').load("@Url.Content("~/BackStageSupplier/SupplierAddPartial")")
+        })
+        $(document).on("click", ".btncredemo", function () {
+            console.log("ok")
+            $(".SupplierName2").val("利達農場");
+            $(".BusinessOwner2").val("王博達");
+            $(".SupplierAddress2").val("台中市北屯區松義街153巷4號");
+            $(".Mobile2").val("0911826715");
+            $(".CityName2").val("台中市");
+        })
+        $(document).on("click", ".btneditdemo", function () {
+            console.log("ok")
+            $(".SupplierName1").val("利達農場");
+            $(".BusinessOwner1").val("王博達");
+            $(".SupplierAddress1").val("台中市北屯區松義街153巷4號");
+            $(".CityName1").val("0911826715");
+            $(".CityName1").val("台中市");
+        })
+        //===========================       //
+        //function checkContent(e) {
+        //    var str = e.target.value;
+        //    if (str == "") {
+        //        alert("此欄位不可空白");
+        //    }
+        //}
+        //var supname = document.getElementById('SupplierName');
+        //supname.addEventListener('blur', checkContent, false);
     </script>
-    }
+}

@@ -1,16 +1,42 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.FeedbackResponseViewModel
-   
-    
-
-        <input type="hidden" id="FeedbackResponseID" name="FeedbackResponseID" value="@Model.FeedbackResponseID " />
-        <input type="text" class="UserId" id="UserId" name="UserId" value="@Model.member.UserId" />
-        <input type="text" id="feedbackName" name="feedbackname" value="@Model.FeedbackName " />
-        <textarea id="msg" placeholder="Your message.."></textarea>
-        <center><button onclick="BtnSend" id="BtnSend" align="center">Send</button></center>
 
 
 
+@*<input type="hidden" id="FeedbackResponseID" name="FeedbackResponseID" value="@Model.FeedbackResponseID " />
+<input type="hidden" class="UserId" id="UserId" name="UserId" value="@Model.member.UserId" />
+<div class="form-group">
+    <label class="control-label"></label>
+    <input type="text" id="feedbackName" name="feedbackname" value="@Model.FeedbackName " />
+    <span class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label class="control-label"></label>
+    <textarea id="msg" placeholder="Your message.."></textarea>
+    <span class="text-danger"></span>
+</div>*@
 
-    @*
-        For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-    *@
+
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <input type="hidden" id="FeedbackResponseID" name="FeedbackResponseID" value="@Model.FeedbackResponseID " />
+            <input type="hidden" class="UserId" id="UserId" name="UserId" value="@Model.member.UserId" />
+
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input class="form-control" type ="text" id="feedbackName" name="feedbackname" value="@Model.FeedbackName " />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <textarea class="form-control" id ="msg" placeholder="Your message.."></textarea>
+                <span class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

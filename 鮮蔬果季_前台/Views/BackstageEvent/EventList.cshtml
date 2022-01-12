@@ -18,7 +18,7 @@
             @Html.ActionLink("新增活動", "EventCreate", "BackstageEvent", new { }, new { @style = "color:White" })
         </button>
 
-        <div class="row my-3">
+        <div class="row my-3" style="margin-top:0.5rem">
             <!-- Small table -->
             <div class="col-md-12">
                 <div class="card shadow">
@@ -31,9 +31,9 @@
                                     <th></th>
                                     <th>活動ID</th>
                                     <th>活動名稱</th>
-                                    <th>供應商ID</th>
                                     <th>供應商名稱</th>
                                     <th>活動人員上限</th>
+                                    <th>目前報名人數</th>
                                     <th>活動地點</th>
                                     <th>活動費用</th>
                                     <th>活動開始時間</th>
@@ -56,9 +56,9 @@
                                             </td>
                                             <td>@item.Event.EventId</td>
                                             <td>@item.Event.EventName</td>
-                                            <td>@item.Event.Supplier.SupplierId</td>
                                             <td>@item.Event.Supplier.SupplierName</td>
                                             <td>@item.Event.EventParticipantCap</td>
+                                            <td>@item.已報名人數</td>    @*目前不會帶出值*@
                                             <td>@item.Event.EventLocation</td>
                                             <td>@item.Event.EventPrice</td>
                                             <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
@@ -67,6 +67,7 @@
                                             <td></td>
 
                                             <td>
+                                                @*修改按鈕*@
                                                 <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                                                     <i class="fe fe-edit fe-16"></i>
                                                 </button>
@@ -94,8 +95,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="ProdEdit">
+            <form name="EventEdit">
+                @*此處Form的內容就是EventEditPartial.cshtml*@
                 <div class="modal-body eventBody">
+                    @*載入的主體*@
                     <!--內容-->
                 </div>
                 <div class="modal-footer">
@@ -108,132 +111,112 @@
 </div>
 
 
-
-
-
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
 
 
-        $(document).on("click", ".btnEdit", function () {
-            var eid = $(this).next(".Eid").val();
-            console.log(eid);
-            $(".eventBody").load("@Url.Content("~/BackstageEvent/BackstageEvevtDetailPartial")/"+eid)
-        });
+
+            //開啟修改的PartialView
+           $(document).on("click", ".btnEdit", function () {
+                  var eid = $(this).next(".Eid").val();
+                    console.log(eid);
+               $(".eventBody").load("@Url.Content("~/BackstageEvent/bEvevtEditPartial")/" + eid, function () {
+                   var editor = document.getElementById('editor');    //取得文字編輯器的id
+                   if (editor) {
+                         //以下為文字編輯器套件的程式碼
+                       var toolbarOptions = [
+                           [
+                               {
+                                   'font': []
+                               }],
+                           [
+                               {
+                                   'header': [1, 2, 3, 4, 5, 6, false]
+                               }],
+                           ['bold', 'italic', 'underline', 'strike'],
+                           ['blockquote', 'code-block'],
+                           [
+                               {
+                                   'header': 1
+                               },
+                               {
+                                   'header': 2
+                               }],
+                           [
+                               {
+                                   'list': 'ordered'
+                               },
+                               {
+                                   'list': 'bullet'
+                               }],
+                           [
+                               {
+                                   'script': 'sub'
+                               },
+                               {
+                                   'script': 'super'
+                               }],
+                           [
+                               {
+                                   'indent': '-1'
+                               },
+                               {
+                                   'indent': '+1'
+                               }], // outdent/indent
+                           [
+                               {
+                                   'direction': 'rtl'
+                               }], // text direction
+                           [
+                               {
+                                   'color': []
+                               },
+                               {
+                                   'background': []
+                               }], // dropdown with defaults from theme
+                           [
+                               {
+                                   'align': []
+                               }],
+                           ['clean'] // remove formatting button
+                       ];
+                       var quill = new Quill(editor,
+                           {
+                               modules:
+                               {
+                                   toolbar: toolbarOptions
+                               },
+                               theme: 'snow'
+                           });
+                   }
+               })
+             });
 
 
 
-
-
-
-
-        //$('#dataTable-1').DataTable(
-        //    {
-        //        autoWidth: true,
-        //        "lengthMenu": [
-        //            [16, 32, 64, -1],
-        //            [16, 32, 64, "All"]
-        //        ]
-        //    });
-
-
-         //產品修改=========================================================================
-        //修改按鈕
-        @*<!--$(document).on("click", ".btnEdit", function () {
-            var pid = $(this).next(".Pid").val();
-            console.log(pid);
-            $('.prodBody').load("@Url.Content("~/BackstageEvent/ProdDetailPartial")/" + pid, function () {
-                var editor = document.getElementById('editor');
-                if (editor) {
-                    console.log(editor)
-                    var toolbarOptions = [
-                        [
-                            {
-                                'font': []
-                            }],
-                        [
-                            {
-                                'header': [1, 2, 3, 4, 5, 6, false]
-                            }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote', 'code-block'],
-                        [
-                            {
-                                'header': 1
-                            },
-                            {
-                                'header': 2
-                            }],
-                        [
-                            {
-                                'list': 'ordered'
-                            },
-                            {
-                                'list': 'bullet'
-                            }],
-                        [
-                            {
-                                'script': 'sub'
-                            },
-                            {
-                                'script': 'super'
-                            }],
-                        [
-                            {
-                                'indent': '-1'
-                            },
-                            {
-                                'indent': '+1'
-                            }], // outdent/indent
-                        [
-                            {
-                                'direction': 'rtl'
-                            }], // text direction
-                        [
-                            {
-                                'color': []
-                            },
-                            {
-                                'background': []
-                            }], // dropdown with defaults from theme
-                        [
-                            {
-                                'align': []
-                            }],
-                        ['clean'] // remove formatting button
-                    ];
-                    var quill = new Quill(editor,
-                        {
-                            modules:
-                            {
-                                toolbar: toolbarOptions
-                            },
-                            theme: 'snow'
-                        });
-                }
-            })
-        })
+        @**@
         //修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
 
             //讀取文字編輯器
             var discription = $(".ql-editor").html();
-            $(".prodDescription").val(discription);
+            $(".eventDescription").val(discription);
 
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ProdEditPartial")', {
+            const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
+            const response = await fetch('@Url.Content("~/BackstageEvent/bEvevtEditPartial")', {
                 method: "POST",
                 body: formData
             })
+
             const data = await response.text()
             console.log(data)
-            if (data == 1) {
-                $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
+            if (data == 1) {            //寫入後需要重新載入的原因,在於修改是使用浮動視窗,並不會把更新資料修改上去
+                $('.card-body').load("@Url.Content("~/BackstageEvent/EventListPartial")", function () {
                     alert("修改成功")
-                    $('#dataTable-1').DataTable(
+                    $('#dataTable-1').DataTable(     //此段待確認作用
                         {
                             autoWidth: true,
                             "lengthMenu": [
@@ -244,20 +227,24 @@
                 })
             }
         })
-        //圖片上傳
+
+
+
+
+         //圖片上傳
         console.log($(".selectphoto"))
         $(document).on("change",".selectphoto",async function () {
-            let pid = $("#ProductId").val()-->
-            上傳圖片後，用load進去把圖片新增後，去讀取照片
-            <!--let obj = $(this);
-            const formData = new FormData(document.ProdEdit)
-            const response = await fetch('@Url.Content("~/BackstageProductApi/PhotoLoad")', {
+            let eid = $(".Eid").val()     @*上傳圖片後，用load進去把圖片新增後，去讀取照片*@
+            let obj = $(this);           @*this為目前狀態(selectphoto) *@
+            const formData = new FormData(document.EventEdit)      @* EventEdit 為 Form的名稱*@
+            const response = await fetch('@Url.Content("~/BackstageEventAPI/PhotoLoad")', {
                 method: "POST",
                 body: formData
             })
             const data = await response.text()
+            console.log(data)
             if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                $('.imgLoad').load("@Url.Content("~/BackstageEventAPI/imgLoad/")" + eid, function () {
                     alert("上傳圖片成功");
                     obj.val("")
                 })
@@ -265,16 +252,21 @@
         });
         //圖片清空
         $(document).on("click", ".imgClear", async function (e) {
-            let pid = $("#ProductId").val()
-            const response = await fetch('@Url.Content("~/BackstageProductApi/ClearImg/")'+pid)
+            let eid = $(".Eid").val()
+            console.log("123")
+            const response = await fetch('@Url.Content("~/BackstageEventAPI/ClearImg/")'+eid)
             const data = await response.text()
             console.log(data)
             if (data == 1) {
-                $('.imgLoad').load("@Url.Content("~/BackstageProductApi/imgLoad/")" + pid, function () {
+                $('.imgLoad').load("@Url.Content("~/BackstageEventAPI/imgLoad/")" + eid, function () {
                     alert("清空圖片成功")
                 })
             }
-        })-->*@
+        })
+
+
+
+
 
 
 

@@ -125,7 +125,9 @@
             <div class="col-lg-12">
                 <h2>活動專區</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-action="index" asp-controller="Home">首頁</a></li>
+                    <li class="breadcrumb-item">
+                        <a asp-action="index" asp-controller="Home">首頁</a>
+                    </li>
                     <li class="breadcrumb-item active">活動專區</li>
                 </ul>
             </div>
@@ -140,8 +142,8 @@
 <html>
 <head>
     <title>Contact Form</title>-->
-    @*<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>*@
-    <!--<script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+@*<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>*@
+<!--<script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script type="text/javascript">
         (function () {
             // https://dashboard.emailjs.com/admin/integration
@@ -262,14 +264,49 @@
 
                     <div class="col-xl-7 col-lg-7 col-md-6">
                         <div class="single-product-details">
-                            <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2>  @*活動項目標題*@
+                            @if (item.剩餘名額 <= 0)
+                            {
+                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName) <span style="color:red;font-weight:bolder">(額滿)</span></h2> @*活動項目標題*@
+                            }
+                            else if (item.剩餘名額 <=10)
+                            {
+                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName) <span style="color:red;font-weight:bolder">(即將額滿)</span></h2> @*活動項目標題*@
+                            }
+                            else
+                            {
+                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2> @*活動項目標題*@
+                            }
+
                             <h5>
                                 <del>   @(item.Event.EventPrice*1.2) </del> @*原價=SQL定價*1.2*@
                                 @Html.DisplayFor(modelitem => item.Event.EventPrice)  / 人
                             </h5>
                             <p class="available-stock pp">
                                 <span> @*@item.City.CityName ,*@ 現場收費 <a href="#"></a></span>
-                            <p>
+                            </p>
+                            <p class="available-stock pp">
+                                @if (item.剩餘名額 <= 0)
+                                {
+                                    <span> 活動滿額人數：</span>
+                                    <span style="font-size:22px">@item.活動滿額人數</span>
+                                    <span> | 剩餘名額：</span>
+                                    <span style="font-weight: bolder; color: red; font-size: 22px">已額滿</span>
+                                }
+                                else if (item.剩餘名額 <= 10)
+                                {
+                                    <span> 活動滿額人數：</span>
+                                    <span style="font-size:22px">@item.活動滿額人數</span>
+                                    <span> | 剩餘名額：</span>
+                                    <span style="font-weight: bolder; color: red; font-size: 22px">@item.剩餘名額</span>
+                                }
+                                else
+                                {
+                                    <span> 活動滿額人數：</span>
+                                    <span style="font-size:22px">@item.活動滿額人數</span>
+                                    <span> | 剩餘名額：</span>
+                                    <span style="font-weight: bolder; font-size: 22px">@item.剩餘名額</span>
+                                }
+                              </p>
                                 <div>
                                     <span class="glyphicon glyphicon-home">
                                         <i class="fas fa-map-marker-alt" style="padding-right:10px">
@@ -277,11 +314,11 @@
                                     </span>
                                 </div>
                                 @*<div>
-                                        <span class="date">
-                                            <i class="fas fa-calendar" style="padding-right:10px">
-                                            </i>@ViewBag.活動數量
-                                        </span>
-                                    </div>*@
+                <span class="date">
+                    <i class="fas fa-calendar" style="padding-right:10px">
+                    </i>@ViewBag.活動數量
+                </span>
+            </div>*@
                                 <div>
                                     <span class="date">
                                         <i class="fas fa-calendar-alt" style="padding-right:10px">

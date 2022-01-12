@@ -38,12 +38,14 @@
             -webkit-animation-duration: 0ms;
             animation-duration: 0ms;
         }
+
         .memberitem:hover {
             color: sienna;
             transition: .5s;
         }
+
         nav.navbar.bootsnav li.dropdown ul.dropdown-menu > li > a {
-            color:white;
+            color: white;
         }
     </style>
 
@@ -243,6 +245,7 @@
                                     {
                                         <li>
                                             <a asp-area="" asp-controller="Member" asp-action="Logout" class="transition" onclick="signOut()">登出</a>
+                                            <div hidden class="g-signin2" data-onsuccess="onSignIn" style="position:absolute;right:96px;bottom:32px;"></div>
                                         </li>
                                     }
                                 </ul>
@@ -394,7 +397,6 @@
     <script src="~/js/form-validator.min.js"></script>
     <script type="text/javascript" src="~/js/contact-form-script.js" charset="big5"></script>
     <script src="~/js/custom.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
 
     <script>
         $("#bot-close").click(function () {
@@ -447,6 +449,7 @@
 
         });
     </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
@@ -461,25 +464,12 @@
             console.log('Name: ' + profile.getName());
             console.log('Image URL: ' + profile.getImageUrl());
             console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-
             var profile = googleUser.getBasicProfile()
-            //    target = document.getElementById("GOOGLE_STATUS_1"),
-            //    html = "";
-
-            //html += "ID: " + profile.getId() + "<br/>";
-            //html += "會員暱稱： " + profile.getName() + "<br/>";
-            //html += "會員頭像：" + profile.getImageUrl() + "<br/>";
-            //html += "會員 email：" + profile.getEmail() + "<br/>";
-            //target.innerHTML = html;
-
             id = profile.getId();
             email = profile.getEmail()
                     /*跳轉畫面*/
              test(id,email)
-
          }
-
                     async function test(id,email) {
                         let response = await fetch('@Url.Content("~/Login/check3rd?trdid=")'+ id +"&email="+email);
                     let userCheck = await response.text();
@@ -494,13 +484,6 @@
                         return false;
                     }
     }
-    $(document).on("click", ".g-signin2", function () {
-
-    })
-
-
-
-
         /*登出*/
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
