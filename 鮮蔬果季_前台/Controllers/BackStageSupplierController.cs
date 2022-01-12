@@ -60,21 +60,26 @@ namespace 鮮蔬果季_前台.Controllers
             SupplierViewModel supedit = new SupplierViewModel() {
                 supplier = suptxt
             };
+            var 縣市 = db.Cities.ToList();
+            ViewBag.AllCities = 縣市;
             return PartialView(supedit);
         }
         [HttpPost]
         public IActionResult SupplierEditPartail(SupplierViewModel s)
         {
+            var city = db.Cities.FirstOrDefault(a => a.CityName == s.CityName);
             var supedit = (from a in db.Suppliers
                            where a.SupplierId==s.SupplierId
                            select a  
                            ).FirstOrDefault();
             //var supcity = (from c in db.Cities
             //               where c.CityId == s.CityId
-            //              select s).FirstOrDefault();
+            //               select s).FirstOrDefault();
+            supedit.SupplierName = s.SupplierName;
             supedit.SupplierAddress = s.SupplierAddress;
             supedit.BusinessOwner = s.BusinessOwner;
             supedit.Mobile = s.Mobile;
+            supedit.CityId = city.CityId;
             //supcity.CityName = s.CityName;
             db.SaveChanges();
             //return RedirectToAction("BackstageSupplier","Supplier");
@@ -83,11 +88,15 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult SupplierAddPartial()
         {
+            var 縣市 = db.Cities.ToList();
+            ViewBag.AllCities = 縣市;
             return PartialView();
         }
         [HttpPost]
         public IActionResult SupplierAddPartial(SupplierViewModel sup)
         {
+            var city = db.Cities.FirstOrDefault(a => a.CityName == sup.CityName);
+
             //新增
             var suplist = (from a in db.Suppliers
                            select a).FirstOrDefault();
@@ -97,8 +106,10 @@ namespace 鮮蔬果季_前台.Controllers
                 BusinessOwner=sup.BusinessOwner,
                 SupplierAddress=sup.SupplierAddress,
                 Mobile=sup.Mobile,
-                CityId=sup.CityId,
-            }; 
+                CityId= city.CityId,
+            };
+            var 縣市 = db.Cities.ToList();
+            ViewBag.AllCities = 縣市;
             db.Add(supplier);
             db.SaveChanges();
 

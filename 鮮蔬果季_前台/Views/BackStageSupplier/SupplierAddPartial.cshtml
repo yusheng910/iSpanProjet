@@ -1,6 +1,4 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.SupplierViewModel
-
-<h4>Supplier</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,18 +25,21 @@
                 <span asp-validation-for="Mobile" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CityId" class="control-label"></label>
-                <input asp-for="CityId" class="form-control" />
-                <span asp-validation-for="CityId" class="text-danger"></span>
-            </div>   
+                <label asp-for="CityName" class="control-label"></label>
+                <select asp-for="CityName" class="form-control">
+                    @foreach (var item in ViewBag.AllCities)
+                    {
+                        <option>@item.CityName</option>
+                    }
+                </select>
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

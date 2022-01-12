@@ -13,7 +13,6 @@ namespace 鮮蔬果季_前台.Controllers
         private readonly 鮮蔬果季Context _context;
         public BackStageFeedBackController(鮮蔬果季Context context)
         {
-           
             _context = context;
         }
         public IActionResult FeedbackList(FeedbackResponseViewModel message)
