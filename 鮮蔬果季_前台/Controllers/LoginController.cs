@@ -234,16 +234,36 @@ namespace 鮮蔬果季_前台.Controllers
             //    }
             var cust = (from i in db.Members
                        where i.UserId == UserId
-                       select new { i.Password} ).FirstOrDefault();
-            
+                       select new { i.MemberName} ).FirstOrDefault();
+
             if (cust != null)
             {
-                ViewBag.Password = cust.Password;
-                return Content((cust.Password).ToString());
+                ViewBag.Password = cust.MemberName;
+                return Content((cust.MemberName).ToString());
             }
             return Content("0");
         }
+        public IActionResult RandomPassword(string UserId)
+        {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var Charsarr = new char[8];
+            var random = new Random();
+            Member cust = db.Members.FirstOrDefault(c => c.UserId == UserId); 
+           
+            for (int i = 0; i < Charsarr.Length; i++)
+            {
+                Charsarr[i] = characters[random.Next(characters.Length)];
+            }
 
+            var resultString = new String(Charsarr);
+            if (cust != null)
+            {
+                cust.Password = resultString;
+                db.SaveChanges();
+                return Content(resultString);
+            }
+            return Content("0");
+        } 
         public IActionResult check3rd(string trdid, string email)
         {
             if (email == "freshveg132@gmail.com" && trdid == "116692524681793487909")
