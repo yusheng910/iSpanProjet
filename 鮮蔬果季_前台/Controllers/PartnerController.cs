@@ -23,7 +23,8 @@ namespace 鮮蔬果季_前台.Controllers
         }
 
 
-        public IActionResult PartnerBlog(int Id)
+        //載入部落格首頁
+        public IActionResult PartnerBlog()
         {
 
             // 判斷會員是否登入
@@ -61,86 +62,6 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(list);
 
-            //if (Id == 1)   //對應標籤進行LINQ查詢
-            //{
-            //     datas = (from E in db.BlogDetails       
-            //                where E.LabelId == 1
-            //             orderby E.PublishedDate descending     
-            //             select E).ToList();
-            //}
-
-            //else if (Id == 2)
-            //{    
-            //    datas = (from E in db.BlogDetails
-            //             where E.LabelId == 2
-            //             orderby E.PublishedDate descending       
-            //             select E).ToList();
-            //}
-
-
-            //else if (Id == 3)
-            //{    
-            //    datas = (from E in db.BlogDetails
-            //             where E.LabelId == 3
-            //             orderby E.PublishedDate descending    
-            //             select E).ToList();
-            //}
-
-            //else if (Id == 3)
-            //{
-            //    datas = (from E in db.BlogDetails
-            //             where E.LabelId == 3
-            //             orderby E.PublishedDate descending
-            //             select E).ToList();
-            //}
-
-            //else if (Id == 11)                 //查詢文章月份  等於 當下月份
-            //{
-            //    datas = (from E in db.BlogDetails
-            //             where E.PublishedDate.Value.Month == DateTime.Now.Month
-            //             orderby E.PublishedDate descending
-            //             select E).ToList();
-            //}
-
-            //else if (Id == 12)                 //查詢文章月份  等於 當下月份-1
-            //{
-            //    datas = (from E in db.BlogDetails
-            //             where E.PublishedDate.Value.Month == DateTime.Now.AddMonths(-1).Month
-            //             orderby E.PublishedDate descending
-            //             select E).ToList();
-            //}
-
-            //else if (Id == 13)                 //查詢文章月份  等於 當下月份-2
-            //{
-            //    datas = (from E in db.BlogDetails
-            //             where E.PublishedDate.Value.Month == DateTime.Now.AddMonths(-2).Month
-            //             orderby E.PublishedDate descending
-            //             select E).ToList();
-            //}
-
-            //else       
-            //{ 
-
-            //    datas = (from E in db.BlogDetails
-            //             orderby E.PublishedDate descending
-            //             select E).ToList();
-            //}
-            //List<BlogDetailListViewModel> list = new List<BlogDetailListViewModel>();
-            //foreach (var item in datas)
-            //{
-            //    //db = new 鮮蔬果季Context();
-            //    var 供應商與城市 = (from Sl in db.Suppliers
-            //               join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
-            //               where Sl.SupplierId == item.SupplierId  
-            //               select new { Sl, C } ).FirstOrDefault();     //抓取兩個資料表
-            //    list.Add(new BlogDetailListViewModel()          
-            //    {
-            //        BlogDetail = item,
-            //        Supplier = 供應商與城市.Sl , 
-            //        City = 供應商與城市.C
-            //    });
-            //}
-            //return View(list);
         }
 
         public IActionResult allArticle()

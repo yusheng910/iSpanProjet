@@ -22,7 +22,6 @@
             margin-top: 6vh;
             margin-bottom: 6vh;
             max-width: 500px;
-            height: 900px;
             border: 1px solid #9C9C9C;
             background-color: #EAEAEA;
             border-radius: 10px;
@@ -62,7 +61,6 @@
 
         textarea {
             width: 450px;
-            height: 950px;
             max-width: 450px;
             max-height: 1000px;
             resize: none;
@@ -127,14 +125,13 @@
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 450px" align="center"></textarea>
+                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 600px" align="center"></textarea>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-12" style="background-color: #FFF9E9">
                                 <button type="submit" id="submit" class="btn btn-success" align="center">傳送</button>
-                                <button type="button" class="btn btn-info btncredemo">DEMO</button>
                             </div>
                         </div>
                     </form>
@@ -185,9 +182,7 @@
                 return false
             }
         })
-        $(".btncredemo").click(function () {
-            $("#FeedbackCommet").val("你好，我訂的沒有送到，我已經透過網路付款了")
-        })
+
 
 
     </script>

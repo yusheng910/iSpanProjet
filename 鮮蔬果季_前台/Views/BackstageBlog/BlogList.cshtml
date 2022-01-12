@@ -1,4 +1,4 @@
-﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
+﻿@model List<鮮蔬果季_前台.ViewModels.BlogDetailListViewModel>
 
 
 @{
@@ -11,11 +11,11 @@
 
 <div class="row justify-content-center">
     <div class="col-12">
-        <h2 class="mb-2 page-title">活動管理</h2>
+        <h2 class="mb-2 page-title">部落格管理</h2>
         <br />
 
         <button type="button" class="btn btn-primary btn-lg">
-            @Html.ActionLink("新增活動", "EventCreate", "BackstageEvent", new { }, new { @style = "color:White" })
+            @Html.ActionLink("新增部落格文章", "EventCreate", "BackstageEvent", new { }, new { @style = "color:White" })
         </button>
 
         <div class="row my-3" style="margin-top:0.5rem">
@@ -29,16 +29,12 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th></th>
-                                    <th>活動ID</th>
-                                    <th>活動名稱</th>
+                                    <th>部落格ID</th>
                                     <th>供應商名稱</th>
-                                    <th>活動人員上限</th>
-                                    <th>目前報名人數</th>
-                                    <th>活動地點</th>
-                                    <th>活動費用</th>
-                                    <th>活動開始時間</th>
-                                    <th>活動結束時間</th>
-                                    <th>活動類別</th>
+                                    <th>部落格主標題</th>
+                                    <th>部落格次標題</th>
+                                    <th>標籤分類</th>
+                                    <th>發布日期</th>
                                     <th></th>
                                     <th>編輯</th>
                                 </tr>
@@ -47,34 +43,30 @@
                                 foreach (var item in Model)
                                 {
                                     <tbody class="tEventBody">
-                                        <tr>
-                                            <td>
-                                                <!--<div class="custom-control custom-checkbox">-->
-                                                @*<input type="checkbox" class="custom-control-input">*@
-                                                @*<label class="custom-control-label"></label>*@
-                                                <!--</div>-->
-                                            </td>
-                                            <td>@item.Event.EventId</td>
-                                            <td>@item.Event.EventName</td>
-                                            <td>@item.Event.Supplier.SupplierName</td>
-                                            <td>@item.Event.EventParticipantCap</td>
-                                            <td>@item.已報名人數</td>    @*目前不會帶出值*@
-                                            <td>@item.Event.EventLocation</td>
-                                            <td>@item.Event.EventPrice</td>
-                                            <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
-                                            <td>@item.Event.EventEndDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
-                                            <td>@item.Event.Lable</td>
-                                            <td></td>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <!--<div class="custom-control custom-checkbox">-->
+                                                                            @*<input type="checkbox" class="custom-control-input">*@
+                                                                            @*<label class="custom-control-label"></label>*@
+                                                                            <!--</div>-->
+                                                                        </td>
+                                                                        <td>@item.BlogDetail.BlogDetailId</td>
+                                                                        <td>@item.Supplier.SupplierName</td>
+                                                                        <td>@item.BlogDetail.Title</td>
+                                                                        <td>@item.BlogDetail.Subtitle</td>
+                                                                        <td>@item.BlogDetail.Label</td>
+                                                                        <td>@ViewBag.活動日期</td>
+                                                                        <td></td>
 
-                                            <td>
-                                                @*修改按鈕*@
-                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="fe fe-edit fe-16"></i>
-                                                </button>
-                                                <input type="hidden" class="Eid" value="@item.Event.EventId" />
-                                            </td>                                                   @*透過vaule回傳的ID*@
+                                                                        <td>
+                                                                            @*修改按鈕*@
+                                                                            <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                                                <i class="fe fe-edit fe-16"></i>
+                                                                            </button>
+                                                                            <input type="hidden" class="Eid" value="@item.BlogDetail.BlogDetailId" />
+                                                                        </td>                                                   @*透過vaule回傳的ID*@
 
-                                        </tr>
+                                                                    </tr>
                                     </tbody>
                                 }
                             }
@@ -90,7 +82,7 @@
     <div class="modal-dialog" style="max-width: 1000px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">活動修改</h5>
+                <h5 class="modal-title" id="exampleModalLabel">部落格修改</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
