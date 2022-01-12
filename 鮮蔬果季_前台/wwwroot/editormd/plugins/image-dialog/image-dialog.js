@@ -165,11 +165,10 @@
                               if (json.success === 1)
                               {
                                   dialog.find("[data-url]").val(json.url);
-                                  alert(json.message);
                               }
                               else
                               {
-                                  alert("¤W¶Ç¥¢±Ñ!");
+                                  alert(json.message);
                               }
                             }
 
