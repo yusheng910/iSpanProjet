@@ -16,6 +16,7 @@ namespace 鮮蔬果季_前台.Controllers
             db = dbContext;
         }
 
+        //顯示後台Event活動
         public IActionResult EventList()
         {
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
@@ -65,8 +66,8 @@ namespace 鮮蔬果季_前台.Controllers
             //把上面找到的照片加入到 單筆活動(物件),因EventPhoto ViewModel型態為list,故可以用以下list加法
             foreach (var 照片 in 照片資料) 單筆活動.EventPhoto.Add(照片);
 
-            return PartialView(單筆活動);
-        }
+            return PartialView("EventEditPartial",單筆活動);
+        }                                  //要用分號指定帶入的顯示的頁面  "EventEditPartial"
 
 
 
@@ -75,6 +76,9 @@ namespace 鮮蔬果季_前台.Controllers
 
 
 
+
+
+        // 新增活動
         public IActionResult EventCreate()
         {
 
@@ -135,6 +139,44 @@ namespace 鮮蔬果季_前台.Controllers
 
             return RedirectToAction("EventCreate");
         }
+
+
+
+        //[HttpPost]
+        //public IActionResult EventSignUp_1(EventRegistration SignUpForm)  //回傳前台form的資料(name為FormData)
+        //{
+        //    // 判斷會員是否登入
+        //    if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+        //    {
+        //        ViewBag.USER = UserLogin.member.MemberName;
+        //        ViewBag.userID = UserLogin.member.MemberId;
+
+        //        EventRegistration 送出報名資料 = new EventRegistration()
+        //        {
+        //            MemberId = UserLogin.member.MemberId,
+        //            EventId = SignUpForm.EventId,
+        //            ParticipantNumber = SignUpForm.ParticipantNumber,
+        //            ContactName = SignUpForm.ContactName,
+        //            ContactEmail = SignUpForm.ContactEmail,
+        //            ContactMobile = SignUpForm.ContactMobile,
+        //            FoodPreference = SignUpForm.FoodPreference,
+        //            SubmitDate = DateTime.Now,
+        //        };
+        //        db.Add(送出報名資料);
+        //        db.SaveChanges();
+        //        return Content("0");
+        //    }
+
+        //    else  //Seesion沒找到
+        //    {
+        //        ViewBag.USER = null;
+        //        UserLogin.member = null;
+        //        return RedirectToAction("Login", "Login");   //返回登入頁面
+        //    }
+        //}
+
+
+
 
 
 

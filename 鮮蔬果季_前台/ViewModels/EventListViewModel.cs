@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
@@ -84,6 +86,16 @@ namespace 鮮蔬果季_前台.ViewModels
                 _Supplier = value;
             }
         }
+
+        public List<IFormFile> photo { get; set; }           //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
+
+
+        //定義欄位名稱  (DisplayName會需要using)
+        [DisplayName("活動名稱")]         
+        public string EventName { get { return this.Event.EventName; } set { this.Event.EventName = value;  } }
+        
+        [DisplayName("活動ID")]
+        public int EventId { get { return this.Event.EventId; } set { this.Event.EventId = value; } }
 
     }
 }
