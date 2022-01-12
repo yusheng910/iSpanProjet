@@ -201,7 +201,10 @@
             $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToShipped")/" + oid, function () {
                 $('#loader').attr("hidden", true);
                 $('.alert-autocloseable-warning').attr("hidden", false);
-                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
+                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
+                    $('.alert-autocloseable-warning').attr("hidden", true);
+                    $('.alert-autocloseable-warning').removeAttr("style");
+                });
                 $('#dataTable-1').DataTable(
                     {
                         autoWidth: true,
@@ -220,7 +223,10 @@
             $('.card-body').load("@Url.Content("~/BackstageOrderApi/ChangeToDelivered")/" + oid, function () {
                 $('#loader').attr("hidden", true);
                 $('.alert-autocloseable-warning').attr("hidden", false);
-                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow");
+                $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
+                    $('.alert-autocloseable-warning').attr("hidden", true);
+                    $('.alert-autocloseable-warning').removeAttr("style");
+                });
                 $('#dataTable-1').DataTable(
                     {
                         autoWidth: true,
