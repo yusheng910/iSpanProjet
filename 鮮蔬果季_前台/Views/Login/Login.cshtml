@@ -43,7 +43,7 @@
                 }
     </style>
     <script>
-        $("#submit").click(async function () {
+        $("#login-form").submit(async function () {
             var xhr = new XMLHttpRequest();
             var ExistuserName = $("#username").val();
             var ExistuserPassword = $("#password").val();
@@ -57,21 +57,24 @@
                 }
                 else if (data == 0) {
                     alert("帳號或密碼不可為空欄")
+                    return false
                 }
                 else if (data == 3) {
                     alert("帳號不存在")
+                    return false
                 }
             })
-             }, async function () {
+        })
+        $("#submit").click(async function () {
                 if ($("#remember-me").is(":checked")) {
                     var send = await fetch("@Url.Action("Login", "Login")")
                 }
-            })
+        })
 
         $("#Demo").click(function () {
-        console.log("ok")
-        $("#username").val("a001@gmail.com");
-        $("#password").val("a12345");
+            console.log("ok")
+            $("#username").val("Wang0125132@gmail.com");
+            $("#password").val("Xyz1234");
         });
         $("#admin").click(function () {
         console.log("ok")
