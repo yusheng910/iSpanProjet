@@ -46,6 +46,46 @@ namespace 鮮蔬果季_前台.Controllers
                 });             
             }
             return View(所有意見回饋列表);
+        }        
+        public IActionResult FeedbackEmailSend(int id)
+        {
+            var q = _context.FeedbackResponses.FirstOrDefault(a => a.FeedbackResponseId == id);
+            q.HaveResponses = true;
+            _context.SaveChanges();
+
+            return Content("1");
+        }        
+        public IActionResult FeedbackListPartial()
+        {
+            List<FeedbackResponseViewModel> 所有意見回饋列表 = new List<FeedbackResponseViewModel>();
+            var feedbackname = (
+                          from fb in _context.Feedbacks
+                          join fbr1 in _context.FeedbackResponses
+                          on fb.FeedbackId equals fbr1.FeedbackId
+                          join od2 in _context.OrderDetails
+                          on fbr1.OrderDetailId equals od2.OrderDetailId
+                          join prod in _context.Products
+                          on od2.ProductId equals prod.ProductId
+                          join sup in _context.Suppliers
+                          on prod.SupplierId equals sup.SupplierId
+                          join o in _context.Orders
+                          on od2.OrderId equals o.OrderId
+                          join m in _context.Members
+                          on o.MemberId equals m.MemberId
+                          select new { fbr1, fb, od2, prod, sup, o, m }
+                      ).ToList();
+            foreach (var item in feedbackname)
+            {
+                所有意見回饋列表.Add(new FeedbackResponseViewModel()
+                {
+                    member = item.m,
+                    feedback = item.fb,
+                    feedbackResponse = item.fbr1,
+                    product = item.prod,
+                    supplier = item.sup,
+                });
+            }
+            return PartialView(所有意見回饋列表);
         }
         public IActionResult FeedbackDetailPartail(int id)
         {

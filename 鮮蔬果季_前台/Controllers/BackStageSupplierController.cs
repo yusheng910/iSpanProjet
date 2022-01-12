@@ -107,7 +107,6 @@ namespace 鮮蔬果季_前台.Controllers
             ViewBag.AllCities = 縣市;
             db.Add(supplier);
             db.SaveChanges();
-
             return Content("1");
         }
     }

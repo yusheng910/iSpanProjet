@@ -118,20 +118,20 @@
                 </button>
             </div>
             @*<div id="contactForm">*@
-                <form>
-                    <div class="modal-body feedbackresponsebody">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="text-danger"></div>
-                                <!--回應項目管理表單-->
-                            </div>
+            <form>
+                <div class="modal-body feedbackresponsebody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-danger"></div>
+                            <!--回應項目管理表單-->
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-info btncredemo">DEMO</button>
-                        <center><button class="btn hvr-hover BtnSend" id="submit" type="submit" data-dismiss="modal" align="center">傳送密碼郵件</button></center>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btncredemo">DEMO</button>
+                    <center><button class="btn hvr-hover BtnSend" id="submit" type="submit" data-dismiss="modal" align="center">傳送密碼郵件</button></center>
+                </div>
+            </form>
             @*</div>*@
         </div>
     </div>
@@ -167,8 +167,27 @@
                 Body: $("#msg").val(),
             })
 
-                .then(function (message) {
-                    alert(message + "，寄信成功")
+                .then(async function (message) {
+                    if (message == "OK") {
+                        var id = $("#FeedbackResponseID").val();
+                        var response = await fetch("@Url.Content("~/BackStageFeedBack/FeedbackEmailSend/")" + id)
+                        var date = await response.text();
+                        if (date == 1) {
+                         $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackListPartial")", function () {
+                                    alert(message + "，寄信成功")
+                                    $('#dataTable-1').DataTable(
+                                        {
+                                            autoWidth: true,
+                                            "lengthMenu": [
+                                                [16, 32, 64, -1],
+                                                [16, 32, 64, "All"]
+                                            ]
+                                        });
+                                })
+
+                        }
+                    }
+
                 });
 
         });
