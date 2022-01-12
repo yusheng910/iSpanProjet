@@ -31,9 +31,9 @@
                                     <th></th>
                                     <th>活動ID</th>
                                     <th>活動名稱</th>
-                                    <th>供應商ID</th>
                                     <th>供應商名稱</th>
                                     <th>活動人員上限</th>
+                                    <th>目前報名人數</th>
                                     <th>活動地點</th>
                                     <th>活動費用</th>
                                     <th>活動開始時間</th>
@@ -56,9 +56,9 @@
                                             </td>
                                             <td>@item.Event.EventId</td>
                                             <td>@item.Event.EventName</td>
-                                            <td>@item.Event.Supplier.SupplierId</td>
                                             <td>@item.Event.Supplier.SupplierName</td>
                                             <td>@item.Event.EventParticipantCap</td>
+                                            <td>@item.已報名人數</td>    @*目前不會帶出值*@
                                             <td>@item.Event.EventLocation</td>
                                             <td>@item.Event.EventPrice</td>
                                             <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>

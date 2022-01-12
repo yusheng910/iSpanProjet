@@ -120,27 +120,36 @@ namespace 鮮蔬果季_前台.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult EventCreate(Event FormData)   //回傳名稱要使用form的name同名
+        public IActionResult EventCreate(Event CreatEventForm)   //回傳名稱要使用form的name同名
         {
 
             Event 活動新增資料 = new Event()
             {
 
                 //EventId = FormData.EventId,
-                EventName = FormData.EventName,
-                SupplierId = FormData.SupplierId,
-                Lable = FormData.Lable,
-                EventParticipantCap = FormData.EventParticipantCap,
-                EventPrice = FormData.EventPrice,
-                EventLocation = FormData.EventLocation,
-                EventStartDate = FormData.EventStartDate,
-                EventEndDate = FormData.EventEndDate,
-                EventDescription = FormData.EventDescription,
+                EventName = CreatEventForm.EventName,
+                SupplierId = CreatEventForm.SupplierId,
+                Lable = CreatEventForm.Lable,
+                EventParticipantCap = CreatEventForm.EventParticipantCap,
+                EventPrice = CreatEventForm.EventPrice,
+                EventLocation = CreatEventForm.EventLocation,
+                EventStartDate = CreatEventForm.EventStartDate,
+                EventEndDate = CreatEventForm.EventEndDate,
+                EventDescription = CreatEventForm.EventDescription,
             };
             db.Add(活動新增資料);
             db.SaveChanges();
 
-            return RedirectToAction("EventCreate");
+
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
+
+
+            return RedirectToAction("EventCreate");                //待解決,如何回到活動後台首頁,同時回傳Context
+
         }
 
 
