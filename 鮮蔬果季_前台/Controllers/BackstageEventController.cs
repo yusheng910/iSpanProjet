@@ -65,25 +65,50 @@ namespace 鮮蔬果季_前台.Controllers
         [HttpPost]        //修改寫入資料庫
         public IActionResult bEvevtEditPartial(Event EventEdit)
         {
-            Event 修改的活動資料 = new Event()
+            var 活動修改資料 = db.Events.First(E => E.EventId == EventEdit.EventId);
+
+            if (活動修改資料 != null)
             {
-                EventId = EventEdit.EventId,
-                EventParticipantCap = EventEdit.EventParticipantCap,
-                EventLocation = EventEdit.EventLocation,
-                EventStartDate = EventEdit.EventStartDate,
-                EventEndDate = EventEdit.EventEndDate,
-                EventPrice = EventEdit.EventPrice,
-                Subtitle = EventEdit.Subtitle,
-                EventDescription = EventEdit.EventDescription,
+                //EventId = EventEdit.EventId,
+                //活動修改資料.EventParticipantCap = EventEdit.EventParticipantCap;
+                活動修改資料.EventLocation = EventEdit.EventLocation;
+                活動修改資料.EventStartDate = EventEdit.EventStartDate;
+                活動修改資料.EventEndDate = EventEdit.EventEndDate;
+                活動修改資料.EventPrice = EventEdit.EventPrice;
+                活動修改資料.Subtitle = EventEdit.Subtitle;
+                活動修改資料.EventDescription = EventEdit.EventDescription;
+                db.SaveChanges();
             };
-            db.Add(修改的活動資料);
-            db.SaveChanges();
-            return Content("0");
+
+            return Content("1");
         }
 
 
 
+        public IActionResult EventListPartial()
+        {
+            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
+            var 所有活動 = (from E in db.Events
+                        join supp in db.Suppliers
+                        on E.SupplierId equals supp.SupplierId
+                        select new { E, supp }).ToList();
 
+            foreach (var item in 所有活動)
+            {
+                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
+                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
+                相片list.Add(照片資料);
+
+                所有活動列表.Add(new EventListViewModel()  //加入EventListViewModel (new新記憶體空間)
+                {
+                    Event = item.E,
+                    City = 城市資料,
+                    EventPhoto = 相片list
+                });
+            }
+            return PartialView(所有活動列表);
+        }
 
 
 
@@ -121,30 +146,7 @@ namespace 鮮蔬果季_前台.Controllers
 
 
 
-        public IActionResult EventListPartial()
-        {
-            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
-            var 所有活動 = (from E in db.Events
-                        join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                        select new { E, supp }).ToList();
 
-            foreach (var item in 所有活動)
-            {
-                List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
-                var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
-                var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
-                相片list.Add(照片資料);
-
-                所有活動列表.Add(new EventListViewModel()  //加入EventListViewModel (new新記憶體空間)
-                {
-                    Event = item.E,
-                    City = 城市資料,
-                    EventPhoto = 相片list
-                });
-            }
-            return PartialView(所有活動列表);
-        }
 
 
 
