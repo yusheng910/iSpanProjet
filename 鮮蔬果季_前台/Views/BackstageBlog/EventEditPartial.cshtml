@@ -1,0 +1,112 @@
+﻿@model 鮮蔬果季_前台.ViewModels.EventListViewModel
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="EventId" type="hidden" />
+        <div class="form-group">
+            @*在ViewModel中有設定資料欄位的DisplayName,故此處輸入欄位名稱,會帶入設定的DisplayName的名稱*@
+            <label asp-for="EventName" class="control-label"></label>
+            <input asp-for="EventName" class="form-control" />
+            <span asp-validation-for="EventName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SupplierName" class="control-label"></label>
+            <input asp-for="SupplierName" class="form-control" />
+            <span asp-validation-for="SupplierName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EventLocation" class="control-label"></label>
+            <input asp-for="EventLocation" class="form-control" />
+            <span asp-validation-for="EventLocation" class="text-danger"></span>
+        </div>
+
+
+
+        <div class="form-group">
+            <label>活動上限人數</label>             @*在viewmodel設定displayname怪怪的,故直接用打的,而非使用帶入*@
+            <input asp-for="Event.EventParticipantCap" class="form-control" />
+            <span asp-validation-for="Event.EventParticipantCap" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EventPrice" class="control-label"></label>
+            <input asp-for="EventPrice" class="form-control" />
+            <span asp-validation-for="EventPrice" class="text-danger"></span>
+        </div>
+
+
+
+        <div class="form-group">
+            <label asp-for="EventStartDate" class="control-label"></label>
+            <input asp-for="EventStartDate" class="form-control" />
+            <span asp-validation-for="EventStartDate" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="EventEndDate" class="control-label"></label>
+            <input asp-for="EventEndDate" class="form-control" />
+            <span asp-validation-for="EventEndDate" class="text-danger"></span>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label asp-for="Subtitle" class="control-label"></label>
+            <input asp-for="Subtitle" class="form-control" />
+            <span asp-validation-for="Subtitle" class="text-danger"></span>
+        </div>
+
+
+        @*文字編輯器*@
+        <div class="form-group">
+            <label asp-for="EventDescription" class="control-label"></label>
+
+            @*前台觸發這邊的編輯器id (editor)*@
+            <div id="editor" class="descript" style="min-height:200px;" name="EventDescription">
+                @Html.Raw(Model.Event.EventDescription)
+            </div>         @*Raw代表使用HTML語法轉譯,因為透過文字編輯器存進資料庫的資料,有包含html標籤*@
+            <input type="hidden" class="eventDescription" name="EventDescription">
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label">活動相片 (首張圖片為前台活動封面)</label>
+            <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">
+                <div class="imgLoad">
+                    @*載入上傳圖片區塊imgClear*@          @*1/12目前載入失效*@
+                    @foreach (var item in Model.EventPhoto)
+                    {
+                        <img src="~/images/活動照片/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
+                        <input type="hidden" name="photoList" class="photoHid" value="@item.PhotoPath" />
+                    }
+                </div>
+                <div class="input-group mb-3">
+                    @*<input type="file" class="selectphoto"/>*@
+                    <div class="custom-file">
+                        @*透過此處的selectphoto觸發*@
+                        <input type="file" multiple class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
+                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
+                    </div>
+                    <div class="input-group-append">
+                        <a class="input-group-text imgClear" style="cursor:pointer">清空</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
