@@ -4,8 +4,53 @@
 }
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
-}
+<style>
+    #loader { /*   這是整個會蓋住畫面的底色色塊  */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 50%;
+        top: 25%;
+        background-color: transparent;
+        z-index: 9999;
+    }
+    #shippingmsgbox {
+        background-color: #E0E0E0;
+        z-index: 100;
+        height: 70px;
+        width: 150px;
+        position: fixed;
+        top: 30%;
+        left: 53%;
+        margin-top: -35px;
+        margin-left: -75px;
+        align-items: center;
+        display: flex;
+        padding-top: 75px;
+        border-radius: 15px;
+        font-weight: bolder;
+        font-size: 15px;
+        box-shadow: 1.5px 1.5px 7px 1px #5b5b5b;
+    }
 
+    #shippingmsgText {
+        height: 100px;
+        width: 200px;
+        text-align: center;
+        color: #4D0000;
+        font-weight: bold;
+    }
+</style>
+}
+<div id="loader" hidden>
+    <img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+</div>
+
+<div class="alert-autocloseable-warning" id="shippingmsgbox" hidden>
+    <div class="alert-autocloseable-warning" id="shippingmsgText">
+        新增修改成功
+    </div>
+</div>
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">產品管理</h2>
@@ -308,7 +353,7 @@
         //修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
-
+            $('#loader').attr("hidden", false);
             //讀取文字編輯器
             var discription = $(".ql-editor").html();
             $(".prodDescription").val(discription);
@@ -322,7 +367,13 @@
             console.log(data)
             if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
-                    alert("修改成功")
+                    $('#loader').attr("hidden", true);
+                    $('.alert-autocloseable-warning').attr("hidden", false);
+                    $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
+                        $('.alert-autocloseable-warning').attr("hidden", true);
+                        $('.alert-autocloseable-warning').removeAttr("style");
+                    });
+
                     $('#dataTable-1').DataTable(
                         {
                             autoWidth: true,
@@ -499,6 +550,7 @@
         //新增產品
         $(document).on("click", ".CreateSubmit", async function (e) {
             e.preventDefault();
+            $('#loader').attr("hidden", false);
             //讀取文字編輯器
             var discription = $(".ql-editor").html();
             $(".prodCreateDescription").val(discription);
@@ -511,7 +563,12 @@
             console.log(data)
             if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageProductApi/ProdListPartial")", function () {
-                    alert("新增成功")
+                    $('#loader').attr("hidden", true);
+                    $('.alert-autocloseable-warning').attr("hidden", false);
+                    $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
+                        $('.alert-autocloseable-warning').attr("hidden", true);
+                        $('.alert-autocloseable-warning').removeAttr("style");
+                    });
                     $('#dataTable-1').DataTable(
                         {
                             autoWidth: true,
