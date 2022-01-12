@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\btn\" />
     <Folder Include="wwwroot\assets\img\合作農友\" />
+    <Folder Include="wwwroot\images\NewsletterImg\" />
   </ItemGroup>
 
   <ItemGroup>
