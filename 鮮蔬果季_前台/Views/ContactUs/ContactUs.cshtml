@@ -8,8 +8,9 @@
     <style>
         h3 {
             font-family: 'Noto Sans TC';
-            color:chocolate;
+            color: chocolate;
         }
+
         body {
             margin: 0;
             padding: 0;
@@ -21,7 +22,7 @@
             margin-top: 6vh;
             margin-bottom: 6vh;
             max-width: 500px;
-            height: 900px;
+            height: 900sspx;
             border: 1px solid #9C9C9C;
             background-color: #EAEAEA;
             border-radius: 10px;
@@ -48,18 +49,20 @@
             -moz-appearance: none;
             /* SVG background image */
             background-position: calc(100% - 1.3em) center;
-            background-repeat: no-repeat;   
+            background-repeat: no-repeat;
         }
 
         .select::-ms-expand {
             display: none;
         }
+
         button {
-            color:#fff;
+            color: #fff;
         }
+
         textarea {
             width: 450px;
-            height: 850px;
+            height: 950px;
             max-width: 450px;
             max-height: 1000px;
             resize: none;
@@ -83,15 +86,16 @@
         </div>
     </div>
 </div>
- End All Title Box 
- Contact Start 
- 
+<!--============================================-->
+<!--============================================-->
+
+
 <div id="contact">
     <div class="container">
         <div id="contact-row" class="row justify-content-center align-items-center">
             <div id="contact-column" class="col-md-6">
                 <div id="contact-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
-                    <form id="contact-form" class="form" action="~/ContactUs/Send" method="post" role="form" data-toggle="validator"align="center">
+                    <form id="contact-form" class="form" action="~/ContactUs/Send" method="post" role="form" data-toggle="validator" align="center">
                         <input type="hidden" value="@Model.orderdetail.OrderDetailId" name="OrderDetailId" />
                         <h2 class="text-center" style="color: #8b4513; font-size:36px;font-family: 'Noto Sans TC', sans-serif;">聯絡鮮蔬果季</h2>
                         <h2 class="text-center">請敘述您的問題，鮮蔬果季很樂意為您服務</h2>
@@ -100,17 +104,19 @@
                         <h3 class="text-center">產品名:@ViewBag.productname 訂單編號:@ViewBag.orderdetailname</h3>
                         <div class="form-group">
 
-                            <select name="FatherFeedbackId" id="feedback1"align="center">
-                                <option label="=======請選擇======="align="center">
+                            <select name="FatherFeedbackId" id="feedback1" class="form-control">
+                                <option label="=======請選擇=======" align="center">
                                 </option>
                             </select>
                             <div class="help-block with-errors">
                                 <ol id="FatherFeedbackIdww"></ol>
                             </div>
-                            <select name="FeedbackId" id="feedback2"align="center">
+                            <br />
+                            <select name="FeedbackId" id="feedback2" class="form-control">
                                 <option label="=======請選擇=======" align="center">
                                 </option>
                             </select>
+                            <hr />
                             <div class="help-block with-errors">
                                 <ol id="FeedbackIdww"></ol>
                             </div>
@@ -121,13 +127,13 @@
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 450px"align="center"></textarea>
+                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 450px" align="center"></textarea>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-12" style="background-color: #FFF9E9">
-                                <button type="submit" id="submit" class="btn hvr-hover" align="center">傳送</button>
+                                <button type="submit" id="submit" class="btn btn-success" align="center">傳送</button>
                             </div>
                         </div>
                     </form>
@@ -171,13 +177,13 @@
             const response1 = await fetch('/ContactUs/FatherFeedbackIds/' + value)
             RenderfatherFeedbackName(await response1.json())
         })
-            
-            $("#submit").click(function () {
-                if ($("#feedback2").val() == "" || $("#FeedbackCommet").val() == "") {
-                    alert("尚未輸入回饋意見與回饋項目")
-                    return false
-                }
-            })
+
+        $("#submit").click(function () {
+            if ($("#feedback2").val() == "" || $("#FeedbackCommet").val() == "") {
+                alert("尚未輸入回饋意見與回饋項目")
+                return false
+            }
+        })
 
 
 

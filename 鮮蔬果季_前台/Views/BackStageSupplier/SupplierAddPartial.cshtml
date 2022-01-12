@@ -1,31 +1,31 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.SupplierViewModel
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="SupplierAddPartial">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SupplierName" class="control-label"></label>
-                <input asp-for="SupplierName" class="form-control" />
+                <input asp-for="SupplierName" class="form-control SupplierName2" />
                 <span asp-validation-for="SupplierName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BusinessOwner" class="control-label"></label>
-                <input asp-for="BusinessOwner" class="form-control" />
+                <input asp-for="BusinessOwner" class="form-control BusinessOwner2" />
                 <span asp-validation-for="BusinessOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SupplierAddress" class="control-label"></label>
-                <input asp-for="SupplierAddress" class="form-control" />
+                <input asp-for="SupplierAddress" class="form-control SupplierAddress2" />
                 <span asp-validation-for="SupplierAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Mobile" class="control-label"></label>
-                <input asp-for="Mobile" class="form-control" />
+                <input asp-for="Mobile" class="form-control Mobile2" />
                 <span asp-validation-for="Mobile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CityName" class="control-label"></label>
-                <select asp-for="CityName" class="form-control">
+                <select asp-for="CityName" class="form-control CityName2">
                     @foreach (var item in ViewBag.AllCities)
                     {
                         <option>@item.CityName</option>

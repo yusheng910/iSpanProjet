@@ -204,5 +204,21 @@
         $(document).on("click", ".btnAdd", function () {
             $('.supadd').load("@Url.Content("~/BackStageSupplier/SupplierAddPartial")")
         })
+        $(document).on("click", ".btncredemo", function () {
+            console.log("ok")
+            $(".SupplierName2").val("利達農場");
+            $(".BusinessOwner2").val("王博達");
+            $(".SupplierAddress2").val("台中市北屯區松義街153巷4號");
+            $(".Mobile2").val("0911826715");
+            $(".CityName2").val("台中市");
+        })
+        $(document).on("click", ".btneditdemo", function () {
+            console.log("ok")
+            $(".SupplierName1").val("利達農場");
+            $(".BusinessOwner1").val("王博達");
+            $(".SupplierAddress1").val("台中市北屯區松義街153巷4號");
+            $(".CityName1").val("0911826715");
+            $(".CityName1").val("台中市");
+        })
     </script>
 }
