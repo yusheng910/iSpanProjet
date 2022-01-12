@@ -34,7 +34,7 @@
 
 
 @*條件1   form 的method="post"   *@
-<form method="post" name="FormData">
+<form method="post" name="CreatEventForm">
     <div class="row justify-content-center">
         <div class="col-12">
             <h2 class="page-title">新增活動</h2>
@@ -211,7 +211,7 @@
         </div>
     </div>
     @*條件3  要使用input  且type必須為"submit" *@
-    <input type="submit" class="btn btn-primary btn-lg btn-lg " id="chickBT" style="float:left; margin-right:40px; margin-top:20px">
+    <input type="submit" class="btn btn-primary btn-lg btn-lg " id="btnSave" style="float:left; margin-right:40px; margin-top:20px">
 </form>
 
 <span>
@@ -267,11 +267,36 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
 
-        //$(document).on("click", "#chickBT", async function (e) {
-        //    const
+        //修改儲存
+        $(document).on("click", ".btnSave", async function (e) {
+            e.preventDefault();
 
+            //讀取文字編輯器
+            //var discription = $(".ql-editor").html();
+            //$(".eventDescription").val(discription);
 
-        //})
+            const formData = new FormData(document.CreatEventForm)     @* CreatEventForm 為Form的Name*@
+            const response = await fetch('@Url.Content("~/BackstageEvent/EventCreate")', {
+                method: "POST",
+                body: formData
+            })
+
+            const data = await response.text()
+            console.log(data)
+            if (data == 1) {            //寫入後需要重新載入的原因,在於修改是使用浮動視窗,並不會把更新資料修改上去
+                $('.card-body').load("@Url.Content("~/BackstageEvent/EventListPartial")", function () {
+                    alert("建立成功")
+                    $('#dataTable-1').DataTable(     //此段待確認作用
+                        {
+                            autoWidth: true,
+                            "lengthMenu": [
+                                [16, 32, 64, -1],
+                                [16, 32, 64, "All"]
+                            ]
+                        });
+                })
+            }
+        })
 
 
 
