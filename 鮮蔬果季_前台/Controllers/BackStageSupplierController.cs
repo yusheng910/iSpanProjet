@@ -72,17 +72,12 @@ namespace 鮮蔬果季_前台.Controllers
                            where a.SupplierId==s.SupplierId
                            select a  
                            ).FirstOrDefault();
-            //var supcity = (from c in db.Cities
-            //               where c.CityId == s.CityId
-            //               select s).FirstOrDefault();
             supedit.SupplierName = s.SupplierName;
             supedit.SupplierAddress = s.SupplierAddress;
             supedit.BusinessOwner = s.BusinessOwner;
             supedit.Mobile = s.Mobile;
             supedit.CityId = city.CityId;
-            //supcity.CityName = s.CityName;
             db.SaveChanges();
-            //return RedirectToAction("BackstageSupplier","Supplier");
             return Content("1");
         }
 

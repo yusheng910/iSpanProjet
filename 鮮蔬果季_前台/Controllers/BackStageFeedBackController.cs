@@ -33,10 +33,7 @@ namespace 鮮蔬果季_前台.Controllers
                           join m in _context.Members
                           on o.MemberId equals m.MemberId
                           select new {fbr1,fb,od2,prod,sup,o,m}
-                      ).ToList();
-            
-            
-
+                      ).ToList();                       
             foreach (var item in feedbackname)
             {
                 所有意見回饋列表.Add(new FeedbackResponseViewModel()
@@ -45,10 +42,8 @@ namespace 鮮蔬果季_前台.Controllers
                     feedback = item.fb,
                     feedbackResponse = item.fbr1,
                     product=item.prod,
-                    supplier=item.sup,
-                    
-                });
-              
+                    supplier=item.sup,                    
+                });             
             }
             return View(所有意見回饋列表);
         }
@@ -76,8 +71,6 @@ namespace 鮮蔬果季_前台.Controllers
             單筆回應.FeedbackResponseID = 會員資料.fbr1.FeedbackResponseId;
             單筆回應.FeedbackName = 會員資料.fb.FeedbackName;
             return PartialView(單筆回應);
-        }
-        
-      
+        }     
     }
 }

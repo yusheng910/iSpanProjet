@@ -64,8 +64,6 @@
                                 @{
                                     foreach (var item in Model)
                                     {
-
-
                                         <tr>
                                             <td>@item.feedbackResponse.OrderDetailId</td>
                                             <td>@item.member.MemberName</td>
@@ -82,8 +80,6 @@
                                             {
                                                 <td style="color:red">尚未回覆</td>
                                             }
-
-
                                             <td>
                                                 @if (@item.HaveResponses)
                                                 {
@@ -104,7 +100,6 @@
                                 }
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div> <!-- simple table -->
@@ -134,7 +129,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-info btncredemo">DEMO</button>
-                        <center><button class="btn hvr-hover BtnSend" id="submit" type="submit" style="" align="center">傳送密碼郵件</button></center>
+                        <center><button class="btn hvr-hover BtnSend" id="submit" type="submit" data-dismiss="modal" align="center">傳送密碼郵件</button></center>
                     </div>
                 </form>
             @*</div>*@
@@ -145,7 +140,6 @@
 @section Scripts{
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
-    @*<script src="https://smtpjs.com/v3/smtp.js"></script>*@
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
 
@@ -174,9 +168,7 @@
             })
 
                 .then(function (message) {
-
                     alert(message + "，寄信成功")
-
                 });
 
         });
