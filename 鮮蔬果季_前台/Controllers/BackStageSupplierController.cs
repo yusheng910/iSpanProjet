@@ -15,6 +15,7 @@ namespace 鮮蔬果季_前台.Controllers
         {
             db = dbContext;
         }
+        //表單
         public IActionResult SupplierList()
         {
             List<SupplierViewModel> list = new List<SupplierViewModel>();
@@ -33,6 +34,7 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return View(list);
         }
+        //=============== 重新載入頁面 =====================================================
         public IActionResult SupplierListPartial()
         {
             List<SupplierViewModel> list = new List<SupplierViewModel>();
@@ -52,7 +54,7 @@ namespace 鮮蔬果季_前台.Controllers
             return PartialView(list);
         }
 
-
+        //==============  修改功能  ===========================================================
         public IActionResult SupplierEditPartail(int id)
         {
 
@@ -60,52 +62,51 @@ namespace 鮮蔬果季_前台.Controllers
             SupplierViewModel supedit = new SupplierViewModel() {
                 supplier = suptxt
             };
+            var 縣市 = db.Cities.ToList();
+            ViewBag.AllCities = 縣市;
             return PartialView(supedit);
         }
         [HttpPost]
         public IActionResult SupplierEditPartail(SupplierViewModel s)
         {
+            var city = db.Cities.FirstOrDefault(a => a.CityName == s.CityName);
             var supedit = (from a in db.Suppliers
                            where a.SupplierId==s.SupplierId
                            select a  
                            ).FirstOrDefault();
-            //var supcity = (from c in db.Cities
-            //               where c.CityId == s.CityId
-            //              select s).FirstOrDefault();
+            supedit.SupplierName = s.SupplierName;
             supedit.SupplierAddress = s.SupplierAddress;
             supedit.BusinessOwner = s.BusinessOwner;
             supedit.Mobile = s.Mobile;
-            //supcity.CityName = s.CityName;
+            supedit.CityId = city.CityId;
             db.SaveChanges();
-            //return RedirectToAction("BackstageSupplier","Supplier");
             return Content("1");
         }
-
+        //============= 新增功能      ========================================================
         public IActionResult SupplierAddPartial()
         {
-            var suplist = (from a in db.Suppliers
-                           select  a).FirstOrDefault();
-            List<SupplierViewModel> supadd = new List<SupplierViewModel>();
-            {
-                        
-            };
+            var 縣市 = db.Cities.ToList();
+            ViewBag.AllCities = 縣市;
             return PartialView();
         }
         [HttpPost]
         public IActionResult SupplierAddPartial(SupplierViewModel sup)
         {
+            var city = db.Cities.FirstOrDefault(a => a.CityName == sup.CityName);
+
             //新增
             var suplist = (from a in db.Suppliers
-                           join b in db.Cities
-                           on a.CityId equals b.CityId
-                          select new{ a,b}).FirstOrDefault();
+                           select a).FirstOrDefault();
             Supplier supplier = new Supplier()
             {
                 SupplierName=sup.SupplierName,
                 BusinessOwner=sup.BusinessOwner,
                 SupplierAddress=sup.SupplierAddress,
-                Mobile=sup.Mobile,    
-            }; 
+                Mobile=sup.Mobile,
+                CityId= city.CityId,
+            };
+            var 縣市 = db.Cities.ToList();
+            ViewBag.AllCities = 縣市;
             db.Add(supplier);
             db.SaveChanges();
             return Content("1");

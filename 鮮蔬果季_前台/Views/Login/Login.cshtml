@@ -6,6 +6,8 @@
 @section Scripts{
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     @*<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">*@
 
     <style>
@@ -60,70 +62,89 @@
                     alert("帳號不存在")
                 }
             })
-         })
+             }, async function () {
+                if ($("#remember-me").is(":checked")) {
+                    var send = await fetch("@Url.Action("Login", "Login")")
+                }
+            })
+
+        $("#Demo").click(function () {
+        console.log("ok")
+        $("#username").val("a001@gmail.com");
+        $("#password").val("a12345");
+        });
+        $("#admin").click(function () {
+        console.log("ok")
+        $("#username").val("freshveg132@gmail.com");
+        $("#password").val("a12345");
+        });
+        $("#Demo2").click(function () {
+        $("#username").val("b011@gmail.com");
+        $("#password").val("a12345");
+        })
     </script>
 
     @*第三方登入測試區開始*@
     @*<script>
-        /*登入抓取資訊*/
-        var id = null;
-        var email = null;
+            /*登入抓取資訊*/
+            var id = null;
+            var email = null;
 
-         function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-
-            var profile = googleUser.getBasicProfile()
-            //    target = document.getElementById("GOOGLE_STATUS_1"),
-            //    html = "";
-
-            //html += "ID: " + profile.getId() + "<br/>";
-            //html += "會員暱稱： " + profile.getName() + "<br/>";
-            //html += "會員頭像：" + profile.getImageUrl() + "<br/>";
-            //html += "會員 email：" + profile.getEmail() + "<br/>";
-            //target.innerHTML = html;
-
-            id = profile.getId();
-            email = profile.getEmail()
-                    /*跳轉畫面*/
-             test(id,email)
-
-         }
-
-                    async function test(id,email) {
-                        let response = await fetch('@Url.Content("~/Login/check3rd?trdid=")'+ id +"&email="+email);
-                    let userCheck = await response.text();
-                    console.log(userCheck)
-                    if (userCheck == 1) {
-                        var evt = document.createEvent("HTMLEvents");
-                        // 初始化
-                        evt.initEvent("click", false, false);
-                        document.querySelector(".tobs").dispatchEvent(evt)
-                    }
-                    else if (userCheck == 0) {
-                        return false;
-                    }
-    }
-    $(document).on("click", ".g-signin2", function () {
-
-    })
+             function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
 
+                var profile = googleUser.getBasicProfile()
+                //    target = document.getElementById("GOOGLE_STATUS_1"),
+                //    html = "";
 
+                //html += "ID: " + profile.getId() + "<br/>";
+                //html += "會員暱稱： " + profile.getName() + "<br/>";
+                //html += "會員頭像：" + profile.getImageUrl() + "<br/>";
+                //html += "會員 email：" + profile.getEmail() + "<br/>";
+                //target.innerHTML = html;
 
-        /*登出*/
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
+                id = profile.getId();
+                email = profile.getEmail()
+                        /*跳轉畫面*/
+                 test(id,email)
+
+             }
+
+                        async function test(id,email) {
+                            let response = await fetch('@Url.Content("~/Login/check3rd?trdid=")'+ id +"&email="+email);
+                        let userCheck = await response.text();
+                        console.log(userCheck)
+                        if (userCheck == 1) {
+                            var evt = document.createEvent("HTMLEvents");
+                            // 初始化
+                            evt.initEvent("click", false, false);
+                            document.querySelector(".tobs").dispatchEvent(evt)
+                        }
+                        else if (userCheck == 0) {
+                            return false;
+                        }
         }
+        $(document).on("click", ".g-signin2", function () {
 
-    </script>*@
+        })
+
+
+
+
+            /*登出*/
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
+            }
+
+        </script>*@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="436348574559-4s2b3mvom0gnfno3007rgda1qiveegkv.apps.googleusercontent.com" />
     @*第三方登入測試區結束*@
@@ -162,15 +183,15 @@
                         <div class="form-group">
                             <label for="username" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">電子郵件帳號:</label>
                             <br>
-                            <input type="text" name="username" id="username" class="form-control">
+                            <input type="text" name="username" id="username" class="form-control" value="@ViewBag.UserId">
                         </div>
                         <div class="form-group">
                             <label for="password" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">密碼:</label>
                             <br>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" value="@ViewBag.Password">
                         </div>
                         <div class="form-group">
-                            <label for="remember-me" class="" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label>
+                            <label for="remember-me" class="up" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;"><span>記住我的帳號、密碼</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label>
                             <br>
                             <div class="submit-button">
                                 <button id="submit" type="submit" name="submit" class="btn hvr-hover ">登入</button>
@@ -200,22 +221,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
-<script>
-    $("#Demo").click(function () {
-        console.log("ok")
-        $("#username").val("a001@gmail.com");
-        $("#password").val("a12345");
-    });
-    $("#admin").click(function () {
-        console.log("ok")
-        $("#username").val("freshveg132@gmail.com");
-        $("#password").val("a12345");
-    });
-    $("#Demo2").click(function () {
-        $("#username").val("b011@gmail.com");
-        $("#password").val("a12345");
-    })
-</script>
 
 
 
