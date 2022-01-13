@@ -214,7 +214,7 @@
             var discription = $(".ql-editor").html();
             $(".eventDescription").val(discription);
 
-            const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
+            const formData = new FormData(document.EventEdit)     @* bEvevtEditPartial 為Form的Name*@
             const response = await fetch('@Url.Content("~/BackstageEvent/bEvevtEditPartial")', {
                 method: "POST",
                 body: formData

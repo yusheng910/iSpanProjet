@@ -11,12 +11,29 @@
     <div class="col-md-12">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="BlogDetailID" type="hidden" />
+
         <div class="form-group">
             @*在ViewModel中有設定資料欄位的DisplayName,故此處輸入欄位名稱,會帶入設定的DisplayName的名稱*@
             <label asp-for="Supplier.SupplierName" class="control-label"></label>
             <input asp-for="Supplier.SupplierName" class="form-control" />
             <span asp-validation-for="Supplier.SupplierName" class="text-danger"></span>
         </div>
+
+
+        <div class="form-group mb-3">
+            <label for="simpleinput">部落格類別</label>
+            <br />
+            <input type="radio" value="青農返鄉" name="Lable" required  checked/>
+            <label style="padding-right:15px">青農返鄉</label>
+
+            <input type="radio" value="履歷無毒" name="Lable" required />
+            <label style="padding-right:15px">履歷無毒</label>
+
+            <input type="radio" value="有機天地" name="Lable" required />
+            <label style="padding-right:15px">有機天地</label>
+        </div>
+
+
 
         <div class="form-group">
             <label asp-for="Title" class="control-label"></label>
@@ -31,15 +48,11 @@
             <span asp-validation-for="Subtitle" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label asp-for="Label" class="control-label"></label>
-            <input asp-for="Label" class="form-control" />
-            <span asp-validation-for="Label" class="text-danger"></span>
-        </div>
+
 
         <div class="form-group">
             <label asp-for="PublishedDate" class="control-label"></label>
-            <input asp-for="PublishedDate" class="form-control"  />
+            <input asp-for="PublishedDate" class="form-control" />
             <span asp-validation-for="PublishedDate" class="text-danger"></span>
         </div>
 
@@ -64,13 +77,13 @@
 
                     @*<img src="~/images/農友部落格照/@Model.BlogDetail.PhotoPath." style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
                     <input type="hidden" name="photoList" class="photoHid" value="@Model.BlogDetail.PhotoPath" />*@
-                                       
+
                 </div>
                 <div class="input-group mb-3">
                     @*<input type="file" class="selectphoto"/>*@
                     <div class="custom-file">
                         @*透過此處的selectphoto觸發*@
-                        <input type="file"  class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
+                        <input type="file" class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
                         <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
                     </div>
                     <div class="input-group-append">

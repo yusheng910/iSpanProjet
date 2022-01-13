@@ -72,11 +72,7 @@ namespace 鮮蔬果季_前台.Models
 
             modelBuilder.Entity<BlogDetail>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.Property(e => e.BlogDetailId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("BlogDetailID");
+                entity.Property(e => e.BlogDetailId).HasColumnName("BlogDetailID");
 
                 entity.Property(e => e.Label)
                     .HasMaxLength(10)
@@ -103,7 +99,7 @@ namespace 鮮蔬果季_前台.Models
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.HasOne(d => d.Supplier)
-                    .WithMany()
+                    .WithMany(p => p.BlogDetails)
                     .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BlogDetails_Suppliers");
