@@ -1,10 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
-
-
+﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
 
 <table class="table datatables border-dark" id="dataTable-1">
     <thead class="thead-dark">
@@ -12,9 +6,9 @@
             <th></th>
             <th>活動ID</th>
             <th>活動名稱</th>
-            <th>供應商ID</th>
             <th>供應商名稱</th>
             <th>活動人員上限</th>
+            <th>目前報名人數</th>
             <th>活動地點</th>
             <th>活動費用</th>
             <th>活動開始時間</th>
@@ -37,9 +31,13 @@
                     </td>
                     <td>@item.Event.EventId</td>
                     <td>@item.Event.EventName</td>
-                    <td>@item.Event.Supplier.SupplierId</td>
                     <td>@item.Event.Supplier.SupplierName</td>
                     <td>@item.Event.EventParticipantCap</td>
+                    <td>
+                        @item.已報名人數
+                        <button style="float:right;" type="button" class="btn btn-primary btnDetail" data-toggle="modal" data-target="#detailModal">查看</button>
+                        <input type="hidden" class="eid" value="@item.EventId" />
+                    </td>
                     <td>@item.Event.EventLocation</td>
                     <td>@item.Event.EventPrice</td>
                     <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
@@ -48,12 +46,11 @@
                     <td></td>
 
                     <td>
-                        @*修改按鈕*@
                         <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
                             <i class="fe fe-edit fe-16"></i>
                         </button>
                         <input type="hidden" class="Eid" value="@item.Event.EventId" />
-                    </td>                                                   @*透過vaule回傳的ID*@
+                    </td>                                                
 
                 </tr>
             </tbody>
