@@ -1,0 +1,57 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
+
+<table class="table table-striped" style="display:table; width:100%;">
+    <thead style=" display:block; width:100%">
+        <tr style="background-color:#D2E9FF; display:table; width:100%">
+            <th style="font-size:17px; font-weight:bold; color:black;">序號</th>
+            <th style="font-size:17px; font-weight:bold; color:black;">會員ID</th>
+            <th></th>
+            <th style="font-size:17px; font-weight:bold; color:black;">會員姓名</th>
+        </tr>
+    </thead>
+    <tbody class="addod" style="overflow-y:scroll; height:500px; display:block; width:100%;">
+        @{
+            int count = 0;
+            string 活動名稱 = "";
+            foreach (var item in Model)
+            {
+                count++;
+                活動名稱 = item.EventName2;
+                <tr style="display:table; width:100%;">
+                    <td style="width:50px;">
+                        @count
+                    </td>
+                    <td class="name-pr" style="font-size: 17px; color: black; width: 50px;">
+                        <a>
+                            @item.member.MemberId
+                        </a>
+                    </td>
+                    <td class="thumbnail-img" style="width: 50px;">
+                        <a href="#">
+                            <img class="img-fluid" src="~/images/MemberPhoto/@item.member.MemberPhotoPass" alt="" />
+                        </a>
+                    </td>
+                    <td class="sup-pr" style="font-size: 17px; color: black; width: 50px;">
+                        <a>
+                            @item.member.MemberName
+                        </a>
+                        <input type="hidden" value="@活動名稱" />
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+<div id="divtotal" class="col-lg-6 col-sm-6">
+    <div class="order-box">
+        <div class="title-left" style="padding-top:20px">
+            <h4>
+                活動名稱：
+                <span id="odnum">@活動名稱</span>
+            </h4>
+        </div>
+        <hr>
+    </div>
+</div>
+
