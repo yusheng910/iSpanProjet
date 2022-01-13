@@ -58,6 +58,9 @@
                                         "<br/>" +
                                         "<label>" + imageLang.alt + "</label>" +
                                         "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
+                                        "<div class=\"" + classPrefix + "file-input\">" +
+                                        "<input type=\"submit\" value=\"" + "Upload.cc" + "\" onclick=\"window.open(\'https://upload.cc\')\" />" +
+                                        "</div>" +
                                         "<br/>" +
                                         "<label>" + imageLang.link + "</label>" +
                                         "<input type=\"text\" value=\"http://\" data-link />" +

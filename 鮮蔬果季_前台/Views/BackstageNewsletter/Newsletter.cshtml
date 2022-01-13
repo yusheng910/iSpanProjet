@@ -219,6 +219,7 @@
                         help: {
                             title: "使用幫助"
                         }
+
                     }
                 };
 
@@ -239,7 +240,7 @@
 
                 } else { // for Sea.js
                     define(function (require) {
-                        var editormd = require("../editormd");
+                        var editormd = require("~/editormd");
                         factory(editormd);
                     });
                 }
@@ -253,7 +254,7 @@
 
 
         $('input[type=radio]').change(function () {
-           var text = $(this).val();
+            var text = $(this).val();
             $('.emailbox').val(text);
 
         });
@@ -301,8 +302,8 @@
                 //        alert("已傳送信件")
 
                 //    );
-                    //console.log(sendemail);
-                    //console.log(emailsubj);
+                //console.log(sendemail);
+                //console.log(emailsubj);
                 //});
             });
             (function () {
