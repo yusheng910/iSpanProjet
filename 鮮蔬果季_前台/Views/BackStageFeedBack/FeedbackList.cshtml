@@ -31,6 +31,9 @@
         .control-label {
             font-weight: bold;
         }
+        h2{
+            font-size:48px;
+        }
     </style>
 
 
@@ -185,13 +188,22 @@
                 //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的會員你好" +  "<br>"
                 //    + "<br>" + $("#msg").val()
                 //    + "<br>" + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您"+"</h2>",
-                Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername").val() + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
-                    + "<br>" + "關於您提到訂單編號:" + "<strong>" + $(".orderdetailid").val()+ "</strong>"
-                    + "<br>" + "產品名:" + "<strong>" + $(".productname").val() + "</strong>"
-                    + "<br>" + "出現了" + "<strong>" + $("#feedbackName").val() + "</strong>"+"的問題"
+                //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername").val() + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
+                //    + "<br>" + "關於您提到訂單編號:" + "<strong>" + $(".orderdetailid").val()+ "</strong>"
+                //    + "<br>" + "產品名:" + "<strong>" + $(".productname").val() + "</strong>"
+                //    + "<br>" + "出現了" + "<strong>" + $("#feedbackName").val() + "</strong>"+"的問題"
+                //    + "<br>" + "<br>"
+                //    + $("#msg").val()
+                //    + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您" + "</h2> "
+                Body:"<h2 style='color: #429416; font-size: 48px;'>" + "鮮蔬果季客服中心" + "</h2>"
+                    +"<h3 style='font-size: 24px'>" + "親愛的用戶:" + "</h3> " + "<strong class='name'  style='color: #947322; font-size: 24px; '>" + $("#membername").val() +"</strong> "
+                    + "<h3 style='font-size: 24px;'>" + "關於您提到訂單編號:" + "</h3>" + "<strong style='color: #FFB042; font-size: 24px;'>" + $(".orderdetailid").val() + "</strong>"
+                    + " <h3 style='font-size: 24px;'>" + "產品名:" + "</h3>" + "<strong style='color: #FFB042; font-size: 24px;'>" + $(".productname").val()  + "</strong>"
+                    + "<br>" + "<h3 style='font-size: 24px;'>" + "問題項目:" + ":</h3>" + "<strong style='color: #FFB042; font-size: 24px;'>" + $("#feedbackName").val() + "</strong>"
                     + "<br>" + "<br>"
-                    + $("#msg").val()
-                    + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您" + "</h2> "
+                    + " <h3 style='font-size: 24px;'>" + "感謝您的提出問題，" + "</h3>"
+                    + "<strong style='font-size: 24px;'>" + $("#msg").val() + "</strong>"
+                    + "<br>" + "<br>" + "<br>" + "<h2 style='color: #429416; font-size: 48px;' >" + "鮮蔬果季團隊感謝您" + "</h2>"
             })
 
                 .then(async function (message) {
