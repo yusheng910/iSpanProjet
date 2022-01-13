@@ -58,7 +58,7 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public List<IFormFile> photo { get; set; }      //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
+        public IFormFile photo { get; set; }   
 
         [DisplayName("部落格ID")]
         public int BlogDetailID { get { return this.BlogDetail.BlogDetailId; } set { this.BlogDetail.BlogDetailId = value; } }

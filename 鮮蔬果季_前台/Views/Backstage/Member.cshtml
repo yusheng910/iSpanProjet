@@ -164,6 +164,9 @@
             var gender = $(".Gender").val();
             $(".GenderLB").val(gender);
         })
+        $(document).on("click",".PartialTriggerUpload",function () {
+            $(".PartialselectPhoto").click();
+        })
         $(document).on("click", ".BtnSave", async function (e) {
             e.preventDefault();
             const fromData = new FormData(document.MembEdit)

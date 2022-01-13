@@ -39,7 +39,7 @@
 
         <div class="form-group">
             <label asp-for="PublishedDate" class="control-label"></label>
-            <input asp-for="PublishedDate" class="form-control" />
+            <input asp-for="PublishedDate" class="form-control"  />
             <span asp-validation-for="PublishedDate" class="text-danger"></span>
         </div>
 
@@ -49,7 +49,7 @@
             <label asp-for="Maintext" class="control-label"></label>
 
             @*前台觸發這邊的編輯器id (editor)*@
-            <div id="editor" class="descript" style="min-height:200px;" name="Maintext">
+            <div id="editoredit" class="descript" style="min-height:200px;" name="Maintext">
                 @Html.Raw(Model.BlogDetail.Maintext)
             </div>         @*Raw代表使用HTML語法轉譯,因為透過文字編輯器存進資料庫的資料,有包含html標籤*@
             <input type="hidden" class="Maintext" name="Maintext">
@@ -70,7 +70,7 @@
                     @*<input type="file" class="selectphoto"/>*@
                     <div class="custom-file">
                         @*透過此處的selectphoto觸發*@
-                        <input type="file" multiple class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
+                        <input type="file"  class="custom-file-input selectphoto" id="inputGroupFile02" name="photo">
                         <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
                     </div>
                     <div class="input-group-append">

@@ -90,39 +90,39 @@ namespace 鮮蔬果季_前台.Controllers
 
 
 
-        public IActionResult PhotoLoad(BlogDetailListViewModel EventEdit)
-        {
-            //如果該產品資料庫有無商品照片，會移除
-            var 移除noimage = db.BlogDetails.Where(E => E.BlogDetailId == EventEdit.BlogDetail.BlogDetailId && E.PhotoPath == "nprod.jpg").FirstOrDefault();
-            if (移除noimage != null)
-                db.Remove(移除noimage);
-            if (EventEdit.photo != null)
-            {
-                int count = 0;
-                foreach (var item in EventEdit.photo)
-                {
-                    string photoName = Guid.NewGuid().ToString() + ".jpg";          //Guid這段,作用為產生不重複亂數,作為照片名稱
-                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/農友部落格照/" + photoName); //取得路徑+要上傳的圖片檔案名稱
-                    using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
-                    {
-                        EventEdit.photo[count].CopyTo(fileStream); //上傳指令
-                    }
-                    count++;
-                    var q = new BlogDetail()
-                    {
-                        BlogDetailId = EventEdit.BlogDetail.BlogDetailId,
-                        PhotoPath = photoName
-                    };
-                    db.Add(q);          //偵錯這邊會有問題
-                    db.SaveChanges();
-                }
-            }
-            else
-            {
-                return Content("0");
-            }
-            return Content("1");
-        }
+        //public IActionResult PhotoLoad(BlogDetailListViewModel EventEdit)
+        //{
+        //    //如果該產品資料庫有無商品照片，會移除
+        //    var 移除noimage = db.BlogDetails.Where(E => E.BlogDetailId == EventEdit.BlogDetail.BlogDetailId && E.PhotoPath == "nprod.jpg").FirstOrDefault();
+        //    if (移除noimage != null)
+        //        db.Remove(移除noimage);
+        //    if (EventEdit.photo != null)
+        //    {
+        //        int count = 0;
+        //        foreach (var item in EventEdit.photo)
+        //        {
+        //            string photoName = Guid.NewGuid().ToString() + ".jpg";          //Guid這段,作用為產生不重複亂數,作為照片名稱
+        //            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/農友部落格照/" + photoName); //取得路徑+要上傳的圖片檔案名稱
+        //            using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
+        //            {
+        //                EventEdit.photo[count].CopyTo(fileStream); //上傳指令
+        //            }
+        //            count++;
+        //            var q = new BlogDetail()
+        //            {
+        //                BlogDetailId = EventEdit.BlogDetail.BlogDetailId,
+        //                PhotoPath = photoName
+        //            };
+        //            db.Add(q);          //偵錯這邊會有問題
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return Content("0");
+        //    }
+        //    return Content("1");
+        //}
 
 
 

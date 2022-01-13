@@ -7,15 +7,16 @@
                     @{
                         if (Model.MemberPhotoPass != null)
                         {
-                            <img src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                            <img class="PartialTriggerUpload" src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
                         }
                         else
                         {
-                            <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                            <img class="PartialTriggerUpload" src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
                         }
                     }
                 </div>
-                <input class="PartialselectPhoto" name="photo" type="file" style=" left:150px; top:60px; position:absolute; color:white; margin-top:20px; padding:10px;" />
+                <input class="PartialselectPhoto" name="photo" type="file" style="left: 150px; top: 60px; position: absolute; color: white; margin-top: 20px; padding: 10px; display:none" />
+                <button class="btn hvr-hover fas fa-camera" type="button" style="left: 150px; top: 60px; position: absolute; color:black; margin-top: 20px; padding: 10px;">測試</button>
             </p>
         </div>
     </div>
