@@ -166,49 +166,53 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <h3 class="card-title">活動內容編輯器</h3>
+
                                 <!-- Create the editor container -->
-                                <div id="editor" class="EventDescription" style="min-height:200px;" name="EventDescription">
-                                    <p></p>
-                                </div>
+                                <div id="editor" class="eventDescription" style="min-height:200px;" name="EventDescription">
+                                </div>         @*Raw代表使用HTML語法轉譯,因為透過文字編輯器存進資料庫的資料,有包含html標籤*@
+                                <input type="hidden" class="eventDescription" name="EventDescription">
                             </div>
+
                         </div>
                     </div>
-
-
-                    <div class="col-6" style="float:  left;  ">               @*col-6 對半*@
-                        <div class="form-group  card shadow mb-4">
-                            <div class="card-body"  style="height:347px">
-                                <h3 class="page-title">活動圖片上傳</h3>
-                                <div class=" photobox" style="border:1px solid lightgray;padding:20px;  height:270px">
-                                    <div class="imgCreate">
-                                    </div>
-                                    <div class="input-group ">
-                                        <div class="custom-file">
-                                            <input type="file" multiple class="custom-file-input createimg" id="createimg" name="photo">
-                                            <label class="custom-file-label" for="createimg" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @*舊的無法使用
-                                                <div class="card shadow mb-4">
-                                <div class="card-body">
-                                    <h3 class="page-title">活動圖片上傳</h3>
-                                    <div class="col-md-12">
-                                        <div class="card-body">
-                                            <br />
-                                            <div id="drag-drop-area"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
-                    </div>
-
                 </div>
+
+
+                <div class="col-6" style="float:  left;  ">
+                    @*col-6 對半*@
+                    <div class="form-group  card shadow mb-4">
+                        <div class="card-body" style="height:347px">
+                            <h3 class="page-title">活動圖片上傳</h3>
+                            <div class=" photobox" style="border:1px solid lightgray;padding:20px;  height:270px">
+                                <div class="imgCreate">
+                                </div>
+                                <div class="input-group ">
+                                    <div class="custom-file">
+                                        <input type="file" multiple class="custom-file-input createimg" id="createimg" name="photo">
+                                        <label class="custom-file-label" for="createimg" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*舊的無法使用
+                                            <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <h3 class="page-title">活動圖片上傳</h3>
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <br />
+                                        <div id="drag-drop-area"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+
             </div>
         </div>
+    </div>
     </div>
     @*條件3  要使用input  且type必須為"submit" *@
     <input type="submit" class="btn btn-primary btn-lg btn-lg " id="btnSave" style="float:left; margin-right:40px; margin-top:20px">
@@ -272,8 +276,8 @@
             e.preventDefault();
 
             //讀取文字編輯器
-            //var discription = $(".ql-editor").html();
-            //$(".eventDescription").val(discription);
+            var discription = $(".ql-editor").html();
+            $(".eventDescription").val(discription);
 
             const formData = new FormData(document.CreatEventForm)     @* CreatEventForm 為Form的Name*@
             const response = await fetch('@Url.Content("~/BackstageEvent/EventCreate")', {
@@ -297,7 +301,29 @@
                 })
             }
         })
-
+        //上傳圖片時預覽圖案
+        var imginput = document.querySelector(".createimg")
+        console.log("123")
+        $(document).on("change", ".createimg", function (e) {
+            readURL(this);
+        })
+        function readURL(input) {
+            document.querySelector(".imgCreate").innerHTML = ""
+            console.log(input.files.length)
+            for (i = 0; i < input.files.length; i++) {
+                if (input.files && input.files[i]) {
+                    var reader = new FileReader();
+                    console.log(reader)
+                    reader.onload = function (e) {
+                        var img = document.createElement("img")
+                        img.src = e.target.result;
+                        img.setAttribute("style", "width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;")
+                        document.querySelector(".imgCreate").appendChild(img)
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        }
 
 
         $("#DemoBtn").click(function () {
@@ -309,7 +335,7 @@
             $("#EventLocation").val("宜蘭縣三星鄉大德路三段79號");
             $("#StartDate").val("2022/2/15 09:00");
             $("#EndDate").val("2022/2/15 16:30");
-            $(".EventDescription").val("現在預訂星寶蔥體驗農場 | 親子手作蔥油餅DIY，讓遊客親自體驗做「蔥仔餅」及農村生活的樂趣，透過自己的雙手拔蔥、洗蔥，到揉麵、加蔥並捲製成型後，現場由服務人員為您煎至金黃熟透，讓您品嚐手作新鮮生產的「蔥仔餅」，更達到寓教於樂的推廣效果。");
+            $("#EventDescription").val("現在預訂星寶蔥體驗農場 | 親子手作蔥油餅DIY，讓遊客親自體驗做「蔥仔餅」及農村生活的樂趣，透過自己的雙手拔蔥、洗蔥，到揉麵、加蔥並捲製成型後，現場由服務人員為您煎至金黃熟透，讓您品嚐手作新鮮生產的「蔥仔餅」，更達到寓教於樂的推廣效果。");
         });
 
 
