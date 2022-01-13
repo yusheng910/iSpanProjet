@@ -5,14 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.ViewModels;
 using 鮮蔬果季_前台.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace 鮮蔬果季_前台.Controllers
 {
     public class BackstageEventController : Controller
     {
         private readonly 鮮蔬果季Context db;
-        public BackstageEventController(鮮蔬果季Context dbContext)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public BackstageEventController(IWebHostEnvironment webHost, 鮮蔬果季Context dbContext)
         {
+            _hostingEnvironment = webHost; //取的wwwroot的路徑
             db = dbContext;
         }
 
@@ -50,7 +54,8 @@ namespace 鮮蔬果季_前台.Controllers
                             join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
                             where id == E.EventId           //回傳的id與活動id相等
                             select new { E, supp }).FirstOrDefault();
-
+            var 活動照片 = db.EventPhotoBanks.Where(a => a.EventId == id).ToList();
+            ViewBag.Photo = 活動照片;
             //進到指定的活動頁(單筆活動),故不使用list,透過回傳的ID僅只一筆對應資料
             EventListViewModel 單筆活動 = new EventListViewModel();
 
@@ -115,21 +120,23 @@ namespace 鮮蔬果季_前台.Controllers
         // 新增活動
         public IActionResult EventCreate()
         {
-
+            var 共應商 = db.Suppliers.ToList();
+            ViewBag.AllSupp = 共應商;
             return View();
         }
         [HttpPost]
-        public IActionResult EventCreate(Event CreatEventForm)   //回傳名稱要使用form的name同名
+        public IActionResult EventCreate(EventListViewModel CreatEventForm)   //回傳名稱要使用form的name同名
         {
+            var supid = db.Suppliers.FirstOrDefault(a => a.SupplierName == CreatEventForm.SupplierName);
 
             Event 活動新增資料 = new Event()
             {
 
                 //EventId = FormData.EventId,
                 EventName = CreatEventForm.EventName,
-                SupplierId = CreatEventForm.SupplierId,
+                SupplierId = supid.SupplierId,
                 Lable = CreatEventForm.Lable,
-                EventParticipantCap = CreatEventForm.EventParticipantCap,
+                EventParticipantCap = CreatEventForm.Event.EventParticipantCap,
                 EventPrice = CreatEventForm.EventPrice,
                 EventLocation = CreatEventForm.EventLocation,
                 EventStartDate = CreatEventForm.EventStartDate,
@@ -138,16 +145,30 @@ namespace 鮮蔬果季_前台.Controllers
             };
             db.Add(活動新增資料);
             db.SaveChanges();
+            var 新的活動 = db.Events.OrderByDescending(p => p.EventId).FirstOrDefault(a => a.EventName == CreatEventForm.EventName);
+            if (CreatEventForm.photo != null)
+            {
+                int count = 0;
+                foreach (var item in CreatEventForm.photo)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/活動照片/" + photoName); //取得路徑+要上傳的圖片檔案名稱
+                    using (var fileStream = new FileStream(filePath, FileMode.Create)) //Create新增圖片，如果已存在就覆寫
+                    {
+                        CreatEventForm.photo[count].CopyTo(fileStream); //上傳指令
+                    }
+                    count++;
+                    var q = new EventPhotoBank()
+                    {
+                        EventId = 新的活動.EventId,
+                        PhotoPath = photoName
+                    };
+                    db.Add(q);
+                }
+                db.SaveChanges();
+            }
 
-
-            List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
-            var 所有活動 = (from E in db.Events
-                        join supp in db.Suppliers
-                        on E.SupplierId equals supp.SupplierId
-                        select new { E, supp }).ToList();
-
-
-            return RedirectToAction("EventCreate");                //待解決,如何回到活動後台首頁,同時回傳Context
+            return RedirectToAction("EventList");                //待解決,如何回到活動後台首頁,同時回傳Context
 
         }
 
