@@ -234,12 +234,6 @@
                 var data = await response.text();
                 if (data == 1) {
                 $('.card-body').load("@Url.Content("~/BackstageReviewsApi/ReviewsListPartial")", function () {
-                    $('#loader').attr("hidden", true);
-                    $('.alert-autocloseable-warning').attr("hidden", false);
-                    $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
-                        $('.alert-autocloseable-warning').attr("hidden", true);
-                        $('.alert-autocloseable-warning').removeAttr("style");
-                    });
                     $('#dataTable-1').DataTable(
                         {
                             autoWidth: true,
@@ -248,6 +242,12 @@
                                 [16, 32, 64, "All"]
                             ]
                         });
+                    $('#loader').attr("hidden", true);
+                    $('.alert-autocloseable-warning').attr("hidden", false);
+                    $('.alert-autocloseable-warning').delay(2000).fadeOut("slow", function () {
+                        $('.alert-autocloseable-warning').attr("hidden", true);
+                        $('.alert-autocloseable-warning').removeAttr("style");
+                    });
                 })
             }
             }
