@@ -82,13 +82,13 @@
                                             }
 
                                             <td>
-                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <button type="button" class="dropdown-item BtnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
+                                                </button>*@
+                                                @*<div class="dropdown-menu dropdown-menu-right">*@
+                                                    <button type="button" class="btn btn-success BtnEdit" data-toggle="modal" data-target="#EditModal"><i class="fe fe-16 fe-edit"></i></button>
                                                     <input type="hidden" class="Membid" id="memeberid" value="@item.MemberId" />
-                                                </div>
+                                                @*</div>*@
                                             </td>
                                         </tr>
                                     }
