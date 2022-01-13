@@ -111,5 +111,17 @@ namespace 鮮蔬果季_前台.Controllers
             db.SaveChanges();
             return Content("1");
         }
+        //=========   防呆驗證  ==================================================//
+        //public IActionResult SupplierNameRegex(string SupplierName)
+        //{
+        //    if (SupplierName != null)
+        //    {
+        //        if (SupplierName.Length < 4)
+        //        {
+        //            return Content("字數不的小於4字");
+        //        }
+        //    }
+        //    return Content("");
+        //}
     }
 }

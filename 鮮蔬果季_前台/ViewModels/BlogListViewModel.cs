@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 using System.Globalization;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Http;
 
 namespace 鮮蔬果季_前台.ViewModels
 {
@@ -24,6 +25,7 @@ namespace 鮮蔬果季_前台.ViewModels
                 _BlogDetail = value;
             }
         }
+
 
 
         public Supplier _Supplier = null;
@@ -55,6 +57,8 @@ namespace 鮮蔬果季_前台.ViewModels
                 _City = value;
             }
         }
+
+        public List<IFormFile> photo { get; set; }      //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
 
         [DisplayName("部落格ID")]
         public int BlogDetailID { get { return this.BlogDetail.BlogDetailId; } set { this.BlogDetail.BlogDetailId = value; } }

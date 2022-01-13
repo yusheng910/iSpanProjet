@@ -65,11 +65,10 @@ namespace 鮮蔬果季_前台.Controllers
         [HttpPost]        //修改寫入資料庫
         public IActionResult bEvevtEditPartial(Event EventEdit)
         {
-            var 活動修改資料 = db.Events.First(E => E.EventId == EventEdit.EventId);
+            var 活動修改資料 = db.Events.FirstOrDefault(E => E.EventId == EventEdit.EventId);
 
             if (活動修改資料 != null)
             {
-                //EventId = EventEdit.EventId,
                 //活動修改資料.EventParticipantCap = EventEdit.EventParticipantCap;
                 活動修改資料.EventLocation = EventEdit.EventLocation;
                 活動修改資料.EventStartDate = EventEdit.EventStartDate;
@@ -151,20 +150,6 @@ namespace 鮮蔬果季_前台.Controllers
             return RedirectToAction("EventCreate");                //待解決,如何回到活動後台首頁,同時回傳Context
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
