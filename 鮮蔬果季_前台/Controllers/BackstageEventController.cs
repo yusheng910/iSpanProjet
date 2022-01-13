@@ -28,6 +28,21 @@ namespace 鮮蔬果季_前台.Controllers
             foreach (var item in 所有活動)
             {
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
+                var 已報名人數 = from ER in db.EventRegistrations
+                            where item.E.EventId == ER.EventId
+                            select new { ER.ParticipantNumber, ER.Event.EventParticipantCap };
+                int? count = 0;
+                int? all = 0;
+                foreach (var item2 in 已報名人數)
+                {
+                    count += item2.ParticipantNumber;
+                    all = item2.EventParticipantCap;
+                }
+                if (all == 0) //如果沒有人報名過就要去活動找名額
+                {
+                    var 活動人數 = db.Events.FirstOrDefault(a => a.EventId == item.E.EventId);
+                    all = 活動人數.EventParticipantCap;
+                }
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
@@ -36,7 +51,8 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     Event = item.E,
                     City = 城市資料,
-                    EventPhoto = 相片list
+                    EventPhoto = 相片list,
+                    已報名人數=count
                 });
             }
             return View(所有活動列表);
