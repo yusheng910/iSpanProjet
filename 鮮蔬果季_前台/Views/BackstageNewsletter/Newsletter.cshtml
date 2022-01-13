@@ -16,7 +16,7 @@
         <div class="card shadow" style="width:85%">
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
-                    <label for="example-email">收件者</label>
+                    <label @*for="example-email"*@ data-toggle="modal" data-target="#ModalAdd">收件者</label>
                     <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或使用下方選取鈕" style="width:60%">
                 </div>
                 <p class="card-text"></p>
@@ -73,7 +73,69 @@
         </div>
     </div>
 </div>
-
+<!-- Modal2 -->
+<div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalAddLabel">收件者</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="CouponsAdd">
+                <div class="modal-body CreateBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-danger"></div>
+                            <input type="hidden" />
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="0" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" id="startDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" id="endDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="1" value="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btncredemo">DEMO</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @section Scripts{
     <script src="~/editormd/js/editormd.js"></script>
     <script src="~/editormd/languages/zh-tw.js"></script>
