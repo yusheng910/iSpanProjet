@@ -9,6 +9,7 @@
         .dropdown-item {
             padding-left: 5px;
         }
+
             .dropdown-item:focus {
                 background-color: transparent;
             }
@@ -17,6 +18,7 @@
                 background-color: transparent;
                 color: darkcyan;
             }
+
         .btnAdd {
             font-size: 16px;
             padding: 10px 20px 8px 16px;
@@ -67,10 +69,17 @@
                                         count++;
                                         <tr>
                                             <td>@count</td>
-                                            <td>@item.feedbackResponse.OrderDetailId</td>
+                                            <td>
+                                                @item.feedbackResponse.OrderDetailId
+                                                <input type="hidden" class="orderdetailid" value="@item.feedbackResponse.OrderDetailId">
+                                            </td>
+
                                             <td>@item.member.MemberName</td>
                                             <td>@item.member.UserId</td>
-                                            <td>@item.product.ProductName</td>
+                                            <td>
+                                                @item.product.ProductName
+                                                <input type="hidden" class="productname" value="@item.product.ProductName">
+                                            </td>
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
@@ -95,8 +104,7 @@
                                                         請盡快回覆
                                                     </button>
                                                     <input type="hidden" class="FeedbackResponseID" value="@item.feedbackResponse.FeedbackResponseId" />
-                                                    <input type="hidden" class="MemberName" value="@item.MemberName" />
-                                                   
+
                                                 }
                                             </td>
                                         </tr>
@@ -174,12 +182,16 @@
                 //From: "freshveg132@gmail.com",
                 //port: "25",
                 Subject:"意見回覆信函",
-                Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的會員你好" +  "<br>"
-                    + "<br>" + $("#msg").val()
-                    + "<br>" + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您"+"</h2>",
-                //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername") + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
-                //    + "<br>" + "關於您提到" + $("#feedbackName")  + "<br>" + "<br>"
-                //    + $("#msg").val() + "<br>" + "<br>" + "<br>" + "<br>"+"         "+"鮮蔬果季團隊感謝您",
+                //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的會員你好" +  "<br>"
+                //    + "<br>" + $("#msg").val()
+                //    + "<br>" + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您"+"</h2>",
+                Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername").val() + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
+                    + "<br>" + "關於您提到訂單編號:" + "<strong>" + $(".orderdetailid").val()+ "</strong>"
+                    + "<br>" + "產品名:" + "<strong>" + $(".productname").val() + "</strong>"
+                    + "<br>" + "出現了" + "<strong>" + $("#feedbackName").val() + "</strong>"+"的問題"
+                    + "<br>" + "<br>"
+                    + $("#msg").val()
+                    + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您" + "</h2> "
             })
 
                 .then(async function (message) {

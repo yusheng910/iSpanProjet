@@ -20,6 +20,8 @@
     <div class="col-md-12">
         <form>
             <input type="hidden" class="MemberName"id="membername" name="MemberName" value="@Model.member.MemberName" />
+            <input type="hidden"class="OrderDetailId" id="orderdetailid" name="OrderDetailId" value="@Model.feedbackResponse.OrderDetailId" />
+            <input type="hidden" class="ProductName" id="productname" name="ProductName"  value="@Model.product.ProductName" />
             <input type="hidden" id="FeedbackResponseID" name="FeedbackResponseID" value="@Model.FeedbackResponseID " />
             <input type="hidden" class="UserId" id="UserId" name="UserId" value="@Model.member.UserId" />
 
