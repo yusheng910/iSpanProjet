@@ -47,9 +47,9 @@
                                 <input type="text" id="EventName" class="form-control" name="EventName" required>
                             </div>
                             @*<div class="form-group mb-3">
-            <label for="simpleinput">供應商ID</label>
-            <input type="number" id="SupplierId" class="form-control" name="SupplierId" required>
-        </div>*@
+                                    <label for="simpleinput">供應商ID</label>
+                                    <input type="number" id="SupplierId" class="form-control" name="SupplierId" required>
+                                </div>*@
                             <div class="form-group mb-3">
                                 <label asp-for="SupplierName" class="control-label"></label>
                                 <select asp-for="SupplierName" class="form-control">
@@ -81,24 +81,6 @@
                                 <input type="radio" value="專業課程" name="Lable" required />
                                 <label style="padding-right:15px">專業課程</label>
 
-                                @*<select class="form-control select2" id="simple-select2">
-            <optgroup label="活動類別選擇">
-
-                <input type="radio" value="體驗類" name="Lable" />
-                <option value="參訪類" name="Lable">參訪類</option>
-
-            </optgroup>
-        </select>*@
-
-
-                                @*<div class="custom-control custom-radio">
-            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
-        </div>
-        <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
-            <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
-        </div>*@
                             </div>
                         </div>
                     </div>
@@ -191,9 +173,10 @@
                     </div>
 
 
-                    <div class="col-6" style="float:  left;  ">               @*col-6 對半*@
+                    <div class="col-6" style="float:  left;  ">
+                        @*col-6 對半*@
                         <div class="form-group  card shadow mb-4">
-                            <div class="card-body"  style="height:347px">
+                            <div class="card-body" style="height:347px">
                                 <h3 class="page-title">活動圖片上傳</h3>
                                 <div class=" photobox" style="border:1px solid lightgray;padding:20px;  height:270px">
                                     <div class="imgCreate">
@@ -203,7 +186,7 @@
                                             <input type="file" multiple class="custom-file-input createimg" id="createimg" name="photo">
                                             <label class="custom-file-label" for="createimg" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
                                         </div>
-                                    </div>                                   
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -283,7 +266,7 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
         //修改儲存
-        $("#btnSave").click(function(e) {
+        $("#btnSave").click(function (e) {
             //讀取文字編輯器
             var discription = $(".ql-editor").html();
             console.log(discription)

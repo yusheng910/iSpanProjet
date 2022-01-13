@@ -72,11 +72,14 @@ namespace 鮮蔬果季_前台.ViewModels
         [DisplayName("部落格文章")]
         public string Maintext { get { return this.BlogDetail.Maintext; } set { this.BlogDetail.Maintext = value; } }
 
-        [DisplayName("發布日期")]
-        public DateTime PublishedDate { get { return (DateTime)this.BlogDetail.PublishedDate; } set { this.BlogDetail.PublishedDate = value; } }
+        [DisplayName("發布日期")]    //問號代表資料庫,菲必填值
+        public DateTime? PublishedDate { get { return this.BlogDetail.PublishedDate; } set { this.BlogDetail.PublishedDate = value; } }
 
         [DisplayName("標籤分類")]
         public string Label { get { return this.BlogDetail.Label; } set { this.BlogDetail.Label = value; } }
+
+        [DisplayName("供應商名稱")]
+        public string SupplierName { get { return this.Supplier.SupplierName; } set { this.Supplier.SupplierName = value; } }
 
     }
 }

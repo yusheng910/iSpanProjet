@@ -75,6 +75,7 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
+
 <!-- Modal 修改-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 1000px;">
@@ -111,8 +112,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="EventCreate">
-                @*此處Form的內容就是EventEditPartial.cshtml*@
+            <form name="BlogCreateForm">
+
                 <div class="modal-body eventBody2">
                     @*載入的主體*@
                     <!--內容-->
@@ -230,7 +231,7 @@
             var discription = $(".ql-editor").html();
             $(".Maintext").val(discription);
 
-            const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
+            const formData = new FormData(document.EventEdit)     
             const response = await fetch('@Url.Content("~/BackstageBlog/BlogEditPartial2")', {
                 method: "POST",
                 body: formData
@@ -254,44 +255,7 @@
         })
 
 
-        @*$(document).on("click", ".BtnEdit", function () {
-            var mid = $(this).next(".Membid").val();
-            console.log(mid);
-            $(".memberBody").load("@Url.Content("~/BackstageMember/MemberDetailPartial")/" + mid)
-        })*@
 
-        $(document).on("change", ".PartialselectPhoto", async function () {
-            var mid = $(".Membid").val();
-            console.log(mid);
-            const fromData = new FormData(document.MembEdit)
-            const response = await fetch('@Url.Content("~/BackstageMember/uploadPhoto")', {
-                method: "POST",
-                body: fromData
-            })
-            const data = await response.text()
-            if (data == 1) {
-                $(".PartialPhotoLoad").load("@Url.Content("~/BackstageMember/Photoload/")" + mid, function () {
-                    alert("上傳圖片成功")
-                })
-            }
-        });
-
-
-        $(document).on("change", ".PartialselectPhoto", async function () {
-            var mid = $(".Membid").val();
-            console.log(mid);
-            const fromData = new FormData(document.MembEdit)
-            const response = await fetch('@Url.Content("~/BackstageMember/uploadPhoto")', {
-                method: "POST",
-                body: fromData
-            })
-            const data = await response.text()
-            if (data == 1) {
-                $(".PartialPhotoLoad").load("@Url.Content("~/BackstageMember/Photoload/")" + mid, function () {
-                    alert("上傳圖片成功")
-                })
-            }
-        });
 
 
 
@@ -374,16 +338,17 @@
         });
 
 
-                //修改儲存
-        $(document).on("click", ".btnSave", async function (e) {
+                //新增儲存
+        $(document).on("click", ".CreatebtnSave", async function (e) {
             e.preventDefault();
 
-            //讀取文字編輯器
-            var discription = $(".ql-editor").html();
-            $(".eventDescription").val(discription);
+            ////讀取文字編輯器
+            //var discription = $(".ql-editor").html();
+            //$(".eventDescription").val(discription);
 
-            const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
-            const response = await fetch('@Url.Content("~/BackstageEvent/bEvevtEditPartial")', {
+            const formData = new FormData(document.BlogCreateForm)
+            console.log(formData)
+            const response = await fetch('@Url.Content("~/BackstageBlog/BlogCreatePartial")', {
                 method: "POST",
                 body: formData
             })
@@ -391,7 +356,7 @@
             const data = await response.text()
             console.log(data)
             if (data == 1) {            //寫入後需要重新載入的原因,在於修改是使用浮動視窗,並不會把更新資料修改上去
-                $('.card-body').load("@Url.Content("~/BackstageEvent/EventListPartial")", function () {
+                $('.card-body').load("@Url.Content("~/BackstageBlog/BlogListPartial")", function () {
                     alert("修改成功")
                     $('#dataTable-1').DataTable(     //此段待確認作用
                         {
@@ -403,7 +368,7 @@
                         });
                 })
             }
-        })
+        });
 
 
 
