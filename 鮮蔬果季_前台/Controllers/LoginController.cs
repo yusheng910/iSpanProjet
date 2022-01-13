@@ -21,10 +21,11 @@ namespace 鮮蔬果季_前台.Controllers
         {
             ViewBag.UserId = HttpContext.Request.Cookies["UserId"];
             ViewBag.Password = HttpContext.Request.Cookies["Password"];
+            ViewBag.Checked = HttpContext.Request.Cookies["Checked"];
             return View();
         }
         [HttpPost]
-        public IActionResult Login(LoginViewModel LOGIN,string email,string id)
+        public IActionResult Login(LoginViewModel LOGIN,string email,string id,int remember)
         {
             string trdemail = "";
             string trdid = "";
@@ -50,10 +51,6 @@ namespace 鮮蔬果季_前台.Controllers
                     json = JsonSerializer.Serialize(user);
                     HttpContext.Session.SetString(CDictionary.SK_LOGINED_USER, json);
                     UserLogin.member = user;
-                    CookieOptions options = new CookieOptions();
-                    options.Expires = DateTime.Now.AddDays(30);
-                    HttpContext.Response.Cookies.Append("UserId", user.UserId, options);
-                    HttpContext.Response.Cookies.Append("Password", user.Password, options);
                     return RedirectToAction("Index", "Home");
 
                 }
@@ -249,7 +246,32 @@ namespace 鮮蔬果季_前台.Controllers
                 return Content(resultString);
             }
             return Content("0");
-        } 
+        }
+        public IActionResult SaveAcount(string userid , string password , bool check)
+        {
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(30);
+            HttpContext.Response.Cookies.Append("UserId", userid, options);
+            HttpContext.Response.Cookies.Append("Password", password, options);
+            
+            if (check == true)
+            {
+                HttpContext.Response.Cookies.Append("Checked", "1", options);
+                ViewBag.UserId = HttpContext.Request.Cookies["UserId"];
+                ViewBag.Password = HttpContext.Request.Cookies["Password"];
+            }
+            else if(check == false)
+            {
+                HttpContext.Response.Cookies.Append("Checked", "2", options);
+                ViewBag.Checked = false;
+                ViewBag.UserId = null;
+                ViewBag.Password = null;
+                HttpContext.Response.Cookies.Delete("UserId");
+                HttpContext.Response.Cookies.Delete("Password");
+            }
+            
+            return Content("0");
+        }
         public IActionResult check3rd(string trdid, string email)
         {
             if (email == "freshveg132@gmail.com" && trdid == "116692524681793487909")
