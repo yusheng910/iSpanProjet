@@ -116,6 +116,15 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
 
+        $('#dataTable-1').DataTable(     //套件的表頭排序/搜索
+            {
+                autoWidth: true,
+                "lengthMenu": [
+                    [16, 32, 64, -1],
+                    [16, 32, 64, "All"]
+                ]
+            });
+
 
 
             //開啟修改的PartialView
