@@ -174,9 +174,12 @@
                 //From: "freshveg132@gmail.com",
                 //port: "25",
                 Subject:"意見回覆信函",
-                Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername") + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
-                    + "<br>" + "關於您提到" + $("#feedbackName")  + "<br>" + "<br>"
-                    + $("#msg").val() + "<br>" + "<br>" + "<br>" + "<br>"+"         "+"鮮蔬果季團隊感謝您",
+                Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的會員你好" +  "<br>"
+                    + "<br>" + $("#msg").val()
+                    + "<br>" + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您"+"</h2>",
+                //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername") + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
+                //    + "<br>" + "關於您提到" + $("#feedbackName")  + "<br>" + "<br>"
+                //    + $("#msg").val() + "<br>" + "<br>" + "<br>" + "<br>"+"         "+"鮮蔬果季團隊感謝您",
             })
 
                 .then(async function (message) {
