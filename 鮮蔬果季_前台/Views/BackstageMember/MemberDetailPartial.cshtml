@@ -1,22 +1,22 @@
 ﻿@model 鮮蔬果季_前台.ViewModels.MemberViewModel
 <div class="row mt-5 align-items-center">
     <div class="col-md-3 text-center mb-5">
-        <div id="photo" style=" margin-top: 0px; padding-bottom: 0px; height: 100px ">
+        <div id="photo" style=" margin-top: 0px; padding-bottom: 0px; height: 100px ;">
             <p style="position:relative;">
-                <div class="PartialPhotoLoad">
+                <div class="PartialPhotoLoad" >
                     @{
                         if (Model.MemberPhotoPass != null)
                         {
-                            <img class="PartialTriggerUpload" src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                            <img class="" src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
                         }
                         else
                         {
-                            <img class="PartialTriggerUpload" src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                            <img class="" src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
                         }
                     }
                 </div>
                 <input class="PartialselectPhoto" name="photo" type="file" style="left: 150px; top: 60px; position: absolute; color: white; margin-top: 20px; padding: 10px; display:none" />
-                <button class="btn hvr-hover fas fa-camera" type="button" style="left: 150px; top: 60px; position: absolute; color:black; margin-top: 20px; padding: 10px;">測試</button>
+                <i class="btn btn-primary fe fe-16 fe-camera PartialTriggerUpload" style="left: 145px; top: 90px; position: absolute; color: white;border-radius:50%;"></i>
             </p>
         </div>
     </div>

@@ -82,13 +82,13 @@
                                             }
 
                                             <td>
-                                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <button type="button" class="dropdown-item BtnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
-                                                    <input type="hidden" class="Membid" value="@item.MemberId" />
-                                                </div>
+                                                </button>*@
+                                                @*<div class="dropdown-menu dropdown-menu-right">*@
+                                                    <button type="button" class="btn btn-success BtnEdit" data-toggle="modal" data-target="#EditModal"><i class="fe fe-16 fe-edit"></i></button>
+                                                    <input type="hidden" class="Membid" id="memeberid" value="@item.MemberId" />
+                                                @*</div>*@
                                             </td>
                                         </tr>
                                     }
@@ -127,6 +127,7 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
+        var partialMid = null;
         $('#dataTable-1').DataTable(
             {
                 autoWidth: true,
@@ -137,12 +138,12 @@
             });
         $(document).on("click", ".BtnEdit", function () {
             var mid = $(this).next(".Membid").val();
+            partialMid = mid;
             console.log(mid);
-            $(".memberBody").load("@Url.Content("~/BackstageMember/MemberDetailPartial")/" + mid)
+            $(".memberBody").load("@Url.Content("~/BackstageMember/MemberDetailPartial")?id=" + mid)
         })
         $(document).on("change", ".PartialselectPhoto", async function () {
-            var mid = $(".Membid").val();
-            console.log(mid);
+            console.log(partialMid);
             const fromData = new FormData(document.MembEdit)
             const response = await fetch('@Url.Content("~/BackstageMember/uploadPhoto")', {
                 method: "POST",
@@ -150,7 +151,7 @@
             })
             const data = await response.text()
             if (data == 1) {
-                $(".PartialPhotoLoad").load("@Url.Content("~/BackstageMember/Photoload/")" + mid, function () {
+                $(".PartialPhotoLoad").load("@Url.Content("~/BackstageMember/Photoload/")?id=" + partialMid, function () {
                     alert("上傳圖片成功")
                 })
             }

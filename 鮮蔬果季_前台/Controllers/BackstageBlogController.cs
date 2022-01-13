@@ -62,6 +62,8 @@ namespace 鮮蔬果季_前台.Controllers
                          where id == E.BlogDetailId
                          select new { E, supp}).FirstOrDefault()  ;
 
+           
+
             BlogDetailListViewModel 單筆部落格 = new BlogDetailListViewModel();
 
             單筆部落格.BlogDetail = 部落格及供應商資料.E;

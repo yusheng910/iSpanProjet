@@ -80,7 +80,7 @@
             <div class="col-md-12 photobox" style="border:1px solid lightgray;padding:20px">
                 <div class="imgLoad">
                     @*載入上傳圖片區塊imgClear*@          @*1/12目前載入失效*@
-                    @foreach (var item in Model.EventPhoto)
+                    @foreach (var item in ViewBag.Photo)
                     {
                         <img src="~/images/活動照片/@item.PhotoPath" style="width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;">
                         <input type="hidden" name="photoList" class="photoHid" value="@item.PhotoPath" />
