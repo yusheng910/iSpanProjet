@@ -69,7 +69,9 @@ namespace 鮮蔬果季_前台.Controllers
                 參加單一活動會員列表.Add(new EventListViewModel()
                 {
                     member = item.er.Member,
-                    EventName2 =item.er.Event.EventName
+                    EventName2 =item.er.Event.EventName,
+                    EventParticipantCap = item.er.Event.EventParticipantCap,
+                    EventRegistration = item.er
                 });
             }
             return PartialView(參加單一活動會員列表);
