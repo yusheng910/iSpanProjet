@@ -34,7 +34,7 @@
 
 
 @*條件1   form 的method="post"   *@
-<form method="post" name="CreatEventForm">
+<form method="post" name="CreatEventForm" enctype="multipart/form-data">
     <div class="row justify-content-center">
         <div class="col-12">
             <h2 class="page-title">新增活動</h2>
@@ -46,11 +46,20 @@
                                 <label for="simpleinput">活動名稱</label>            @*input欄位的name名稱,與資料表欄位名稱相同*@
                                 <input type="text" id="EventName" class="form-control" name="EventName" required>
                             </div>
+                            @*<div class="form-group mb-3">
+            <label for="simpleinput">供應商ID</label>
+            <input type="number" id="SupplierId" class="form-control" name="SupplierId" required>
+        </div>*@
                             <div class="form-group mb-3">
-                                <label for="simpleinput">供應商ID</label>
-                                <input type="number" id="SupplierId" class="form-control" name="SupplierId" required>
-                            </div>
+                                <label asp-for="SupplierName" class="control-label"></label>
+                                <select asp-for="SupplierName" class="form-control">
+                                    @foreach (var item in ViewBag.AllSupp)
+                                    {
+                                        <option>@item.SupplierName</option>
 
+                                    }
+                                </select>
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="simpleinput">人數上限</label>
                                 <input type="number" id="EventParticipantCap" class="form-control" name="EventParticipantCap" required>
@@ -59,31 +68,37 @@
                             <div class="form-group mb-3">
                                 <label for="simpleinput">活動類別</label>
                                 <br />
+                                <input type="radio" value="DIY體驗" name="Lable" required />
+                                <label style="padding-right:15px">DIY體驗</label>
 
-                                <input type="radio" value="體驗類" name="Lable " required />
-                                <label style="padding-right:15px">體驗類</label>
+                                <input type="radio" value="可愛動物" name="Lable" required />
+                                <label>可愛動物</label>
+                                <input type="radio" value="絕美風景" name="Lable" required />
+                                <label style="padding-right:15px">絕美風景</label>
 
-                                <input type="radio" value="體驗類" name="Lable " required />
-                                <label>活動類</label>
+                                <input type="radio" value="戶外露營" name="Lable" required />
+                                <label>戶外露營</label>
+                                <input type="radio" value="專業課程" name="Lable" required />
+                                <label style="padding-right:15px">專業課程</label>
 
                                 @*<select class="form-control select2" id="simple-select2">
-                                        <optgroup label="活動類別選擇">
+            <optgroup label="活動類別選擇">
 
-                                            <input type="radio" value="體驗類" name="Lable" />
-                                            <option value="參訪類" name="Lable">參訪類</option>
+                <input type="radio" value="體驗類" name="Lable" />
+                <option value="參訪類" name="Lable">參訪類</option>
 
-                                        </optgroup>
-                                    </select>*@
+            </optgroup>
+        </select>*@
 
 
                                 @*<div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
-                                    </div>*@
+            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+            <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+        </div>
+        <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
+            <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+        </div>*@
                             </div>
                         </div>
                     </div>
@@ -167,9 +182,10 @@
                             <div class="card-body">
                                 <h3 class="card-title">活動內容編輯器</h3>
                                 <!-- Create the editor container -->
-                                <div id="editor" class="EventDescription" style="min-height:200px;" name="EventDescription">
+                                <div id="editor" class="EventDescriptioBox" style="min-height:200px;">
                                     <p></p>
                                 </div>
+                                <input type="hidden" class="EventDescription" name="EventDescription">
                             </div>
                         </div>
                     </div>
@@ -187,7 +203,7 @@
                                             <input type="file" multiple class="custom-file-input createimg" id="createimg" name="photo">
                                             <label class="custom-file-label" for="createimg" aria-describedby="inputGroupFileAddon02">選擇圖片</label>
                                         </div>
-                                    </div>
+                                    </div>                                   
                                 </div>
                             </div>
                         </div>
@@ -266,50 +282,49 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
-
         //修改儲存
-        $(document).on("click", ".btnSave", async function (e) {
-            e.preventDefault();
-
+        $("#btnSave").click(function(e) {
             //讀取文字編輯器
-            //var discription = $(".ql-editor").html();
-            //$(".eventDescription").val(discription);
+            var discription = $(".ql-editor").html();
+            console.log(discription)
 
-            const formData = new FormData(document.CreatEventForm)     @* CreatEventForm 為Form的Name*@
-            const response = await fetch('@Url.Content("~/BackstageEvent/EventCreate")', {
-                method: "POST",
-                body: formData
-            })
+            $(".EventDescription").val(discription);
+            console.log($(".EventDescription").val())
 
-            const data = await response.text()
-            console.log(data)
-            if (data == 1) {            //寫入後需要重新載入的原因,在於修改是使用浮動視窗,並不會把更新資料修改上去
-                $('.card-body').load("@Url.Content("~/BackstageEvent/EventListPartial")", function () {
-                    alert("建立成功")
-                    $('#dataTable-1').DataTable(     //此段待確認作用
-                        {
-                            autoWidth: true,
-                            "lengthMenu": [
-                                [16, 32, 64, -1],
-                                [16, 32, 64, "All"]
-                            ]
-                        });
-                })
-            }
+
         })
-
+        var imginput = document.querySelector(".createimg")
+        $(document).on("change", ".createimg", function (e) {
+            readURL(this);
+        })
+        function readURL(input) {
+            document.querySelector(".imgCreate").innerHTML = ""
+            console.log(input.files.length)
+            for (i = 0; i < input.files.length; i++) {
+                if (input.files && input.files[i]) {
+                    var reader = new FileReader();
+                    console.log(reader)
+                    reader.onload = function (e) {
+                        var img = document.createElement("img")
+                        img.src = e.target.result;
+                        img.setAttribute("style", "width:150px;height:100px;object-fit:cover;margin-right:10px;margin-bottom:10px;")
+                        document.querySelector(".imgCreate").appendChild(img)
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        }
 
 
         $("#DemoBtn").click(function () {
             console.log("AA");
             $("#EventName").val("蔥寶寶 三星蔥手作體驗");
-            $("#SupplierId").val("1");
             $("#EventParticipantCap").val("60");
             $("#EventPrice").val("300");
             $("#EventLocation").val("宜蘭縣三星鄉大德路三段79號");
             $("#StartDate").val("2022/2/15 09:00");
             $("#EndDate").val("2022/2/15 16:30");
-            $(".EventDescription").val("現在預訂星寶蔥體驗農場 | 親子手作蔥油餅DIY，讓遊客親自體驗做「蔥仔餅」及農村生活的樂趣，透過自己的雙手拔蔥、洗蔥，到揉麵、加蔥並捲製成型後，現場由服務人員為您煎至金黃熟透，讓您品嚐手作新鮮生產的「蔥仔餅」，更達到寓教於樂的推廣效果。");
+            $(".ql-editor").html("現在預訂星寶蔥體驗農場 | 親子手作蔥油餅DIY，讓遊客親自體驗做「蔥仔餅」及農村生活的樂趣，透過自己的雙手拔蔥、洗蔥，到揉麵、加蔥並捲製成型後，現場由服務人員為您煎至金黃熟透，讓您品嚐手作新鮮生產的「蔥仔餅」，更達到寓教於樂的推廣效果。");
         });
 
 

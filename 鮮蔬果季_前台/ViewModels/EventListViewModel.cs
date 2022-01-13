@@ -87,7 +87,7 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public List<IFormFile> photo { get; set; }           //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
+        public List<IFormFile> photo{ get; set; }           //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
 
 
         //定義欄位名稱  (DisplayName會需要using)
@@ -103,10 +103,10 @@ namespace 鮮蔬果季_前台.ViewModels
 
         [DisplayName("活動描述")]
         public string EventDescription { get { return this.Event.EventDescription; } set { this.Event.EventDescription = value; } }
-        
+
         //怪怪的
-        //[DisplayName("活動人數上限")] 
-        //public int EventParticipantCap { get { return (int)this.Event.EventParticipantCap; } set { (this.Event.EventDescription = value; } }
+        [DisplayName("活動人數上限")]
+        public int? EventParticipantCap { get { return this.Event.EventParticipantCap; } set { this.Event.EventParticipantCap = value; } }
 
         [DisplayName("活動地點")]
         public string EventLocation { get { return this.Event.EventLocation; } set { this.Event.EventLocation = value; } }
