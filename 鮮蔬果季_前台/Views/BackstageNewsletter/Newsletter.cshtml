@@ -18,20 +18,20 @@
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label for="example-email">收件者</label>
-                    <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Email" style="width:60%">
+                    <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或使用下方選取鈕" style="width:60%">
                 </div>
                 <p class="card-text"></p>
                 <div class="form-check form-check-inline" style="padding-left:2.5%">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="@ViewBag.email">
                     <label class="form-check-label" for="inlineRadio1">寄給全部</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">寄給?</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
+                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO</label>
                 </div>
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label>電子報主旨</label>
-                    <input type="text" id="example-email" name="example-email" class="form-control" placeholder="輸入主旨" style="width:60%">
+                    <input type="text"  class="form-control emailsubject" placeholder="輸入電子報主旨" style="width:60%">
                 </div>
                 <p class="card-text"></p>
                 <p class="card-text"></p>
@@ -40,6 +40,7 @@
                 </div>
                 <div style="text-align:center">
                     <button type="button" class="btn btn-primary btnsend" style="width:99%">寄送</button>
+                    <input id="findemail" hidden value="@ViewBag.email" />
                 </div>
             </div>
         </div>
@@ -71,8 +72,8 @@
             //    alert(testEditor.getHTML());
             //})
             $(document).on("click", ".btnsend", async function (e) {
-                console.log($(".UserId").val())
-                var email = $(".UserId").val()
+                var sendemail = $('.emailbox').val();
+                var emailsubj = $('.emailsubject').val();
                 e.preventDefault();
                 Email.send({
                     Host: "smtp.elasticemail.com",
@@ -83,15 +84,16 @@
                     Username: "dryadl978188@gmail.com",
                     Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
                     /*To: `${email}`,*/
-                    To: "leechintuxxx@gmail.com",
+                    To: sendemail,
                     From: "dryadl978188@gmail.com",
-                    Subject: "測試信件內容",
+                    Subject: emailsubj,
                     Body: testEditor.getHTML()
                 }).then(
                     alert("已傳送信件")
 
                 );
-
+                //console.log(sendemail);
+                //console.log(emailsubj);
             });
         });
         (function () {
@@ -222,7 +224,10 @@
 
         })();
 
-        
+        $('input[type=radio]').change(function () {
+            var text = $(this).val();
+            $('.emailbox').val(text);
+        });
 
 
         //console.log($(".editormd-file-input").find("input[name=editormd-image-file]"))
