@@ -12,7 +12,7 @@
         <h2 class="mb-2 page-title">部落格管理</h2>
         <br />
 
-        <button type="button" class="btn btn-primary btn-lg " id="CreateModal"   data-toggle="modal" data-target="#CreateModal" > 新增部落格
+        <button type="button" class="btn btn-primary btn-lg createModel"   data-toggle="modal" data-target="#CreateModal" > 新增部落格
             @*@Html.ActionLink("新增部落格文章", "EventCreate", "BackstageEvent", new { }, new { @style = "color:White" })*@
         </button>
 
@@ -58,7 +58,7 @@
 
                                             <td>
                                                 @*修改按鈕*@
-                                                <button type="button" class="btn btn-success btnEdit" data-toggle="modal" data-target="#exampleModal">
+                                                <button type="button" class="btn btn-success btnEdit2" data-toggle="modal" data-target="#exampleModal">
                                                     <i class="fe fe-edit fe-16"></i>
                                                 </button>
                                                 <input type="hidden" class="Eid" value="@item.BlogDetail.BlogDetailId" />
@@ -87,7 +87,7 @@
             </div>
             <form name="EventEdit">
                 @*此處Form的內容就是EventEditPartial.cshtml*@
-                <div class="modal-body eventBody">
+                <div class="modal-body eventBody1">
                     @*載入的主體*@
                     <!--內容-->
                 </div>
@@ -111,9 +111,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="EventEdit">
+            <form name="EventCreate">
                 @*此處Form的內容就是EventEditPartial.cshtml*@
-                <div class="modal-body eventBody">
+                <div class="modal-body eventBody2">
                     @*載入的主體*@
                     <!--內容-->
                 </div>
@@ -132,82 +132,90 @@
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
-
+        $('#dataTable-1').DataTable(     //此段待確認作用
+            {
+                autoWidth: true,
+                "lengthMenu": [
+                    [16, 32, 64, -1],
+                    [16, 32, 64, "All"]
+                ]
+            });
 
 
             //開啟修改的PartialView
-        $(document).on("click", ".btnEdit", function () {
+        $(document).on("click", ".btnEdit2", function () {
             var eid = $(this).next(".Eid").val();
-/*            console.log(eid);*/
-            $(".eventBody").load("@Url.Content("~/BackstageBlog/BlogEditPartial")/" + eid, function () {
-                   var editor = document.getElementById('editor');    //取得文字編輯器的id
-                   if (editor) {
-                         //以下為文字編輯器套件的程式碼
-                       var toolbarOptions = [
-                           [
-                               {
-                                   'font': []
-                               }],
-                           [
-                               {
-                                   'header': [1, 2, 3, 4, 5, 6, false]
-                               }],
-                           ['bold', 'italic', 'underline', 'strike'],
-                           ['blockquote', 'code-block'],
-                           [
-                               {
-                                   'header': 1
-                               },
-                               {
-                                   'header': 2
-                               }],
-                           [
-                               {
-                                   'list': 'ordered'
-                               },
-                               {
-                                   'list': 'bullet'
-                               }],
-                           [
-                               {
-                                   'script': 'sub'
-                               },
-                               {
-                                   'script': 'super'
-                               }],
-                           [
-                               {
-                                   'indent': '-1'
-                               },
-                               {
-                                   'indent': '+1'
-                               }], // outdent/indent
-                           [
-                               {
-                                   'direction': 'rtl'
-                               }], // text direction
-                           [
-                               {
-                                   'color': []
-                               },
-                               {
-                                   'background': []
-                               }], // dropdown with defaults from theme
-                           [
-                               {
-                                   'align': []
-                               }],
-                           ['clean'] // remove formatting button
-                       ];
-                       var quill = new Quill(editor,
-                           {
-                               modules:
-                               {
-                                   toolbar: toolbarOptions
-                               },
-                               theme: 'snow'
-                           });
-                   }
+            console.log(eid);
+            $(".eventBody1").load("@Url.Content("~/BackstageBlog/BlogEditPartial")/" + eid, function () {
+                var editor = document.getElementById('editoredit');
+                console.log(editor)
+                if (editor) {
+                    console.log(editor)
+                    var toolbarOptions = [
+                        [
+                            {
+                                'font': []
+                            }],
+                        [
+                            {
+                                'header': [1, 2, 3, 4, 5, 6, false]
+                            }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [
+                            {
+                                'header': 1
+                            },
+                            {
+                                'header': 2
+                            }],
+                        [
+                            {
+                                'list': 'ordered'
+                            },
+                            {
+                                'list': 'bullet'
+                            }],
+                        [
+                            {
+                                'script': 'sub'
+                            },
+                            {
+                                'script': 'super'
+                            }],
+                        [
+                            {
+                                'indent': '-1'
+                            },
+                            {
+                                'indent': '+1'
+                            }], // outdent/indent
+                        [
+                            {
+                                'direction': 'rtl'
+                            }], // text direction
+                        [
+                            {
+                                'color': []
+                            },
+                            {
+                                'background': []
+                            }], // dropdown with defaults from theme
+                        [
+                            {
+                                'align': []
+                            }],
+                        ['clean'] // remove formatting button
+                    ];
+                    var quill = new Quill(editor,
+                        {
+                            modules:
+                            {
+                                toolbar: toolbarOptions
+                            },
+                            theme: 'snow'
+                        });
+                }
                })
              });
 
@@ -223,7 +231,7 @@
             $(".Maintext").val(discription);
 
             const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
-            const response = await fetch('@Url.Content("~/BackstageBlog/BlogEditPartial")', {
+            const response = await fetch('@Url.Content("~/BackstageBlog/BlogEditPartial2")', {
                 method: "POST",
                 body: formData
             })
@@ -246,11 +254,11 @@
         })
 
 
-        $(document).on("click", ".BtnEdit", function () {
+        @*$(document).on("click", ".BtnEdit", function () {
             var mid = $(this).next(".Membid").val();
             console.log(mid);
             $(".memberBody").load("@Url.Content("~/BackstageMember/MemberDetailPartial")/" + mid)
-        })
+        })*@
 
         $(document).on("change", ".PartialselectPhoto", async function () {
             var mid = $(".Membid").val();
@@ -290,10 +298,10 @@
 
 
             //開啟新增的PartialView
-        $(document).on("click", "#CreateModal", function () {
+        $(document).on("click", ".createModel", function () {
 
-            $(".eventBody").load("@Url.Content("~/BackstageBlog/BlogCreatePartial")", function () {
-                var editor = document.getElementById('editorCreate');    //取得文字編輯器的id
+            $(".eventBody2").load("@Url.Content("~/BackstageBlog/BlogCreatePartial")", function () {
+                var editor = document.getElementById('editorcreate');    //取得文字編輯器的id
                    if (editor) {
                        //以下為文字編輯器套件的程式碼
                        console.log(editor)
