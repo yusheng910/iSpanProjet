@@ -49,52 +49,6 @@ namespace 鮮蔬果季_前台.Controllers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
 
-            //原本是使用id回傳,來顯示對應標籤頁面,改成使用PartialView(用id傳)
-            //if (id == 1)
-            //{ 
-            //    所有活動 = (from E in db.Events
-            //    join supp in db.Suppliers
-            //    on E.SupplierId equals supp.SupplierId
-            //    where E.LableId == 1
-            //    select  new {E,supp }).ToList();
-            //}
-
-            //if (id == 2)
-            //{
-            //    所有活動 = (from E in db.Events
-            //            join supp in db.Suppliers
-            //            on E.SupplierId equals supp.SupplierId
-            //            where E.LableId == 2
-            //            select new { E, supp }).ToList();
-            //}
-
-            //if (id == 3)
-            //{
-            //    所有活動 = (from E in db.Events
-            //            join supp in db.Suppliers
-            //            on E.SupplierId equals supp.SupplierId
-            //            where E.LableId == 3
-            //            select new { E, supp }).ToList();
-            //}
-
-            //if (id == 4)
-            //{
-            //    所有活動 = (from E in db.Events
-            //            join supp in db.Suppliers
-            //            on E.SupplierId equals supp.SupplierId
-            //            where E.LableId == 4
-            //            select new { E, supp }).ToList();
-            //}
-
-            //if (id == 5)
-            //{
-            //    所有活動 = (from E in db.Events
-            //            join supp in db.Suppliers
-            //            on E.SupplierId equals supp.SupplierId
-            //            where E.LableId == 5
-            //            select new { E, supp }).ToList();
-            //}
-
 
 
             foreach (var item in 所有活動)
@@ -118,6 +72,8 @@ namespace 鮮蔬果季_前台.Controllers
                 List<EventPhotoBank> 相片list = new List<EventPhotoBank>();
                 //db = new 鮮蔬果季Context();                                  //使用注入,故不用在new db
 
+
+
                 //原本LINQ的寫法,下面是轉換為Landa寫法(較簡潔也較抽象)
                 //var 城市資料 = (from C in db.Cities
                 //            where C.CityId == item.supp.CityId
@@ -128,19 +84,26 @@ namespace 鮮蔬果季_前台.Controllers
                 相片list.Add(照片資料);
                 //ViewBag.活動數量 =  db.Events.Count().ToString() ;            //活動數量總計
                 //var 照片資料 = db.EventPhotoBanks.Where(P => P.EventId == item.E.EventId).ToList();
-                所有活動列表.Add(new EventListViewModel()              
+                string s= deleteHtml(item.E.EventDescription);
+                所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
-                    已報名人數=count,
-                    剩餘名額 = all-count
-                });
+                    已報名人數 = count,
+                    剩餘名額 = all - count
+                }) ;
             }
             return View(所有活動列表);
         }
 
+        public string deleteHtml(string xxx) {
+            string regex = @"(<.+?>|&nbsp;)";
+            var result = Regex.Replace(xxx, regex, "").Trim();
+            return result;
+        }
 
         //活動首頁標籤的Partialview 所有活動
         public IActionResult AllBlog()
@@ -188,9 +151,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                string s = deleteHtml(item.E.EventDescription);
                 所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
@@ -223,7 +188,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 1
+                        where E.Lable == "DIY體驗"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -252,9 +217,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                string s = deleteHtml(item.E.EventDescription);
                 所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
@@ -284,7 +251,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 2
+                        where E.Lable == "可愛動物"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -313,9 +280,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                string s = deleteHtml(item.E.EventDescription);
                 所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
@@ -347,7 +316,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 3
+                        where E.Lable == "絕美風景"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -376,9 +345,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                string s = deleteHtml(item.E.EventDescription);
                 所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
@@ -407,7 +378,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 4
+                        where E.Lable == "戶外露營"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -435,9 +406,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                string s = deleteHtml(item.E.EventDescription);
                 所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
@@ -466,7 +439,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 5
+                        where E.Lable == "專業課程"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -494,9 +467,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == item.supp.CityId);
                 var 照片資料 = db.EventPhotoBanks.FirstOrDefault(P => P.EventId == item.E.EventId);
                 相片list.Add(照片資料);
+                string s = deleteHtml(item.E.EventDescription);
                 所有活動列表.Add(new EventListViewModel()
                 {
                     Event = item.E,
+                    活動描述去除html = s,
                     City = 城市資料,
                     EventPhoto = 相片list,
                     活動滿額人數 = all,
@@ -550,6 +525,8 @@ namespace 鮮蔬果季_前台.Controllers
                       join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
                       where id ==E.EventId           //回傳的id與活動id相等
                       select new { E,supp }).FirstOrDefault();
+
+            ViewBag.活動地址 = 活動及供應商明細.supp.SupplierAddress.ToString();
 
             //進到指定的活動頁(單筆活動),故不使用list,透過回傳的ID僅只一筆對應資料
             EventListViewModel 單筆活動 = new EventListViewModel();   
