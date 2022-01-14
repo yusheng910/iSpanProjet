@@ -84,14 +84,12 @@
                                 </p>
                                 <h2> @Model.BlogDetail.Title</h2>
                                 <div>
-                                    <p style="font-size:medium"> @Model.BlogDetail.Maintext</p>
+                                    <p style="font-size:medium"> @Html.Raw(Model.BlogDetail.Maintext)</p>
                                 </div>
 
                                 <div style="padding-top:30px">
                                     <h2>農場位置</h2>
                                 </div>
-
-                                var 地址 = @Model.Supplier.SupplierAddress;
                                 <iframe frameborder="0" width="730" height="450" src="https://www.google.com/maps?q=@ViewBag.農場地址&amp;hl=zh-TW&amp;z=16&amp;m=h&amp;output=embed"></iframe>
                                 @*googelmpa參數可詳 https://jax-work-archive.blogspot.com/2011/07/google-maps.html  *@
 

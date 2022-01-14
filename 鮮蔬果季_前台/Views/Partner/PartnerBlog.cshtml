@@ -142,7 +142,7 @@
                         <div class="col-lg-4 col-md-6 blogSize">
                             <div class="single-latest-news">
                                 <div>
-                                    <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.SupplierId">
+                                    <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.BlogDetailId">
                                         <img class="imgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">  @*圖片超連結*@
                                     </a>
                                 </div>
@@ -238,5 +238,7 @@
         $("#動畫4").addClass("animate__animated animate__pulse")
     })
 
+    $(document).ready(function () {
 
+    })
 </script>

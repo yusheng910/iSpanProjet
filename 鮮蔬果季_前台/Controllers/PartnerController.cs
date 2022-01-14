@@ -118,7 +118,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = (from E in db.BlogDetails
-                         where E.LabelId == 1
+                         where E.Label == "青農返鄉"
                          orderby E.PublishedDate descending
                          select E).ToList();
 
@@ -157,7 +157,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = (from E in db.BlogDetails
-                         where E.LabelId == 2
+                         where E.Label == "履歷無毒"
                          orderby E.PublishedDate descending
                          select E).ToList();
 
@@ -196,7 +196,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var datas = (from E in db.BlogDetails
-                         where E.LabelId == 3
+                         where E.Label == "有機天地"
                          orderby E.PublishedDate descending
                          select E).ToList();
 
@@ -219,7 +219,7 @@ namespace 鮮蔬果季_前台.Controllers
             return PartialView("ArticlePartial", list);
         }
 
-        public IActionResult PartnerBlog_1(int id)     //此處的id為前台回傳的該農友ID
+        public IActionResult PartnerBlog_1(int id)     //此處的id為前台回傳的該(部落格)ID
         {
 
             // 判斷會員是否登入
@@ -237,7 +237,7 @@ namespace 鮮蔬果季_前台.Controllers
             //鮮蔬果季Context db = new 鮮蔬果季Context();
             var 單筆部落格 = (from E in db.BlogDetails
                          join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
-                         where id == E.SupplierId
+                         where id == E.BlogDetailId
                          select new { E, supp }).FirstOrDefault();
 
             BlogDetailListViewModel 部落格date = new BlogDetailListViewModel();
@@ -249,7 +249,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             ViewBag.農場地址 = 單筆部落格.supp.SupplierAddress.ToString();
 
-            return View(單筆部落格);
+            return View(部落格date);
         }
 
 
