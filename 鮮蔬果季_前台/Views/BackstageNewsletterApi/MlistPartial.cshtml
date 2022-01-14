@@ -1,6 +1,6 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.NewsletterViewModel>
 
-@{ int count = 0;
+@*@{ int count = 0;
     foreach (var item in Model)
     {
         count++;
@@ -26,4 +26,56 @@
              }
         </tr>
     }
-}
+}*@
+
+<table class="table datatables border-dark" id="dataTable-1">
+    <thead class="thead-dark">
+        <tr>
+            <th style="width:100px">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="all" onclick="demo()" id="allcheck">
+                    <span style="color:white;">全選</span>
+                </div>
+            </th>
+            <th>序號</th>
+            <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
+            <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
+            <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
+            @*<th>@Html.DisplayNameFor(model => model.First().CouponStartDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CouponEndDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().CouponQuantityIssued)</th>
+                <th>修改</th>*@
+            @*<th>編輯</th>*@
+        </tr>
+    </thead>
+    <tbody class="memlist">
+        @{ int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="checknum" name="choice" onclick="setAll()" value="@item.UserId">
+                        </div>
+                    </td>
+                    <td>@count</td>
+                    <td>@item.MemberName</td>
+                    <td>@item.Gender</td>
+                    <td>@item.UserId</td>
+                    @{
+                        if (item.是否有消費 == 1)
+                        {
+                            <td><i style="padding-left:25%" class="fe fe-16 fe-check-circle"><span class="sr-only"></span></i></td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
