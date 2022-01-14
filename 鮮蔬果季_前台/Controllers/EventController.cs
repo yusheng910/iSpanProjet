@@ -223,7 +223,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 1
+                        where E.Lable == "DIY體驗"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -284,7 +284,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 2
+                        where E.Lable == "可愛動物"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -347,7 +347,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 3
+                        where E.Lable == "絕美風景"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -407,7 +407,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 4
+                        where E.Lable == "戶外露營"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
@@ -466,7 +466,7 @@ namespace 鮮蔬果季_前台.Controllers
 
             List<EventListViewModel> 所有活動列表 = new List<EventListViewModel>();
             var 所有活動 = (from E in db.Events
-                        where E.LableId == 5
+                        where E.Lable == "專業課程"
                         join supp in db.Suppliers
                        on E.SupplierId equals supp.SupplierId
                         select new { E, supp }).ToList();
