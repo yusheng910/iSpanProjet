@@ -1629,7 +1629,7 @@ namespace 鮮蔬果季_前台.Controllers
                 DateTime date = DateTime.Now;
                 string random4 = GetRandomString4();
                 string tradeNo = "DX" + DateTime.Now.ToString("yyyyMMddHHmmss") + random4;
-                string backtoUrl = "https://localhost:44344/Order/orders";
+                string backtoUrl = "https://vegetable132web-vegetable132staging.azurewebsites.net/Order/Orders";
                 string dateString = date.ToString("yyyy/MM/dd HH:mm:ss");
                 string checkMac = "HashKey=5294y06JbISpM5x9&ChoosePayment=Credit&ClientBackURL=" + backtoUrl + "&CreditInstallment=&EncryptType=1&InstallmentAmount=&ItemName=" + itemName + "&MerchantID=2000132&MerchantTradeDate=" + dateString + "&MerchantTradeNo=" + tradeNo + "&PaymentType=aio&Redeem=&ReturnURL=https://developers.opay.tw/AioMock/MerchantReturnUrl" + "&StoreID=&TotalAmount=" + totalAmount + "&TradeDesc=建立信用卡測試訂單&HashIV=v77hoKGq4kWxNNIS";
                 string checkMac2 = HttpUtility.UrlEncode(checkMac, System.Text.Encoding.UTF8);
