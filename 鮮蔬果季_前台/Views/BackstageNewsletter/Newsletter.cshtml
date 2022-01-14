@@ -11,8 +11,9 @@
             color: blueviolet;
             cursor: pointer;
         }
+
         .showMember {
-            text-decoration:underline;
+            text-decoration: underline;
         }
     </style>
 }
@@ -28,21 +29,21 @@
                 </div>
                 <p class="card-text"></p>
                 @*<div class="form-check form-check-inline" style="padding-left:2.5%">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="@ViewBag.email">
-                    <label class="form-check-label" for="inlineRadio1">寄給全部</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
-                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO-EMAIL</label>
-                </div>*@
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="@ViewBag.email">
+                        <label class="form-check-label" for="inlineRadio1">寄給全部</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
+                        <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO-EMAIL</label>
+                    </div>*@
                 @*<div class="form-check form-check-inline">
-                    <input class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio3" value="DEMO">
-                </div>*@
+                        <input class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio3" value="DEMO">
+                    </div>*@
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label>電子報主旨</label>
                     <input type="text" class="form-control emailsubject" placeholder="輸入電子報主旨" style="width:60%">
                 </div>
-                <input style="margin-left:7px" class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio3" value="DEMO">
+                <input style="margin-left:7px" class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio4" value="DEMO">
                 <p class="card-text"></p>
                 <p class="card-text"></p>
                 <div id="test-editormd" class="test0">
@@ -88,58 +89,66 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAddLabel">收件者</h5>
                 <div class="form-check form-check-inline" style="padding-left:2.5%">
-                    <input class="form-check-input memall" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="@ViewBag.email">
+                    <input class="form-check-input memall" type="radio" name="inlineRadioOptions" id="inlineRadio1">
                     <label class="form-check-label" for="inlineRadio1">查詢全部</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input memcost" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
-                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">查詢近一年有消費的使用者</label>
+                    <input class="form-check-input memcost" type="radio" name="inlineRadioOptions" id="inlineRadio2">
+                    <label class="form-check-label" for="inlineRadio2">查詢近一年有消費的使用者</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input memdemo" type="radio" name="inlineRadioOptions" id="inlineRadio3">
+                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO使用者</label>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- table -->
-            <table class="table datatables border-dark" id="dataTable-1">
-                <thead class="thead-dark">
-                    <tr>
-                        <th style="width:100px">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="all" onclick="demo()" id="allcheck">
-                                <span style="color:white;">全選</span>
-                            </div>
-                        </th>
-                        <th>序號</th>
-                        <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
-                        <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
-                        <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
-                        <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
-                        @*<th>@Html.DisplayNameFor(model => model.First().CouponStartDate)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().CouponEndDate)</th>
-                            <th>@Html.DisplayNameFor(model => model.First().CouponQuantityIssued)</th>
-                            <th>修改</th>*@
-                        @*<th>編輯</th>*@
-                    </tr>
-                </thead>
-                <tbody class="memlist">
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input checknum" onclick="setAll()" name="choice">
-                                <label class="custom-control-label" for="d1"></label>
-                            </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="modal-footer">
-                <input type="submit" value="確定" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <div class="card shadow">
+                <div class="card-body memshow">
+                    <table class="table datatables border-dark" id="dataTable-1">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="width:100px">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="all" onclick="demo()" id="allcheck">
+                                        <span style="color:white;">全選</span>
+                                    </div>
+                                </th>
+                                <th>序號</th>
+                                <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
+                                <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.First().CouponStartDate)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().CouponEndDate)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().CouponQuantityIssued)</th>
+                                    <th>修改</th>*@
+                                @*<th>編輯</th>*@
+                            </tr>
+                        </thead>
+                        <tbody class="memlist">
+                            <tr>
+                                <td>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input checknum" onclick="setAll()" name="choice">
+                                        <label class="custom-control-label" for="d1"></label>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <input type="submit" value="確定" class="btn btn-primary btnSave btnAddmem" data-dismiss="modal" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -148,9 +157,20 @@
     <script src="~/editormd/js/editormd.js"></script>
     <script src="~/editormd/languages/zh-tw.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
+    <script src='~/backstage/js/jquery.dataTables.min.js'></script>
     <script>
+        $('#dataTable-1').DataTable(
+            {
+                autoWidth: true,
+                "lengthMenu": [
+                    [16, 32, 64, -1],
+                    [16, 32, 64, "All"]
+                ]
+            });
         $(document).on("click", ".showMember", function () {
-            $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")")
+            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")")
+            $("input[type=radio]")[0].checked = true;
         })
 
         $(document).on("change", ".memcost", function () {
@@ -158,9 +178,16 @@
         })
         $(document).on("change", ".memall", function () {
             $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")")
+            $("input[type=radio]")[0].checked = true;
         })
-
-        var allvalue = new
+        $(document).on("change", ".memdemo", function () {
+            $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/Demo")")
+        })
+        $(document).on("click", ".btnAddmem", function () {
+            var checkval = ($('input:checkbox:checked[name="choice"]').map(function () { return $(this).val(); }).get()).toString();
+            console.log(checkval);
+            $('.emailbox').val(checkval);
+        })
 
         $(function () {
             testEditor = editormd("test-editormd", {
@@ -175,7 +202,7 @@
                 //editorTheme: "pastel-on-dark",//编辑主题
                 imageUpload: true,
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL: "/BackstageNewsletterApi/UploadF/",
+                imageUploadURL: "/BackstageNewsletterApi/UploadF",
             });
             //$(document).on("click", ".btnsend", function () {
             //    alert(testEditor.getHTML());
@@ -333,12 +360,6 @@
             }
 
         })();
-        //$('input[type=radio]').change(function () {
-        //    var text = $(this).val();
-        //    $('.emailbox').val(text);
-
-        //});
-
         $('input[type=button]').click(function () {
             $(".test0").remove();
             $(".test1").attr("id", "test-editormd")
