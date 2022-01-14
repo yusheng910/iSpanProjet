@@ -103,39 +103,39 @@
                         <h3 class="text-center">供應商:@ViewBag.suppliername</h3>
                         <h3 class="text-center">產品名:@ViewBag.productname 訂單編號:@ViewBag.orderdetailname</h3>
                         <div class="form-group">
-
-                            <select name="FatherFeedbackId" id="feedback1" class="form-control">
-                                <option label="=======請選擇=======" align="center">
-                                </option>
-                            </select>
-                            <div class="help-block with-errors">
-                                <ol id="FatherFeedbackIdww"></ol>
+                            <div class="form-group">
+                                <select name="FatherFeedbackId" id="feedback1" class="form-control">
+                                    <option label="=======請選擇=======">
+                                    </option>
+                                </select>
+                                <div class="help-block with-errors">
+                                    <ol id="FatherFeedbackIdww"></ol>
+                                </div>
+                                <br />
+                                <select name="FeedbackId" id="feedback2" class="form-control">
+                                    <option label="=======請選擇=======">
+                                    </option>
+                                </select>
+                                <hr />
+                                <div class="help-block with-errors">
+                                    <ol id="FeedbackIdww"></ol>
+                                </div>
                             </div>
-                            <br />
-                            <select name="FeedbackId" id="feedback2" class="form-control">
-                                <option label="=======請選擇=======" align="center">
-                                </option>
-                            </select>
-                            <hr />
-                            <div class="help-block with-errors">
-                                <ol id="FeedbackIdww"></ol>
-                            </div>
-
                         </div>
                         <div style="padding-bottom:3px"></div> @*間格用*@
 
                         <div class="form-group">
 
                             <div class="form-floating">
-                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 600px" align="center"></textarea>
+                                <textarea name="FeedbackComment" id="FeedbackCommet" class="form-control" placeholder="請輸入內容" style="height: 600px"></textarea>
 
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-12" style="background-color: #FFF9E9">
+                                <button type="button" class="btn btn-info btndemo">DEMO</button>
                                 <button type="submit" id="submit" class="btn btn-success" align="center">傳送</button>
                             </div>
-                            <button type="button" class="btn btn-info btndemo">DEMO</button>
                         </div>
                     </form>
                 </div>
