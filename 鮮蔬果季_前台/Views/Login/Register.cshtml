@@ -71,7 +71,7 @@
         })
         $("#contactForm").submit(function () {
             //我們的規則驗證錯誤時要加上這條class，submit時才會送不出去
-            if ($("#emailerr").html() == "帳號已被註冊" || $("#emailerr").html() == "帳號格式不正確" || $("#Passworderr").html() == "密碼格式不正確" || $("#MemberNameerr").html() == "字數不能小於兩字" || $("#Mobileerr").html() == "號碼長度不能小於10碼" || $("#Mobileerr").html() == "請輸入數字" || $("#BirthDateerr").html() == "出生日期大於今日") {
+            if ($("#emailerr").html() == "帳號已被註冊" || $("#emailerr").html() == "帳號格式不正確" || $("#Passworderr").html() == "密碼長度大於8字元"|| $("#Passworderr").html() == "密碼格式不正確" || $("#MemberNameerr").html() == "字數不能小於兩字" || $("#Mobileerr").html() == "號碼長度不能小於10碼" || $("#Mobileerr").html() == "請輸入數字" || $("#BirthDateerr").html() == "出生日期大於今日") {
                 var msgClasses = "h3 text-center text-danger";
                 $("#msgSubmit").addClass(msgClasses).text("尚未填寫完資料，請確認。");
                 return false;
