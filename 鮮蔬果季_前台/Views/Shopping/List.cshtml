@@ -96,6 +96,9 @@
             color: #EFFFD7;
             font-weight: bold;
         }
+        .list-group-item {
+        font-size:16px;
+        }
     </style>
 }
 @section Scripts{
@@ -749,7 +752,7 @@
                                                                     //之後改成多選
                                                                     <label class="list-group-item list-group-item-action " href="#@men2" data-toggle="collapse" aria-expanded="true" aria-controls="@men2" value="@次分類.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                         @次分類.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 6px;" class="categoryselect" name="vehicle" />
+                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 8px;" class="categoryselect" name="vehicle" />
                                                                         <input type="hidden" class="cateid" value="@次分類.CategoryId" />
                                                                     </label>
 
@@ -774,7 +777,7 @@
                                                                                 {
                                                                                     <label class="list-group-item list-group-item-action " href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
                                                                                         @次分類2.CategoryName <small class="text-muted">(@detail.總數)</small>
-                                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 6px;" class="categoryselect" name="vehicle" />
+                                                                                        <input type="checkbox" style=" margin-right: 5px;  float: left; margin-top: 8px;" class="categoryselect" name="vehicle" />
                                                                                         <input type="hidden" class="cateid" value="@次分類2.CategoryId" />
                                                                                     </label>
                                                                                     @*<button class="list-group-item list-group-item-action categoryselect" href="#@men3" data-toggle="collapse" aria-expanded="true" aria-controls="@men3" value="@次分類2.CategoryId" style="cursor: pointer;" id="categoryselect">
@@ -808,7 +811,7 @@
                             <div id="slider-range">
                             </div>
                             <p>
-                                <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
+                                <input type="text" id="amount" readonly style="font-size:18px;border:0; color:#fbb714; font-weight:bold;">
                                 <button class="btn hvr-hover" type="button" id="PriceSelect">查尋</button>
                             </p>
                         </div>
