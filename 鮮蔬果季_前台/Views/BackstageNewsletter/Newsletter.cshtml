@@ -1,6 +1,4 @@
-﻿@model List<鮮蔬果季_前台.ViewModels.NewsletterViewModel>
-
-@{
+﻿@{
     ViewData["Title"] = "Newsletter";
 }
 @section Styles{
@@ -8,16 +6,42 @@
     <link href="~/editormd/css/editormd.preview.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
     <style>
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
         .showMember:hover {
             color: blueviolet;
             cursor: pointer;
-        }
-
-        .showMember {
             text-decoration: underline;
         }
         .custom-checkbox {
             padding-left: 0px;
+        }
+        .qa{
+            padding-left:4px;
+        }
+        .qa:hover{
+            color:darkgoldenrod;
+        }
+        .chk{
+            width:45px;
+        }
+        .No{
+            width:30px;
+        }
+        .mname{
+            width:65px;
+        }
+        .mgd {
+            width:30px;
+        }
+        .memail {
+            width:300px;
+        }
+
+        .mcost {
+            width:90px;
         }
     </style>
 }
@@ -28,21 +52,10 @@
         <div class="card shadow" style="width:85%">
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
-                    <label @*for="example-email"*@ class="showMember" data-toggle="modal" data-target="#ModalAdd">收件者</label>
+                    <label @*for="example-email"*@ class="showMember" data-toggle="modal" data-target="#ModalAdd">收件者</label><span data-toggle="tooltip" data-placement="right" title="點擊旁邊選取收件者" class="fe fe-16 fe-help-circle qa"></span>
                     <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或點擊上方" style="width:60%">
                 </div>
                 <p class="card-text"></p>
-                @*<div class="form-check form-check-inline" style="padding-left:2.5%">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="@ViewBag.email">
-                        <label class="form-check-label" for="inlineRadio1">寄給全部</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
-                        <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO-EMAIL</label>
-                    </div>*@
-                @*<div class="form-check form-check-inline">
-                        <input class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio3" value="DEMO">
-                    </div>*@
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label>電子報主旨</label>
                     <input type="text" class="form-control emailsubject" placeholder="輸入電子報主旨" style="width:60%">
@@ -69,7 +82,7 @@
 
 
 
-若您不想要收到優惠內容，請[按我](https://localhost:44344/Coupons/CouponsList "按我")
+若您不想要收到優惠內容，請[按我](https://vegetable132web-vegetable132staging.azurewebsites.net/Coupons/CouponsList "按我")
 
 ------------
 
@@ -80,7 +93,6 @@
                 </div>
                 <div style="text-align:center">
                     <button type="button" class="btn btn-primary btnsend" style="width:99%">寄送</button>
-                    <input id="findemail" hidden value="@ViewBag.email" />
                 </div>
             </div>
         </div>
@@ -98,7 +110,7 @@
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input memcost" type="radio" name="inlineRadioOptions" id="inlineRadio2">
-                    <label class="form-check-label" for="inlineRadio2">查詢近一年有消費的使用者</label>
+                    <label class="form-check-label" for="inlineRadio2">查詢近一年有消費的會員</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input memdemo" type="radio" name="inlineRadioOptions" id="inlineRadio3">
@@ -110,43 +122,17 @@
             </div>
             <!-- table -->
             <div class="card shadow">
+                @*LOADING START*@
+                <div id="loader" class="loader" style="text-align:center;padding-top:50px;padding-bottom:50px">
+                    <div class="spinner-border mr-3" style="width: 6rem; height: 6rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div style="padding-top:7px">
+                        <img style="width:15%" src="~/images/loadingtext.gif" />
+                    </div>
+                </div>
+                @*LOADING END*@
                 <div class="card-body memshow">
-                    @*<table class="table datatables border-dark" id="dataTable-1">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th style="width:45px">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="all" onclick="demo()" id="allcheck">
-                                        <span style="color:white;">全選</span>
-                                    </div>
-                                </th>
-                                <th>序號</th>
-                                <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
-                                <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
-                                <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
-                                <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="memlist">
-                            <tr>
-                                <td>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input checknum" onclick="setAll()" name="choice">
-                                        <label class="custom-control-label" for="d1"></label>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="modal-footer">
-                        <input type="submit" value="確定" class="btn btn-primary btnSave btnAddmem" data-dismiss="modal" />
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    </div>*@
                 </div>
             </div>
         </div>
@@ -160,54 +146,70 @@
     <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
         $(document).on("click", ".showMember", function () {
+            $('.loader').attr("hidden", false);
+            $('.memshow').attr("hidden", true);
             $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")", function () {
                 $('#dataTable-1').DataTable(
                     {
-                        autoWidth: true,
+                        autoWidth: false,
                         "lengthMenu": [
-                            [16, 32, 64, -1],
-                            [16, 32, 64, "All"]
+                            [12, 24, 48, -1],
+                            [12, 24, 48, "All"]
                         ]
                     });
+                $('.loader').attr("hidden", true);
+                $('.memshow').attr("hidden", false);
             })
             $("input[type=radio]")[0].checked = true;
         })
-
         $(document).on("change", ".memcost", function () {
+            $('.loader').attr("hidden", false);
+            $('.memshow').attr("hidden",true);
             $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartialbyCost")", function () {
                 $('#dataTable-1').DataTable(
                     {
-                        autoWidth: true,
+                        autoWidth: false,
                         "lengthMenu": [
-                            [16, 32, 64, -1],
-                            [16, 32, 64, "All"]
+                            [12, 24, 48, -1],
+                            [12, 24, 48, "All"]
                         ]
                     });
+                $('.loader').attr("hidden", true);
+                $('.memshow').attr("hidden", false);
             })
         })
         $(document).on("change", ".memall", function () {
+            $('.loader').attr("hidden", false);
+            $('.memshow').attr("hidden", true);
             $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")", function () {
                 $('#dataTable-1').DataTable(
                     {
-                        autoWidth: true,
+                        autoWidth: false,
                         "lengthMenu": [
-                            [16, 32, 64, -1],
-                            [16, 32, 64, "All"]
+                            [12, 24, 48, -1],
+                            [12, 24, 48, "All"]
                         ]
                     });
+                $('.loader').attr("hidden", true);
+                $('.memshow').attr("hidden", false);
             })
             $("input[type=radio]")[0].checked = true;
         })
         $(document).on("change", ".memdemo", function () {
+            $('.loader').attr("hidden", false);
+            $('.memshow').attr("hidden", true);
             $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/Demo")", function () {
                 $('#dataTable-1').DataTable(
                     {
-                        autoWidth: true,
+                        autoWidth: false,
                         "lengthMenu": [
-                            [16, 32, 64, -1],
-                            [16, 32, 64, "All"]
+                            [12, 24, 48, -1],
+                            [12, 24, 48, "All"]
                         ]
                     });
+                $('.loader').attr("hidden", true);
+                $('.memshow').attr("hidden", false);
+                $("input[type=checkbox]")[1].checked = true;
             })
         })
         $(document).on("click", ".btnAddmem", function () {
@@ -216,6 +218,14 @@
             $('.emailbox').val(checkval);
         })
 
+        //BUBBLE插件
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+
+
+        //MD編輯器
         $(function () {
             testEditor = editormd("test-editormd", {
                 width: "99%",

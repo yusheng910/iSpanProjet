@@ -20,20 +20,6 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Newsletter()
         {
-            List<MemberViewModel> list = new List<MemberViewModel>();
-            var 所有會員email = (from m in db.Members
-                             where m.CityId ==4
-                             select m.UserId).ToList();
-            string email = "";
-            foreach (var item in 所有會員email)
-            {
-                email += item+",";
-            }
-            email=email.Substring(0, email.Length - 1); 
-
-            ViewBag.email =email;
-            ViewBag.demo = "freshveg132@gmail.com";
-
             return View();
         }
     }
