@@ -6,6 +6,7 @@
 @section Styles{
     <link href="~/editormd/css/editormd.css" rel="stylesheet" />
     <link href="~/editormd/css/editormd.preview.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
     <style>
         .showMember:hover {
             color: blueviolet;
@@ -14,6 +15,9 @@
 
         .showMember {
             text-decoration: underline;
+        }
+        .custom-checkbox {
+            padding-left: 0px;
         }
     </style>
 }
@@ -25,7 +29,7 @@
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label @*for="example-email"*@ class="showMember" data-toggle="modal" data-target="#ModalAdd">收件者</label>
-                    <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或使用下方選取鈕" style="width:60%">
+                    <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或點擊上方" style="width:60%">
                 </div>
                 <p class="card-text"></p>
                 @*<div class="form-check form-check-inline" style="padding-left:2.5%">
@@ -84,7 +88,7 @@
 </div>
 <!-- Modal2 -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 50%;">
+    <div class="modal-dialog" style="max-width: 55%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAddLabel">收件者</h5>
@@ -107,10 +111,10 @@
             <!-- table -->
             <div class="card shadow">
                 <div class="card-body memshow">
-                    <table class="table datatables border-dark" id="dataTable-1">
+                    @*<table class="table datatables border-dark" id="dataTable-1">
                         <thead class="thead-dark">
                             <tr>
-                                <th style="width:100px">
+                                <th style="width:45px">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="all" onclick="demo()" id="allcheck">
                                         <span style="color:white;">全選</span>
@@ -121,11 +125,6 @@
                                 <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
                                 <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
                                 <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
-                                @*<th>@Html.DisplayNameFor(model => model.First().CouponStartDate)</th>
-                                    <th>@Html.DisplayNameFor(model => model.First().CouponEndDate)</th>
-                                    <th>@Html.DisplayNameFor(model => model.First().CouponQuantityIssued)</th>
-                                    <th>修改</th>*@
-                                @*<th>編輯</th>*@
                             </tr>
                         </thead>
                         <tbody class="memlist">
@@ -147,7 +146,7 @@
                     <div class="modal-footer">
                         <input type="submit" value="確定" class="btn btn-primary btnSave btnAddmem" data-dismiss="modal" />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -157,31 +156,59 @@
     <script src="~/editormd/js/editormd.js"></script>
     <script src="~/editormd/languages/zh-tw.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script src='~/backstage/js/jquery.dataTables.min.js'></script>
+    <script src='~/backstage/js/dataTables.bootstrap4.min.js'></script>
     <script>
-        $('#dataTable-1').DataTable(
-            {
-                autoWidth: true,
-                "lengthMenu": [
-                    [16, 32, 64, -1],
-                    [16, 32, 64, "All"]
-                ]
-            });
         $(document).on("click", ".showMember", function () {
-            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")")
+            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")", function () {
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
             $("input[type=radio]")[0].checked = true;
         })
 
         $(document).on("change", ".memcost", function () {
-            $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/MlistPartialbyCost")")
+            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartialbyCost")", function () {
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
         })
         $(document).on("change", ".memall", function () {
-            $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")")
+            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")", function () {
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
             $("input[type=radio]")[0].checked = true;
         })
         $(document).on("change", ".memdemo", function () {
-            $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/Demo")")
+            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/Demo")", function () {
+                $('#dataTable-1').DataTable(
+                    {
+                        autoWidth: true,
+                        "lengthMenu": [
+                            [16, 32, 64, -1],
+                            [16, 32, 64, "All"]
+                        ]
+                    });
+            })
         })
         $(document).on("click", ".btnAddmem", function () {
             var checkval = ($('input:checkbox:checked[name="choice"]').map(function () { return $(this).val(); }).get()).toString();

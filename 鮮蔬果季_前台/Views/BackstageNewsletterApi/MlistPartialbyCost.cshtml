@@ -1,36 +1,59 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.NewsletterViewModel>
 
-@{ int count = 0;
-    foreach (var item in Model)
-    {
-        if (@item.是否有消費 == 1)
-        {
-            count++;
-            <tr>
-                <td>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="checknum" name="choice" onclick="setAll()" value="@item.UserId">
-                    </div>
-                </td>
-                <td>@count</td>
-                <td>@item.MemberName</td>
-                <td>@item.Gender</td>
-                <td>@item.UserId</td>
-                @{
-                    if (item.是否有消費 == 1)
-                    {
+<table class="table datatables border-dark" id="dataTable-1">
+    <thead class="thead-dark">
+        <tr>
+            <th style="width:45px">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="all" onclick="demo()" id="allcheck">
+                    <span style="color:white;">全選</span>
+                </div>
+            </th>
+            <th>序號</th>
+            <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
+            <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
+            <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
+        </tr>
+    </thead>
+    <tbody class="memlist">
+        @{ int count = 0;
+            foreach (var item in Model)
+            {
+                if (@item.是否有消費 == 1)
+                {
+                    count++;
+                    <tr>
                         <td>
-                            <i style="padding-left:25%" class="fe fe-16 fe-check-circle"><span class="sr-only"></span></i>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="checknum" name="choice" onclick="setAll()" value="@item.UserId">
+                            </div>
                         </td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
+                        <td>@count</td>
+                        <td>@item.MemberName</td>
+                        <td>@item.Gender</td>
+                        <td>@item.UserId</td>
+                        @{
+                            if (item.是否有消費 == 1)
+                            {
+                                <td>
+                                    <i style="padding-left:25%" class="fe fe-16 fe-check-circle"><span class="sr-only"></span></i>
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                    </tr>
+
                 }
-            </tr>
 
+            }
         }
-
-    }
-}
+    </tbody>
+</table>
+<div class="modal-footer">
+    <input type="submit" value="確定" class="btn btn-primary btnSave btnAddmem" data-dismiss="modal" />
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+</div>
