@@ -222,7 +222,7 @@
                         var date = await response.text();
                         if (date == 1) {
                          $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackListPartial")", function () {
-                                    alert(message + "，寄信成功")
+                             alert(message + "，寄信成功")
                                     $('#dataTable-1').DataTable(
                                         {
                                             autoWidth: true,
