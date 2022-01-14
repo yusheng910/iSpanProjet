@@ -1,0 +1,29 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.NewsletterViewModel>
+
+@{ int count = 0;
+    foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="checknum" name="choice" onclick="setAll()" value="@item.UserId">
+                </div>
+            </td>
+            <td>@count</td>
+            <td>@item.MemberName</td>
+            <td>@item.Gender</td>
+            <td>@item.UserId</td>
+            @{
+                if(item.是否有消費==1)
+                {
+                    <td><i style="padding-left:25%" class="fe fe-16 fe-check-circle"><span class="sr-only"></span></i></td>
+                }
+                else
+                {
+                    <td></td>
+                }
+             }
+        </tr>
+    }
+}
