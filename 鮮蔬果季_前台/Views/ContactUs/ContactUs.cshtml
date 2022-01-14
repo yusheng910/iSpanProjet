@@ -66,7 +66,7 @@
             max-width: 450px;
             max-height: 1000px;
             resize: none;
-            align-items: center;
+            /*align-items: center;*/
         }
     </style>
 }
@@ -135,6 +135,7 @@
                             <div class="col-12" style="background-color: #FFF9E9">
                                 <button type="submit" id="submit" class="btn btn-success" align="center">傳送</button>
                             </div>
+                            <button type="button" class="btn btn-info btndemo">DEMO</button>
                         </div>
                     </form>
                 </div>
@@ -184,7 +185,12 @@
                 return false
             }
         })
-
+        $(document).on("click", ".btndemo", function () {
+            console.log("OK")
+            //$("#feedback1").val("11")
+            //$("#feedback2").val("12")
+            $("#FeedbackCommet").val("我想買小白菜請問有沒有賣?")
+        })
 
 
     </script>

@@ -35,10 +35,11 @@
             font-size:48px;
         }
     </style>
-
-
 }
 <!--==============================================================================================================================================================================================-->
+<div id="loader" hidden>
+    <img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+</div>
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">回應項目管理</h2>
@@ -234,17 +235,12 @@
                         }
                     }
                 });
-
         });
         $(document).on("click", ".btnEdit", function () {
             var FeedbackResponseID = $(this).next().val();
             console.log(FeedbackResponseID);
             $(".feedbackresponsebody").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail/")" + FeedbackResponseID)
         })
-       /* $("#btncredemo").click(function () {*/
-        //    console.log("ok")
-        //    $("#msg").val("你的意見我們收到了，感謝您的回覆，謝謝再聯絡!")
-        //})
         $(document).on("click", ".btncredemo", function () {
             console.log("ok")
             $("#msg").val("您的意見會赴我們已經收到，之後具體問題我們會請專員方忙處理。")
