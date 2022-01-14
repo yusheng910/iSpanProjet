@@ -1,4 +1,4 @@
-﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
+﻿@model List<鮮蔬果季_前台.ViewModels.NewsletterViewModel>
 
 @{
     ViewData["Title"] = "Newsletter";
@@ -7,6 +7,13 @@
     <link href="~/editormd/css/editormd.css" rel="stylesheet" />
     <link href="~/editormd/css/editormd.preview.css" rel="stylesheet" />
     <style>
+        .showMember:hover {
+            color: blueviolet;
+            cursor: pointer;
+        }
+        .showMember {
+            text-decoration:underline;
+        }
     </style>
 }
 <div class="row justify-content-center">
@@ -16,7 +23,7 @@
         <div class="card shadow" style="width:85%">
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
-                    <label @*for="example-email"*@ data-toggle="modal" data-target="#ModalAdd">收件者</label>
+                    <label @*for="example-email"*@ class="showMember" data-toggle="modal" data-target="#ModalAdd">收件者</label>
                     <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或使用下方選取鈕" style="width:60%">
                 </div>
                 <p class="card-text"></p>
@@ -75,64 +82,64 @@
 </div>
 <!-- Modal2 -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-dialog" style="max-width: 50%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalAddLabel">收件者</h5>
+                @*<div class="form-check form-check-inline" style="padding-left:2.5%">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="@ViewBag.email">
+                    <label class="form-check-label" for="inlineRadio1">查詢全部</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
+                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">查詢近一年有消費的使用者</label>
+                </div>*@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form name="CouponsAdd">
-                <div class="modal-body CreateBody">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="text-danger"></div>
-                            <input type="hidden" />
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" />
-                                <span class="text-danger"></span>
+            <!-- table -->
+            <table class="table datatables border-dark" id="dataTable-1">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width:100px">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="all" onclick="demo()" id="allcheck">
+                                <span style="color:white;">全選</span>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="0" />
-                                <span class="text-danger"></span>
+                        </th>
+                        <th>序號</th>
+                        <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().UserId)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().是否有消費)</th>
+                        @*<th>@Html.DisplayNameFor(model => model.First().CouponStartDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().CouponEndDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().CouponQuantityIssued)</th>
+                            <th>修改</th>*@
+                        @*<th>編輯</th>*@
+                    </tr>
+                </thead>
+                <tbody class="memlist">
+                    <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input checknum" onclick="setAll()" name="choice">
+                                <label class="custom-control-label" for="d1"></label>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="1" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" id="startDate" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" id="endDate" />
-                                <span class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"></label>
-                                <input class="form-control" min="1" value="1" />
-                                <span class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info btncredemo">DEMO</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
-                </div>
-            </form>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal-footer">
+                <input type="submit" value="確定" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
         </div>
     </div>
 </div>
@@ -141,6 +148,9 @@
     <script src="~/editormd/languages/zh-tw.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
+        $(document).on("click", ".showMember", function () {
+            $('.memlist').load("@Url.Content("~/BackstageNewsletterApi/MlistPartial")")
+        })
         $(function () {
             testEditor = editormd("test-editormd", {
                 width: "99%",
@@ -320,6 +330,7 @@
             $('.emailbox').val(text);
 
         });
+
         $('input[type=button]').click(function () {
             $(".test0").remove();
             $(".test1").attr("id", "test-editormd")
@@ -340,33 +351,6 @@
                     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                     imageUploadURL: "/BackstageNewsletterApi/UploadF/",
                 });
-                //$(document).on("click", ".btnsend", function () {
-                //    alert(testEditor.getHTML());
-                //})
-                //$(document).on("click", ".btnsend", async function (e) {
-                //    var sendemail = $('.emailbox').val();
-                //    var emailsubj = $('.emailsubject').val();
-                //    e.preventDefault();
-                //    Email.send({
-                //        Host: "smtp.elasticemail.com",
-                //        /* Host = "smtp.gmail.com",*/
-                //        /*Host: "sdryadl978188@gmail.com",*/
-                //        Port: 587,
-                //        SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
-                //        Username: "dryadl978188@gmail.com",
-                //        Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
-                //        /*To: `${email}`,*/
-                //        To: sendemail,
-                //        From: "dryadl978188@gmail.com",
-                //        Subject: emailsubj,
-                //        Body: testEditor.getHTML()
-                //    }).then(
-                //        alert("已傳送信件")
-
-                //    );
-                //console.log(sendemail);
-                //console.log(emailsubj);
-                //});
             });
             (function () {
                 var factory = function (exports) {
@@ -497,5 +481,25 @@
             })();
         })
 
+        //checkBOX全選
+        function demo() {
+            var allcheck = document.getElementById("allcheck");
+            var choice = document.getElementsByName("choice");
+            for (var i = 0; i < choice.length; i++) {
+                choice[i].checked = allcheck.checked;
+            }
+        }
+        function setAll() {
+            if (!$(".checknum").checked) {
+                $("#allcheck").prop("checked", false); // 子複選框某個不選擇，全選也被取消
+            }
+            var choicelength = $("input[type='checkbox'][class='checknum']").length;
+            var choiceselect = $("input[type='checkbox'][class='checknum']:checked").length;
+
+            if (choicelength == choiceselect) {
+                $("#allcheck").prop("checked", true);   // 子複選框全部部被選擇，全選也被選擇；1.對於HTML元素我們自己自定義的DOM屬性，在處理時，使用attr方法；2.對於HTML元素本身就帶有的固有屬性，在處理時，使用prop方法。
+            }
+
+        }
     </script>
 }
