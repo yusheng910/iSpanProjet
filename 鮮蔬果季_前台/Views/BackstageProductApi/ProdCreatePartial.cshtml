@@ -5,7 +5,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="ProductName" class="control-label"></label>
-            <input asp-for="ProductName" class="form-control" />
+            <input asp-for="ProductName" class="form-control prodname" />
             <span asp-validation-for="ProductName" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -98,17 +98,17 @@
         </div>
         <div class="form-group">
             <label asp-for="ProductCostPrice" class="control-label"></label>
-            <input asp-for="ProductCostPrice" oninput="if(value<0)value=0" class="form-control" />
+            <input asp-for="ProductCostPrice" oninput="if(value<0)value=0" class="form-control ProductCostPrice2" />
             <span asp-validation-for="ProductCostPrice" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ProductUnitsInStock" class="control-label"></label>
-            <input asp-for="ProductUnitsInStock" oninput="if(value<0)value=0" class="form-control" />
+            <input asp-for="ProductUnitsInStock" oninput="if(value<0)value=0" class="form-control ProductUnitsInStock2" />
             <span asp-validation-for="ProductUnitsInStock" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ProductSize" class="control-label"></label>
-            <input asp-for="ProductSize" class="form-control" />
+            <input asp-for="ProductSize" class="form-control ProductSize2" />
             <span asp-validation-for="ProductSize" class="text-danger"></span>
         </div>
         <div class="form-group">
