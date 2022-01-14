@@ -149,6 +149,10 @@
             object-fit: cover;
         }
 
+        div:focus{              @*針對有設定tabindex的div 點選後會變換樣式(樣式會停留在最後點選的樣式)*@
+            background-color: lightyellow;
+            color: darkred;
+        }
 
 
     </style>
@@ -183,7 +187,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <div class="分類圖片含標題大小">
+                <div class="分類圖片含標題大小"  tabindex="1">  @*對應上面的  div:focus 點選後會變換樣式*@
                     <a style="cursor:pointer" id="BlogTagDIY">
                         <p class="分類BOX標題">DIY體驗</p>
                         <div class="box">  @*產生動畫的類別框框*@
@@ -192,7 +196,7 @@
                     </a>
                 </div>
 
-                <div class="分類圖片含標題大小">
+                <div class="分類圖片含標題大小" tabindex="2">
                     <a style="cursor:pointer" id="BlogTagCuteAnimal">
                         <p class="分類BOX標題">可愛動物</p>
                         <div class="box">
@@ -201,7 +205,7 @@
                     </a>
                 </div>
 
-                <div class="分類圖片含標題大小">
+                <div class="分類圖片含標題大小" tabindex="3">
                     <a style="cursor:pointer" id="BlogTagLandscape">
                         <p class="分類BOX標題">絕美風景</p>
                         <div class="box">
@@ -210,7 +214,7 @@
                     </a>
                 </div>
 
-                <div class="分類圖片含標題大小">
+                <div class="分類圖片含標題大小" tabindex="4">
                     <a style="cursor:pointer" id="BlogTagCamping">
                         <p class="分類BOX標題">戶外露營</p>
                         <div class="box">
@@ -219,7 +223,7 @@
                     </a>
                 </div>
 
-                <div class="分類圖片含標題大小">
+                <div class="分類圖片含標題大小" tabindex="5">
                     <a style="cursor:pointer" id="BlogTagProfessionalClass">
                         <p class="分類BOX標題">專業課程</p>
                         <div class="box">
