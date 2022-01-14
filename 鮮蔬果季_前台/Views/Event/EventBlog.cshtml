@@ -71,8 +71,9 @@
         .分類圖片大小 {
             height: 177px;
             width: 210px;
-            object-fit:cover;
-            border-radius:10px;
+            object-fit: cover;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .分類圖片含標題大小 {
@@ -83,6 +84,7 @@
             float: left;
             border-radius: 10px;
             box-shadow: 3px 3px 9px #eeeeee;
+
         }
 
         .分類BOX標題 {
@@ -114,6 +116,42 @@
             font-family: Microsoft JhengHei
         }
 
+        .分類圖片大小 {
+            height: 177px;
+            width: 210px;
+            object-fit: cover;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+
+
+        @*以下為產生圖片ZoomIn的CSS*@
+        .box {
+            height: 177px;
+            width: 210px;
+            object-fit: cover;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        img {
+            transition: .5s;
+        }
+
+        .box:hover img {
+            transform: scale(1.2);
+        }
+
+        .cover-fit {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+
+
 
     </style>
 }
@@ -138,49 +176,6 @@
 <br />
 
 
-<!--<!DOCTYPE html>
-<html>
-<head>
-    <title>Contact Form</title>-->
-@*<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>*@
-<!--<script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-            // https://dashboard.emailjs.com/admin/integration
-            emailjs.init('user_AxtfPJFPKGSzH3FPntWuN');
-        })();
-    </script>
-    <script type="text/javascript">
-        window.onload = function () {
-            document.getElementById('contact-form').addEventListener('submit', function (event) {
-                event.preventDefault();
-                // generate a five digit number for the contact_number variable
-                this.contact_number.value = Math.random() * 100000 | 0;
-                // these IDs from the previous steps
-                emailjs.sendForm('contact_service', 'contact_form', this)
-                    .then(function () {
-                        console.log('SUCCESS!');
-                    }, function (error) {
-                        console.log('FAILED...', error);
-                    });
-            });
-        }
-    </script>
-</head>
-<body>
-    <form id="contact-form">
-        <input type="hidden" name="contact_number">
-
-        <label>Name</label>
-        <input type="text" name="user_name">
-        <label>Email</label>
-        <input type="email" name="user_email">
-        <label>Message</label>
-        <textarea name="message"></textarea>
-        <input type="submit" value="Send">
-    </form>
-</body>
-</html>-->
 
 
 
@@ -191,38 +186,47 @@
             <div class="col-lg-12">
 
                 <div class="分類圖片含標題大小">
-                    @*原本版(改成以下用PartialView) <a asp-area="" asp-controller="Event" asp-action="EventBlog" asp-route-id="1">*@
                     <a style="cursor:pointer" id="BlogTagDIY">
                         <p class="分類BOX標題">DIY體驗</p>
-                        <img class="分類圖片大小" src="~/assets/img/活動分類/diy.jpg" alt="">
+                        <div class="box">  @*產生動畫的類別框框*@
+                            <img class="分類圖片大小 " src="~/assets/img/活動分類/diy.jpg" alt="">
+                        </div>
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
                     <a style="cursor:pointer" id="BlogTagCuteAnimal">
                         <p class="分類BOX標題">可愛動物</p>
-                        <img class="分類圖片大小" src="~/assets/img/活動分類/可愛動物.jpg" alt="">
+                        <div class="box">
+                            <img class="分類圖片大小" src="~/assets/img/活動分類/可愛動物.jpg" alt="">
+                        </div>
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
                     <a style="cursor:pointer" id="BlogTagLandscape">
                         <p class="分類BOX標題">絕美風景</p>
-                        <img class="分類圖片大小" src="~/assets/img/活動分類/風景.jpg" alt="">
+                        <div class="box">
+                            <img class="分類圖片大小" src="~/assets/img/活動分類/風景.jpg" alt="">
+                        </div>
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
                     <a style="cursor:pointer" id="BlogTagCamping">
                         <p class="分類BOX標題">戶外露營</p>
-                        <img class="分類圖片大小" src="~/assets/img/活動分類/露營.jpg" alt="">
+                        <div class="box">
+                            <img class="分類圖片大小" src="~/assets/img/活動分類/露營.jpg" alt="">
+                        </div>
                     </a>
                 </div>
 
                 <div class="分類圖片含標題大小">
                     <a style="cursor:pointer" id="BlogTagProfessionalClass">
                         <p class="分類BOX標題">專業課程</p>
-                        <img class="分類圖片大小" src="~/assets/img/活動分類/課程.jpg" alt="">
+                        <div class="box">
+                            <img class="分類圖片大小" src="~/assets/img/活動分類/課程.jpg" alt="">
+                        </div>
                     </a>
                 </div>
 
@@ -266,24 +270,36 @@
                         <div class="single-product-details">
                             @if (item.剩餘名額 <= 0)
                             {
-                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName) <span style="color:red;font-weight:bolder">(額滿)</span></h2> @*活動項目標題*@
+                                <h2>
+                                    @Html.DisplayFor(modelitem => item.Event.EventName)
+                                    <span style="color:red;font-weight:bolder">(額滿)</span>
+                                </h2> @*活動項目標題*@
                             }
-                            else if (item.剩餘名額 <=10)
+                            else if (item.剩餘名額 <= 10)
                             {
-                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName) <span style="color:red;font-weight:bolder">(即將額滿)</span></h2> @*活動項目標題*@
+                                <h2>
+                                    @Html.DisplayFor(modelitem => item.Event.EventName)
+                                    <span style="color:red;font-weight:bolder">(即將額滿)</span>
+                                </h2> @*活動項目標題*@
                             }
                             else
                             {
                                 <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2> @*活動項目標題*@
                             }
 
-                            <h5>
-                                <del>   @(item.Event.EventPrice*1.2) </del> @*原價=SQL定價*1.2*@
-                                @Html.DisplayFor(modelitem => item.Event.EventPrice)  / 人
-                            </h5>
+
                             <p class="available-stock pp">
-                                <span> @*@item.City.CityName ,*@ 現場收費 <a href="#"></a></span>
+                                <span style="float:left">
+                                    現場收費 :
+
+                                    <del  style="font-size:22px; margin-right:6px"> @(item.Event.EventPrice*1.2) </del> @*原價=SQL定價*1.2*@
+                                    <span style="font-size: 26px; color: red; ">  @Html.DisplayFor(modelitem => item.Event.EventPrice)  </span>
+                                    <span>/ 人</span>
+
+                                </span>
                             </p>
+
+
                             <p class="available-stock pp">
                                 @if (item.剩餘名額 <= 0)
                                 {
@@ -306,36 +322,36 @@
                                     <span> | 剩餘名額：</span>
                                     <span style="font-weight: bolder; font-size: 22px">@item.剩餘名額</span>
                                 }
-                              </p>
-                                <div>
-                                    <span class="glyphicon glyphicon-home">
-                                        <i class="fas fa-map-marker-alt" style="padding-right:10px">
-                                        </i>@item.Event.EventLocation
-                                    </span>
-                                </div>
-                                @*<div>
-                <span class="date">
-                    <i class="fas fa-calendar" style="padding-right:10px">
-                    </i>@ViewBag.活動數量
-                </span>
-            </div>*@
-                                <div>
+                            </p>
+                            <div  style="margin:8px 0px">
+                                <span class="glyphicon glyphicon-home">
+                                    <i class="fas fa-map-marker-alt" style="padding-right:10px">
+                                    </i>@item.Event.EventLocation
+                                </span>
+                            </div>
+                            @*<div>
                                     <span class="date">
-                                        <i class="fas fa-calendar-alt" style="padding-right:10px">
-                                        </i>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                        <i class="fas fa-calendar" style="padding-right:10px">
+                                        </i>@ViewBag.活動數量
                                     </span>
+                                </div>*@
+                            <div>
+                                <span class="date">
+                                    <i class="fas fa-calendar-alt" style="padding-right:10px">
+                                    </i>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                </span>
+                            </div>
+                            <h4>@item.Event.Subtitle </h4>
+                            <div class="pp">
+                                <p>@item.活動描述去除html </p>
+                            </div>
+                            <div class="price-box-bar">
+                                <div class="cart-and-bay-btn">
+                                    <button type="button" class="btn btn-success" style="margin-top :20px">
+                                        @Html.ActionLink("我要報名>", "EventSignUp_1", new { id = item.Event.EventId })
+                                    </button>
                                 </div>
-                                <h4>@item.Event.Subtitle </h4>
-                                <div class="pp">
-                                    <p>@item.活動描述去除html </p>
-                                </div>
-                                <div class="price-box-bar">
-                                    <div class="cart-and-bay-btn">
-                                        <button type="button" class="btn btn-success" style="margin-top :20px">
-                                            @Html.ActionLink("我要報名>", "EventSignUp_1", new { id = item.Event.EventId })
-                                        </button>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
 
                     </div>

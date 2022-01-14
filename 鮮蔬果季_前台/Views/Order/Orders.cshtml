@@ -135,12 +135,13 @@
                     <table class="table table-striped mb-0">
                         <thead>
                             <tr>
-                                <th>訂單號</th>
-                                <th>下單時間</th>
-                                <th>出貨時間</th>
-                                <th>寄送地址</th>
+                                <th style="width:10%;">訂單號</th>
+                                <th style="width:20%;">下單時間</th>
+                                <th style="width:20%;">出貨時間</th>
+                                <th style="width:20%;">寄送地址</th>
+                                <th style="width:10%;">付款方式</th>
                                 <th style="width:10%; margin-left:40px;">總價</th>
-                                <th class="last-th">訂單細項</th>
+                                <th style="width:10%;" class="last-th">訂單細項</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
@@ -165,6 +166,7 @@
                                             }
                                         }
                                         <td>@item.ShippedTo</td>
+                                        <td>@item.paymethod.Method</td>
                                         <td class="price-pr">
                                             <p>NT$ @item.總價</p>
                                         </td>

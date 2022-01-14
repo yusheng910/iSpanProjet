@@ -87,6 +87,32 @@
             color:#013328
             }
 
+
+        @*以下為產生圖片ZoomIn的CSS*@
+        .box {
+            width: 350px;
+            height: 200px;
+            object-fit: cover;
+            overflow: hidden;
+            border-radius: 5px
+        }
+
+        img {
+            transition: .5s;
+        }
+
+        .box:hover img {
+            transform: scale(1.2);
+        }
+
+        .cover-fit {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+
     </style>
 }
 
@@ -141,7 +167,7 @@
                     {
                         <div class="col-lg-4 col-md-6 blogSize">
                             <div class="single-latest-news">
-                                <div>
+                                <div  class="box">
                                     <a asp-area="" asp-controller="Partner" asp-action="PartnerBlog_1" asp-route-id="@item.BlogDetail.BlogDetailId">
                                         <img class="imgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">  @*圖片超連結*@
                                     </a>
