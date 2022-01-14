@@ -87,13 +87,29 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-        public List<IFormFile> photo{ get; set; }           //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
+        public Member _member = null;
+        public Member member
+        {
+            get
+            {
+                if (_member == null)
+                    _member = new Member();
+                return _member;
+            }
+            set
+            {
+                _member = value;
+            }
+        }
+
+        public List<IFormFile> photo { get; set; }           //不知道運作,目前是用在後臺活動照片寫入  ("~/BackstageEventAPI/PhotoLoad")
 
 
         //定義欄位名稱  (DisplayName會需要using)
         //此處設定DisplayName後, 在view裡面的asp-for="SQL欄位名稱",就會帶出以下DisplayName的設定
         [DisplayName("活動名稱")]         
         public string EventName { get { return this.Event.EventName; } set { this.Event.EventName = value;  } }
+        public string EventName2 { get; set; }
         
         [DisplayName("活動ID")]
         public int EventId { get { return this.Event.EventId; } set { this.Event.EventId = value; } }

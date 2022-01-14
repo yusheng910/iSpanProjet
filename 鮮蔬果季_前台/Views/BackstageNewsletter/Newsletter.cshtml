@@ -6,7 +6,6 @@
 @section Styles{
     <link href="~/editormd/css/editormd.css" rel="stylesheet" />
     <link href="~/editormd/css/editormd.preview.css" rel="stylesheet" />
-    <link href="~/editormd/css/bootstrap.min.css" rel="stylesheet" />
     <style>
     </style>
 }
@@ -17,7 +16,7 @@
         <div class="card shadow" style="width:85%">
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
-                    <label for="example-email">收件者</label>
+                    <label @*for="example-email"*@ data-toggle="modal" data-target="#ModalAdd">收件者</label>
                     <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或使用下方選取鈕" style="width:60%">
                 </div>
                 <p class="card-text"></p>
@@ -27,16 +26,44 @@
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="@ViewBag.demo">
-                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO</label>
+                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO-EMAIL</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio3" value="DEMO">
                 </div>
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label>電子報主旨</label>
-                    <input type="text"  class="form-control emailsubject" placeholder="輸入電子報主旨" style="width:60%">
+                    <input type="text" class="form-control emailsubject" placeholder="輸入電子報主旨" style="width:60%">
                 </div>
                 <p class="card-text"></p>
                 <p class="card-text"></p>
-                <div id="test-editormd">
+                <div id="test-editormd" class="test0">
                     <textarea id="articleContent" style="display: none;"></textarea>
+                </div>
+                <div id="" class="test1">
+                    <textarea id="articleContent" style="display: none;">
+# [鮮蔬果季]優惠報報
+![](https://upload.cc/i1/2022/01/13/8AIG5z.png)
+
+# 親愛的會員您好 :heart:
+
+過年就要到了呢！
+因此在此提前送您新春優惠券，提前祝您虎年行大運 :clap:
+
+[![](https://upload.cc/i1/2022/01/13/QwTcDj.jpg)](https://localhost:44344/Coupons/CouponsList)
+
+------------
+
+
+
+若您不想要收到優惠內容，請[按我](https://localhost:44344/Coupons/CouponsList "按我")
+
+------------
+
+
+
+![](https://upload.cc/i1/2022/01/13/TghUof.png)
+</textarea>
                 </div>
                 <div style="text-align:center">
                     <button type="button" class="btn btn-primary btnsend" style="width:99%">寄送</button>
@@ -46,9 +73,70 @@
         </div>
     </div>
 </div>
-
+<!-- Modal2 -->
+<div class="modal fade" id="ModalAdd" tabindex="-1" aria-labelledby="ModalAddLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalAddLabel">收件者</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="CouponsAdd">
+                <div class="modal-body CreateBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-danger"></div>
+                            <input type="hidden" />
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="0" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" id="startDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" id="endDate" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <input class="form-control" min="1" value="1" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btncredemo">DEMO</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <input type="submit" value="新增" class="btn btn-primary btnSave btnAddSave" data-dismiss="modal" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @section Scripts{
-    <script src="~/js/jquery-3.6.0.min.js"></script>
     <script src="~/editormd/js/editormd.js"></script>
     <script src="~/editormd/languages/zh-tw.js"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -121,21 +209,21 @@
                         "list-ul": "無序列表",
                         "list-ol": "有序列表",
                         hr: "橫線",
-                        link: "鏈結",
-                        "reference-link": "引用鏈結",
-                        image: "圖片",
+                        link: "超連結",
+                        "reference-link": "引用超連結",
+                        image: "加入圖片",
                         code: "行內代碼",
                         "preformatted-text": "預格式文本 / 代碼塊（縮進風格）",
                         "code-block": "代碼塊（多語言風格）",
-                        table: "添加表格",
-                        datetime: "日期時間",
+                        table: "加入表格",
+                        datetime: "加入日期時間",
                         emoji: "Emoji 表情",
                         "html-entities": "HTML 實體字符",
                         pagebreak: "插入分頁符",
                         watch: "關閉實時預覽",
                         unwatch: "開啟實時預覽",
-                        preview: "全窗口預覽HTML（按 Shift + ESC 退出）",
-                        fullscreen: "全屏（按 ESC 退出）",
+                        preview: "全視窗預覽HTML（按 Shift + ESC 退出）",
+                        fullscreen: "全螢幕（按 ESC 退出）",
                         clear: "清空",
                         search: "搜尋",
                         help: "使用幫助",
@@ -148,25 +236,25 @@
                     },
                     dialog: {
                         link: {
-                            title: "添加鏈結",
-                            url: "鏈結地址",
-                            urlTitle: "鏈結標題",
-                            urlEmpty: "錯誤：請填寫鏈結地址。"
+                            title: "添加超連結",
+                            url: "連結地址",
+                            urlTitle: "連結標題",
+                            urlEmpty: "錯誤：請填寫超連結地址。"
                         },
                         referenceLink: {
-                            title: "添加引用鏈結",
+                            title: "添加引用超連結",
                             name: "引用名稱",
-                            url: "鏈結地址",
-                            urlId: "鏈結ID",
-                            urlTitle: "鏈結標題",
-                            nameEmpty: "錯誤：引用鏈結的名稱不能為空。",
-                            idEmpty: "錯誤：請填寫引用鏈結的ID。",
-                            urlEmpty: "錯誤：請填寫引用鏈結的URL地址。"
+                            url: "連結地址",
+                            urlId: "連結ID",
+                            urlTitle: "連結標題",
+                            nameEmpty: "錯誤：引用超連結的名稱不能為空。",
+                            idEmpty: "錯誤：請填寫引用超連結的ID。",
+                            urlEmpty: "錯誤：請填寫引用超連結的URL地址。"
                         },
                         image: {
                             title: "添加圖片",
                             url: "圖片地址",
-                            link: "圖片鏈結",
+                            link: "圖片連結",
                             alt: "圖片描述",
                             uploadButton: "本地上傳",
                             imageURLEmpty: "錯誤：圖片地址不能為空。",
@@ -193,6 +281,7 @@
                         help: {
                             title: "使用幫助"
                         }
+
                     }
                 };
 
@@ -213,7 +302,7 @@
 
                 } else { // for Sea.js
                     define(function (require) {
-                        var editormd = require("../editormd");
+                        var editormd = require("~/editormd");
                         factory(editormd);
                     });
                 }
@@ -224,13 +313,189 @@
 
         })();
 
+
+
         $('input[type=radio]').change(function () {
             var text = $(this).val();
             $('.emailbox').val(text);
+
         });
+        $('input[type=button]').click(function () {
+            $(".test0").remove();
+            $(".test1").attr("id", "test-editormd")
 
+            $('.emailsubject').val("[鮮蔬果季]優惠報報");
+            $(function () {
+                testEditor = editormd("test-editormd", {
+                    width: "99%",
+                    height: 640,
+                    syncScrolling: "single",
+                    path: "/editormd/lib/",
+                    saveHTMLToTextarea: true,
+                    emoji: true,
+                    //theme: "gray",//工具栏主题
+                    //previewTheme: "dark",//预览主题
+                    //editorTheme: "pastel-on-dark",//编辑主题
+                    imageUpload: true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL: "/BackstageNewsletterApi/UploadF/",
+                });
+                //$(document).on("click", ".btnsend", function () {
+                //    alert(testEditor.getHTML());
+                //})
+                //$(document).on("click", ".btnsend", async function (e) {
+                //    var sendemail = $('.emailbox').val();
+                //    var emailsubj = $('.emailsubject').val();
+                //    e.preventDefault();
+                //    Email.send({
+                //        Host: "smtp.elasticemail.com",
+                //        /* Host = "smtp.gmail.com",*/
+                //        /*Host: "sdryadl978188@gmail.com",*/
+                //        Port: 587,
+                //        SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                //        Username: "dryadl978188@gmail.com",
+                //        Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
+                //        /*To: `${email}`,*/
+                //        To: sendemail,
+                //        From: "dryadl978188@gmail.com",
+                //        Subject: emailsubj,
+                //        Body: testEditor.getHTML()
+                //    }).then(
+                //        alert("已傳送信件")
 
-        //console.log($(".editormd-file-input").find("input[name=editormd-image-file]"))
-        
+                //    );
+                //console.log(sendemail);
+                //console.log(emailsubj);
+                //});
+            });
+            (function () {
+                var factory = function (exports) {
+                    var lang = {
+                        name: "zh-tw",
+                        description: "開源在線Markdown編輯器<br/>Open source online Markdown editor.",
+                        tocTitle: "目錄",
+                        toolbar: {
+                            undo: "還原（Ctrl+Z）",
+                            redo: "重做（Ctrl+Y）",
+                            bold: "粗體",
+                            del: "刪除線",
+                            italic: "斜體",
+                            quote: "引用",
+                            ucwords: "將所選的每個單詞首字母轉成大寫",
+                            uppercase: "將所選文本轉成大寫",
+                            lowercase: "將所選文本轉成小寫",
+                            h1: "標題1",
+                            h2: "標題2",
+                            h3: "標題3",
+                            h4: "標題4",
+                            h5: "標題5",
+                            h6: "標題6",
+                            "list-ul": "無序列表",
+                            "list-ol": "有序列表",
+                            hr: "橫線",
+                            link: "超連結",
+                            "reference-link": "引用超連結",
+                            image: "加入圖片",
+                            code: "行內代碼",
+                            "preformatted-text": "預格式文本 / 代碼塊（縮進風格）",
+                            "code-block": "代碼塊（多語言風格）",
+                            table: "加入表格",
+                            datetime: "加入日期時間",
+                            emoji: "Emoji 表情",
+                            "html-entities": "HTML 實體字符",
+                            pagebreak: "插入分頁符",
+                            watch: "關閉實時預覽",
+                            unwatch: "開啟實時預覽",
+                            preview: "全視窗預覽HTML（按 Shift + ESC 退出）",
+                            fullscreen: "全螢幕（按 ESC 退出）",
+                            clear: "清空",
+                            search: "搜尋",
+                            help: "使用幫助",
+                            info: "關於" + exports.title
+                        },
+                        buttons: {
+                            enter: "確定",
+                            cancel: "取消",
+                            close: "關閉"
+                        },
+                        dialog: {
+                            link: {
+                                title: "添加超連結",
+                                url: "連結地址",
+                                urlTitle: "連結標題",
+                                urlEmpty: "錯誤：請填寫超連結地址。"
+                            },
+                            referenceLink: {
+                                title: "添加引用超連結",
+                                name: "引用名稱",
+                                url: "連結地址",
+                                urlId: "連結ID",
+                                urlTitle: "連結標題",
+                                nameEmpty: "錯誤：引用超連結的名稱不能為空。",
+                                idEmpty: "錯誤：請填寫引用超連結的ID。",
+                                urlEmpty: "錯誤：請填寫引用超連結的URL地址。"
+                            },
+                            image: {
+                                title: "添加圖片",
+                                url: "圖片地址",
+                                link: "圖片連結",
+                                alt: "圖片描述",
+                                uploadButton: "本地上傳",
+                                imageURLEmpty: "錯誤：圖片地址不能為空。",
+                                uploadFileEmpty: "錯誤：上傳的圖片不能為空！",
+                                formatNotAllowed: "錯誤：只允許上傳圖片文件，允許上傳的圖片文件格式有："
+                            },
+                            preformattedText: {
+                                title: "添加預格式文本或代碼塊",
+                                emptyAlert: "錯誤：請填寫預格式文本或代碼的內容。",
+                                placeholder: "coding now...."
+                            },
+                            codeBlock: {
+                                title: "添加代碼塊",
+                                selectLabel: "代碼語言：",
+                                selectDefaultText: "請語言代碼語言",
+                                otherLanguage: "其他語言",
+                                unselectedLanguageAlert: "錯誤：請選擇代碼所屬的語言類型。",
+                                codeEmptyAlert: "錯誤：請填寫代碼內容。",
+                                placeholder: "coding now...."
+                            },
+                            htmlEntities: {
+                                title: "HTML實體字符"
+                            },
+                            help: {
+                                title: "使用幫助"
+                            }
+                        }
+                    };
+
+                    exports.defaults.lang = lang;
+                };
+
+                // CommonJS/Node.js
+                if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
+                    module.exports = factory;
+                }
+                else if (typeof define === "function")  // AMD/CMD/Sea.js
+                {
+                    if (define.amd) { // for Require.js
+
+                        define(["editormd"], function (editormd) {
+                            factory(editormd);
+                        });
+
+                    } else { // for Sea.js
+                        define(function (require) {
+                            var editormd = require("../editormd");
+                            factory(editormd);
+                        });
+                    }
+                }
+                else {
+                    factory(window.editormd);
+                }
+
+            })();
+        })
+
     </script>
 }

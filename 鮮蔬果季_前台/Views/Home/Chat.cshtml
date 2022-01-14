@@ -17,8 +17,8 @@
             <div class="msger-header-title">
                 <i class="fas fa-comment-alt"></i>    群組：
                 <select id="group" class="show-tick form-control">
-                    <option>農友產品</option>
                     <option>農友活動</option>
+                    <option>農友產品</option>
                 </select>
                 @*<button type="button" id="addGroupBtn">進入群組</button>*@
                 <input id="oldgroup" type="hidden" value="尚未進入">
@@ -37,26 +37,11 @@
 
         <div class="msger-inputarea">
             <input type="text" class="msger-input" id="msg" placeholder="說些什麼吧～">
+            <button type="button" id="demo1" class="msger-send-btn">demo1</button>
+            <button type="button" id="demo2" class="msger-send-btn">demo2</button>
             <button type="button" id="submitGroupBtn" class="msger-send-btn">發送訊息</button>
         </div>
     </section>
-    @*  <select id="group" class="show-tick form-control">
-            <option>農友活動</option>
-            <option>農友產品</option>
-        </select>
-        <input id="oldgroup" type="hidden" value="">
-        <button type="button" id="addGroupBtn">加入群組</button>
-        <br>
-        姓名：
-        <input id="name" type="text" value="@UserLogin.member.MemberName">
-        <br>
-        訊息
-        <input id="msg" type="text">
-        <br>
-        <button type="Button" id="submitGroupBtn">送出給群組</button>
-        <button type="Button" id="submitAllBtn">送出給所有人</button>
-        <br>
-        <div id="msgDiv"></div>*@
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/jquery-3.6.0.min.js"></script>
 
@@ -185,6 +170,15 @@
             li.textContent = msg;
             document.getElementById("msgDiv").appendChild(li);
         });
+
+        document.getElementById("demo1").addEventListener("click", function (e) {
+            document.getElementById("msg").value ="大家好，請問最近有什麼推薦的產品嗎？";
+        })
+        document.getElementById("demo2").addEventListener("click", function (e) {
+            document.getElementById("msg").value = "我覺得大白菜不錯呦，記得可以先拿優惠券後再購買哦。";
+        })
+
+
     </script>
 
 </body>

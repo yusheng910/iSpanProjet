@@ -135,11 +135,56 @@ namespace 鮮蔬果季_前台.Controllers
         }
 
 
+
+
         public IActionResult BlogCreatePartial()
         {
+            var 共應商 = db.Suppliers.ToList();
+            ViewBag.AllSupp = 共應商;
 
             return PartialView();
         }
+        [HttpPost]
+        public IActionResult BlogCreatePartial(BlogDetailListViewModel BlogCreateForm)   //回傳名稱要使用form的name同名
+        {
+            var supid = db.Suppliers.FirstOrDefault(a => a.SupplierName == BlogCreateForm.SupplierName);
+
+
+            BlogDetail  部落格新增資料  = new BlogDetail()
+            {
+
+                Title= BlogCreateForm.Title,
+                SupplierId = supid.SupplierId,
+                Subtitle = BlogCreateForm.Subtitle,
+                Maintext = BlogCreateForm.Maintext,
+                PublishedDate = DateTime.Now,
+                Label = BlogCreateForm.Label,
+
+            };
+            db.Add(部落格新增資料);
+            db.SaveChanges();
+
+            if (BlogCreateForm.photo != null)
+            {
+                string photoName = Guid.NewGuid().ToString() + ".jpg";
+                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/農友部落格照/" + photoName);
+                string oldfilePath = Path.Combine(_hostingEnvironment.WebRootPath, "images/農友部落格照/" + 部落格新增資料.PhotoPath);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))//創造新圖片,如果已存在就覆寫
+                {
+                    BlogCreateForm.photo.CopyTo(fileStream);//上傳指令
+                    部落格新增資料.PhotoPath = photoName;
+                }
+                db.SaveChanges();
+            }
+
+            return Content("1");           //待解決,如何回到活動後台首頁,同時回傳Context
+        }
+
+
+
+
+
 
 
 

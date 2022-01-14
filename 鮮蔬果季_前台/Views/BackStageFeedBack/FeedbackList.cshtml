@@ -9,6 +9,7 @@
         .dropdown-item {
             padding-left: 5px;
         }
+
             .dropdown-item:focus {
                 background-color: transparent;
             }
@@ -17,6 +18,7 @@
                 background-color: transparent;
                 color: darkcyan;
             }
+
         .btnAdd {
             font-size: 16px;
             padding: 10px 20px 8px 16px;
@@ -29,11 +31,15 @@
         .control-label {
             font-weight: bold;
         }
+        h2{
+            font-size:48px;
+        }
     </style>
-
-
 }
 <!--==============================================================================================================================================================================================-->
+<div id="loader" hidden>
+    <img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+</div>
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">回應項目管理</h2>
@@ -67,10 +73,17 @@
                                         count++;
                                         <tr>
                                             <td>@count</td>
-                                            <td>@item.feedbackResponse.OrderDetailId</td>
+                                            <td>
+                                                @item.feedbackResponse.OrderDetailId
+                                                <input type="hidden" class="orderdetailid" value="@item.feedbackResponse.OrderDetailId">
+                                            </td>
+
                                             <td>@item.member.MemberName</td>
                                             <td>@item.member.UserId</td>
-                                            <td>@item.product.ProductName</td>
+                                            <td>
+                                                @item.product.ProductName
+                                                <input type="hidden" class="productname" value="@item.product.ProductName">
+                                            </td>
                                             <td>@item.supplier.SupplierName</td>
                                             <td>@item.FeedbackName</td>
                                             <td>@item.FeedbackComment</td>
@@ -95,8 +108,7 @@
                                                         請盡快回覆
                                                     </button>
                                                     <input type="hidden" class="FeedbackResponseID" value="@item.feedbackResponse.FeedbackResponseId" />
-                                                    <input type="hidden" class="MemberName" value="@item.MemberName" />
-                                                   
+
                                                 }
                                             </td>
                                         </tr>
@@ -174,9 +186,33 @@
                 //From: "freshveg132@gmail.com",
                 //port: "25",
                 Subject:"意見回覆信函",
-                Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername") + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
-                    + "<br>" + "關於您提到" + $("#feedbackName")  + "<br>" + "<br>"
-                    + $("#msg").val() + "<br>" + "<br>" + "<br>" + "<br>"+"         "+"鮮蔬果季團隊感謝您",
+                //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的會員你好" +  "<br>"
+                //    + "<br>" + $("#msg").val()
+                //    + "<br>" + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您"+"</h2>",
+                //Body: "<h2>" + "鮮蔬果季客服中心" + "</h2>" + "親愛的用戶" + "<strong>" + $("#membername").val() + "</strong>" + "  " + "先生/小姐" + "，您好!" + "<br>"
+                //    + "<br>" + "關於您提到訂單編號:" + "<strong>" + $(".orderdetailid").val()+ "</strong>"
+                //    + "<br>" + "產品名:" + "<strong>" + $(".productname").val() + "</strong>"
+                //    + "<br>" + "出現了" + "<strong>" + $("#feedbackName").val() + "</strong>"+"的問題"
+                //    + "<br>" + "<br>"
+                //    + $("#msg").val()
+                //    + "<br>" + "<br>" + "<br>" + "<h2>" + "鮮蔬果季團隊感謝您" + "</h2> "
+                //Body:"<h2 style='color: #429416; font-size: 48px;'>" + "鮮蔬果季客服中心" + "</h2>"
+                //    +"<h3 style='font-size: 24px'>" + "親愛的用戶:" + "</h3> " + "<strong class='name'  style='color: #947322; font-size: 24px; '>" + $("#membername").val() +"</strong> "
+                //    +"<h3 style='font-size: 24px;'>" + "關於您提到訂單編號:" + "</h3>" + "<strong style='color: #FFB042; font-size: 24px;'>" + $(".orderdetailid").val() + "</strong>"
+                //    +"<h3 style='font-size: 24px;'>" + "產品名:" + "</h3>" + "<strong style='color: #FFB042; font-size: 24px;'>" + $(".productname").val()  + "</strong>"
+                //    +"<br>" + "<h3 style='font-size: 24px;'>" + "問題項目:" + "</h3>" + "<strong style='color: #FFB042; font-size: 24px;'>" + $("#feedbackName").val() + "</strong>"
+                //    +"<h3 style='font-size: 24px;'>" + "感謝您的提出問題，" + "</h3>"
+                //    +"<strong style='font-size: 24px;'>" + $("#msg").val() + "</strong>"
+                //    + "<br>" + "<h2 style='color: #429416; font-size: 48px;' >" + "鮮蔬果季團隊感謝您" + "</h2>"
+                 Body:"<h2 style='color: #429416; font-size: 48px;'>" + "鮮蔬果季客服中心" + "</h2>"
+                     + "<strong class='name'  style='color: #947322; font-size: 24px; '>" + "親愛的用戶:" + $("#membername").val()+"</strong> "
+                     +"<br>"
+                     +"<strong style='color: #FFB042; font-size: 24px;'>" + "訂單編號:"  + $(".orderdetailid").val()+"|" + "</strong>"
+                     +"<strong style='color: #FFB042; font-size: 24px;'>" + "產品:" + $(".productname").val()+"|"+ "</strong>"
+                     +"<strong style='color: #FFB042; font-size: 24px;'>" + "問題:" + $("#feedbackName").val() + "</strong>"
+                     +"<h3 style='font-size: 24px;'>" + "感謝您的提出問題，"+"</h3>"
+                     +"<strong style='font-size: 24px;'>" + $("#msg").val() + "</strong>"
+                     +"<br>" + "<h2 style='color: #429416; font-size: 48px;' >" + "鮮蔬果季團隊感謝您" + "</h2>"
             })
 
                 .then(async function (message) {
@@ -199,17 +235,12 @@
                         }
                     }
                 });
-
         });
         $(document).on("click", ".btnEdit", function () {
             var FeedbackResponseID = $(this).next().val();
             console.log(FeedbackResponseID);
             $(".feedbackresponsebody").load("@Url.Content("~/BackStageFeedBack/FeedbackDetailPartail/")" + FeedbackResponseID)
         })
-       /* $("#btncredemo").click(function () {*/
-        //    console.log("ok")
-        //    $("#msg").val("你的意見我們收到了，感謝您的回覆，謝謝再聯絡!")
-        //})
         $(document).on("click", ".btncredemo", function () {
             console.log("ok")
             $("#msg").val("您的意見會赴我們已經收到，之後具體問題我們會請專員方忙處理。")

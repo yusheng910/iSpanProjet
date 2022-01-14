@@ -22,8 +22,6 @@ namespace 鮮蔬果季_前台.Controllers
             db = dbContext;
         }
 
-
-
         public IActionResult PhotoLoad(EventListViewModel EventEdit)
         {
             //如果該產品資料庫有無商品照片，會移除
@@ -58,6 +56,26 @@ namespace 鮮蔬果季_前台.Controllers
             return Content("1");
         }
 
+        //================= 參加活動會員明細 =================
+        public IActionResult EventParticipantModalPartial(int id)
+        {
+            List<EventListViewModel> 參加單一活動會員列表 = new List<EventListViewModel>();
+            var 所有參加活動會員 = (from er in db.EventRegistrations
+                          where er.EventId == id
+                          orderby er.Member.MemberId
+                          select new { er, er.Event ,er.Member}).ToList();
+            foreach(var item in 所有參加活動會員)
+            {
+                參加單一活動會員列表.Add(new EventListViewModel()
+                {
+                    member = item.er.Member,
+                    EventName2 =item.er.Event.EventName,
+                    EventParticipantCap = item.er.Event.EventParticipantCap,
+                    EventRegistration = item.er
+                });
+            }
+            return PartialView(參加單一活動會員列表);
+        }
 
 
         public IActionResult imgLoad(int id)         //此處為獨立的view (同名稱的view才能連接到)
@@ -107,26 +125,6 @@ namespace 鮮蔬果季_前台.Controllers
             db.SaveChanges();
             return Content("1");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public IActionResult Index()
         {

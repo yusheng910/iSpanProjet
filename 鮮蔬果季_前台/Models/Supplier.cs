@@ -9,6 +9,7 @@ namespace 鮮蔬果季_前台.Models
     {
         public Supplier()
         {
+            BlogDetails = new HashSet<BlogDetail>();
             Events = new HashSet<Event>();
             MyFavorites = new HashSet<MyFavorite>();
             Products = new HashSet<Product>();
@@ -25,6 +26,7 @@ namespace 鮮蔬果季_前台.Models
         public string SupplierPassword { get; set; }
 
         public virtual City City { get; set; }
+        public virtual ICollection<BlogDetail> BlogDetails { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<MyFavorite> MyFavorites { get; set; }
         public virtual ICollection<Product> Products { get; set; }

@@ -438,7 +438,7 @@
             let userCheck = await response.text();
             console.log(userCheck)
             if (userCheck == 1) {
-                window.open('@Url.Content("~/Home/Chat")', "廣場聊天室", config = "height=720, width=500, toolbar=none, menubar=none, scrollbars=none, resizable=none, location=none, status=none")
+                window.open('@Url.Content("~/Home/Chat")', "廣場聊天室", config = "height=720, width=600, toolbar=none, menubar=none, scrollbars=none, resizable=none, location=none, status=none")
             }
             else if (userCheck == 0) {
                 // 創建事件物件

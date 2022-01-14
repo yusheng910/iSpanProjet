@@ -7,6 +7,14 @@
 
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
+    <style>
+        .img-fluid{
+            width:80px;
+            height:80px;
+            object-fit:cover;
+        }
+    </style>
+
 }
 
 <div class="row justify-content-center">
@@ -58,7 +66,11 @@
                                             <td>@item.Event.EventName</td>
                                             <td>@item.Event.Supplier.SupplierName</td>
                                             <td>@item.Event.EventParticipantCap</td>
-                                            <td>@item.已報名人數</td>    @*目前不會帶出值*@
+                                            <td>
+                                                @item.已報名人數
+                                                <button style="float:right;" type="button" class="btn btn-primary btnDetail" data-toggle="modal" data-target="#detailModal">查看</button>
+                                                <input type="hidden" class="eventid" value="@item.EventId" />
+                                            </td>
                                             <td>@item.Event.EventLocation</td>
                                             <td>@item.Event.EventPrice</td>
                                             <td>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd HH:mm")</td>
@@ -85,6 +97,25 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
+
+<!-- Modal 參加活動會員列表-->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">參加會員</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body memberList">
+                <!--Modal PartialView-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Modal 修改-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 1000px;">
@@ -124,8 +155,6 @@
                     [16, 32, 64, "All"]
                 ]
             });
-
-
 
             //開啟修改的PartialView
            $(document).on("click", ".btnEdit", function () {
@@ -203,9 +232,6 @@
                })
              });
 
-
-
-
         //修改儲存
         $(document).on("click", ".btnSave", async function (e) {
             e.preventDefault();
@@ -214,7 +240,7 @@
             var discription = $(".ql-editor").html();
             $(".eventDescription").val(discription);
 
-            const formData = new FormData(document.EventEdit)     @* EventEdit 為Form的Name*@
+            const formData = new FormData(document.EventEdit)     @* bEvevtEditPartial 為Form的Name*@
             const response = await fetch('@Url.Content("~/BackstageEvent/bEvevtEditPartial")', {
                 method: "POST",
                 body: formData
@@ -236,9 +262,6 @@
                 })
             }
         })
-
-
-
 
          //圖片上傳
         console.log($(".selectphoto"))
@@ -273,11 +296,13 @@
             }
         })
 
+        /*Load 參加會員 Modal*/
 
-
-
-
-
+        $(document).on("click", ".btnDetail", function () {
+            var eid = $(this).next(".eventid").val();
+            console.log(eid);
+            $(".memberList").load("@Url.Content("~/BackstageEventAPI/EventParticipantModalPartial")/"+eid)
+        })
 
     </script>
 }

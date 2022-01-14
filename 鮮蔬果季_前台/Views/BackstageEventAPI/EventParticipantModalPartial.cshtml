@@ -1,0 +1,69 @@
+﻿@model List<鮮蔬果季_前台.ViewModels.EventListViewModel>
+
+<table class="table table-striped" style="display:table; width:100%;">
+    <thead style=" display:block; width:100%">
+        <tr style="background-color:#D2E9FF; display:table; width:100%">
+            <th style="font-size: 17px; font-weight: bold; color: black; width: 15%;">序號</th>
+            <th style="font-size: 17px; font-weight: bold; color: black; width: 25%;">會員ID</th>
+            <th style="font-size: 17px; font-weight: bold; color: black; width: 25%;">會員姓名</th>
+            <th style="font-size: 17px; font-weight: bold; color: black; width: 25%;">報名人數</th>
+        </tr>
+    </thead>
+</table>
+<table class="table table-striped" style="display:table; width:100%;">
+    <tbody class="addod" style="overflow-y:scroll; height:500px; display:block; width:100%;">
+        @{
+            int count = 0;
+            string 活動名稱 = "";
+            int 報名人數 = 0;
+            int 人數限制 = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                活動名稱 = item.EventName2;
+                報名人數 += (int)item.EventRegistration.ParticipantNumber;
+                人數限制 = (int)item.EventParticipantCap;
+                <tr style="display:table; width:100%;">
+                    <td style="width:20%; padding-left:10px;">
+                        @count
+                    </td>
+                    <td class="name-pr" style="font-size: 17px; color: black; width:25%;">
+                        <a>
+                            @item.member.MemberId
+                        </a>
+                    </td>
+                    <td class="sup-pr" style="font-size: 17px; color: black; width:32%;">
+                        <a>
+                            <img class="img-fluid" src="~/images/MemberPhoto/@item.member.MemberPhotoPass" alt="" />
+                        </a>
+                        <a>
+                            @item.member.MemberName
+                        </a>
+                    </td>
+                    <td class="participant-number" style="width:25%;">
+                        <a>
+                            @item.EventRegistration.ParticipantNumber
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+<br />
+<div id="divtotal" class="col-lg-6 col-sm-6">
+    <div class="order-box">
+        <div class="title-left" style="padding-top:20px">
+            <h4>
+                活動名稱：
+                <span id="odnum">@活動名稱</span>
+                <br />
+                <br />
+                已有 @報名人數/@人數限制 人報名
+            </h4>            
+        </div>
+        <hr>
+    </div>
+</div>
+
