@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 using 鮮蔬果季_前台.ViewModels;
@@ -21,7 +22,12 @@ namespace 鮮蔬果季_前台.Controllers
         {
             db = dbContext;
         }
-
+        public string deleteHtml(string xxx)
+        {
+            string regex = @"(<.+?>|&nbsp;)";
+            var result = Regex.Replace(xxx, regex, "").Trim();
+            return result;
+        }
 
         //載入部落格首頁
         public IActionResult PartnerBlog()
@@ -52,12 +58,13 @@ namespace 鮮蔬果季_前台.Controllers
                               join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
-   
+                string s = deleteHtml(item.Maintext);
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C
+                    City = 供應商與城市.C,
+                    部落格描述去除html=s
                 });
             }
             return View(list);
@@ -91,12 +98,13 @@ namespace 鮮蔬果季_前台.Controllers
                               join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
-
+                string s = deleteHtml(item.Maintext);
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C
+                    City = 供應商與城市.C,
+                    部落格描述去除html = s
                 });
             }
             return PartialView("ArticlePartial", list);
@@ -131,11 +139,13 @@ namespace 鮮蔬果季_前台.Controllers
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
 
+                string s = deleteHtml(item.Maintext);
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C
+                    City = 供應商與城市.C,
+                    部落格描述去除html = s
                 });
             }
             return PartialView("ArticlePartial", list);
@@ -169,12 +179,13 @@ namespace 鮮蔬果季_前台.Controllers
                               join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
-
+                string s = deleteHtml(item.Maintext);
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C
+                    City = 供應商與城市.C,
+                    部落格描述去除html = s
                 });
             }
             return PartialView("ArticlePartial", list);
@@ -209,11 +220,13 @@ namespace 鮮蔬果季_前台.Controllers
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
 
+                string s = deleteHtml(item.Maintext);
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C
+                    City = 供應商與城市.C,
+                    部落格描述去除html = s
                 });
             }
             return PartialView("ArticlePartial", list);
