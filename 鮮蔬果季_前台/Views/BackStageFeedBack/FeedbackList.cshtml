@@ -31,8 +31,17 @@
         .control-label {
             font-weight: bold;
         }
-        h2{
-            font-size:48px;
+        
+            
+       
+        #loader { /*   這是整個會蓋住畫面的底色色塊  */
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            top: 25%;
+            background-color: transparent;
+            z-index: 9999;
         }
     </style>
 }
@@ -171,6 +180,7 @@
             e.preventDefault();
             console.log($(".UserId").val())
             var email = $(".UserId").val()
+            $('#loader').attr("hidden", false);
             Email.send({
                 Host: "smtp.elasticemail.com",
                 SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
@@ -222,6 +232,7 @@
                         var date = await response.text();
                         if (date == 1) {
                          $('.card-body').load("@Url.Content("~/BackStageFeedBack/FeedbackListPartial")", function () {
+                             $('#loader').attr("hidden", true);
                              alert(message + "，寄信成功")
                                     $('#dataTable-1').DataTable(
                                         {
