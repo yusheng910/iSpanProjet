@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<鮮蔬果季_前台.Models.Supplier>*@
-@model List<鮮蔬果季_前台.ViewModels.BlogDetailListViewModel>
+@model 鮮蔬果季_前台.ViewModels.BlogDetailListViewModel
 @{
     ViewData["Title"] = "PartnerBlog_1";
 }
@@ -74,29 +74,27 @@
 
                     <div class="single-article-text">
                         <div></div>   @*圖片,寫在CSS內*@
-                        @{foreach (var item in Model)
-                            {
-                                <img class="ImgSize" src="~/images/農友部落格照/@Html.DisplayFor(modelitem => item.BlogDetail.PhotoPath) ">
+
+                                <img class="ImgSize" src="~/images/農友部落格照/@Model.BlogDetail.PhotoPath ">
 
                                 <p class="blog-meta" style="padding: 5px  0px; font-size: larger ">
-                                    <span class="author"><i class="fas fa-user"></i> @item.City.CityName</span>
-                                    <span class="author"><i class="fas fa-user"></i>  @item._Supplier.SupplierName</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> @item._BlogDetail.PublishedDate.Value.ToLongDateString() </span>
+                                    <span class="author"><i class="fas fa-user"></i> @Model.Supplier.City.CityName </span>
+                                    <span class="author"><i class="fas fa-user"></i>  @Model.SupplierName</span>
+                                    <span class="date"><i class="fas fa-calendar"></i> @Model.BlogDetail.PublishedDate.Value.ToLongDateString() </span>
                                 </p>
-                                <h2> @Html.DisplayFor(modelitem => item._BlogDetail.Title)</h2>
+                                <h2> @Model.BlogDetail.Title</h2>
                                 <div>
-                                    <p style="font-size:medium"> @Html.DisplayFor(modelitem => item._BlogDetail.Maintext)</p>
+                                    <p style="font-size:medium"> @Model.BlogDetail.Maintext</p>
                                 </div>
 
                                 <div style="padding-top:30px">
                                     <h2>農場位置</h2>
                                 </div>
 
-                                var 地址 = @Html.DisplayFor(modelitem => item._Supplier.SupplierAddress);
-                                <iframe frameborder="0" width="730" height="450" src="https://www.google.com/maps?q=@地址&amp;hl=zh-TW&amp;z=16&amp;m=h&amp;output=embed"></iframe>
+                                var 地址 = @Model.Supplier.SupplierAddress;
+                                <iframe frameborder="0" width="730" height="450" src="https://www.google.com/maps?q=@ViewBag.農場地址&amp;hl=zh-TW&amp;z=16&amp;m=h&amp;output=embed"></iframe>
                                 @*googelmpa參數可詳 https://jax-work-archive.blogspot.com/2011/07/google-maps.html  *@
-                            }
-                        }
+
                     </div>
 
 

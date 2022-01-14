@@ -235,26 +235,21 @@ namespace 鮮蔬果季_前台.Controllers
             }
 
             //鮮蔬果季Context db = new 鮮蔬果季Context();
-            var datas = (from E in db.BlogDetails
-                        where id == E.SupplierId
-                        select E).ToList();
+            var 單筆部落格 = (from E in db.BlogDetails
+                         join supp in db.Suppliers on E.SupplierId equals supp.SupplierId
+                         where id == E.SupplierId
+                         select new { E, supp }).FirstOrDefault();
 
-            List<BlogDetailListViewModel> list = new List<BlogDetailListViewModel>();
-            foreach (var item in datas)
-            {
-                //db = new 鮮蔬果季Context();
-                var 供應商與城市 = (from Sl in db.Suppliers
-                           join C in db.Cities on Sl.CityId equals C.CityId
-                           where Sl.SupplierId == item.SupplierId  
-                           select new { Sl,C}).FirstOrDefault();
-                list.Add(new BlogDetailListViewModel()
-                {
-                    BlogDetail = item,
-                    Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C,
-                });
-            }
-            return View(list);
+            BlogDetailListViewModel 部落格date = new BlogDetailListViewModel();
+
+            部落格date.BlogDetail = 單筆部落格.E;
+            部落格date.Supplier = 單筆部落格.supp;
+
+            var 城市資料 = db.Cities.FirstOrDefault(C => C.CityId == 部落格date.Supplier.CityId);
+
+            ViewBag.農場地址 = 單筆部落格.supp.SupplierAddress.ToString();
+
+            return View(單筆部落格);
         }
 
 
