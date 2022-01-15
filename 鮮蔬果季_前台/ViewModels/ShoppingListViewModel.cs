@@ -273,6 +273,7 @@ namespace 鮮蔬果季_前台.ViewModels
         public int CategeoryLevel { get; set; }
         public int CategeoryTemp { get; set; }
         public int[] CategeorySeason { get; set; }
+        public string 分類名稱 { get; set; }
 
 
     }

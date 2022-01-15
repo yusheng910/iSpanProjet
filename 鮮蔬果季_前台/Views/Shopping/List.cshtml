@@ -124,8 +124,20 @@
         //商品比數查詢
         function countfind() {
             var prodCount = $(".ProductCount").val();
+            var CateName = $(".CateName").val();
+            console.log(CateName)
+            if (typeof CateName == "undefined") {
+                CateName = "";
+            }
             var textCount = $(".textCount")
+            var textName = $("#textName")
             textCount.html("共 " + prodCount + " 筆，")
+            if (CateName != "") {
+                textName.html(CateName)
+                $(".categorytrash").html("<button id='trash'><i class='fas fa-trash'></i></button> ")
+            }
+
+
         }
         //分類查詢
         var categoryselect = $(".categoryselect");
@@ -388,7 +400,7 @@
                             </div>
                             <p id="textSel" style="text-align: left; font-size: 18px;">
                                 <span class="textCount" style="font-size: 22px"></span>
-                                篩選：
+                                篩選：                            
                                 <span id="textName">無</span>
                                 <span id="textPrice"></span>
                                 <span class="categorytrash"></span>
@@ -414,12 +426,13 @@
                                 <div class="row">
                                     @*商品List 開始*@
                                     @{ int count = 0;
+                                        string 分類名稱 = "";
                                         foreach (var item in Model)
                                         {
                                             if (item.InShop)
                                             {
                                                 count++;
-
+                                                分類名稱 = item.分類名稱;
 
                                                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                                     <div class="products-single fix">
@@ -516,7 +529,7 @@
                                                             {
                                                                 decimal price = Convert.ToDecimal(@item.product.ProductUnitPrice / item.product.ProductDisCount);
                                                                 int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
-                                                                    <h5 > @公克[0]/<del style="font-size:16px; color:lightgrey">NT$@打折過</del><span style="color: #D94600; font-weight: bolder; font-size: 22px; "> NT$@item.product.ProductUnitPrice </span></h5>
+                                                                <h5> @公克[0]/<del style="font-size:16px; color:lightgrey">NT$@打折過</del><span style="color: #D94600; font-weight: bolder; font-size: 22px; "> NT$@item.product.ProductUnitPrice </span></h5>
                                                             }
                                                             else
                                                             {
@@ -528,6 +541,7 @@
                                                 </div>
                                             }
                                         }
+                                        <input type="hidden" class="CateName" value="@分類名稱" />@*存放商品數*@
                                         <input type="hidden" class="ProductCount" value="@count" />@*存放商品數*@
                                     }
                                     @*商品List 結束*@
