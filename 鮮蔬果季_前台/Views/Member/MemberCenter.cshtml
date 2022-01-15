@@ -156,7 +156,9 @@
             <div class="col-lg-12">
                 <h2>會員中心</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                    <li class="breadcrumb-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
+                    </li>
                     <li class="breadcrumb-item active">會員中心</li>
                 </ul>
             </div>
@@ -196,9 +198,9 @@
                                                         <img src="~/images/MemberPhoto/@Model.MemberPhotoPass" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
                                                     }
                                                     else
-                                                        {
-                                                            <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
-                                                        }
+                                                    {
+                                                        <img src="~/images/MemberPhoto/inihead.png" width="120" height="120" style="left:60px; position:absolute; object-fit:cover; border-radius: 50%;" />
+                                                    }
                                                 }
                                             </div>
                                             <input class="selectPhoto" name="photo" type="file" style="display:none" />

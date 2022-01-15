@@ -131,16 +131,17 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (Password != null)
             {
-                if (Password.Length >= 6)
+                if (Password.Length <=8)
                 {
-                    if (Password.Length >= 8)
+                    if (Password.Length >= 6)
                     {
                         if ((new Regex(@"^[a-zA-Z]\w{5,17}$")).IsMatch(Password))
                         {
                             return Content("");
                         }
+                        return Content("密碼格式不正確");
                     }
-                    return Content("密碼格式不正確");
+                    return Content("密碼長度小於6字元");
                 }
                 return Content("密碼長度大於8字元");
             }

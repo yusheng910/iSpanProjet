@@ -106,6 +106,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
+                ViewBag.cityname = mc.CityName;
                 mv = new MemberViewModel()
                 {
                     member = mc.i,
