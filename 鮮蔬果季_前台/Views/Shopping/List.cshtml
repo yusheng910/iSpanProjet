@@ -613,19 +613,31 @@
                                                                 @{
                                                                     string 規格 = item.product.ProductSize;
                                                                     string[] 公克 = 規格.Split("/");
-                                                                    decimal price = Convert.ToDecimal(item.ProductUnitPrice /item.product.ProductDisCount);
+                                                                    decimal price = Convert.ToDecimal(item.ProductUnitPrice / item.product.ProductDisCount);
                                                                     int 打折過 = Convert.ToInt32(Math.Round(price, 0, MidpointRounding.AwayFromZero));
                                                                 }
                                                                 @公克[0]/<del>NT$ @打折過</del>  NT$ @item.ProductUnitPrice
                                                             </h5>
+                                                            @if (item.ProductUnitsInStock == 0)
+                                                            {
+                                                                <p style="padding-bottom:0px;">
+                                                                    <a class="btn hvr-hover addCart" style="cursor:default;background-color:orangered;color:white">
+                                                                        已售完(待補貨)
+                                                                    </a>
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p style="padding-bottom:0px;">
+                                                                    <a class="btn hvr-hover addCart" style="cursor:pointer;color:white">
+                                                                        加入購物車
+                                                                        <input class="add" type="hidden" value="@item.product.ProductId" />
+                                                                        <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
+                                                                    </a>
+                                                                </p>
+                                                            }
 
-                                                            <p style="padding-bottom:0px;">
-                                                                <a class="btn hvr-hover addCart" style="cursor:pointer">
-                                                                    加入購物車
-                                                                    <input class="add" type="hidden" value="@item.product.ProductId" />
-                                                                    <input class="CarttoLogin" type="hidden" onclick="window.location.href='@Url.Content("~/Login/Login")'" />
-                                                                </a>
-                                                            </p>
+
 
 
                                                         </div>
