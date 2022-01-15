@@ -61,14 +61,23 @@ namespace 鮮蔬果季_前台.Controllers
                 相片List.Add(封面相片);
                 var 欲加購物車商品 = db.ShoppingCarts.FirstOrDefault(c => c.MemberId == UserLogin.member.MemberId && c.ProductId == item.prod.ProductId);
                 var 最愛商品 = db.MyFavorites.FirstOrDefault(f => f.MemberId == UserLogin.member.MemberId && f.ProductId == item.prod.ProductId); /*TODO 目前會員ID寫死的*/
+                string 分類 = "";
+                if (id != null)
+                {
+                    var 分類名稱 = db.Categories.FirstOrDefault(a => a.CategoryId == id);
+                   分類 = 分類名稱.CategoryName;
+                }
                 所有商品列表.Add(new ShoppingListViewModel()
                 {
                     product=item.prod,
                     supplier = item.supp,
                     photoBank= 相片List,
                     myFavorite= 最愛商品,
-                    shopCart = 欲加購物車商品
-                }) ; 
+                    shopCart = 欲加購物車商品,
+                    分類名稱=分類
+                }) ;
+
+
             }
 
             var 商品主類別 = db.Categories.Where(c => !c.CategoryName.Contains("活動類") && c.FatherCategoryId == null).OrderByDescending(c => c.CategoryId).ToList();
