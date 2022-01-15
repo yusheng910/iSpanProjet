@@ -356,7 +356,7 @@
         $(document).on("change", ".qtyChange", function () {
             var obj = $(this);
             var qty = $(this).val();
-            var cid = $(this).next(".cartid").val();
+            //var cid = $(this).next(".cartid").val();
             var stock = $(this).next().next().next(".stockUnit").val();
             var qtyCount = parseInt(qty);
             var stockCount = parseInt(stock);
