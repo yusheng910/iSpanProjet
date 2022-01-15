@@ -277,9 +277,9 @@ namespace 鮮蔬果季_前台.Controllers
             
             return Content("0");
         }
-        public IActionResult check3rd(string trdid, string email)
+        public IActionResult check3rd(string email)
         {
-            if (email == "freshveg132@gmail.com" && trdid == "116692524681793487909")
+            if (email == "freshveg132@gmail.com")
             {
                 string json = "";
                 var q = db.Members.FirstOrDefault(a => a.UserId == "freshveg132@gmail.com");
