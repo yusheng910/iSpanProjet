@@ -90,16 +90,17 @@ namespace 鮮蔬果季_前台.Controllers
 
             return PartialView(list);
         }
-        public IActionResult MlistPartialbyCost()
+        public IActionResult MlistPartialbyCost(int id)
         {
             List<NewsletterViewModel> list = new List<NewsletterViewModel>();
+            ViewBag.YY = id;
             var 會員資訊 = (from m in db.Members
                         select new { m }).ToList();
             foreach (var item in 會員資訊)
             {
                 int 檢查 = 0;
                 var 一年有消費 = (from o in db.Orders
-                             where o.OrderDate > DateTime.Now.AddYears(-1) &&
+                             where o.OrderDate > DateTime.Now.AddYears(-id) &&
                              o.Member.MemberId == item.m.MemberId
                              select o).FirstOrDefault();
                 if (一年有消費 != null)

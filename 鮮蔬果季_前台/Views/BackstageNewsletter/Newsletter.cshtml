@@ -43,6 +43,17 @@
         .mcost {
             width:90px;
         }
+        .emailbox{
+            color:rebeccapurple;
+        }
+        .memlist tr:hover {
+            background-color: aliceblue;
+        }
+        .chky{
+            width:40px;   
+            height:22px;
+            text-align:right;
+        }
     </style>
 }
 <div class="row justify-content-center">
@@ -53,7 +64,7 @@
             <div class="card-body">
                 <div class="form-group mb-3" style="padding-left:7px">
                     <label @*for="example-email"*@ class="showMember" data-toggle="modal" data-target="#ModalAdd">收件者</label><span data-toggle="tooltip" data-placement="right" title="點擊旁邊選取收件者" class="fe fe-16 fe-help-circle qa"></span>
-                    <input type="email" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或點擊上方" style="width:60%">
+                    <input type="text" id="example-email" name="example-email" class="form-control emailbox" placeholder="請在此輸入email或點擊上方" style="width:60%">
                 </div>
                 <p class="card-text"></p>
                 <div class="form-group mb-3" style="padding-left:7px">
@@ -110,11 +121,11 @@
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input memcost" type="radio" name="inlineRadioOptions" id="inlineRadio2">
-                    <label class="form-check-label" for="inlineRadio2">查詢近一年有消費的會員</label>
+                    <label class="form-check-label" for="inlineRadio2"><input type="number" value="1" min="1" max="10" class="chky" /> 年內有消費的會員</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input memdemo" type="radio" name="inlineRadioOptions" id="inlineRadio3">
-                    <label class="form-check-label" for="inlineRadio2" style="color:darkgreen;font-weight:900">DEMO使用者</label>
+                    <label class="form-check-label" for="inlineRadio3" style="color:darkgreen;font-weight:900">DEMO使用者</label>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -163,9 +174,11 @@
             $("input[type=radio]")[0].checked = true;
         })
         $(document).on("change", ".memcost", function () {
+            var chky = $('.chky').val();
+            console.log(chky);
             $('.loader').attr("hidden", false);
             $('.memshow').attr("hidden",true);
-            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartialbyCost")", function () {
+            $('.memshow').load("@Url.Content("~/BackstageNewsletterApi/MlistPartialbyCost")/"+chky, function () {
                 $('#dataTable-1').DataTable(
                     {
                         autoWidth: false,

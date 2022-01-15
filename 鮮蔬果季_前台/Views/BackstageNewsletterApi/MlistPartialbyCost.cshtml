@@ -13,7 +13,7 @@
             <th class="mname">@Html.DisplayNameFor(model => model.First().MemberName)</th>
             <th class="mgd">@Html.DisplayNameFor(model => model.First().Gender)</th>
             <th class="memail">@Html.DisplayNameFor(model => model.First().UserId)</th>
-            <th class="mcost">@Html.DisplayNameFor(model => model.First().是否有消費)</th>
+            <th class="mcost">近 @ViewBag.YY 年有消費</th>
         </tr>
     </thead>
     <tbody class="memlist">
@@ -37,7 +37,7 @@
                             if (item.是否有消費 == 1)
                             {
                                 <td>
-                                    <i style="padding-left:25%" class="fe fe-16 fe-check-circle"><span class="sr-only"></span></i>
+                                    <i style="padding-left:25%" class="fe fe-16 fe-check"><span class="sr-only"></span></i>
                                 </td>
                             }
                             else

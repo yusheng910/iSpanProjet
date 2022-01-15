@@ -66,7 +66,7 @@ namespace 鮮蔬果季_前台.ViewModels
                 _member = value;
             }
         }
-        [DisplayName("近一年是否有消費")]
+        [DisplayName("近 1 年有消費")]
         public int 是否有消費 { get; set; }
         public int MemberId { get { return this.member.MemberId; } set { this.member.MemberId = value; } }
         [DisplayName("Email")]
