@@ -103,7 +103,8 @@ namespace 鮮蔬果季_前台.Controllers
                 BirthDate=p.BirthDate,
                 Mobile=p.Mobile,
                 RegisteredDate=rt,
-                MemberPhotoPass= "inihead.png"
+                MemberPhotoPass= "inihead.png",
+                BlackList="No"
             };
             
             db.Add(newMember);
@@ -196,16 +197,21 @@ namespace 鮮蔬果季_前台.Controllers
         {
             var cust = (from p in db.Members
                             where p.UserId == ExistuserName
-                            select new {p.UserId ,p.Password }).FirstOrDefault();
+                            select p).FirstOrDefault();
             if (ExistuserName != null && ExistuserPassword!=null )
             {
+                
                 if (cust != null)
                 {
-                    if (cust.Password != ExistuserPassword)
+                    if (cust.BlackList == "No")
                     {
-                        return Content("1");
+                        if (cust.Password != ExistuserPassword)
+                        {
+                            return Content("1");
+                        }
+                        return Content("2");
                     }
-                    return Content("2");
+                    return Content("4");
                 }
                 return Content("3");
                 

@@ -33,5 +33,6 @@ namespace 鮮蔬果季_前台.ViewModels
         public int CityId { get { return this.member.CityId; } set { this.member.CityId = value; } }
         public DateTime RegisteredDate { get { return this.member.RegisteredDate; } set { this.member.RegisteredDate = value; } }
         public string MemberPhotoPass { get { return this.member.MemberPhotoPass; } set { this.member.MemberPhotoPass = value; } }
+        public string BlackList { get {return this.member.BlackList; } set { this.member.BlackList = value; } }
     }
 }
