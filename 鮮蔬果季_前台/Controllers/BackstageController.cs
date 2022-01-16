@@ -26,7 +26,7 @@ namespace 鮮蔬果季_前台.Controllers
                         on m.CityId equals c.CityId
                         select new { m, c }).ToList();
             List<MemberViewModel> member = new List<MemberViewModel>();
-
+           
             foreach (var item in 會員資料) {
                 member.Add(new MemberViewModel()
                 {

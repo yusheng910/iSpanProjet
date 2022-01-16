@@ -11,6 +11,7 @@
             <th>城市</th>
             <th>電話</th>
             <th>生日</th>
+            <th>黑名單</th>
             <th>動作</th>
         </tr>
     </thead>
@@ -28,7 +29,7 @@
                     </td>
                     <td>
                         <div class="avatar avatar-sm">
-                            <img src="~/images/MemberPhoto/@item.MemberPhotoPass" alt="..."style="object-fit: cover; height: 32px;" class="avatar-img rounded-circle">
+                            <img src="~/images/MemberPhoto/@item.MemberPhotoPass" alt="..." style="object-fit: cover; height: 32px;" class="avatar-img rounded-circle">
                         </div>
                     </td>
                     <td>
@@ -64,15 +65,26 @@
                             <strong>@date</strong>
                         </td>
                     }
-
                     <td>
-                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button type="button" class="dropdown-item BtnEdit" data-toggle="modal" data-target="#EditModal">修改</button>
-                            <input type="hidden" class="Membid" value="@item.MemberId" />
-                        </div>
+                        @{
+                            if (item.BlackList != "No")
+                            {
+                                <strong style="color:red">已停權</strong>
+                            }
+                            else
+                            {
+                                <strong>未停權</strong>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @*<button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-muted sr-only">Action</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">*@
+                        <button type="button" class="btn btn-success BtnEdit" data-toggle="modal" data-target="#EditModal"><i class="fe fe-16 fe-edit"></i></button>
+                        <input type="hidden" class="Membid" id="memeberid" value="@item.MemberId" />
+                        @*</div>*@
                     </td>
                 </tr>
             }
