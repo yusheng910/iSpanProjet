@@ -32,6 +32,7 @@ namespace 鮮蔬果季_前台.Controllers
                           on od2.OrderId equals o.OrderId
                           join m in _context.Members
                           on o.MemberId equals m.MemberId
+                          orderby fbr1.FeedbackResponseId descending
                           select new {fbr1,fb,od2,prod,sup,o,m}
                       ).ToList();                       
             foreach (var item in feedbackname)
