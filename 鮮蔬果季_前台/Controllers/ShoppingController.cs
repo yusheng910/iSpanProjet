@@ -1726,13 +1726,16 @@ namespace 鮮蔬果季_前台.Controllers
                 {
                     j.StatusId = 3;
                 }
-                db.SaveChanges();
-
+                db.SaveChanges();               
+                
                 CouponDetail couponDetail = (from cpd in db.CouponDetails
                                              where cpd.MemberId == UserLogin.member.MemberId &&
                                              cpd.CouponId == CPID.couponid
                                              select cpd).FirstOrDefault();
-                couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
+                if(couponDetail!=null)
+                {
+                    couponDetail.CouponQuantity = couponDetail.CouponQuantity - 1;
+                }                
                 db.SaveChanges();
             }
 
