@@ -59,7 +59,7 @@
                                         "<label>" + imageLang.alt + "</label>" +
                                         "<input type=\"text\" value=\"" + selection + "\" data-alt />" +
                                         "<div class=\"" + classPrefix + "file-input\">" +
-                                        "<input type=\"button\" style=\"background-color:white;border: 1px solid #dddddd;border-radius:2.5px;color: #666666;padding-top:6px;padding-bottom: 6px; \" value=\"" + "Upload.cc" + "\" onclick=\"window.open(\'https://upload.cc\')\" />" +
+                                        "<input type=\"button\" style=\"background-color:white;border: 1px solid #dddddd;border-radius:2.5px;color: #666666;padding-top:6px;padding-bottom: 6px;onMouseOver=\"this.style.background-color=\' #eeeeee\'; \"  \" value=\"" + "Upload.cc" + "\" onclick=\"window.open(\'https://upload.cc\')\" />" +
                                         "</div>" +
                                         "<br/>" +
                                         "<label>" + imageLang.link + "</label>" +
