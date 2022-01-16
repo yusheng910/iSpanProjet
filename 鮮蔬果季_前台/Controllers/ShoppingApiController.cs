@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 
@@ -30,7 +32,9 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult ChangeCartQty(int id, int qty)
         {
-                var q = (from i in db.ShoppingCarts
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
+            var q = (from i in db.ShoppingCarts
                          join pro in db.Products
                          on i.ProductId equals pro.ProductId
                         where i.ShoppingCartId == id
@@ -48,6 +52,8 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult RemoveCart(int id)
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             var q = (from cart in db.ShoppingCarts
                      join pro in db.Products
                      on cart.ProductId equals pro.ProductId

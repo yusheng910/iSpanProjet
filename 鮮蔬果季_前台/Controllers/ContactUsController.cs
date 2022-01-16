@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using 鮮蔬果季_前台.Models;
 using 鮮蔬果季_前台.ViewModels;
 
@@ -49,6 +50,8 @@ namespace 鮮蔬果季_前台.Controllers
             //========================引用帳號登入屏蔽================================================//
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
             }
