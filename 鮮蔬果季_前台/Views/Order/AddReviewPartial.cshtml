@@ -42,7 +42,17 @@
                 @*<p>@item.單筆訂單細項總價</p>*@
             </td>
             <td class="add-pr">
-                <a style="padding:8px 12px;" href="#" class="btn hvr-hover">問題回報</a>
+
+                @*if 如果資料庫有查詢到評論過的資料，就是另外一個樣式*@
+                @if (item.回饋)
+                {
+                    <button class="btn findodid disabled" value="@item.odetail.OrderDetailId">已回報</button>
+                }
+                else
+                {
+                    <a style="padding:8px 12px;" asp-area="" asp-controller="ContactUs" asp-action="ContactUs" asp-route-id="@item.odetail.OrderDetailId" class="btn hvr-hover">問題回報</a>@*controller/action/item.odetail.odetailid*@
+                }
+
             </td>
             <td style="padding-right:20px;" class="add-rv">
                 <div class="aboveadd">
@@ -50,7 +60,7 @@
                         <input class="haverv" type="hidden" value="@item.odetail.HaveReviews" />
                         @{ if (item.odetail.HaveReviews == false)
                             {
-                                <button class="btn hvr-hover open-review-box " value="@item.odetail.OrderDetailId">新增評價</button>
+                                <button class="btn hvr-hover open-review-box" value="@item.odetail.OrderDetailId">新增評價</button>
                             }
                             else
                             {
