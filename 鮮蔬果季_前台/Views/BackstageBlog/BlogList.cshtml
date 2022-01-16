@@ -119,6 +119,7 @@
                     <!--內容-->
                 </div>
                 <div class="modal-footer">
+                    <button  style="margin-right:25px"   id="DemoBtn" type="button" class="btn btn-success" data-dismiss="modal">Demo</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <input type="submit" value="儲存" class="btn btn-primary CreatebtnSave" data-dismiss="modal" />
                 </div>
@@ -369,6 +370,16 @@
                 })
             }
         });
+
+
+        $(document).on("click", "#DemoBtn", async function (e) {
+            console.log("A");
+            $("BlogTitle").val("苗栗大湖冬季限定的酸香好滋味");
+            $("BlogSubtitle").val("轉換跑道返鄉務農");
+            $(".ql-editor").html("熱情健談的凱哥與太太過去曾在中國經商，多年前為了孩子的教育返台，回到家鄉苗栗大湖，傳承家族四十多年的果園，投入草莓的規模化生產；然而務農的生活並非想像中容易，首年就發現施用化學藥劑，會使第一線的生產者全身發癢過敏，且容易殘留在果實上危害健康，於是積極到農改場參與課程，甚至遠赴日本向當地農友請益，互相交流學習栽培技術。");
+        });
+
+
 
 
 
