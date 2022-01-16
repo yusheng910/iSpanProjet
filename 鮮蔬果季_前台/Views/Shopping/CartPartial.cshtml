@@ -30,6 +30,7 @@
                 <td class="quantity-box">
                     <input id="qtyChange" type="number" size="4" value="@item.shopCart.UnitsInCart" min="1" max="@item.product.ProductUnitsInStock" class="c-input-text qty text qtyChange">
                     <input type="hidden" class="cartid" value="@item.shopCart.ShoppingCartId" />
+                    <input class="add" type="hidden" value="@item.product.ProductId" />
                     <input type="hidden" class="stockUnit" value="@item.product.ProductUnitsInStock" />
                 </td>
                 <td class="total-pr" style="text-align:center;">

@@ -50,7 +50,7 @@
                 $("#Mobileerr").html(data)
             })
         })
-        $("#birthdate").change(function () {
+        $("#birthdate").blur(function () {
             var UserBD = $("#birthdate").val();
             const xhr = new XMLHttpRequest();
             xhr.open("get", "@Url.Action("BirthDateRegex","Login")?birthdate=" + UserBD)
@@ -69,9 +69,16 @@
             $("#Address").val("台北市大安區");
             $("#gender").val("女");
         })
+        $(".DemoW").click(function () {
+            $("#email").val("Abc");
+            $("#Password").val("123");
+            $("#MemberName").val("王");
+            $("#Mobile").val("abc");
+            $("#birthdate").val("2022-01-26");
+        })
         $("#contactForm").submit(function () {
             //我們的規則驗證錯誤時要加上這條class，submit時才會送不出去
-            if ($("#emailerr").html() == "帳號已被註冊" || $("#emailerr").html() == "帳號格式不正確" || $("#Passworderr").html() == "密碼長度大於8字元"|| $("#Passworderr").html() == "密碼格式不正確" || $("#MemberNameerr").html() == "字數不能小於兩字" || $("#Mobileerr").html() == "號碼長度不能小於10碼" || $("#Mobileerr").html() == "請輸入數字" || $("#BirthDateerr").html() == "出生日期大於今日") {
+            if ($("#emailerr").html() == "帳號已被註冊" || $("#emailerr").html() == "帳號格式不正確" || $("#Passworderr").html() == "密碼長度大於8字元" || $("#Passwroderr").html() =="密碼長度小於6字元" || $("#Passworderr").html() == "密碼格式不正確" || $("#MemberNameerr").html() == "字數不能小於兩字" || $("#Mobileerr").html() == "號碼長度不能小於10碼" || $("#Mobileerr").html() == "請輸入數字" || $("#BirthDateerr").html() == "出生日期大於今日") {
                 var msgClasses = "h3 text-center text-danger";
                 $("#msgSubmit").addClass(msgClasses).text("尚未填寫完資料，請確認。");
                 return false;
@@ -188,6 +195,7 @@
                                 <div class="submit-button text-left">
                                     <button class="btn hvr-hover" id="submit" type="submit">註冊會員</button>
                                     <button type="button" class="btn hvr-hover Demo" id="">Demo</button>
+                                    <button type="button" class="btn hvr-hover DemoW" id="">錯誤</button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     <div class="clearfix"></div>
                                 </div>

@@ -60,6 +60,97 @@ namespace 鮮蔬果季_前台.Controllers
             }
             return Json(new { success=code, url= full_url, message = "上傳成功！" });
         }
+        public IActionResult MlistPartial()
+        {
+            List<NewsletterViewModel> list = new List<NewsletterViewModel>();
+            var 會員資訊 = (from m in db.Members
+                        select new { m }).ToList();
+            foreach(var item in 會員資訊)
+            {
+                int 檢查 = 0;
+                var 一年有消費 = (from o in db.Orders
+                             where o.OrderDate > DateTime.Now.AddYears(-1) &&
+                             o.Member.MemberId == item.m.MemberId
+                             select o).FirstOrDefault();
+                if(一年有消費!=null)
+                {
+                    檢查 = 1;
+                }
+                else
+                {
+                    檢查 = 0;
+                }
+
+                list.Add(new NewsletterViewModel()
+                {
+                    member = item.m,
+                    是否有消費= 檢查,
+                });
+            }
+
+            return PartialView(list);
+        }
+        public IActionResult MlistPartialbyCost(int id)
+        {
+            List<NewsletterViewModel> list = new List<NewsletterViewModel>();
+            ViewBag.YY = id;
+            var 會員資訊 = (from m in db.Members
+                        select new { m }).ToList();
+            foreach (var item in 會員資訊)
+            {
+                int 檢查 = 0;
+                var 一年有消費 = (from o in db.Orders
+                             where o.OrderDate > DateTime.Now.AddYears(-id) &&
+                             o.Member.MemberId == item.m.MemberId
+                             select o).FirstOrDefault();
+                if (一年有消費 != null)
+                {
+                    檢查 = 1;
+                }
+                else
+                {
+                    檢查 = 0;
+                }
+                list.Add(new NewsletterViewModel()
+                {
+                    member = item.m,
+                    是否有消費 = 檢查,
+                });
+            }
+
+            return PartialView(list);
+        }
+        public IActionResult Demo()
+        {
+            List<NewsletterViewModel> list = new List<NewsletterViewModel>();
+            var 會員資訊 = (from m in db.Members
+                        where m.MemberName == "王小美"
+                        select new { m }).ToList();
+            foreach (var item in 會員資訊)
+            {
+                int 檢查 = 0;
+                var 一年有消費 = (from o in db.Orders
+                             where o.OrderDate > DateTime.Now.AddYears(-1) &&
+                             o.Member.MemberId == item.m.MemberId
+                             select o).FirstOrDefault();
+                if (一年有消費 != null)
+                {
+                    檢查 = 1;
+                }
+                else
+                {
+                    檢查 = 0;
+                }
+                list.Add(new NewsletterViewModel()
+                {
+                    member = item.m,
+                    是否有消費 = 檢查,
+                });
+            }
+
+            return PartialView("MlistPartial",list);
+        }
+
 
 
         //[HttpPost]

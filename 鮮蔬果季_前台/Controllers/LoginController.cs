@@ -131,16 +131,17 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (Password != null)
             {
-                if (Password.Length >= 6)
+                if (Password.Length <=8)
                 {
-                    if (Password.Length >= 8)
+                    if (Password.Length >= 6)
                     {
                         if ((new Regex(@"^[a-zA-Z]\w{5,17}$")).IsMatch(Password))
                         {
                             return Content("");
                         }
+                        return Content("密碼格式不正確");
                     }
-                    return Content("密碼格式不正確");
+                    return Content("密碼長度小於6字元");
                 }
                 return Content("密碼長度大於8字元");
             }
@@ -276,9 +277,9 @@ namespace 鮮蔬果季_前台.Controllers
             
             return Content("0");
         }
-        public IActionResult check3rd(string trdid, string email)
+        public IActionResult check3rd(string email)
         {
-            if (email == "freshveg132@gmail.com" && trdid == "116692524681793487909")
+            if (email == "freshveg132@gmail.com")
             {
                 string json = "";
                 var q = db.Members.FirstOrDefault(a => a.UserId == "freshveg132@gmail.com");

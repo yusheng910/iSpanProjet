@@ -101,7 +101,7 @@
     </script>
 
     @*第三方登入測試區開始*@
-    @*<script>
+    <script>
             /*登入抓取資訊*/
             var id = null;
             var email = null;
@@ -127,12 +127,12 @@
                 id = profile.getId();
                 email = profile.getEmail()
                         /*跳轉畫面*/
-                 test(id,email)
+                 test(email)
 
              }
 
-                        async function test(id,email) {
-                            let response = await fetch('@Url.Content("~/Login/check3rd?trdid=")'+ id +"&email="+email);
+                        async function test(email) {
+                            let response = await fetch('@Url.Content("~/Login/check3rd?email=")'+email);
                         let userCheck = await response.text();
                         console.log(userCheck)
                         if (userCheck == 1) {
@@ -160,7 +160,7 @@
                 });
             }
 
-        </script>*@
+        </script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="436348574559-4s2b3mvom0gnfno3007rgda1qiveegkv.apps.googleusercontent.com" />
     @*第三方登入測試區結束*@
@@ -190,7 +190,7 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             @*第三方登入狀態開始*@
             @*目前狀態*@
-            @*<span id="GOOGLE_STATUS_1"></span>*@
+            <span id="GOOGLE_STATUS_1"></span>
             @*第三方登入狀態結束*@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12" style="background-color: #FFF9E9;  padding-bottom:150px;">
@@ -235,9 +235,8 @@
                     </div>
                     <div class="text-right" style="position:relative">
                         @*GOOGLE第三方登入測試開始*@
-                        <div class="g-signin2" data-onsuccess="onSignIn" style="position:absolute;right:96px;bottom:32px;"></div>
+                        <div class="g-signin2" data-onsuccess="onSignIn" style="position:absolute;right:96px;bottom:6px;"></div>
                         <input class="tobs" type="hidden" onclick="window.location.href='@Url.Content("~/Backstage/Home")'" />
-                        <a href="#" onclick="signOut();">Sign out</a>
                         @*GOOGLE第三方登入測試結束*@
                     </div>
                 </form>

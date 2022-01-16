@@ -27,9 +27,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
+                              join pm in db.PayMethods
+                              on ord.PayMethodId equals pm.PayMethodId
                               where ord.MemberId == UserLogin.member.MemberId                        
                               orderby ord.OrderId descending
-                              select new { ord, stat }).ToList();
+                              select new { ord, stat, pm }).ToList();
 
                 foreach (var o in orders)
                 {
@@ -46,6 +48,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價,
                             coupon = null
                         });
@@ -60,6 +63,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價 - q.CouponDiscount,
                         });
                     }
@@ -86,9 +90,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                               join stat in db.Statuses
                               on ord.StatusId equals stat.StatusId
+                              join pm in db.PayMethods
+                              on ord.PayMethodId equals pm.PayMethodId
                               where ord.MemberId == UserLogin.member.MemberId
                               orderby ord.OrderId descending
-                              select new { ord, stat }).ToList();
+                              select new { ord, stat, pm }).ToList();
 
                 foreach (var o in orders)
                 {
@@ -105,6 +111,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價,
                             coupon = null
                         });
@@ -119,6 +126,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價 - q.CouponDiscount,
                         });
                     }
@@ -145,9 +153,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
+                          join pm in db.PayMethods
+                          on ord.PayMethodId equals pm.PayMethodId
                           where ord.MemberId == UserLogin.member.MemberId && ord.StatusId == 6
                           orderby ord.OrderId descending
-                          select new { ord, stat }).ToList();
+                          select new { ord, stat, pm }).ToList();
 
                 //db = new 鮮蔬果季Context();
                 foreach (var o in orders)
@@ -165,6 +175,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價,
                             coupon = null
                         });
@@ -179,6 +190,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價 - q.CouponDiscount,
                         });
                     }
@@ -205,9 +217,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
+                          join pm in db.PayMethods                              
+                          on ord.PayMethodId equals pm.PayMethodId
                           where ord.MemberId == UserLogin.member.MemberId && ord.StatusId == 5
                           orderby ord.OrderId descending
-                          select new { ord, stat }).ToList();
+                          select new { ord, stat, pm }).ToList();
 
                 foreach (var o in orders)
                 {
@@ -224,6 +238,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價,
                             coupon = null
                         });
@@ -238,6 +253,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價 - q.CouponDiscount,
                         });
                     }
@@ -264,9 +280,11 @@ namespace 鮮蔬果季_前台.Controllers
                 var orders = (from ord in db.Orders
                           join stat in db.Statuses
                           on ord.StatusId equals stat.StatusId
+                          join pm in db.PayMethods
+                          on ord.PayMethodId equals pm.PayMethodId
                           where ord.MemberId == UserLogin.member.MemberId && ord.StatusId == 4
                           orderby ord.OrderId descending
-                          select new { ord, stat }).ToList();
+                          select new { ord, stat, pm }).ToList();
 
                 foreach (var o in orders)
                 {
@@ -283,6 +301,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價,
                             coupon = null
                         });
@@ -297,6 +316,7 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             order = o.ord,
                             status = o.stat,
+                            paymethod = o.pm,
                             總價 = 訂單總價 - q.CouponDiscount,
                         });
                     }
