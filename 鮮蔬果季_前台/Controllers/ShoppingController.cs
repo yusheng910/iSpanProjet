@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using 鮮蔬果季_前台.Models;
@@ -23,6 +25,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
             }
@@ -138,6 +142,8 @@ namespace 鮮蔬果季_前台.Controllers
         //PartialView 開始
         public IActionResult AllProductPartial()
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers
@@ -180,6 +186,8 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult CategoryArray(string cateSel, int min, int max)
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             //如果有篩選
             if (cateSel != null)
@@ -316,6 +324,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             //if (categetoryId == 0)
             //{
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             List<ShoppingListViewModel> 商品列表 = new List<ShoppingListViewModel>();
             var 所有商品2 = (from prod in db.Products
                          join supp in db.Suppliers
@@ -405,6 +415,9 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult ProductSearchPartial(string prodName)
         {
+
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers
@@ -450,7 +463,8 @@ namespace 鮮蔬果季_前台.Controllers
         public IActionResult OrderCateArrayPartial(int id, int min, int max, string cateSel)
         {
             List<ShoppingListViewModel> 所有商品列表 = new List<ShoppingListViewModel>();
-
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             var 所有商品 = (from prod in db.Products
                         join supp in db.Suppliers on prod.SupplierId equals supp.SupplierId
                         orderby prod.ProductId
@@ -1138,6 +1152,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 MyFavorite myFavorite = new MyFavorite()
@@ -1160,6 +1176,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 var 移除我的最愛 = db.MyFavorites.Remove(db.MyFavorites.Where(a => a.MemberId == UserLogin.member.MemberId && a.ProductId == id).FirstOrDefault());
@@ -1183,6 +1201,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
             }
@@ -1248,6 +1268,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 MyFavorite myFavorite = new MyFavorite()
@@ -1270,6 +1292,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 //=============================
@@ -1334,6 +1358,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 //=============================
@@ -1398,6 +1424,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
@@ -1443,6 +1471,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 var 購物車內商品 = (from p in db.Products
                               join c in db.ShoppingCarts
@@ -1487,6 +1517,8 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult CartNum()
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             var 購物車數量 = (from c in db.ShoppingCarts
                          join stat in db.Statuses
                          on c.StatusId equals stat.StatusId
@@ -1497,7 +1529,9 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult NavCart()
         {
-                List <ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
+            List <ShoppingListViewModel> 購物車商品列表 = new List<ShoppingListViewModel>();
             var 購物車商品 = (from pro in db.Products
                          join item in db.ShoppingCarts
                          on pro.ProductId equals item.ProductId
@@ -1528,6 +1562,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
 
@@ -1608,6 +1644,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
 
@@ -1665,6 +1703,8 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult CheckAddOrder(string address, int paymentMethod)
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             ViewBag.USER = UserLogin.member.MemberName;
 
             var 結帳區商品商品 = (from items in db.ShoppingCarts
@@ -1745,6 +1785,8 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult Check2AddOrder(string address, int paymentMethod)
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             ViewBag.USER = UserLogin.member.MemberName;
 
             var 結帳區商品商品 = (from items in db.ShoppingCarts
@@ -1808,6 +1850,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 //=============================

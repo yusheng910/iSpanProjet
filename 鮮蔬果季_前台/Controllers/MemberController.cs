@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
@@ -32,6 +33,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
             }
@@ -68,6 +71,8 @@ namespace 鮮蔬果季_前台.Controllers
         }        
         public IActionResult RemoveFavorite(int id)
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             var q = db.MyFavorites.FirstOrDefault(a => a.MyFavoriteId == id);
             db.MyFavorites.Remove(q);
             db.SaveChanges();
@@ -97,6 +102,8 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult MemberCenter()
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             MemberViewModel mv = null;
             var mc = (from i in db.Members
                       join a in db.Cities on i.CityId equals a.CityId
@@ -128,6 +135,8 @@ namespace 鮮蔬果季_前台.Controllers
             MemberViewModel mv = null;
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
                 var cityid = (from i in db.Cities
@@ -168,6 +177,8 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult PasswordChange()
         {
+            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+            UserLogin.member = user;
             MemberViewModel mv = null;
             var mc = (from i in db.Members
                      where i.MemberId == UserLogin.member.MemberId
@@ -196,6 +207,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
 
@@ -218,6 +231,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (oldPassword != null)
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 if (oldPassword != UserLogin.member.Password)
                 {
                     return Content("密碼不相符");
@@ -229,6 +244,8 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (newPassword != null)
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 if (newPassword != UserLogin.member.Password)
                 {
                     if((new Regex(@"^[a-zA-Z]\w{5,17}$")).IsMatch(newPassword))
