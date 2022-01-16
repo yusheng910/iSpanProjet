@@ -285,7 +285,7 @@
         //圖片清空
         $(document).on("click", ".imgClear", async function (e) {
             let eid = $(".Eid").val()
-            console.log("123")
+            console.log(eid)
             const response = await fetch('@Url.Content("~/BackstageEventAPI/ClearImg/")'+eid)
             const data = await response.text()
             console.log(data)
