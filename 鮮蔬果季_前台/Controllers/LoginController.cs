@@ -209,9 +209,9 @@ namespace 鮮蔬果季_前台.Controllers
                         {
                             return Content("1");
                         }
-                        return Content("2");
+                        return Content("4");
                     }
-                    return Content("4");
+                    return Content("2");
                 }
                 return Content("3");
                 

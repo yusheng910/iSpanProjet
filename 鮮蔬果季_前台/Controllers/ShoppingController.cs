@@ -1517,8 +1517,11 @@ namespace 鮮蔬果季_前台.Controllers
 
         public IActionResult CartNum()
         {
-            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
-            UserLogin.member = user;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+            {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
+            }
             var 購物車數量 = (from c in db.ShoppingCarts
                          join stat in db.Statuses
                          on c.StatusId equals stat.StatusId

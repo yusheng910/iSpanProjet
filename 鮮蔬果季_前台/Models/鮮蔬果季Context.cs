@@ -52,7 +52,7 @@ namespace 鮮蔬果季_前台.Models
 //            if (!optionsBuilder.IsConfigured)
 //            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=114.34.127.248\\DESKTOP-FBDIF9U,20221;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=msit1320000");
+//                optionsBuilder.UseSqlServer("Data Source=vegetable132dbserver.database.windows.net;Initial Catalog=鮮蔬果季;Persist Security Info=True;User ID=editorteam3;Password=@Xyz1234@");
 //            }
         }
 
@@ -380,6 +380,10 @@ namespace 鮮蔬果季_前台.Models
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
                 entity.Property(e => e.BirthDate).HasColumnType("date");
+
+                entity.Property(e => e.BlackList)
+                    .HasMaxLength(10)
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.CityId).HasColumnName("CityID");
 
