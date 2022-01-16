@@ -266,24 +266,36 @@
                         <div class="single-product-details">
                             @if (item.剩餘名額 <= 0)
                             {
-                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName) <span style="color:red;font-weight:bolder">(額滿)</span></h2> @*活動項目標題*@
+                                <h2>
+                                    @Html.DisplayFor(modelitem => item.Event.EventName)
+                                    <span style="color:red;font-weight:bolder">(額滿)</span>
+                                </h2> @*活動項目標題*@
                             }
-                            else if (item.剩餘名額 <=10)
+                            else if (item.剩餘名額 <= 10)
                             {
-                                <h2>@Html.DisplayFor(modelitem => item.Event.EventName) <span style="color:red;font-weight:bolder">(即將額滿)</span></h2> @*活動項目標題*@
+                                <h2>
+                                    @Html.DisplayFor(modelitem => item.Event.EventName)
+                                    <span style="color:red;font-weight:bolder">(即將額滿)</span>
+                                </h2> @*活動項目標題*@
                             }
                             else
                             {
                                 <h2>@Html.DisplayFor(modelitem => item.Event.EventName)</h2> @*活動項目標題*@
                             }
 
-                            <h5>
-                                <del>   @(item.Event.EventPrice*1.2) </del> @*原價=SQL定價*1.2*@
-                                @Html.DisplayFor(modelitem => item.Event.EventPrice)  / 人
-                            </h5>
+
                             <p class="available-stock pp">
-                                <span> @*@item.City.CityName ,*@ 現場收費 <a href="#"></a></span>
+                                <span style="float:left">
+                                    現場收費 :
+
+                                    <del  style="font-size:22px; margin-right:6px"> @(item.Event.EventPrice*1.2) </del> @*原價=SQL定價*1.2*@
+                                    <span style="font-size: 26px; color: red; font-weight: bolder">  @Html.DisplayFor(modelitem => item.Event.EventPrice)  </span>
+                                    <span>/ 人</span>
+
+                                </span>
                             </p>
+
+
                             <p class="available-stock pp">
                                 @if (item.剩餘名額 <= 0)
                                 {
@@ -306,36 +318,36 @@
                                     <span> | 剩餘名額：</span>
                                     <span style="font-weight: bolder; font-size: 22px">@item.剩餘名額</span>
                                 }
-                              </p>
-                                <div>
-                                    <span class="glyphicon glyphicon-home">
-                                        <i class="fas fa-map-marker-alt" style="padding-right:10px">
-                                        </i>@item.Event.EventLocation
-                                    </span>
-                                </div>
-                                @*<div>
-                <span class="date">
-                    <i class="fas fa-calendar" style="padding-right:10px">
-                    </i>@ViewBag.活動數量
-                </span>
-            </div>*@
-                                <div>
+                            </p>
+                            <div  style="margin:8px 0px">
+                                <span class="glyphicon glyphicon-home">
+                                    <i class="fas fa-map-marker-alt" style="padding-right:10px">
+                                    </i>@item.Event.EventLocation
+                                </span>
+                            </div>
+                            @*<div>
                                     <span class="date">
-                                        <i class="fas fa-calendar-alt" style="padding-right:10px">
-                                        </i>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                        <i class="fas fa-calendar" style="padding-right:10px">
+                                        </i>@ViewBag.活動數量
                                     </span>
+                                </div>*@
+                            <div>
+                                <span class="date">
+                                    <i class="fas fa-calendar-alt" style="padding-right:10px">
+                                    </i>@item.Event.EventStartDate.Value.ToString("yyyy/MM/dd/HH:mm") ~ @item.Event.EventEndDate.Value.ToString("yyyy/MM/dd/HH:mm")
+                                </span>
+                            </div>
+                            <h4>@item.Event.Subtitle </h4>
+                            <div class="pp">
+                                <p>@item.活動描述去除html </p>
+                            </div>
+                            <div class="price-box-bar">
+                                <div class="cart-and-bay-btn">
+                                    <button type="button" class="btn btn-success" style="margin-top :20px">
+                                        @Html.ActionLink("我要報名>", "EventSignUp_1", new { id = item.Event.EventId })
+                                    </button>
                                 </div>
-                                <h4>@item.Event.Subtitle </h4>
-                                <div class="pp">
-                                    <p>@Html.DisplayFor(modelitem => item.Event.EventDescription)  </p>
-                                </div>
-                                <div class="price-box-bar">
-                                    <div class="cart-and-bay-btn">
-                                        <button type="button" class="btn btn-success" style="margin-top :20px">
-                                            @Html.ActionLink("我要報名>", "EventSignUp_1", new { id = item.Event.EventId })
-                                        </button>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
 
                     </div>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using 鮮蔬果季_前台.Models;
 using 鮮蔬果季_前台.ViewModels;
@@ -103,11 +104,13 @@ namespace 鮮蔬果季_前台.Controllers
                               join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
+                string s=deleteHtml(item.Maintext);
                 首頁部落格資料.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
-                    City = 供應商與城市.C
+                    City = 供應商與城市.C,
+                    部落格描述去除html=s
                 });
             }
 
@@ -118,7 +121,12 @@ namespace 鮮蔬果季_前台.Controllers
 
             return View(所有商品列表);
         }
-
+        public string deleteHtml(string xxx)
+        {
+            string regex = @"(<.+?>|&nbsp;)";
+            var result = Regex.Replace(xxx, regex, "").Trim();
+            return result;
+        }
         public IActionResult Privacy()
         {
             return View();

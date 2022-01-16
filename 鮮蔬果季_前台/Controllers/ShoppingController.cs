@@ -1664,16 +1664,32 @@ namespace 鮮蔬果季_前台.Controllers
 
             if (結帳區商品商品 != null)
             {
-                Order newOrder = new Order()
+                if(CPID.couponid!=0)
                 {
-                    MemberId = UserLogin.member.MemberId,
-                    OrderDate = DateTime.Now,
-                    ShippedTo = address,
-                    StatusId = 4,
-                    PayMethodId = paymentMethod,
-                    CouponId = CPID.couponid
-                };
-                db.Add(newOrder);
+                    Order newOrder = new Order()
+                    {
+                        MemberId = UserLogin.member.MemberId,
+                        OrderDate = DateTime.Now,
+                        ShippedTo = address,
+                        StatusId = 4,
+                        PayMethodId = paymentMethod,
+                        CouponId = CPID.couponid
+                    };
+                    db.Add(newOrder);
+                }
+                else
+                {
+                    Order newOrder = new Order()
+                    {
+                        MemberId = UserLogin.member.MemberId,
+                        OrderDate = DateTime.Now,
+                        ShippedTo = address,
+                        StatusId = 4,
+                        PayMethodId = paymentMethod,                       
+                    };
+                    db.Add(newOrder);
+                }
+                            
                 db.SaveChanges();
 
                 var latestOrder = (from i in db.Orders

@@ -119,6 +119,7 @@ namespace 鮮蔬果季_前台.ViewModels
 
         [DisplayName("活動描述")]
         public string EventDescription { get { return this.Event.EventDescription; } set { this.Event.EventDescription = value; } }
+        public string 活動描述去除html { get; set ; }
 
         //怪怪的
         [DisplayName("活動人數上限")]
