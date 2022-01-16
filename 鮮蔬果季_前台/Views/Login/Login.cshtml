@@ -76,6 +76,10 @@
                     alert("帳號不存在")
                     return false
                 }
+                else if (data == 4) {
+                    alert("帳號已被停權")
+                    return false
+                }
             })
         })
         $("#submit").click(async function () {
