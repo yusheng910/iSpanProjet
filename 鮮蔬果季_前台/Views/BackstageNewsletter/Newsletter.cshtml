@@ -74,7 +74,9 @@
                     <label>電子報主旨</label>
                     <input type="text" class="form-control emailsubject" placeholder="輸入電子報主旨" style="width:60%">
                 </div>
-                <input style="margin-left:7px" class="btn btn-primary" type="button" name="inlineRadioOptions2" id="inlineRadio4" value="DEMO">
+                <input style="margin-left:7px" class="btn btn-primary btndemo1" type="button" id="inlineRadio4" value="DEMO1">
+                <input style="margin-left:7px" class="btn btn-secondary btndemo2" type="button" id="inlineRadio4" value="DEMO2">
+                <input style="margin-left:7px" class="btn btn-info btndemo3" type="button" id="inlineRadio4" value="DEMO3">
                 <p class="card-text"></p>
                 <p class="card-text"></p>
                 <div id="test-editormd" class="test0">
@@ -90,7 +92,7 @@
 過年就要到了呢！
 因此在此提前送您新春優惠券，提前祝您虎年行大運 :clap:
 
-[![](https://upload.cc/i1/2022/01/13/QwTcDj.jpg)](https://localhost:44344/Coupons/CouponsList)
+[![](https://upload.cc/i1/2022/01/13/QwTcDj.jpg)](https://vegetable132web-vegetable132staging.azurewebsites.net/Coupons/CouponsList)
 
 ------------
 
@@ -230,7 +232,7 @@
         })
         $(document).on("click", ".btnAddmem", function () {
             var checkval = ($('input:checkbox:checked[name="choice"]').map(function () { return $(this).val(); }).get()).toString();
-            console.log(checkval);
+            //console.log(checkval);
             $('.emailbox').val(checkval);
         })
 
@@ -239,7 +241,33 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
 
+        //導入txt檔帶入demo
 
+        $(document).on("click", ".btndemo1", function () {
+            $('.emailsubject').val("[鮮蔬電子報]立即領取優惠券！！");
+            $.ajax({
+                url: "/BackstageNewsletter/GetDemoNews",
+            }).done(function (data) {
+                testEditor.setMarkdown(data)
+            })
+        })
+        $(document).on("click", ".btndemo2", function () {
+            $('.emailsubject').val("[鮮蔬電子報]絕無冷場的小小農夫半日體驗(即將額滿)");
+            $.ajax({
+                url: "/BackstageNewsletter/GetDemoNews2",
+            }).done(function (data) {
+                testEditor.setMarkdown(data)
+            })
+        })
+
+        $(document).on("click", ".btndemo3", function () {
+            $('.emailsubject').val("[鮮蔬電子報]超優福利品推薦～手刀下單！");
+            $.ajax({
+                url: "/BackstageNewsletter/GetDemoNews3",
+            }).done(function (data) {
+                testEditor.setMarkdown(data)
+            })
+        })
 
         //MD編輯器
         $(function () {
@@ -263,24 +291,57 @@
             $(document).on("click", ".btnsend", async function (e) {
                 var sendemail = $('.emailbox').val();
                 var emailsubj = $('.emailsubject').val();
-                e.preventDefault();
-                Email.send({
-                    Host: "smtp.elasticemail.com",
-                    /* Host = "smtp.gmail.com",*/
-                    /*Host: "sdryadl978188@gmail.com",*/
-                    Port: 587,
-                    SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
-                    Username: "dryadl978188@gmail.com",
-                    Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
-                    /*To: `${email}`,*/
-                    To: sendemail,
-                    From: "dryadl978188@gmail.com",
-                    Subject: emailsubj,
-                    Body: testEditor.getHTML()
-                }).then(
-                    alert("已傳送信件")
+                var indata = testEditor.getHTML();
+                console.log("sendemail=" + sendemail);
+                console.log("emailsubj=" + emailsubj);
+                console.log("indata=" + indata);
+                if (sendemail == "") {
+                    alert("請輸入收件人！");
+                }
+                else if (emailsubj == "") {
+                    alert("請輸入電子報主旨！");
+                }
+                else if (indata =="") {
+                    alert("請輸入電子報內容！");
+                }
+                else {
+                    e.preventDefault();
+                    Email.send({
+                        Host: "smtp.elasticemail.com",
+                        /* Host = "smtp.gmail.com",*/
+                        /*Host: "sdryadl978188@gmail.com",*/
+                        Port: 587,
+                        SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                        Username: "dryadl978188@gmail.com",
+                        Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
+                        /*To: `${email}`,*/
+                        To: sendemail,
+                        From: "dryadl978188@gmail.com",
+                        Subject: emailsubj,
+                        Body: testEditor.getHTML()
+                    }).then(
+                        alert("已傳送信件")
 
-                );
+                    );
+                }
+                //e.preventDefault();
+                //Email.send({
+                //    Host: "smtp.elasticemail.com",
+                //    /* Host = "smtp.gmail.com",*/
+                //    /*Host: "sdryadl978188@gmail.com",*/
+                //    Port: 587,
+                //    SecureToken: "3e540e90-231a-4a5e-ab6a-fefb72ee5c97",
+                //    Username: "dryadl978188@gmail.com",
+                //    Password: "220C4ED1140BB4829DC16C309ED5E3CBB7F2",
+                //    /*To: `${email}`,*/
+                //    To: sendemail,
+                //    From: "dryadl978188@gmail.com",
+                //    Subject: emailsubj,
+                //    Body: testEditor.getHTML()
+                //}).then(
+                //    alert("已傳送信件")
+
+                //);
                 //console.log(sendemail);
                 //console.log(emailsubj);
             });
@@ -413,155 +474,155 @@
             }
 
         })();
-        $('input[type=button]').click(function () {
-            $(".test0").remove();
-            $(".test1").attr("id", "test-editormd")
+        //$('input[type=button]').click(function () {
+        //    $(".test0").remove();
+        //    $(".test1").attr("id", "test-editormd")
 
-            $('.emailsubject').val("[鮮蔬果季]優惠報報");
-            $(function () {
-                testEditor = editormd("test-editormd", {
-                    width: "99%",
-                    height: 640,
-                    syncScrolling: "single",
-                    path: "/editormd/lib/",
-                    saveHTMLToTextarea: true,
-                    emoji: true,
-                    //theme: "gray",//工具栏主题
-                    //previewTheme: "dark",//预览主题
-                    //editorTheme: "pastel-on-dark",//编辑主题
-                    imageUpload: true,
-                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                    imageUploadURL: "/BackstageNewsletterApi/UploadF/",
-                });
-            });
-            (function () {
-                var factory = function (exports) {
-                    var lang = {
-                        name: "zh-tw",
-                        description: "開源在線Markdown編輯器<br/>Open source online Markdown editor.",
-                        tocTitle: "目錄",
-                        toolbar: {
-                            undo: "還原（Ctrl+Z）",
-                            redo: "重做（Ctrl+Y）",
-                            bold: "粗體",
-                            del: "刪除線",
-                            italic: "斜體",
-                            quote: "引用",
-                            ucwords: "將所選的每個單詞首字母轉成大寫",
-                            uppercase: "將所選文本轉成大寫",
-                            lowercase: "將所選文本轉成小寫",
-                            h1: "標題1",
-                            h2: "標題2",
-                            h3: "標題3",
-                            h4: "標題4",
-                            h5: "標題5",
-                            h6: "標題6",
-                            "list-ul": "無序列表",
-                            "list-ol": "有序列表",
-                            hr: "橫線",
-                            link: "超連結",
-                            "reference-link": "引用超連結",
-                            image: "加入圖片",
-                            code: "行內代碼",
-                            "preformatted-text": "預格式文本 / 代碼塊（縮進風格）",
-                            "code-block": "代碼塊（多語言風格）",
-                            table: "加入表格",
-                            datetime: "加入日期時間",
-                            emoji: "Emoji 表情",
-                            "html-entities": "HTML 實體字符",
-                            pagebreak: "插入分頁符",
-                            watch: "關閉實時預覽",
-                            unwatch: "開啟實時預覽",
-                            preview: "全視窗預覽HTML（按 Shift + ESC 退出）",
-                            fullscreen: "全螢幕（按 ESC 退出）",
-                            clear: "清空",
-                            search: "搜尋",
-                            help: "使用幫助",
-                            info: "關於" + exports.title
-                        },
-                        buttons: {
-                            enter: "確定",
-                            cancel: "取消",
-                            close: "關閉"
-                        },
-                        dialog: {
-                            link: {
-                                title: "添加超連結",
-                                url: "連結地址",
-                                urlTitle: "連結標題",
-                                urlEmpty: "錯誤：請填寫超連結地址。"
-                            },
-                            referenceLink: {
-                                title: "添加引用超連結",
-                                name: "引用名稱",
-                                url: "連結地址",
-                                urlId: "連結ID",
-                                urlTitle: "連結標題",
-                                nameEmpty: "錯誤：引用超連結的名稱不能為空。",
-                                idEmpty: "錯誤：請填寫引用超連結的ID。",
-                                urlEmpty: "錯誤：請填寫引用超連結的URL地址。"
-                            },
-                            image: {
-                                title: "添加圖片",
-                                url: "圖片地址",
-                                link: "圖片連結",
-                                alt: "圖片描述",
-                                uploadButton: "本地上傳",
-                                imageURLEmpty: "錯誤：圖片地址不能為空。",
-                                uploadFileEmpty: "錯誤：上傳的圖片不能為空！",
-                                formatNotAllowed: "錯誤：只允許上傳圖片文件，允許上傳的圖片文件格式有："
-                            },
-                            preformattedText: {
-                                title: "添加預格式文本或代碼塊",
-                                emptyAlert: "錯誤：請填寫預格式文本或代碼的內容。",
-                                placeholder: "coding now...."
-                            },
-                            codeBlock: {
-                                title: "添加代碼塊",
-                                selectLabel: "代碼語言：",
-                                selectDefaultText: "請語言代碼語言",
-                                otherLanguage: "其他語言",
-                                unselectedLanguageAlert: "錯誤：請選擇代碼所屬的語言類型。",
-                                codeEmptyAlert: "錯誤：請填寫代碼內容。",
-                                placeholder: "coding now...."
-                            },
-                            htmlEntities: {
-                                title: "HTML實體字符"
-                            },
-                            help: {
-                                title: "使用幫助"
-                            }
-                        }
-                    };
+        //    $('.emailsubject').val("[鮮蔬果季]優惠報報");
+        //    $(function () {
+        //        testEditor = editormd("test-editormd", {
+        //            width: "99%",
+        //            height: 640,
+        //            syncScrolling: "single",
+        //            path: "/editormd/lib/",
+        //            saveHTMLToTextarea: true,
+        //            emoji: true,
+        //            //theme: "gray",//工具栏主题
+        //            //previewTheme: "dark",//预览主题
+        //            //editorTheme: "pastel-on-dark",//编辑主题
+        //            imageUpload: true,
+        //            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        //            imageUploadURL: "/BackstageNewsletterApi/UploadF/",
+        //        });
+        //    });
+        //    (function () {
+        //        var factory = function (exports) {
+        //            var lang = {
+        //                name: "zh-tw",
+        //                description: "開源在線Markdown編輯器<br/>Open source online Markdown editor.",
+        //                tocTitle: "目錄",
+        //                toolbar: {
+        //                    undo: "還原（Ctrl+Z）",
+        //                    redo: "重做（Ctrl+Y）",
+        //                    bold: "粗體",
+        //                    del: "刪除線",
+        //                    italic: "斜體",
+        //                    quote: "引用",
+        //                    ucwords: "將所選的每個單詞首字母轉成大寫",
+        //                    uppercase: "將所選文本轉成大寫",
+        //                    lowercase: "將所選文本轉成小寫",
+        //                    h1: "標題1",
+        //                    h2: "標題2",
+        //                    h3: "標題3",
+        //                    h4: "標題4",
+        //                    h5: "標題5",
+        //                    h6: "標題6",
+        //                    "list-ul": "無序列表",
+        //                    "list-ol": "有序列表",
+        //                    hr: "橫線",
+        //                    link: "超連結",
+        //                    "reference-link": "引用超連結",
+        //                    image: "加入圖片",
+        //                    code: "行內代碼",
+        //                    "preformatted-text": "預格式文本 / 代碼塊（縮進風格）",
+        //                    "code-block": "代碼塊（多語言風格）",
+        //                    table: "加入表格",
+        //                    datetime: "加入日期時間",
+        //                    emoji: "Emoji 表情",
+        //                    "html-entities": "HTML 實體字符",
+        //                    pagebreak: "插入分頁符",
+        //                    watch: "關閉實時預覽",
+        //                    unwatch: "開啟實時預覽",
+        //                    preview: "全視窗預覽HTML（按 Shift + ESC 退出）",
+        //                    fullscreen: "全螢幕（按 ESC 退出）",
+        //                    clear: "清空",
+        //                    search: "搜尋",
+        //                    help: "使用幫助",
+        //                    info: "關於" + exports.title
+        //                },
+        //                buttons: {
+        //                    enter: "確定",
+        //                    cancel: "取消",
+        //                    close: "關閉"
+        //                },
+        //                dialog: {
+        //                    link: {
+        //                        title: "添加超連結",
+        //                        url: "連結地址",
+        //                        urlTitle: "連結標題",
+        //                        urlEmpty: "錯誤：請填寫超連結地址。"
+        //                    },
+        //                    referenceLink: {
+        //                        title: "添加引用超連結",
+        //                        name: "引用名稱",
+        //                        url: "連結地址",
+        //                        urlId: "連結ID",
+        //                        urlTitle: "連結標題",
+        //                        nameEmpty: "錯誤：引用超連結的名稱不能為空。",
+        //                        idEmpty: "錯誤：請填寫引用超連結的ID。",
+        //                        urlEmpty: "錯誤：請填寫引用超連結的URL地址。"
+        //                    },
+        //                    image: {
+        //                        title: "添加圖片",
+        //                        url: "圖片地址",
+        //                        link: "圖片連結",
+        //                        alt: "圖片描述",
+        //                        uploadButton: "本地上傳",
+        //                        imageURLEmpty: "錯誤：圖片地址不能為空。",
+        //                        uploadFileEmpty: "錯誤：上傳的圖片不能為空！",
+        //                        formatNotAllowed: "錯誤：只允許上傳圖片文件，允許上傳的圖片文件格式有："
+        //                    },
+        //                    preformattedText: {
+        //                        title: "添加預格式文本或代碼塊",
+        //                        emptyAlert: "錯誤：請填寫預格式文本或代碼的內容。",
+        //                        placeholder: "coding now...."
+        //                    },
+        //                    codeBlock: {
+        //                        title: "添加代碼塊",
+        //                        selectLabel: "代碼語言：",
+        //                        selectDefaultText: "請語言代碼語言",
+        //                        otherLanguage: "其他語言",
+        //                        unselectedLanguageAlert: "錯誤：請選擇代碼所屬的語言類型。",
+        //                        codeEmptyAlert: "錯誤：請填寫代碼內容。",
+        //                        placeholder: "coding now...."
+        //                    },
+        //                    htmlEntities: {
+        //                        title: "HTML實體字符"
+        //                    },
+        //                    help: {
+        //                        title: "使用幫助"
+        //                    }
+        //                }
+        //            };
 
-                    exports.defaults.lang = lang;
-                };
+        //            exports.defaults.lang = lang;
+        //        };
 
-                // CommonJS/Node.js
-                if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
-                    module.exports = factory;
-                }
-                else if (typeof define === "function")  // AMD/CMD/Sea.js
-                {
-                    if (define.amd) { // for Require.js
+        //        // CommonJS/Node.js
+        //        if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
+        //            module.exports = factory;
+        //        }
+        //        else if (typeof define === "function")  // AMD/CMD/Sea.js
+        //        {
+        //            if (define.amd) { // for Require.js
 
-                        define(["editormd"], function (editormd) {
-                            factory(editormd);
-                        });
+        //                define(["editormd"], function (editormd) {
+        //                    factory(editormd);
+        //                });
 
-                    } else { // for Sea.js
-                        define(function (require) {
-                            var editormd = require("../editormd");
-                            factory(editormd);
-                        });
-                    }
-                }
-                else {
-                    factory(window.editormd);
-                }
+        //            } else { // for Sea.js
+        //                define(function (require) {
+        //                    var editormd = require("../editormd");
+        //                    factory(editormd);
+        //                });
+        //            }
+        //        }
+        //        else {
+        //            factory(window.editormd);
+        //        }
 
-            })();
-        })
+        //    })();
+        //})
 
         //checkBOX全選
         function demo() {
