@@ -102,32 +102,40 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult MemberCenter()
         {
-            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
-            UserLogin.member = user;
-            MemberViewModel mv = null;
-            var mc = (from i in db.Members
-                      join a in db.Cities on i.CityId equals a.CityId
-                      where i.UserId == UserLogin.member.UserId
-                      select new { i, a.CityName }).FirstOrDefault();
-            if(HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            try
             {
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
-                ViewBag.cityname = mc.CityName;
-                mv = new MemberViewModel()
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
+                MemberViewModel mv = null;
+                var mc = (from i in db.Members
+                          join a in db.Cities on i.CityId equals a.CityId
+                          where i.UserId == UserLogin.member.UserId
+                          select new { i, a.CityName }).FirstOrDefault();
+                if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                 {
-                    member = mc.i,
-                    city = mc.CityName,
-                };
+                    ViewBag.USER = UserLogin.member.MemberName;
+                    ViewBag.userID = UserLogin.member.MemberId;
+                    ViewBag.cityname = mc.CityName;
+                    mv = new MemberViewModel()
+                    {
+                        member = mc.i,
+                        city = mc.CityName,
+                    };
+                }
+                else
+                {
+                    ViewBag.USER = null;
+                    UserLogin.member = null;
+                    return RedirectToAction("Login", "Login");
+                } 
+                return View(mv);
             }
-            else
+            catch
             {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return RedirectToAction("Login","Login");
+                return RedirectToAction("Login", "Login");
             }
 
-            return View(mv);
+           
         }
         [HttpPost]
         public IActionResult MemberCenter(MemberViewModel p)
