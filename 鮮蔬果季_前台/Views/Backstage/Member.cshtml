@@ -5,6 +5,9 @@
 @section Styles{
     <link rel="stylesheet" href="~/backstage/css/dataTables.bootstrap4.css">
 }
+<div id="loader" hidden>
+    <img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+</div>
 <div class="row justify-content-center">
     <div class="col-12">
         <h2 class="mb-2 page-title">會員管理</h2>
@@ -109,8 +112,8 @@
                         </table>
                     </div>
                     <!-- Modal 會員修改-->
-                    <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" style="max-width: 1000px;">
+                    <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                        <div class="modal-dialog" style="max-width: 550px;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">資料修改</h5>
@@ -118,7 +121,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form name="MembEdit">
+                                <form name="MembEdit" >
                                     <div class="modal-body memberBody">
                                         <!--內容-->
                                     </div>
@@ -168,20 +171,21 @@
                 })
             }
         });
-        $(document).on("change", ".statechange", function () {
-            var city = $(".statechange").val();
-            console.log(city)
-            $(".cityLB").val(city)
-        })
-        $(document).on("change", ".Gender", function () {
-            var gender = $(".Gender").val();
-            $(".GenderLB").val(gender);
-        })
+        //$(document).on("change", ".statechange", function () {
+        //    var city = $(".statechange").val();
+        //    console.log(city)
+        //    $(".cityLB").val(city)
+        //})
+        //$(document).on("change", ".Gender", function () {
+        //    var gender = $(".Gender").val();
+        //    $(".GenderLB").val(gender);
+        //})
         $(document).on("click",".PartialTriggerUpload",function () {
             $(".PartialselectPhoto").click();
         })
         $(document).on("click", ".BtnSave", async function (e) {
             e.preventDefault();
+            $("#loader").attr("hidden", false)
             const fromData = new FormData(document.MembEdit)
             const response = await fetch('@Url.Content("~/BackstageMember/submitMemberDetil")', {
                 method: "POST",
@@ -190,6 +194,7 @@
             const data = await response.text()
             if (data == 1) {
                 $(".card-body").load("@Url.Content("~/BackstageMember/showNewMemberDetil")", function () {
+                    $("#loader").attr("hidden", true);
                     alert("修改成功")
                     $('#dataTable-1').DataTable(
                         {
@@ -203,4 +208,15 @@
             }
         });
     </script>
+<style>
+    #loader { /*   這是整個會蓋住畫面的底色色塊  */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 50%;
+        top: 25%;
+        background-color: transparent;
+        z-index: 9999;
+    }
+</style>
 }

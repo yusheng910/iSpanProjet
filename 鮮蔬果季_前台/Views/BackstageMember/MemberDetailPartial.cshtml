@@ -3,7 +3,7 @@
     <div class="col-md-3 text-center mb-5">
         <div id="photo" style=" margin-top: 0px; padding-bottom: 0px; height: 100px ;">
             <p style="position:relative;">
-                <div class="PartialPhotoLoad" >
+                <div class="PartialPhotoLoad">
                     @{
                         if (Model.MemberPhotoPass != null)
                         {
@@ -24,8 +24,8 @@
     </div>
 </div>
 <hr class="my-4">
-<div class="form-row">
-    <div class="form-group col-md-6">
+<div class="form-row" style="padding-left:50px;">
+    <div class="form-group col-md-3">
         <input type="hidden" asp-for="MemberId" name="MemberId" />
         <label for="name">姓名</label>
         <input asp-for="MemberName" type="text" id="MemberName" name="MemberName" class="form-control" placeholder="您的大名" required data-error="請填寫您的欄位">
@@ -36,31 +36,70 @@
             </ul>
         </div>
     </div>
+    <div class="form-group col-md-6">
+        <label for="gender">性別</label>
+        @*<input readonly="readonly" id="genderLB" asp-for="Gender" name="Gender" class="GenderLB" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">*@
+    <select asp-for="Gender" name="Gender" id="gender" class="form-control Gender">
+        <option></option>
+        @{
+            string[] g = { "男 ", "女 " };
+            foreach (var i in g)
+            {
+                if (Model.Gender == i)
+                {
+                    <option selected="selected">@i</option>
+                }
+                else
+                {
+                    <option>@i</option>
+                }
+            }
+        }
+    </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-row" style="padding-left:50px">
+    <div class="form-group col-md-6" style="padding-right:10px;">
+        <label for="inputEmail4">電子郵件帳號</label>
+        <input readonly="readonly" asp-for="UserId" type="email" name="UserId" class="form-control" id="inputEmail4" placeholder="您的電子郵件" required data-error="請填寫您的欄位">
+        @*<div class="help-block with-errors">
+                <ul class="list-unstyled"><li class="NewPassworderro"></li></ul>
+            </div>*@
+    </div>
     <div class="form-group col-md-4">
-        性別：
-        <input readonly="readonly" id="genderLB" asp-for="Gender" name="Gender" class="GenderLB" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
-        <select id="gender" class="form-control Gender">
+        <label for="Password">密碼</label>
+        <input asp-for="Password" name="Password" class="form-control" id="Password" required data-error="欄位不可空白">
+    </div>
+</div>
+<div class="form-row" style="padding-left:50px">
+    <div class="form-group col-md-6">
+        <label for="inputAddress5">現居地址</label>
+        <input asp-for="MemberAddress" type="text" name="MemberAddress" class="form-control" id="inputAddress5" placeholder="您的現居地址" required data-error="請填寫您的欄位">
+    </div>
+    <div class="form-group col-md-4">
+        <label>黑名單狀態</label>
+        <select asp-for="BlackList" name="BlackList" class="form-control BlackListStates">
             <option></option>
-            <option>男</option>
-            <option>女</option>
+            @{
+                string[] arr = { "Yes", "No" };
+                foreach (var v in arr)
+                {
+                    if (Model.Gender == v)
+                    {
+                        <option selected="selected">@v</option>
+                    }
+                    else
+                    {
+                        <option>@v</option>
+                    }
+                }
+            }
         </select>
     </div>
 </div>
-<div class="form-group ">
-    <label for="inputEmail4">電子郵件帳號</label>
-    <input readonly="readonly" asp-for="UserId" type="email" name="UserId" class="form-control" id="inputEmail4" placeholder="您的電子郵件" required data-error="請填寫您的欄位">
-    <label for="Password" style="padding-top:16px;">密碼</label>
-    <input asp-for="Password" name="Password" class="form-control" id="Password" required data-error="欄位不可空白">
-    @*<div class="help-block with-errors">
-            <ul class="list-unstyled"><li class="NewPassworderro"></li></ul>
-        </div>*@
-    </div>
-<div class="form-group">
-    <label for="inputAddress5">現居地址</label>
-    <input asp-for="MemberAddress" type="text" name="MemberAddress" class="form-control" id="inputAddress5" placeholder="您的現居地址" required data-error="請填寫您的欄位">
-</div>
-<div class="form-row">
-    <div class="form-group col-md-6">
+<div class="form-row" style="padding-left:50px">
+    <div class="form-group col-md-4" style="padding-right:10px;">
         <label for="phone">聯絡電話</label>
         <input asp-for="Mobile" type="text" name="Mobile" id="Mobile" class="form-control" placeholder="您的電話" required data-error="請填寫您的欄位">
         <div class="help-block with-errors">
@@ -70,10 +109,10 @@
             </ul>
         </div>
     </div>
-    <div class="form-group col-md-4">
-        現居縣市：
-        <input readonly="readonly" class="cityLB" asp-for="city" name="city" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">
-        <select asp-for="city" class="form-control statechange">
+    <div class="form-group col-md-7" style="padding-right:10px;">
+        <label>現居縣市</label>
+        @*<input readonly="readonly" class="cityLB" asp-for="city" name="city" style="border:0 ; outline:none ;background-color:rgba(0,0,0,0); margin-bottom:5.6px;">*@
+        <select asp-for="city" name="city" class="form-control statechange">
             @foreach (var item in ViewBag.AllCities)
             {
                 if (Model.city == item.CityName)

@@ -94,6 +94,7 @@ namespace 鮮蔬果季_前台.Controllers
                     cust.Gender = p.Gender;
                     cust.MemberName = p.MemberName;
                     cust.Password = p.Password;
+                    cust.BlackList = p.BlackList;
                     db.SaveChanges();
                     return Content("1");
                 }
