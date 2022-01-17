@@ -203,15 +203,15 @@ namespace 鮮蔬果季_前台.Controllers
                 
                 if (cust != null)
                 {
-                    if (cust.BlackList == "No")
-                    {
+                    //if (cust.BlackList == "No")
+                    //{
                         if (cust.Password != ExistuserPassword)
                         {
                             return Content("1");
                         }
-                        return Content("4");
-                    }
-                    return Content("2");
+                        return Content("2");
+                    //}
+                    //return Content("4");
                 }
                 return Content("3");
                 
