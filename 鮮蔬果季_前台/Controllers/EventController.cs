@@ -587,15 +587,16 @@ namespace 鮮蔬果季_前台.Controllers
                 };
                 db.Add(送出報名資料);
                 db.SaveChanges();
-                return Content("0");
+                return Content("1");
             }
 
             else  //Seesion沒找到
             {
                 ViewBag.USER = null;
                 UserLogin.member = null;
-                return RedirectToAction("Login", "Login");   //返回登入頁面
+                return Content("0");
             }
+            
         }
 
 
