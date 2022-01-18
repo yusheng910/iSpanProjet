@@ -19,6 +19,17 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult Login()
         {
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion會員有登入
+            {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
+                ViewBag.USER = UserLogin.member.MemberName;
+            }
+            else //Seesion會員沒登入
+            {
+                ViewBag.USER = null;
+                UserLogin.member = null;
+            }
             ViewBag.UserId = HttpContext.Request.Cookies["UserId"];
             ViewBag.Password = HttpContext.Request.Cookies["Password"];
             ViewBag.Checked = HttpContext.Request.Cookies["Checked"];
