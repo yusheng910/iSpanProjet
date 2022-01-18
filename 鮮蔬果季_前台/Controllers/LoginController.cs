@@ -25,7 +25,7 @@ namespace 鮮蔬果季_前台.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(LoginViewModel LOGIN,string email,string id,int remember)
+        public IActionResult Login(LoginViewModel LOGIN,string email,string id)
         {
             string trdemail = "";
             string trdid = "";
@@ -35,7 +35,7 @@ namespace 鮮蔬果季_前台.Controllers
             Supplier supplier = db.Suppliers.FirstOrDefault(t => t.SupplierAccount.Equals(LOGIN.username) && t.SupplierPassword.Equals(LOGIN.password));
             if (user != null)
             {
-                if (user.UserId.Equals("freshveg132@gmail.com") && user.Password.Equals("a12345"))
+                if (user.UserId.Equals("freshveg132@gmail.com") && user.Password.Equals("a12345")&&user.BlackList=="No")
                 {
                     string json = "";
 
@@ -44,7 +44,7 @@ namespace 鮮蔬果季_前台.Controllers
                     UserLogin.member = user;
                     return RedirectToAction("Home", "Backstage");
                 }
-                else if (user.UserId.Equals(LOGIN.username) && user.Password.Equals(LOGIN.password))
+                else if (user.UserId.Equals(LOGIN.username) && user.Password.Equals(LOGIN.password)&&user.BlackList=="No")
                 {
                     string json = "";
 
@@ -54,7 +54,6 @@ namespace 鮮蔬果季_前台.Controllers
                     return RedirectToAction("Index", "Home");
 
                 }
-               
                 else if(user==null)
                 {
                     return RedirectToAction("Login", "Login");
