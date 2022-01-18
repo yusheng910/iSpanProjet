@@ -77,7 +77,7 @@
                     return false
                 }
                 else if (data == 4) {
-                    alert("帳號已被停權")
+                    alert("因為此帳號目前有多次違規紀錄而遭到停權，如需申訴請利用電子郵件聯絡客服中心協助處理。  '電子郵件：freshveg132@gmail.com'")
                     return false
                 }
             })
@@ -101,6 +101,10 @@
         $("#Demo2").click(function () {
         $("#username").val("b011@gmail.com");
         $("#password").val("a12345");
+        })
+        $("#BlackList").click(function () {
+            $("#username").val("az023@gmail.com");
+            $("#password").val("a12345");
         })
     </script>
 
@@ -164,7 +168,7 @@
                 });
             }
 
-        </script>
+    </script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="436348574559-4s2b3mvom0gnfno3007rgda1qiveegkv.apps.googleusercontent.com" />
     @*第三方登入測試區結束*@
@@ -214,40 +218,41 @@
                             <label for="remember-me" class="up" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif;">
                                 <span>記住我的帳號、密碼</span>
                                 <span>
-                                    @if (ViewBag.Checked =="1")
+                                    @if (ViewBag.Checked == "1")
                                     {
                                         <input id="remember-me" name="remember-me" type="checkbox" value="1" checked="checked" />
                                     }
-                                    else 
+                                    else
                                     {
-                                        <input id="remember-me" name="remember-me" type="checkbox" value="0"/>
+                                        <input id="remember-me" name="remember-me" type="checkbox" value="0" />
                                     }
-                            </span>
-                        </label>
-                        <br>
-                        <div class="submit-button">
-                            <button id="submit" type="submit" name="submit" class="btn hvr-hover ">登入</button>
-                            <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo">D1</a>
-                            <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo2">D2</a>
-                            @*<a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="admin">admin</a>*@
+                                </span>
+                            </label>
+                            <br>
+                            <div class="submit-button">
+                                <button id="submit" type="submit" name="submit" class="btn hvr-hover ">登入</button>
+                                <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo">D1</a>
+                                <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="Demo2">D2</a>
+                                <a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="BlackList">停權</a>
+                                @*<a style="color:white; padding:9px 16px 9px 16px;" class="btn hvr-hover" id="admin">admin</a>*@
+                            </div>
                         </div>
-                    </div>
-                    <div id="register-link" class="text-right" style="">
-                        <a asp-area="" asp-controller="Login" asp-action="forgetPassword" name="forgetPassword" class="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a>
-                        <br />
-                        <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="margin-top:4.5px ;color:white; padding:10px;">尚未註冊?</a>
-                    </div>
-                    <div class="text-right" style="position:relative">
-                        @*GOOGLE第三方登入測試開始*@
-                        <div class="g-signin2" data-onsuccess="onSignIn" style="position:absolute;right:96px;bottom:6px;"></div>
-                        <input class="tobs" type="hidden" onclick="window.location.href='@Url.Content("~/Backstage/Home")'" />
-                        @*GOOGLE第三方登入測試結束*@
-                    </div>
-                </form>
+                        <div id="register-link" class="text-right" style="">
+                            <a asp-area="" asp-controller="Login" asp-action="forgetPassword" name="forgetPassword" class="forgetPassword" style="color: #8b4513; font-family: 'Noto Sans TC', sans-serif; ">忘記密碼?</a>
+                            <br />
+                            <a asp-area="" asp-controller="Login" asp-action="Register" class="btn hvr-hover" style="margin-top:4.5px ;color:white; padding:10px;">尚未註冊?</a>
+                        </div>
+                        <div class="text-right" style="position:relative">
+                            @*GOOGLE第三方登入測試開始*@
+                            <div class="g-signin2" data-onsuccess="onSignIn" style="position:absolute;right:96px;bottom:6px;"></div>
+                            <input class="tobs" type="hidden" onclick="window.location.href='@Url.Content("~/Backstage/Home")'" />
+                            @*GOOGLE第三方登入測試結束*@
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
