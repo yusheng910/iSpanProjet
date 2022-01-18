@@ -25,7 +25,7 @@ namespace 鮮蔬果季_前台.Controllers
                        on od.ProductId equals p.ProductId
                        join sp in db.Suppliers
                        on p.SupplierId equals sp.SupplierId
-                       select new { r, od, p, sp }).ToList();
+                       select new { r, od, p, sp,od.Order.Member.MemberName }).ToList();
             foreach(var item in 評論詳細)
             {
                 list.Add(new ReviewViewModel()
@@ -33,7 +33,8 @@ namespace 鮮蔬果季_前台.Controllers
                     review = item.r,
                     odetail = item.od,
                     product = item.p,
-                    supplier = item.sp
+                    supplier = item.sp,
+                    MemberName = item.MemberName
                 });
             }
             return View(list);

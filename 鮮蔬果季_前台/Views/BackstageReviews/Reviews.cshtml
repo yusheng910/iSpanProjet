@@ -114,6 +114,7 @@
                                     <th>@Html.DisplayNameFor(model => model.First().SupplierName)</th>
                                     <th>@Html.DisplayNameFor(model => model.First().ProductName)</th>
                                     <th>@Html.DisplayNameFor(model => model.First().OrderDetailId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().MemberName)</th>
                                     <th>@Html.DisplayNameFor(model => model.First().ReviewDate)</th>
                                     <th>@Html.DisplayNameFor(model => model.First().Comments)</th>
                                     <th>@Html.DisplayNameFor(model => model.First().StarRanking)</th>
@@ -135,6 +136,7 @@
                                             <td>
                                                 <span style="padding-left:15%">No. </span>@item.OrderDetailId
                                             </td>
+                                            <td>@item.MemberName</td>
                                             <td>@item.ReviewDate</td>
                                             @{
                                                 if (item.Comments == null && item.Shield == false)
