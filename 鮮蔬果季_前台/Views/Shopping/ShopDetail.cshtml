@@ -370,7 +370,10 @@
                         </p>
                         <h4>上架時間:</h4>
                         <p>
-                            @Model.product.ProduceDate
+                            @{
+                                string data = Convert.ToDateTime(Model.product.ProduceDate).ToString("yyyy/MM/dd  HH:mm");
+                            }
+                            @data
                         </p>
                         <h4></h4>
                         <ul>

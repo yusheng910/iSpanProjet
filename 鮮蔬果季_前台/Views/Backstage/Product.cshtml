@@ -118,7 +118,7 @@
                                             }
 
                                             @{
-                                                string date = (item.ProduceDate).ToString();
+                                                string date = Convert.ToDateTime(item.ProduceDate).ToString("yyyy/MM/dd");
                                                 date = date.Split(" ")[0];
                                                 if (item.InShop)
                                                 {
@@ -582,12 +582,12 @@
         })
         //產品Demo
         $(document).on("click", ".CreateDemo", async function (e) {
-            $(".prodname").val("小白菜")
-            $(".ProductUnitPrice2").val(60)
-            $(".ProductCostPrice2").val(40)
+            $(".prodname").val("蓮霧")
+            $(".ProductUnitPrice2").val(40)
+            $(".ProductCostPrice2").val(18)
             $(".ProductUnitsInStock2").val(200)
             $(".ProductSize2").val("600g/包")
-            $(".ql-editor").html("<h1><span style='color: rgb(0, 138, 0); '>清脆爽口的小白菜</span></h1><h2><span style='color: rgb(0, 0, 0);'>小白菜中含有非常豐富的維生素，特別是維生素C，甚至比胡蘿蔔還高，所以小白菜的營養價值是非常高的!!!</span></h2>")
+            $(".ql-editor").html("<h1><span style='color: rgb(240, 102, 102); '>風味獨特的蓮霧，老少皆宜</span></h1><h2><span style='color: rgb(255, 153, 0);'>蓮霧富含豐富的維生素C、維生素B2、維生素B6、鈣、鎂、硼、錳、鐵、銅、鋅、鉬等微量元素，屬於微鹼性水果，可調節人胃腸的酸鹼度。蓮霧富含水分、清涼解渴!!!</span></h2>")
 
         })
 

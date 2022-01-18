@@ -53,7 +53,7 @@
                     }
 
                     @{
-                        string date = (item.ProduceDate).ToString();
+                        string date = Convert.ToDateTime(item.ProduceDate).ToString("yyyy/MM/dd");
                         date = date.Split(" ")[0];
                         if (item.InShop)
                         {

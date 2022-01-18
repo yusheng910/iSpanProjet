@@ -17,6 +17,9 @@
             string 活動名稱 = "";
             int 報名人數 = 0;
             int 人數限制 = 0;
+            if (Model.Count == 0) {
+                人數限制 = ViewBag.人數;
+            }
             foreach (var item in Model)
             {
                 count++;

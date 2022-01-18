@@ -343,6 +343,7 @@
                             $('div.grandTotal').html("NT$ " + grandTotal);
                             $('#disdisprice').html("-NT$ 0");
                             $('.payTotal').html("NT$ " + (grandTotal - 0));
+                            if($())
                             $('.cpbox').load("@Url.Content("~/Shopping/CartCpPartial/")" + "?ttcart=" + grandTotal);
                         });
                     })

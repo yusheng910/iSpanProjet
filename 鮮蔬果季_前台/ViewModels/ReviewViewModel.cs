@@ -89,6 +89,8 @@ namespace 鮮蔬果季_前台.ViewModels
         //供應商
         [DisplayName("供應商名稱")]
         public string SupplierName { get { return this.supplier.SupplierName; } set { this.supplier.SupplierName = value; } }
+        [DisplayName("評論會員")]
+        public string MemberName { get; set; } 
 
     }
 }
