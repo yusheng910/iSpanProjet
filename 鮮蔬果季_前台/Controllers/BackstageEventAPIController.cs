@@ -64,6 +64,10 @@ namespace 鮮蔬果季_前台.Controllers
                           where er.EventId == id
                           orderby er.Member.MemberId
                           select new { er, er.Event ,er.Member}).ToList();
+            if (所有參加活動會員.Count == 0) {
+                var 活動人數限制 = db.Events.FirstOrDefault(a => a.EventId == id);
+                ViewBag.人數 = 活動人數限制.EventParticipantCap;
+            }
             foreach(var item in 所有參加活動會員)
             {
                 參加單一活動會員列表.Add(new EventListViewModel()
