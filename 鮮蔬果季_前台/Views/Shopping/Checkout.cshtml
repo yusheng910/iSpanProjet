@@ -72,6 +72,7 @@
                         <div class="mb-3">
                             <label for="address">寄送地址 *</label>
                             <input name="address" type="text" class="form-control address" id="address" placeholder="" required>
+                            <button type="button" style="margin-top:10px;" class="btn btn-info btnDemo">DEMO</button>
                             <div class="invalid-feedback"> Please enter your shipping address. </div>
                         </div>
                         @*<div class="custom-control custom-checkbox"> //todo 存 cookie 做地址暫存?
@@ -209,6 +210,9 @@
         var btn = document.querySelector('#btnPay')
         var payRadio = $('input[name=paymentMethod]:checked').val()
 
+        $(document).on("click", ".btnDemo", function () {
+            $(".address").val("台北市大安區信義路三段153號");
+        })
 
 
         btn.addEventListener('click', async function () {
