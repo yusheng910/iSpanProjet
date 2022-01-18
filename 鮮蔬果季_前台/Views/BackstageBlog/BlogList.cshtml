@@ -12,7 +12,8 @@
         <h2 class="mb-2 page-title">部落格管理</h2>
         <br />
 
-        <button type="button" class="btn btn-primary btn-lg createModel"   data-toggle="modal" data-target="#CreateModal" > 新增部落格
+        <button type="button" class="btn btn-primary btn-lg createModel" data-toggle="modal" data-target="#CreateModal">
+            新增部落格
             @*@Html.ActionLink("新增部落格文章", "EventCreate", "BackstageEvent", new { }, new { @style = "color:White" })*@
         </button>
 
@@ -53,8 +54,21 @@
                                             <td>@item.BlogDetail.Title</td>
                                             <td>@item.BlogDetail.Subtitle</td>
                                             <td>@item.BlogDetail.Label</td>
-                                            <td>@ViewBag.活動日期</td>
+
+                                            <td>
+                                                   @ViewBag.活動日期
+                                                </td>
+
+                                            @*<td>
+                                                @{
+                                                    string date = (item.PublishedDate).ToString();
+                                                    date = date.Split(" ")[0];
+                                                }
+                                            </td>*@
+
                                             <td></td>
+
+
 
                                             <td>
                                                 @*修改按鈕*@
@@ -75,7 +89,6 @@
         </div> <!-- end section -->
     </div> <!-- .col-12 -->
 </div> <!-- .row -->
-
 <!-- Modal 修改-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 1000px;">
@@ -119,7 +132,7 @@
                     <!--內容-->
                 </div>
                 <div class="modal-footer">
-                    <button  style="margin-right:25px"   id="DemoBtn" type="button" class="btn btn-success" >Demo</button>
+                    <button style="margin-right:25px" id="DemoBtn" type="button" class="btn btn-success">Demo</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <input type="submit" value="儲存" class="btn btn-primary CreatebtnSave" data-dismiss="modal" />
                 </div>
@@ -232,7 +245,7 @@
             var discription = $(".ql-editor").html();
             $(".Maintext").val(discription);
 
-            const formData = new FormData(document.EventEdit)     
+            const formData = new FormData(document.EventEdit)
             const response = await fetch('@Url.Content("~/BackstageBlog/BlogEditPartial2")', {
                 method: "POST",
                 body: formData
