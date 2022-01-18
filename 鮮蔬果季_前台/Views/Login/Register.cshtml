@@ -4,12 +4,21 @@
 }
 @section Scripts{
     <script>
-        var xhr = new XMLHttpRequest();
         var selCity = document.querySelector("#state");
+        async function Loadcity() {
+            const response = await fetch("@Url.Action("LoadCities","Login")")
+            RenderCity(await response.json())
+         }
+        Loadcity()
+        function RenderCity(datas) {
+            datas.forEach((item) => {
+                console.log(item.cityName)
+                const opt = new Option(item.cityName, item.cityName)
+                selCity.options.add(opt)
+            })
+        }
         $("#email").blur(function () {
-            console.log(this)
             var Useremail = $("#email").val();
-            console.log(Useremail)
             const xhr = new XMLHttpRequest()
             xhr.open("get", "@Url.Action("AccountVerification", "Login")?email=" + Useremail)
             xhr.send()
@@ -99,19 +108,7 @@
         //        selCity.options.add(opt);
         //    })
         /*})*/
-         async function Loadcity() {
-            /*const response = await fetch("/Login/LoadCities")*/
-            const response = await fetch("@Url.Action("LoadCities","Login")")
-            RenderCity(await response.json())
-        }
-        Loadcity()
-        function RenderCity(datas) {
-            datas.forEach((item) => {
-                console.log(item.cityName)
-                const opt = new Option(item.cityName, item.cityName)
-                selCity.options.add(opt)
-            })
-        }
+
     </script>
 }
 <!-- Start All Title Box -->
