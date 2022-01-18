@@ -27,13 +27,13 @@
                     </td>
                     <td>@item.OrderId</td>
                     <td>@item.member.MemberName</td>
-                    <td>@item.OrderDate</td>
+                    <td>@Convert.ToDateTime(item.OrderDate).ToString("yyyy/MM/dd HH:mm:ss")</td>
                     @{
                         //string date = (item.ShippedDate).ToString();
                         //date = date.Split(" ")[0];
                         if (item.ShippedDate != null)
                         {
-                            <td>@item.ShippedDate</td>
+                            <td>@Convert.ToDateTime(item.ShippedDate).ToString("yyyy/MM/dd HH:mm:ss")</td>
                         }
                         else
                         {
