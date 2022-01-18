@@ -78,7 +78,7 @@
                                                 </p>
                                             </td>
                                             @{
-                                                string date = (item.BirthDate).ToString();
+                                                string date = (item.BirthDate).ToString("yyyy/MM/dd");
                                                 date = date.Split(" ")[0];
                                                 <td class="text-muted">
                                                     <strong>@date</strong>

@@ -37,7 +37,8 @@ namespace 鮮蔬果季_前台.Controllers
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
 
-                ViewBag.活動日期 = item.PublishedDate.Value.ToLongDateString();  //僅顯示年月日
+                //ViewBag.活動日期 = item.PublishedDate.Value.ToLongDateString();  //僅顯示年月日
+                ViewBag.活動日期 = Convert.ToDateTime(item.PublishedDate).ToString("yyyy/MM/dd");
 
                 list.Add(new BlogDetailListViewModel()
                 {
@@ -121,7 +122,9 @@ namespace 鮮蔬果季_前台.Controllers
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
 
-                ViewBag.活動日期 = item.PublishedDate.Value.ToLongDateString();  //僅顯示年月日
+                ViewBag.活動日期 = Convert.ToDateTime(item.PublishedDate).ToString("yyyy/MM/dd");
+                //因為PublishedDate非必填  故要先轉型為DateTime
+
 
                 list.Add(new BlogDetailListViewModel()
                 {

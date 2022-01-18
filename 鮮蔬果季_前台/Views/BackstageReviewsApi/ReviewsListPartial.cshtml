@@ -31,7 +31,10 @@
                         <span style="padding-left:15%">No. </span>@item.OrderDetailId
                     </td>
                     <td>@item.MemberName</td>
-                    <td>@item.ReviewDate</td>
+                    @{
+                        string ReviewDate = (item.ReviewDate).ToString("yyyy/MM/dd hh:mm tt");
+                        <td>@ReviewDate</td>
+                    }
                     @{
                         if (item.Comments == null && item.Shield == false)
                         {
