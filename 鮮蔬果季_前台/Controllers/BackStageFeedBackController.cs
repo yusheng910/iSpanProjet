@@ -39,6 +39,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 所有意見回饋列表.Add(new FeedbackResponseViewModel()
                 {
+                    order=item.o,
                     member=item.m,
                     feedback = item.fb,
                     feedbackResponse = item.fbr1,
@@ -79,6 +80,7 @@ namespace 鮮蔬果季_前台.Controllers
             {
                 所有意見回饋列表.Add(new FeedbackResponseViewModel()
                 {
+                    order = item.o,
                     member = item.m,
                     feedback = item.fb,
                     feedbackResponse = item.fbr1,

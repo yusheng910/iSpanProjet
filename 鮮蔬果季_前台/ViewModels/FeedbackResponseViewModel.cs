@@ -94,7 +94,20 @@ namespace 鮮蔬果季_前台.ViewModels
             }
         }
 
-       
+        public Order _order = null;
+        public Order order
+        {
+            get
+            {
+                if (_order == null)
+                    _order = new Order();
+                return _order;
+            }
+            set
+            {
+                _order = value;
+            }
+        }
         
 
 
@@ -103,6 +116,7 @@ namespace 鮮蔬果季_前台.ViewModels
 
 
         public int FeedbackResponseID { get; set; }
+        public int OrderId { get { return this.order.OrderId; } set { this.order.OrderId = value; } }
 
         [DisplayName("回應項目")]
         public string FeedbackName { get { return this.feedback.FeedbackName; } set {this.feedback.FeedbackName=value; } }

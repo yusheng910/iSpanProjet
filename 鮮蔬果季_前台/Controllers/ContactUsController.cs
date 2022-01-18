@@ -38,15 +38,17 @@ namespace 鮮蔬果季_前台.Controllers
                       ).FirstOrDefault();
             意見回饋列表= new FeedbackResponseViewModel()
             {
+                order=feedbackname.o,
                 orderdetail=feedbackname.od2,
                 member = feedbackname.m,
                 product = feedbackname.prod,
                 supplier = feedbackname.sup
 
             };
+            ViewBag.orderid = 意見回饋列表.OrderId;//訂單編號
             ViewBag.suppliername =意見回饋列表.SupplierName ;//供應商名稱
             ViewBag.productname = 意見回饋列表.ProductName;//產品名
-            ViewBag.orderdetailname = id;//訂單編號
+            ViewBag.orderdetailname = id;//訂單明細編號
             //========================引用帳號登入屏蔽================================================//
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
             {
