@@ -54,6 +54,7 @@ namespace 鮮蔬果季_前台.Controllers
                          orderby E.PublishedDate descending
                         select E).ToList();
 
+
             List<BlogDetailListViewModel> list = new List<BlogDetailListViewModel>();
             foreach (var item in datas)
             {
@@ -63,6 +64,9 @@ namespace 鮮蔬果季_前台.Controllers
                               where Sl.SupplierId == item.SupplierId
                               select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
                 string s = deleteHtml(item.Maintext);
+
+                ViewBag.活動日期 = Convert.ToDateTime(item.PublishedDate).ToString("yyyy/MM/dd");
+
                 list.Add(new BlogDetailListViewModel()
                 {
                     BlogDetail = item,
@@ -267,7 +271,11 @@ namespace 鮮蔬果季_前台.Controllers
                          where id == E.BlogDetailId
                          select new { E, supp }).FirstOrDefault();
 
+            ViewBag.活動日期 = Convert.ToDateTime(單筆部落格.E.PublishedDate).ToString("yyyy/MM/dd");
+
             BlogDetailListViewModel 部落格date = new BlogDetailListViewModel();
+
+
 
             部落格date.BlogDetail = 單筆部落格.E;
             部落格date.Supplier = 單筆部落格.supp;
