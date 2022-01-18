@@ -50,7 +50,7 @@
     </style>
 }
 <div id="loader" hidden>
-<img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
+    <img id="imgLoad" style="width:110px;" src="~/images/loading.gif" />
 </div>
 
 <div class="alert-autocloseable-warning" id="shippingmsgbox" hidden>
@@ -96,13 +96,13 @@
                                             </td>
                                             <td>@item.OrderId</td>
                                             <td>@item.member.MemberName</td>
-                                            <td>@item.OrderDate</td>
+                                            <td>@Convert.ToDateTime(item.OrderDate).ToString("yyyy/MM/dd HH:mm:ss")</td>
                                             @{
                                                 //string date = (item.ShippedDate).ToString();
                                                 //date = date.Split(" ")[0];
                                                 if (item.ShippedDate != null)
                                                 {
-                                                    <td>@item.ShippedDate</td>
+                                                    <td>@Convert.ToDateTime(item.ShippedDate).ToString("yyyy/MM/dd HH:mm:ss")</td>
                                                 }
                                                 else
                                                 {
@@ -170,8 +170,8 @@
                                     <!--內容-->
                                 </div>
                                 @*<div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                    </div>*@
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
