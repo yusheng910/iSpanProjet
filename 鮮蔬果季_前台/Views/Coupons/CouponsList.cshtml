@@ -225,7 +225,6 @@
         $(document).on("click", "#haventcoupons", function () {
             $("#addcparea").fadeOut(300);
             $('#addcparea').load("@Url.Content("~/Coupons/PartialHavent")", function () {
-                $("#addcparea").attr("hidden", false);
                 $("#addcparea").fadeIn(300);
             })
         })
@@ -234,7 +233,6 @@
         $(document).on("click", "#allcoupons", function () {
             $("#addcparea").fadeOut(300);
             $('#addcparea').load("@Url.Content("~/Coupons/PartialAll")", function () {
-                $("#addcparea").attr("hidden", false);
                 $("#addcparea").fadeIn(300);
             })
         })
@@ -243,7 +241,6 @@
         $(document).on("click", "#couponsexpired", function () {
             $("#addcparea").fadeOut(300);
             $('#addcparea').load("@Url.Content("~/Coupons/partialexpired")", function () {
-                $("#addcparea").attr("hidden", false);
                 $("#addcparea").fadeIn(300);
             })
         })
@@ -251,7 +248,6 @@
         $(document).on("click", "#hadcoupons", function () {
             $("#addcparea").fadeOut(300);
             $('#addcparea').load("@Url.Content("~/Coupons/partialHad")", function () {
-                $("#addcparea").attr("hidden", false);
                 $("#addcparea").fadeIn(300);
             })
         })
