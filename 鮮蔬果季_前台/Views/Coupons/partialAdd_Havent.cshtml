@@ -96,16 +96,14 @@
                             <div class="block">
                                 <p>
                                     @{
-                                        string strdate = (item.coupon.CouponStartDate).ToString();
-                                        string enddate = (item.coupon.CouponEndDate).ToString();
-                                        string[] chgstrdate = strdate.Split(" ");
-                                        string[] chgenddate = enddate.Split(" ");
+                                        string strdate = (item.coupon.CouponStartDate).ToString("yyyy/MM/dd");
+                                        string enddate = (item.coupon.CouponEndDate).ToString("yyyy/MM/dd");
                                     }
-                                    <span class="date">@chgstrdate[0] </span>
+                                    <span class="date">@strdate </span>
                                 </p>
                                 <span class="date">至</span>
                                 <p>
-                                    <span class="date">@chgenddate[0]</span>
+                                    <span class="date">@enddate</span>
                                 </p>
                             </div>
                             @{
