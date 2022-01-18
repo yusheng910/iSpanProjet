@@ -1,138 +1,153 @@
 ﻿@model List<鮮蔬果季_前台.ViewModels.CouponsListViewModel>
-
-@foreach (var item in Model)
-{
-    if (item.couponDetail.CouponId != item.coupon.CouponId && item.coupon.CouponEndDate > DateTime.Now)
+@{
+    if (Model.Count == 0)
     {
-        <div class="col-sm-6 disdis">
-            <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
-                @{
-                    string dd = (item.CouponEndDate).ToString("dd");
-                    string ndd = (DateTime.Now).ToString("dd");
-                    int ddd = int.Parse(dd);
-                    int nddd = int.Parse(ndd);
-                    int lastdate = ddd - nddd;
-                    string HH = (item.CouponEndDate).ToString("HH");
-                    string nHH = (DateTime.Now).ToString("HH");
-                    int HHH = int.Parse(HH);
-                    int nHHH = int.Parse(nHH);
-                    int lasthour = HHH - nHHH;
-                    string mm = (item.CouponEndDate).ToString("mm");
-                    string nmm = (DateTime.Now).ToString("mm");
-                    int mmm = int.Parse(mm);
-                    int nmmm = int.Parse(nmm);
-                    int lastmin = mmm - nmmm;
-                    if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
-                    {
-                        <img class="spldis" src="~/images/clock-unscreen.gif" />
-                        <div class="last">
-                            <span class="lastfont">剩</span><span class="lastdate">@lastdate</span><span class="lastfont">天</span>
-                        </div>
-                    }
-                    else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
-                    {
-                        <img class="spldis" src="~/images/clock-unscreen.gif" />
-                        <div class="last2">
-                            <span class="lastfont">剩</span><span class="lastdate">@lasthour</span><span class="lastfont">小時</span>
-                        </div>
-                    }
-                    else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour == 0 && lastmin != 0)
-                    {
-                        <img class="spldis" src="~/images/clock-unscreen.gif" />
-                        <div class="last3">
-                            <span class="lastfont">剩</span><span class="lastdate">@lastmin</span><span class="lastfont">分鐘</span>
-                        </div>
-                    }
-                }
-                <div class="kiri p-3">
-                    <div class="icon-container ">
-                        <div class="icon-container_box">
-                            <img src="~/images/購物金.png" width="85" alt="totoprayogo.com" class="" />
-                        </div>
-                    </div>
-                </div>
-                <div class="tengah py-3 d-flex w-100 justify-content-start">
-                    <div>
-                        @{
-                            if (item.coupon.CouponEndDate < DateTime.Now)
-                            {
-                                <span class="badge badge-success">已結束</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-warning">活動中</span>
-                                if (item.couponDetail.CouponId == item.coupon.CouponId)
-                                {
-                                    <span class="badge badge-primary">共<span id="numcount">@item.coupon.CouponQuantityIssued</span>張</span>
-                                    <span class="badge badge-info">剩餘<span id="numcount">@item.couponDetail.CouponQuantity</span>張</span>
+        <div style="text-align:center;width:100%">
+            <span style="color:darkcyan;font-weight:bold;font-style:italic;font-size:24px">*沒有尚未領取的優惠券*</span>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
 
-                                }
-                                else
-                                {
-                                    <span class="badge badge-primary">共<span id="numcount">@item.coupon.CouponQuantityIssued</span>張</span>
-
-                                    <span style="background-color:indianred" class="badge badge-info">尚未領取</span>
-
-                                }
-                            }
-                        }
-                        <h3 class="lead">@Html.DisplayFor(modelItem => item.coupon.CouponName)</h3>
-                        @{
-                            if (item.coupon.DiscountCondition == 0)
-                            {
-                                <p class="text-muted mb-0">全館消費不限金額 現折NT$ @item.coupon.CouponDiscount</p>
-                            }
-                            else
-                            {
-                                <p class="text-muted mb-0">消費滿NT$ @item.coupon.DiscountCondition 現折NT$ @item.coupon.CouponDiscount</p>
-
-                            }
-                        }
-                    </div>
-                </div>
-                <div class="kanan">
-                    <div class="info m-3 d-flex align-items-center">
-                        <div class="w-100">
-                            <div class="block">
-                                <p>
-                                    @{
-                                        string strdate = (item.coupon.CouponStartDate).ToString("yyyy/MM/dd");
-                                        string enddate = (item.coupon.CouponEndDate).ToString("yyyy/MM/dd");
-                                    }
-                                    <span class="date">@strdate </span>
-                                </p>
-                                <span class="date">至</span>
-                                <p>
-                                    <span class="date">@enddate</span>
-                                </p>
+            <div class="col-sm-6 disdis">
+                <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                    @{
+                        string dd = (item.CouponEndDate).ToString("dd");
+                        string ndd = (DateTime.Now).ToString("dd");
+                        int ddd = int.Parse(dd);
+                        int nddd = int.Parse(ndd);
+                        int lastdate = ddd - nddd;
+                        string HH = (item.CouponEndDate).ToString("HH");
+                        string nHH = (DateTime.Now).ToString("HH");
+                        int HHH = int.Parse(HH);
+                        int nHHH = int.Parse(nHH);
+                        int lasthour = HHH - nHHH;
+                        string mm = (item.CouponEndDate).ToString("mm");
+                        string nmm = (DateTime.Now).ToString("mm");
+                        int mmm = int.Parse(mm);
+                        int nmmm = int.Parse(nmm);
+                        int lastmin = mmm - nmmm;
+                        if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate != 0)
+                        {
+                            <img class="spldis" src="~/images/clock-unscreen.gif" />
+                            <div class="last">
+                                <span class="lastfont">剩</span>
+                                <span class="lastdate">@lastdate</span>
+                                <span class="lastfont">天</span>
                             </div>
+                        }
+                        else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
+                        {
+                            <img class="spldis" src="~/images/clock-unscreen.gif" />
+                            <div class="last2">
+                                <span class="lastfont">剩</span>
+                                <span class="lastdate">@lasthour</span>
+                                <span class="lastfont">小時</span>
+                            </div>
+                        }
+                        else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour == 0 && lastmin != 0)
+                        {
+                            <img class="spldis" src="~/images/clock-unscreen.gif" />
+                            <div class="last3">
+                                <span class="lastfont">剩</span>
+                                <span class="lastdate">@lastmin</span>
+                                <span class="lastfont">分鐘</span>
+                            </div>
+                        }
+                    }
+                    <div class="kiri p-3">
+                        <div class="icon-container ">
+                            <div class="icon-container_box">
+                                <img src="~/images/購物金.png" width="85" alt="totoprayogo.com" class="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tengah py-3 d-flex w-100 justify-content-start">
+                        <div>
                             @{
                                 if (item.coupon.CouponEndDate < DateTime.Now)
                                 {
-                                    <a class="btn btn-sm btn-outline-info btn-block disabled">
-                                        已結束
-                                    </a>
-                                }
-                                else if (item.couponDetail.CouponQuantity >= 0 && item.couponDetail.CouponId != 0)
-                                {
-                                    <a style="background-color:#b0b435;color:white;" class="btn btn-sm btn-outline-light btn-block disabled">
-                                        已領取
-                                    </a>
+                                    <span class="badge badge-success">已結束</span>
                                 }
                                 else
                                 {
+                                    <span class="badge badge-warning">活動中</span>
+                                    if (item.couponDetail.CouponId == item.coupon.CouponId)
+                                    {
+                                        <span class="badge badge-primary">共<span id="numcount">@item.coupon.CouponQuantityIssued</span>張</span>
+                                        <span class="badge badge-info">剩餘<span id="numcount">@item.couponDetail.CouponQuantity</span>張</span>
 
-                                    <a class="btn btn-sm btn-outline-danger btn-block addcpbtn autoclosable-btn-warning">
-                                        <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
-                                        領取
-                                    </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-primary">共<span id="numcount">@item.coupon.CouponQuantityIssued</span>張</span>
+
+                                        <span style="background-color:indianred" class="badge badge-info">尚未領取</span>
+
+                                    }
                                 }
                             }
+                            <h3 class="lead">@Html.DisplayFor(modelItem => item.coupon.CouponName)</h3>
+                            @{
+                                if (item.coupon.DiscountCondition == 0)
+                                {
+                                    <p class="text-muted mb-0">全館消費不限金額 現折NT$ @item.coupon.CouponDiscount</p>
+                                }
+                                else
+                                {
+                                    <p class="text-muted mb-0">消費滿NT$ @item.coupon.DiscountCondition 現折NT$ @item.coupon.CouponDiscount</p>
+
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="kanan">
+                        <div class="info m-3 d-flex align-items-center">
+                            <div class="w-100">
+                                <div class="block">
+                                    <p>
+                                        @{
+                                            string strdate = (item.coupon.CouponStartDate).ToString("yyyy/MM/dd");
+                                            string enddate = (item.coupon.CouponEndDate).ToString("yyyy/MM/dd");
+                                        }
+                                        <span class="date">@strdate </span>
+                                    </p>
+                                    <span class="date">至</span>
+                                    <p>
+                                        <span class="date">@enddate</span>
+                                    </p>
+                                </div>
+                                @{
+                                    if (item.coupon.CouponEndDate < DateTime.Now)
+                                    {
+                                        <a class="btn btn-sm btn-outline-info btn-block disabled">
+                                            已結束
+                                        </a>
+                                    }
+                                    else if (item.couponDetail.CouponQuantity >= 0 && item.couponDetail.CouponId != 0)
+                                    {
+                                        <a style="background-color:#b0b435;color:white;" class="btn btn-sm btn-outline-light btn-block disabled">
+                                            已領取
+                                        </a>
+                                    }
+                                    else
+                                    {
+
+                                        <a class="btn btn-sm btn-outline-danger btn-block addcpbtn autoclosable-btn-warning">
+                                            <input type="hidden" value="@item.coupon.CouponId" class="findcid" />
+                                            領取
+                                        </a>
+                                    }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
+
     }
 }
 @*

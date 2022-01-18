@@ -96,13 +96,14 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
             }
             var qall = (from p in db.Coupons
+                        where p.CouponEndDate>DateTime.Now
                         select p).ToList();
 
             List<CouponsListViewModel> list = new List<CouponsListViewModel>();
             foreach (var item in qall)
             {
                 var q = (from cd in db.CouponDetails
-                         where cd.CouponId == item.CouponId &&
+                         where cd.CouponId != item.CouponId &&
                          cd.MemberId == UserLogin.member.MemberId
                          select cd).FirstOrDefault();
                 list.Add(new CouponsListViewModel()
@@ -200,8 +201,10 @@ namespace 鮮蔬果季_前台.Controllers
                               on p.CouponId equals cd.CouponId
                               where cd.CouponQuantity >= 0 &&
                               cd.CouponId != 0 &&
-                              cd.MemberId == UserLogin.member.MemberId
+                              cd.MemberId == UserLogin.member.MemberId &&
+                              p.CouponEndDate > DateTime.Now
                               select new {p,cd }).ToList();
+
             List<CouponsListViewModel> list = new List<CouponsListViewModel>();
             foreach (var item in couponsHad)
             {
@@ -211,7 +214,7 @@ namespace 鮮蔬果季_前台.Controllers
                     couponDetail=item.cd
                 });
             }
-
+            ViewBag.數量 = list.Count();
             return PartialView(list);
         }
 
