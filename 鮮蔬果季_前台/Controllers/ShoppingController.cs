@@ -1268,8 +1268,13 @@ namespace 鮮蔬果季_前台.Controllers
             foreach (var item in 列出評論)
             {
                 var 會員資訊 = (from x in db.Members
-                            where x.MemberId == item.MemberId
+                            where x.MemberId == item.MemberId &&
+                            x.BlackList == "No"
                             select x).FirstOrDefault();
+                if(會員資訊==null)
+                {
+                    continue;
+                }
                 單筆商品.review.Add(item.p);
                 單筆商品.Member.Add(會員資訊);
             }

@@ -223,27 +223,43 @@
     <script>
         $('.alert-autocloseable-warning').hide();
         $(document).on("click", "#haventcoupons", function () {
-            $('#addcparea').load("@Url.Content("~/Coupons/PartialHavent")")
+            $("#addcparea").fadeOut(300);
+            $('#addcparea').load("@Url.Content("~/Coupons/PartialHavent")", function () {
+                $("#addcparea").attr("hidden", false);
+                $("#addcparea").fadeIn(300);
+            })
         })
 
 
         $(document).on("click", "#allcoupons", function () {
-            $('#addcparea').load("@Url.Content("~/Coupons/PartialAll")")
+            $("#addcparea").fadeOut(300);
+            $('#addcparea').load("@Url.Content("~/Coupons/PartialAll")", function () {
+                $("#addcparea").attr("hidden", false);
+                $("#addcparea").fadeIn(300);
+            })
         })
 
 
         $(document).on("click", "#couponsexpired", function () {
-            $('#addcparea').load("@Url.Content("~/Coupons/partialexpired")")
+            $("#addcparea").fadeOut(300);
+            $('#addcparea').load("@Url.Content("~/Coupons/partialexpired")", function () {
+                $("#addcparea").attr("hidden", false);
+                $("#addcparea").fadeIn(300);
+            })
         })
 
         $(document).on("click", "#hadcoupons", function () {
-            $('#addcparea').load("@Url.Content("~/Coupons/partialHad")")
+            $("#addcparea").fadeOut(300);
+            $('#addcparea').load("@Url.Content("~/Coupons/partialHad")", function () {
+                $("#addcparea").attr("hidden", false);
+                $("#addcparea").fadeIn(300);
+            })
         })
 
         //整頁按的連結
         $(document).on("click", ".addcpbtn", function () {
             var value = $(this).find(".findcid").val()
-            console.log(value)
+            //console.log(value)
             $('#addcparea').load("@Url.Content("~/Coupons/partialAdd/")" + value)
             $('.autoclosable-btn-warning').prop("disabled", true);
             $('.alert-autocloseable-warning').show();
@@ -255,7 +271,7 @@
         //篩選頁的連結
         $(document).on("click", ".addcpbtn2", function () {
             var value = $(this).find(".findcid").val()
-            console.log(value)
+            //console.log(value)
             $('#addcparea').load("@Url.Content("~/Coupons/partialAdd_Havent/")" + value)
             $('.autoclosable-btn-warning').prop("disabled", true);
             $('.alert-autocloseable-warning').show();
@@ -265,22 +281,22 @@
             });
         })
 
-        $(document).on("click", "#allcoupons", function () {
-            $("#addcparea").fadeOut(0);
-            $("#addcparea").fadeIn(300);
-        })
-        $(document).on("click", "#haventcoupons", function () {
-            $("#addcparea").fadeOut(0);
-            $("#addcparea").fadeIn(300);
-        })
-        $(document).on("click", "#hadcoupons", function () {
-            $("#addcparea").fadeOut(0);
-            $("#addcparea").fadeIn(300);
-        })
-        $(document).on("click", "#couponsexpired", function () {
-            $("#addcparea").fadeOut(0);
-            $("#addcparea").fadeIn(300);
-        })
+        //$(document).on("click", "#allcoupons", function () {
+        //    $("#addcparea").fadeOut(0);
+        //    $("#addcparea").fadeIn(300);
+        //})
+        //$(document).on("click", "#haventcoupons", function () {
+        //    $("#addcparea").fadeOut(0);
+        //    $("#addcparea").fadeIn(300);
+        //})
+        //$(document).on("click", "#hadcoupons", function () {
+        //    $("#addcparea").fadeOut(0);
+        //    $("#addcparea").fadeIn(300);
+        //})
+        //$(document).on("click", "#couponsexpired", function () {
+        //    $("#addcparea").fadeOut(0);
+        //    $("#addcparea").fadeIn(300);
+        //})
 
 
 
