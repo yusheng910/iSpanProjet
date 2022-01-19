@@ -44,8 +44,8 @@
 
         <div class="form-group">
             <label asp-for="Subtitle" class="control-label"></label>
-            <input asp-for="Subtitle" class="form-control" />
-            <span asp-validation-for="Subtitle" class="text-danger"></span>
+            <input asp-for="Subtitle" class="form-control"    id="SubtitleID"  />
+            <span asp-validation-for="Subtitle" class="text-danger"  id="SubtitleID"></span>
         </div>
 
 
@@ -103,3 +103,6 @@
 @*@section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }*@
+
+
+
