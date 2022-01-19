@@ -133,6 +133,7 @@
                     <!--內容-->
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-success" style="float: left;   margin-left:20px;  color: white" id="DemoBtn">Demo</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                     <input type="submit" value="儲存" class="btn btn-primary btnSave" data-dismiss="modal" />
                 </div>
@@ -303,6 +304,15 @@
             console.log(eid);
             $(".memberList").load("@Url.Content("~/BackstageEventAPI/EventParticipantModalPartial")/"+eid)
         })
+
+        $("#DemoBtn").click(function () {
+            $("#SubtitleID").val("一日蔥農體驗營");
+            $(".ql-editor").html("<h1>現在預訂<span style='color: rgb(255, 153, 0);'>星寶蔥體驗農場</span> | <span style='color: rgb(230, 0, 0); '>親子手作蔥油餅DIY</span>，讓遊客親自體驗做「<strong style='color: rgb(0, 102, 204);'>蔥仔餅</strong>」及農村生活的樂趣，透過自己的雙手拔蔥、洗蔥，到揉麵、加蔥並捲製成型後，現場由服務人員為您煎至金黃熟透，讓您品嚐手作新鮮生產的「蔥仔餅」，更達到寓教於樂的推廣效果。</h1>");
+        });
+
+
+
+
 
     </script>
 }
