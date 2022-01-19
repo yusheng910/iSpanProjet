@@ -32,7 +32,7 @@ namespace 鮮蔬果季_前台.Controllers
         }
 
         //載入部落格首頁
-        public IActionResult PartnerBlog()
+        public IActionResult PartnerBlog(int id)
         {
 
             // 判斷會員是否登入
@@ -49,10 +49,12 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
             }
 
+
+
             //鮮蔬果季Context db = new 鮮蔬果季Context();
-            var datas = (from E in db.BlogDetails 
+            var datas = (from E in db.BlogDetails
                          orderby E.PublishedDate descending
-                        select E).ToList();
+                         select E).ToList();
 
 
             List<BlogDetailListViewModel> list = new List<BlogDetailListViewModel>();
@@ -72,7 +74,7 @@ namespace 鮮蔬果季_前台.Controllers
                     BlogDetail = item,
                     Supplier = 供應商與城市.Sl,
                     City = 供應商與城市.C,
-                    部落格描述去除html=s
+                    部落格描述去除html = s
                 });
             }
             return View(list);
@@ -293,8 +295,72 @@ namespace 鮮蔬果季_前台.Controllers
 
 
 
+        //部落格子頁,的標籤篩選
+        //public IActionResult BlogTag(int id)
+        //{
+        //    // 判斷會員是否登入
+        //    if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER)) //Seesion有找到
+        //    {
+        //        Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+        //        UserLogin.member = user;
+        //        ViewBag.USER = UserLogin.member.MemberName;
+        //        ViewBag.userID = UserLogin.member.MemberId;
+        //    }
+        //    else //Seesion沒找到
+        //    {
+        //        ViewBag.USER = null;
+        //        UserLogin.member = null;
+        //    }
+
+        //    //鮮蔬果季Context db = new 鮮蔬果季Context();
+        //    var datas = (from E in db.BlogDetails
+        //                 orderby E.PublishedDate descending
+        //                 select E).ToList();
+
+        //    if (id == 99)
+        //    {
+        //        datas = (from E in db.BlogDetails
+        //                 orderby E.PublishedDate descending
+        //                 where E.LabelId == 1
+        //                 select E).ToList();
+        //    }
+
+        //    else if (id == 98)
+        //    {
+        //        datas = (from E in db.BlogDetails
+        //                 orderby E.PublishedDate descending
+        //                 where E.LabelId == 2
+        //                 select E).ToList();
+        //    }
+
+        //    else if (id == 97)
+        //    {
+        //        datas = (from E in db.BlogDetails
+        //                 orderby E.PublishedDate descending
+        //                 where E.LabelId == 3
+        //                 select E).ToList();
+        //    }
 
 
+        //    List<BlogDetailListViewModel> list = new List<BlogDetailListViewModel>();
+        //    foreach (var item in datas)
+        //    {
+        //        //db = new 鮮蔬果季Context();
+        //        var 供應商與城市 = (from Sl in db.Suppliers
+        //                      join C in db.Cities on Sl.CityId equals C.CityId   //關聯第3個資料表
+        //                      where Sl.SupplierId == item.SupplierId
+        //                      select new { Sl, C }).FirstOrDefault();     //抓取兩個資料表
+        //        string s = deleteHtml(item.Maintext);
+        //        list.Add(new BlogDetailListViewModel()
+        //        {
+        //            BlogDetail = item,
+        //            Supplier = 供應商與城市.Sl,
+        //            City = 供應商與城市.C,
+        //            部落格描述去除html = s
+        //        });
+        //    }
+        //    return View(list);
+        //}
 
 
 
@@ -335,5 +401,6 @@ namespace 鮮蔬果季_前台.Controllers
         //             }
         //        return View(list);
         //       }
-         }
+
+    }
 }
