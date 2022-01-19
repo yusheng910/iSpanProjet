@@ -185,14 +185,14 @@ namespace 鮮蔬果季_前台.Controllers
         }
         public IActionResult PasswordChange()
         {
-            Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
-            UserLogin.member = user;
             MemberViewModel mv = null;
             var mc = (from i in db.Members
                      where i.MemberId == UserLogin.member.MemberId
                      select new { i.MemberId }).FirstOrDefault();
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
+                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
+                UserLogin.member = user;
                 ViewBag.USER = UserLogin.member.MemberName;
                 ViewBag.userID = UserLogin.member.MemberId;
 
@@ -215,10 +215,6 @@ namespace 鮮蔬果季_前台.Controllers
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
-                Member user = JsonSerializer.Deserialize<Member>(HttpContext.Session.GetString(CDictionary.SK_LOGINED_USER));
-                UserLogin.member = user;
-                ViewBag.USER = UserLogin.member.MemberName;
-                ViewBag.userID = UserLogin.member.MemberId;
 
                 Member cust = db.Members.FirstOrDefault(c => c.MemberId == p.MemberId);
                 if (cust != null)
@@ -226,6 +222,10 @@ namespace 鮮蔬果季_前台.Controllers
                     cust.Password = p.Password;
                     db.SaveChanges();
                 };
+                HttpContext.Session.Clear();
+                UserLogin.member = null;
+
+                return RedirectToAction("Login", "Login");
             }
             else //Seesion沒找到
             {
@@ -233,7 +233,7 @@ namespace 鮮蔬果季_前台.Controllers
                 UserLogin.member = null;
                 return RedirectToAction("Login", "Login");
             }
-            return RedirectToAction("Login", "Login");
+           
         }
         public IActionResult CheckPassword(string oldPassword)
         {
