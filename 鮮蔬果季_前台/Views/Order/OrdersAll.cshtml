@@ -7,7 +7,7 @@
             <p>@Html.DisplayFor(modelItem => item.OrderId)</p>
         </td>
         <td class="orderdate-p">
-            <p>@Html.DisplayFor(modelItem => @Convert.ToDateTime(item.OrderDate).ToString("yyyy/MM/dd HH:mm:ss"))</p>
+            <p>@Convert.ToDateTime(item.OrderDate).ToString("yyyy/MM/dd HH:mm:ss")</p>
         </td>
         @{
             if (item.ShippedDate != null)
