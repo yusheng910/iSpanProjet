@@ -103,14 +103,17 @@ namespace 鮮蔬果季_前台.Controllers
             foreach (var item in qall)
             {
                 var q = (from cd in db.CouponDetails
-                         where cd.CouponId != item.CouponId &&
-                         cd.MemberId == UserLogin.member.MemberId
+                         where cd.MemberId == UserLogin.member.MemberId &&
+                         item.CouponId == cd.CouponId
                          select cd).FirstOrDefault();
-                list.Add(new CouponsListViewModel()
+                if(q==null)
                 {
-                    coupon = item,
-                    couponDetail = q
-                });
+                    list.Add(new CouponsListViewModel()
+                    {
+                        coupon = item,
+                        couponDetail = q
+                    });
+                }
             }
 
             return PartialView(list);
@@ -277,6 +280,7 @@ namespace 鮮蔬果季_前台.Controllers
                      where p.CouponId == id
                      select p.CouponQuantityIssued).FirstOrDefault();
             var qall = (from p in db.Coupons
+                        where p.CouponEndDate > DateTime.Now
                         select p).ToList();
             CouponDetail couponDetail = (new CouponDetail() { CouponId = id, MemberId = UserLogin.member.MemberId, CouponQuantity = q });
 
@@ -286,16 +290,19 @@ namespace 鮮蔬果季_前台.Controllers
             foreach (var item in qall)
             {
                 var q2 = (from cd in db.CouponDetails
-                          where cd.CouponId == item.CouponId &&
-                          cd.MemberId == UserLogin.member.MemberId
-                          select cd).FirstOrDefault();
-                list.Add(new CouponsListViewModel()
+                         where cd.MemberId == UserLogin.member.MemberId &&
+                         item.CouponId == cd.CouponId
+                         select cd).FirstOrDefault();
+                if (q2 == null)
                 {
-                    coupon = item,
-                    couponDetail = q2
-                });
+                    list.Add(new CouponsListViewModel()
+                    {
+                        coupon = item,
+                        couponDetail = q2
+                    });
+                }
             }
-            return PartialView("partialAdd_Havent", list);
+            return PartialView("PartialHavent", list);
         }
         public IActionResult test()
         {
