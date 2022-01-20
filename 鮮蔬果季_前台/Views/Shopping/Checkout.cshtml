@@ -243,10 +243,7 @@
             if (payRadio == "1") {
                     if (txtAddress != "") {
                         $('#CheckoutForm').load('@Url.Content("~/Shopping/Checkout2Partial/")' + cpid, async function () {
-                            function wait() {
-                                $("#send").click();
-                            }
-                            setInterval(wait, 1500)
+                            $("#send").click();
                             var response = await fetch('@Url.Content("~/Shopping/CheckAddOrder")' + '?address=' + txtAddress + '&paymentMethod=' + payRadio + '&cpid=' + cpid)
                             var data = await response.text();
                         })

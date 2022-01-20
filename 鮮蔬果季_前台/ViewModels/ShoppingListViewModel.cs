@@ -257,7 +257,7 @@ namespace 鮮蔬果季_前台.ViewModels
         public string ProductDescription { get { return this.product.ProductDescription; } set { this.product.ProductDescription = value; } }
         [DisplayName("產品規格")]
         public string ProductSize { get { return this.product.ProductSize; } set { this.product.ProductSize = value; } }
-        [DisplayName("醜蔬果")]
+        [DisplayName("福利品")]
         public bool DefectiveGood { get { return this.product.DefectiveGood; } set { this.product.DefectiveGood = value; } }
         [DisplayName("上架")]
         public bool InShop { get { return this.product.InShop; } set { this.product.InShop = value; } }
