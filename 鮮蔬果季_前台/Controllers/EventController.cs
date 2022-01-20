@@ -515,12 +515,12 @@ namespace 鮮蔬果季_前台.Controllers
                 ViewBag.電話 = UserLogin.member.Mobile.ToString();
 
             }
-            else //Seesion沒找到
-            {
-                ViewBag.USER = null;
-                UserLogin.member = null;
-                return RedirectToAction("Login", "Login");   //返回登入頁面
-            }
+            //else //Seesion沒找到
+            //{
+            //    ViewBag.USER = null;
+            //    UserLogin.member = null;
+            //    return RedirectToAction("Login", "Login");   //返回登入頁面
+            //}
             //計算該活動已報名人數
             var 已報名人數 = from ER in db.EventRegistrations
                          where id == ER.EventId
@@ -543,7 +543,7 @@ namespace 鮮蔬果季_前台.Controllers
                       where id ==E.EventId           //回傳的id與活動id相等
                       select new { E,supp }).FirstOrDefault();
 
-            ViewBag.活動地址 = 活動及供應商明細.supp.SupplierAddress.ToString();
+            ViewBag.活動地址 = 活動及供應商明細.E.EventLocation.ToString();
 
             //進到指定的活動頁(單筆活動),故不使用list,透過回傳的ID僅只一筆對應資料
             EventListViewModel 單筆活動 = new EventListViewModel();   
