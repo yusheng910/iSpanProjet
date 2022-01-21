@@ -33,9 +33,7 @@
                         {
                             <img class="spldis" src="~/images/clock-unscreen.gif" />
                             <div class="last">
-                                <span class="lastfont">剩</span>
-                                <span class="lastdate">@lastdate</span>
-                                <span class="lastfont">天</span>
+                                <span class="lastfont">剩</span><span class="lastdate">@lastdate</span><span class="lastfont">天</span>
                             </div>
                         }
                         else if (DateTime.Now.AddDays(+7) >= item.CouponEndDate && item.CouponEndDate >= DateTime.Now && lastdate == 0 && lasthour != 0)
