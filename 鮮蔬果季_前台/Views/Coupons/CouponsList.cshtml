@@ -248,7 +248,7 @@
         $(document).on("click", "#hadcoupons", function () {
             $("#addcparea").fadeOut(300);
             $('#addcparea').load("@Url.Content("~/Coupons/partialHad")", function () {
-                $("#addcparea").fadeIn(500);
+                $("#addcparea").fadeIn(300);
             })
         })
 
@@ -258,7 +258,7 @@
             //$(this).parent().parent().parent().parent().fadeOut(300);
             //$(this).parent().parent().parent().parent().attr("hidden", true);
             //console.log(value)
-            $(this).parent().parent().parent().parent().fadeOut(500);
+            $(this).parent().parent().parent().parent().fadeOut(300);
             //$(this).parent().parent().parent().parent().attr("hidden", true);
             $('#addcparea').load("@Url.Content("~/Coupons/partialAdd/")" + value);
             $(this).parent().parent().parent().parent().fadeOut(500);
@@ -276,7 +276,7 @@
             //$(this).parent().parent().parent().parent().attr("hidden", true);
             var value = $(this).find(".findcid").val();
             //console.log(value)
-            $(this).parent().parent().parent().parent().fadeOut(500);
+            $(this).parent().parent().parent().parent().fadeOut(300);
             //$(this).parent().parent().parent().parent().attr("hidden", true);
             $('#addcparea').load("@Url.Content("~/Coupons/partialAdd_Havent/")" + value);
             $('.autoclosable-btn-warning').prop("disabled", true);
